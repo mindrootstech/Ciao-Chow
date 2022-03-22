@@ -13,5 +13,6 @@ class AppColors {
   static const Color shadowColor = Color.fromRGBO(0, 0, 0, 0.2);
   static const Color buttonColor1 = Color.fromRGBO(204, 54, 43, 1);
   static const Color buttonColor2 = Color.fromRGBO(243, 38, 35, 0.76);
-
+  static const Color whiteBorder = Color.fromRGBO(255, 255, 255, 0.7);
+  static const Color transparent = Color.fromRGBO(0, 0, 0, 0.0);
 }

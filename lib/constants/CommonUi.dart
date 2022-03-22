@@ -1,4 +1,5 @@
 import 'package:ciao_chow/constants/AppColors.dart';
+import 'package:ciao_chow/constants/Language.dart';
 import 'package:flutter/material.dart';
 
 class CommonUi {
@@ -11,6 +12,10 @@ class CommonUi {
 
   static String setPngImage(String name) {
     return 'assets/images/$name.png';
+  }
+
+  static String setSvgImage(String name) {
+    return 'assets/svg/$name.svg';
   }
 
   static customTextStyle1(String fontFamily, double fontSize,
@@ -44,4 +49,28 @@ class CommonUi {
       8.0, // Move to bottom 10 Vertically
     ),
   );
+
+  static final Language defaultLanguage =
+      Language(languageCode: 'en', countryCode: 'US', name: 'English US');
+
+  static final List<Language> psSupportedLanguageList = <Language>[
+    Language(languageCode: 'en', countryCode: 'US', name: 'English'),
+  ];
+
+  static textFieldDecoration(String hintTxt) {
+    return InputDecoration(
+      hintText: hintTxt,
+      hintStyle: const TextStyle(color: AppColors.textFieldsHint),
+      filled: true,
+      fillColor: AppColors.textFieldsMain,
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.transparent),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.transparent),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+  }
 }

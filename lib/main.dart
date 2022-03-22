@@ -1,18 +1,56 @@
+import 'dart:async';
+
+import 'package:ciao_chow/constants/CommonUi.dart';
+import 'package:ciao_chow/constants/Language.dart';
+import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/splash/SplashView.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+      path: 'assets/langs',
+      saveLocale: true,
+      startLocale: CommonUi.defaultLanguage.toLocale(),
+      supportedLocales: getSupportedLanguages(),
+      child: MyApp()));
+}
+
+List<Locale> getSupportedLanguages() {
+  final List<Locale> localeList = <Locale>[];
+  for (final Language lang in CommonUi.psSupportedLanguageList) {
+    localeList.add(Locale(lang.languageCode, lang.countryCode));
+  }
+  print('Loaded Languages');
+  return localeList;
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  Completer<ThemeData>? themeDataCompleter;
+
+  MyApp({Key? key}) : super(key: key);
+
+  Future<ThemeData> getSharePerference(
+      EasyLocalization provider, dynamic data) {
+    Utils.psPrint('>> get share perference');
+    if (themeDataCompleter == null) {
+      Utils.psPrint('init completer');
+      themeDataCompleter = Completer<ThemeData>();
+    }
+
+    return themeDataCompleter!.future;
+  }
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       home: SplashView(),
     );
   }
