@@ -1,8 +1,8 @@
+import 'package:ciao_chow/authentication/signUp/SignupView.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
-import 'package:ciao_chow/signUp/SignupView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +19,7 @@ class SignInView extends StatelessWidget {
         key: _formKey,
         child: SingleChildScrollView(
           child: Container(
+            padding: const EdgeInsets.only(left: 20,right: 20),
             height: Get.height,
             child: Column(
               children: [
