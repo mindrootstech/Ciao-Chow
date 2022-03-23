@@ -10,6 +10,11 @@ class CommonUi {
         colors: [AppColors.AppColorGrad1, AppColors.AppColorGrad2]),
   );
 
+  static var whiteBoxDecoration = const BoxDecoration(
+      color: AppColors.White,
+      borderRadius: BorderRadius.only(
+          topRight: Radius.circular(24.0), topLeft: Radius.circular(24.0)));
+
   static String setPngImage(String name) {
     return 'assets/images/$name.png';
   }

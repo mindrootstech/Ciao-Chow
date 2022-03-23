@@ -3,6 +3,7 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
+import 'package:ciao_chow/dashboard/DashBoardView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,8 +19,7 @@ class SignInView extends StatelessWidget {
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.only(left: 20,right: 20),
+          child: SizedBox(
             height: Get.height,
             child: Column(
               children: [
@@ -38,17 +38,14 @@ class SignInView extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    decoration: const BoxDecoration(
-                        color: AppColors.White,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(24.0),
-                            topLeft: Radius.circular(24.0))),
+                    padding: const EdgeInsets.only(left: 20,right: 20),
+                    decoration: CommonUi.whiteBoxDecoration,
                     margin: const EdgeInsets.only(top: 15),
                     child: Column(
                       children: [
-                        Container(
-                          width: Get.width,
-                          margin: const EdgeInsets.only(top: 20, left: 20),
+                        const SizedBox(height: 20),
+                        Align(
+                          alignment: Alignment.centerLeft,
                           child: Text(Utils.getString(context, 'email'),
                               style: CommonUi.customTextStyle1(
                                   Fonts.interMedium,
@@ -57,29 +54,28 @@ class SignInView extends StatelessWidget {
                                   AppColors.Black,
                                   TextDecoration.none)),
                         ),
-                        Container(
-                          width: Get.width,
-                          margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                          child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter email';
-                                }
-                                return null;
-                              },
-                              cursorColor: AppColors.textFieldsHint,
-                              decoration: CommonUi.textFieldDecoration(
-                                  Utils.getString(context, 'enter_email')),
-                              style: CommonUi.customTextStyle1(
-                                  Fonts.interRegular,
-                                  12.0,
-                                  FontWeight.w400,
-                                  AppColors.Black,
-                                  TextDecoration.none)),
-                        ),
-                        Container(
-                          width: Get.width,
-                          margin: const EdgeInsets.only(top: 20, left: 20),
+
+                        const SizedBox(height: 10),
+                        TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter email';
+                              }
+                              return null;
+                            },
+                            cursorColor: AppColors.textFieldsHint,
+                            decoration: CommonUi.textFieldDecoration(
+                                Utils.getString(context, 'enter_email')),
+                            style: CommonUi.customTextStyle1(
+                                Fonts.interRegular,
+                                12.0,
+                                FontWeight.w400,
+                                AppColors.Black,
+                                TextDecoration.none)),
+
+                        const SizedBox(height: 20),
+                        Align(
+                          alignment: Alignment.centerLeft,
                           child: Text(Utils.getString(context, 'password'),
                               style: CommonUi.customTextStyle1(
                                   Fonts.interMedium,
@@ -88,38 +84,36 @@ class SignInView extends StatelessWidget {
                                   AppColors.Black,
                                   TextDecoration.none)),
                         ),
-                        Container(
-                          width: Get.width,
-                          margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                          child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter password';
-                                }
-                                return null;
-                              },
-                              cursorColor: AppColors.textFieldsHint,
-                              decoration: CommonUi.textFieldDecoration(
-                                  Utils.getString(context, 'enter_password')),
-                              style: CommonUi.customTextStyle1(
-                                Fonts.interRegular,
-                                12.0,
-                                FontWeight.w400,
-                                AppColors.Black,
-                                TextDecoration.none,
-                              )),
-                        ),
-                        Container(
-                          width: Get.width,
-                          margin: const EdgeInsets.only(top: 10, right: 20),
+
+                        const SizedBox(height: 10),
+
+                        TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter password';
+                              }
+                              return null;
+                            },
+                            cursorColor: AppColors.textFieldsHint,
+                            decoration: CommonUi.textFieldDecoration(
+                                Utils.getString(context, 'enter_password')),
+                            style: CommonUi.customTextStyle1(
+                              Fonts.interRegular,
+                              12.0,
+                              FontWeight.w400,
+                              AppColors.Black,
+                              TextDecoration.none,
+                            )),
+                        const SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment.centerRight,
                           child: Text(Utils.getString(context, 'forgot_password'),
                               style: CommonUi.customTextStyle1(
                                   Fonts.interRegular,
                                   12.0,
                                   FontWeight.w400,
                                   AppColors.textFieldsHint,
-                                  TextDecoration.none),
-                              textAlign: TextAlign.right),
+                                  TextDecoration.none)),
                         ),
                         const Expanded(
                             child: SizedBox(
@@ -131,6 +125,7 @@ class SignInView extends StatelessWidget {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text('Processing Data')),
                               );
+                              Get.off(DashBoardView());
                             }
                           },
                           child: Container(
@@ -146,7 +141,7 @@ class SignInView extends StatelessWidget {
                             height: 50,
                             width: Get.width,
                             margin: const EdgeInsets.only(
-                                left: 40, right: 40, top: 40, bottom: 24),
+                                left: 20, right: 20, top: 40, bottom: 24),
                             decoration: CommonUi.shadowRoundedContainer,
                           ),
                         ),
@@ -157,7 +152,7 @@ class SignInView extends StatelessWidget {
                           child: Container(
                             width: Get.width,
                             margin:
-                                const EdgeInsets.only(top: 10, right: 20, bottom: 80),
+                                const EdgeInsets.only(top: 10, bottom: 80),
                             child: RichText(
                               textAlign: TextAlign.center,
                               text: TextSpan(

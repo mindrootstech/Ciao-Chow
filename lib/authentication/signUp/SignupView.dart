@@ -18,13 +18,17 @@ class SignupView extends StatelessWidget {
             Container(
                 width: Get.width,
                 margin: const EdgeInsets.only(top: 50, left: 20),
-                child: Text('Create account',
-                    style: CommonUi.customTextStyle1(Fonts.interSemiBold, 24.0,
-                        FontWeight.w600, AppColors.White, TextDecoration.none))),
+                child: Text(Utils.getString(context, 'create_account'),
+                    style: CommonUi.customTextStyle1(
+                        Fonts.interSemiBold,
+                        24.0,
+                        FontWeight.w600,
+                        AppColors.White,
+                        TextDecoration.none))),
             Container(
               width: Get.width,
               margin: const EdgeInsets.only(top: 10, left: 20),
-              child: Text('Please register to access our app',
+              child: Text(Utils.getString(context, 'please_register'),
                   style: CommonUi.customTextStyle1(Fonts.interRegular, 14.0,
                       FontWeight.w400, AppColors.White, TextDecoration.none)),
             ),
@@ -52,11 +56,7 @@ class SignupView extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                decoration: const BoxDecoration(
-                    color: AppColors.White,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(24.0),
-                        topLeft: Radius.circular(24.0))),
+                decoration: CommonUi.whiteBoxDecoration,
                 margin: const EdgeInsets.only(top: 15),
                 child: SingleChildScrollView(
                   child: Column(
@@ -64,8 +64,7 @@ class SignupView extends StatelessWidget {
                       Container(
                         width: Get.width,
                         margin: const EdgeInsets.only(top: 20, left: 20),
-                        child: Text(Utils.getString(
-                            context, 'name'),
+                        child: Text(Utils.getString(context, 'name'),
                             style: CommonUi.customTextStyle1(
                                 Fonts.interMedium,
                                 14.0,
@@ -85,8 +84,8 @@ class SignupView extends StatelessWidget {
                               return null;
                             },
                             cursorColor: AppColors.textFieldsHint,
-                            decoration: CommonUi.textFieldDecoration(Utils.getString(
-                                context, 'enter_name')),
+                            decoration: CommonUi.textFieldDecoration(
+                                Utils.getString(context, 'enter_name')),
                             style: CommonUi.customTextStyle1(
                                 Fonts.interRegular,
                                 12.0,
@@ -98,8 +97,7 @@ class SignupView extends StatelessWidget {
                       Container(
                         width: Get.width,
                         margin: const EdgeInsets.only(top: 20, left: 20),
-                        child: Text(Utils.getString(
-                            context, 'email'),
+                        child: Text(Utils.getString(context, 'email'),
                             style: CommonUi.customTextStyle1(
                                 Fonts.interMedium,
                                 14.0,
@@ -119,8 +117,8 @@ class SignupView extends StatelessWidget {
                               return null;
                             },
                             cursorColor: AppColors.textFieldsHint,
-                            decoration: CommonUi.textFieldDecoration(Utils.getString(
-                                context, 'email_hint')),
+                            decoration: CommonUi.textFieldDecoration(
+                                Utils.getString(context, 'email_hint')),
                             style: CommonUi.customTextStyle1(
                               Fonts.interRegular,
                               12.0,
@@ -133,8 +131,7 @@ class SignupView extends StatelessWidget {
                       Container(
                         width: Get.width,
                         margin: const EdgeInsets.only(top: 20, left: 20),
-                        child: Text(Utils.getString(
-                            context, 'mobile_number'),
+                        child: Text(Utils.getString(context, 'mobile_number'),
                             style: CommonUi.customTextStyle1(
                                 Fonts.interMedium,
                                 14.0,
@@ -148,8 +145,8 @@ class SignupView extends StatelessWidget {
                             const EdgeInsets.only(top: 10, left: 20, right: 20),
                         child: TextFormField(
                             cursorColor: AppColors.textFieldsHint,
-                            decoration: CommonUi.textFieldDecoration(Utils.getString(
-                                context, 'mobile_hint')),
+                            decoration: CommonUi.textFieldDecoration(
+                                Utils.getString(context, 'mobile_hint')),
                             style: CommonUi.customTextStyle1(
                               Fonts.interRegular,
                               12.0,
@@ -158,7 +155,6 @@ class SignupView extends StatelessWidget {
                               TextDecoration.none,
                             )),
                       ),
-
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -167,8 +163,7 @@ class SignupView extends StatelessWidget {
                             child: Container(
                               width: Get.width,
                               margin: const EdgeInsets.only(top: 20, left: 20),
-                              child: Text(Utils.getString(
-                                  context, 'dob'),
+                              child: Text(Utils.getString(context, 'dob'),
                                   style: CommonUi.customTextStyle1(
                                       Fonts.interMedium,
                                       14.0,
@@ -181,8 +176,7 @@ class SignupView extends StatelessWidget {
                             child: Container(
                               width: Get.width,
                               margin: const EdgeInsets.only(top: 20, left: 20),
-                              child: Text(Utils.getString(
-                                  context, 'gender'),
+                              child: Text(Utils.getString(context, 'gender'),
                                   style: CommonUi.customTextStyle1(
                                       Fonts.interMedium,
                                       14.0,
@@ -194,17 +188,16 @@ class SignupView extends StatelessWidget {
                         ],
                       ),
 
-
                       Row(
                         children: [
                           Expanded(
                             child: Container(
-                              margin:
-                              const EdgeInsets.only(top: 10, left: 20, right: 8),
+                              margin: const EdgeInsets.only(
+                                  top: 10, left: 20, right: 8),
                               child: TextFormField(
                                   cursorColor: AppColors.textFieldsHint,
-                                  decoration:CommonUi.textFieldDecoration(Utils.getString(
-                                      context, 'dob_hint')),
+                                  decoration: CommonUi.textFieldDecoration(
+                                      Utils.getString(context, 'dob_hint')),
                                   style: CommonUi.customTextStyle1(
                                     Fonts.interRegular,
                                     12.0,
@@ -212,18 +205,16 @@ class SignupView extends StatelessWidget {
                                     AppColors.Black,
                                     TextDecoration.none,
                                   )),
-
                             ),
                           ),
-
                           Expanded(
                             child: Container(
-                              margin:
-                              const EdgeInsets.only(top: 10, left: 8, right: 20),
+                              margin: const EdgeInsets.only(
+                                  top: 10, left: 8, right: 20),
                               child: TextFormField(
                                   cursorColor: AppColors.textFieldsHint,
-                                  decoration: CommonUi.textFieldDecoration(Utils.getString(
-                                      context, 'gender_hint')),
+                                  decoration: CommonUi.textFieldDecoration(
+                                      Utils.getString(context, 'gender_hint')),
                                   style: CommonUi.customTextStyle1(
                                     Fonts.interRegular,
                                     12.0,
@@ -236,12 +227,10 @@ class SignupView extends StatelessWidget {
                         ],
                       ),
 
-
                       Container(
                         width: Get.width,
                         margin: const EdgeInsets.only(top: 20, left: 20),
-                        child: Text(Utils.getString(
-                            context, 'password'),
+                        child: Text(Utils.getString(context, 'password'),
                             style: CommonUi.customTextStyle1(
                                 Fonts.interMedium,
                                 14.0,
@@ -255,8 +244,8 @@ class SignupView extends StatelessWidget {
                             const EdgeInsets.only(top: 10, left: 20, right: 20),
                         child: TextFormField(
                             cursorColor: AppColors.textFieldsHint,
-                            decoration: CommonUi.textFieldDecoration(Utils.getString(
-                                context, 'enter_password')),
+                            decoration: CommonUi.textFieldDecoration(
+                                Utils.getString(context, 'enter_password')),
                             style: CommonUi.customTextStyle1(
                               Fonts.interRegular,
                               12.0,
@@ -265,8 +254,6 @@ class SignupView extends StatelessWidget {
                               TextDecoration.none,
                             )),
                       ),
-
-
 
                       // Container(
                       //   width: Get.width,
@@ -284,22 +271,27 @@ class SignupView extends StatelessWidget {
                       // const Expanded(child: SizedBox(height: 1,)),
                       Container(
                         child: Center(
-                          child: Text( Utils.getString(
-                              context, 'sign_up_small'), style: CommonUi.customTextStyle1(
-                              Fonts.interMedium,
-                              14.0,
-                              FontWeight.w500,
-                              AppColors.White,
-                              TextDecoration.none)),
+                          child: Text(Utils.getString(context, 'sign_up_small'),
+                              style: CommonUi.customTextStyle1(
+                                  Fonts.interMedium,
+                                  14.0,
+                                  FontWeight.w500,
+                                  AppColors.White,
+                                  TextDecoration.none)),
                         ),
-                        height: 50,width: Get.width,margin: const EdgeInsets.only(left: 40,right: 40,top: 90,bottom: 24), decoration: CommonUi.shadowRoundedContainer,
+                        height: 50,
+                        width: Get.width,
+                        margin: const EdgeInsets.only(
+                            left: 40, right: 40, top: 90, bottom: 24),
+                        decoration: CommonUi.shadowRoundedContainer,
                       ),
 
                       Container(
                         width: Get.width,
-                        margin: const EdgeInsets.only(top: 10, right: 20,bottom: 70),
+                        margin: const EdgeInsets.only(
+                            top: 10, right: 20, bottom: 70),
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Get.back();
                           },
                           child: RichText(
@@ -318,8 +310,7 @@ class SignupView extends StatelessWidget {
                                         AppColors.Black,
                                         TextDecoration.none)),
                                 TextSpan(
-                                    text: Utils.getString(
-                                        context, 'signin'),
+                                    text: Utils.getString(context, 'signin'),
                                     style: CommonUi.customTextStyle1(
                                         Fonts.interMedium,
                                         14.0,
