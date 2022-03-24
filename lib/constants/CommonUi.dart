@@ -10,10 +10,18 @@ class CommonUi {
         colors: [AppColors.AppColorGrad1, AppColors.AppColorGrad2]),
   );
 
-  static var whiteBoxDecoration = const BoxDecoration(
-      color: AppColors.White,
-      borderRadius: BorderRadius.only(
-          topRight: Radius.circular(24.0), topLeft: Radius.circular(24.0)));
+  static commonBoxDecoration(double radius, Color color) {
+    return BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(radius),
+            topLeft: Radius.circular(radius)));
+  }
+
+  static commonBoxDecorationAllSides(double radius, Color color) {
+    return BoxDecoration(
+        color: color, borderRadius: BorderRadius.all(Radius.circular(radius)));
+  }
 
   static String setPngImage(String name) {
     return 'assets/images/$name.png';
@@ -45,13 +53,21 @@ class CommonUi {
       border: Border.all(color: Colors.transparent),
       borderRadius: const BorderRadius.all(Radius.circular(100)));
 
+  static var shadowWhiteContainer = BoxDecoration(
+      boxShadow: [
+        CommonUi.shadowDecoration,
+      ],
+      color: AppColors.White,
+      border: Border.all(color: Colors.transparent),
+      borderRadius: const BorderRadius.all(Radius.circular(10)));
+
   static var shadowDecoration = const BoxShadow(
     color: AppColors.shadowColor,
-    blurRadius: 32.0, // soften the shadow
+    blurRadius:15.0, // soften the shadow
     spreadRadius: 0.0, //extend the shadow
     offset: Offset(
       0.0, // Move to right 10  horizontally
-      8.0, // Move to bottom 10 Vertically
+      4.0, // Move to bottom 10 Vertically
     ),
   );
 

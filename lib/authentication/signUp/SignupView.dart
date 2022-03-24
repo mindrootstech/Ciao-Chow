@@ -56,7 +56,7 @@ class SignupView extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                decoration: CommonUi.whiteBoxDecoration,
+                decoration: CommonUi.commonBoxDecoration(24.0,AppColors.White),
                 margin: const EdgeInsets.only(top: 15),
                 child: SingleChildScrollView(
                   child: Column(

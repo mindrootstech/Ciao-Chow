@@ -26,13 +26,13 @@ class DashBoardView extends StatelessWidget {
             ),
             child: Container(
               decoration: const BoxDecoration(
-                gradient: RadialGradient(
-                  center: Alignment(-0.8, -0.6),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                   colors: [
-                    AppColors.AppColorGrad1,
+                    AppColors.AppColorGrad2,
                     AppColors.AppColorGrad2
                   ],
-                  radius: 1.0,
                 ),
               ),
               child: BottomNavigationBar(

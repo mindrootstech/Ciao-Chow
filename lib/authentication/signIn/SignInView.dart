@@ -39,7 +39,7 @@ class SignInView extends StatelessWidget {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.only(left: 20,right: 20),
-                    decoration: CommonUi.whiteBoxDecoration,
+                    decoration: CommonUi.commonBoxDecoration(24.0,AppColors.White),
                     margin: const EdgeInsets.only(top: 15),
                     child: Column(
                       children: [
