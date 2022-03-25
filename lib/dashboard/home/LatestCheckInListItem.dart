@@ -4,7 +4,6 @@ import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/dashboard/home/HomeController.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class LatestCheckInListItem extends StatelessWidget {
   var index;
@@ -44,14 +43,9 @@ class LatestCheckInListItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: 170,
-                  child: Flexible(
-                    child: Text(
-                      homeController.arrayLatestCheckIns[index].placeName , style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
-                      FontWeight.w500, AppColors.Black, TextDecoration.none),overflow: TextOverflow.ellipsis,maxLines: 1,
-                    ),
-                  ),
+                Text(
+                  homeController.arrayLatestCheckIns[index].placeName , style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
+                  FontWeight.w500, AppColors.Black, TextDecoration.none),overflow: TextOverflow.ellipsis,maxLines: 1,
                 ),
 
                 const SizedBox(height: 4,),

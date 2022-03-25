@@ -18,6 +18,15 @@ class CommonUi {
             topLeft: Radius.circular(radius)));
   }
 
+  static commonBoxDecorationGradient(double radius) {
+    return BoxDecoration(
+        gradient: const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [AppColors.AppColorGrad1, AppColors.AppColorGrad2]),
+        borderRadius: BorderRadius.all(Radius.circular(radius)));
+  }
+
   static commonBoxDecorationAllSides(double radius, Color color) {
     return BoxDecoration(
         color: color, borderRadius: BorderRadius.all(Radius.circular(radius)));
@@ -63,7 +72,7 @@ class CommonUi {
 
   static var shadowDecoration = const BoxShadow(
     color: AppColors.shadowColor,
-    blurRadius:15.0, // soften the shadow
+    blurRadius: 15.0, // soften the shadow
     spreadRadius: 0.0, //extend the shadow
     offset: Offset(
       0.0, // Move to right 10  horizontally

@@ -9,6 +9,7 @@ import 'package:ciao_chow/dashboard/home/LatestCheckInListItem.dart';
 import 'package:ciao_chow/dashboard/home/ModelLatestCheckIns.dart';
 import 'package:ciao_chow/dashboard/home/ModelPartners.dart';
 import 'package:ciao_chow/dashboard/home/PartnersHomeListItem.dart';
+import 'package:ciao_chow/dashboard/home/viewAllScreens/PartnersViewAllView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -64,6 +65,14 @@ class HomeView extends StatelessWidget {
         "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
     homeController.arrayPartners.add(model);
 
+    model = ModelPartners();
+    model.placeName = "Culture";
+    model.placeAddress = "Sector-26,chandigarh";
+    model.placeDistance = "0.5 miles away";
+    model.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayPartners.add(model);
+
     var modelLatest = ModelLatestCheckIns();
     modelLatest.placeName = "Social";
     modelLatest.placeAddress = "Sector-7,chandigarh";
@@ -91,7 +100,7 @@ class HomeView extends StatelessWidget {
         "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
     homeController.arrayLatestCheckIns.add(modelLatest);
 
-    model = ModelPartners();
+    modelLatest = ModelLatestCheckIns();
     modelLatest.placeName = "Culture";
     modelLatest.placeAddress = "Sector-26,chandigarh";
     modelLatest.date = "23-Jan-2022";
@@ -122,6 +131,7 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.AppColorGrad2,
+      extendBody: true,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.AppColorGrad2,
@@ -166,7 +176,6 @@ class HomeView extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   Container(
                       height: 160,
                       margin: const EdgeInsets.only(left: 20, right: 20),
@@ -187,7 +196,6 @@ class HomeView extends StatelessWidget {
                 ],
               ),
             ),
-
             Container(
               color: AppColors.White,
               child: Column(
@@ -207,16 +215,21 @@ class HomeView extends StatelessWidget {
                               TextDecoration.none),
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(right: 20, top: 20),
-                        child: Text(
-                          Utils.getString(context, 'view_all'),
-                          style: CommonUi.customTextStyle1(
-                              Fonts.interRegular,
-                              12.0,
-                              FontWeight.w400,
-                              AppColors.textFieldsHint,
-                              TextDecoration.none),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(PartnersViewAllView());
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 20, top: 20),
+                          child: Text(
+                            Utils.getString(context, 'view_all'),
+                            style: CommonUi.customTextStyle1(
+                                Fonts.interRegular,
+                                12.0,
+                                FontWeight.w400,
+                                AppColors.textFieldsHint,
+                                TextDecoration.none),
+                          ),
                         ),
                       ),
                     ],
@@ -298,7 +311,8 @@ class HomeView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SvgPicture.asset(CommonUi.setSvgImage('bronze_medal')),
+                            SvgPicture.asset(
+                                CommonUi.setSvgImage('bronze_medal')),
                             Stack(
                               children: [
                                 LinearPercentIndicator(
@@ -318,7 +332,8 @@ class HomeView extends StatelessWidget {
                                   bottom: 0,
                                   child: Center(
                                     child: Padding(
-                                        padding: const EdgeInsets.only(left: 18.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 18.0),
                                         child: Text(
                                           '35/100',
                                           style: CommonUi.customTextStyle1(
@@ -336,7 +351,8 @@ class HomeView extends StatelessWidget {
                                   bottom: 0,
                                   child: Center(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(right: 18.0),
+                                      padding:
+                                          const EdgeInsets.only(right: 18.0),
                                       child: Text('LEVEL 1',
                                           // Utils.getString(context, 'partners_around_you'),
                                           style: CommonUi.customTextStyle1(
@@ -393,7 +409,7 @@ class HomeView extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: homeController.arrayPartners.length,
+                      itemCount: homeController.arrayLatestCheckIns.length,
                       itemBuilder: (BuildContext context, int index) {
                         return LatestCheckInListItem(index, homeController);
                       },
@@ -402,9 +418,25 @@ class HomeView extends StatelessWidget {
                 ],
               ),
             )
-
           ],
         ),
+      ),
+      floatingActionButton: Container(
+        decoration: CommonUi.commonBoxDecorationGradient(100.0),
+        child: FloatingActionButton(
+            elevation: 40.0,
+            backgroundColor: Colors.transparent,
+            child: SvgPicture.asset(CommonUi.setSvgImage('scan_home')),
+            onPressed: () {}),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      bottomNavigationBar: BottomAppBar(
+        shape: AutomaticNotchedShape(
+            RoundedRectangleBorder(
+                side: BorderSide.none,
+                borderRadius: BorderRadius.circular(100)),
+            const StadiumBorder()),
+        child: Row(),
       ),
     );
   }
