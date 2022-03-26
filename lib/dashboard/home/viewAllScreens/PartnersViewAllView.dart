@@ -194,15 +194,15 @@ class PartnersViewAllView extends StatelessWidget {
                           TextDecoration.none),
                     ),
                   ),
+                  const SizedBox(height: 14,),
                   GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 0.7),
+                              crossAxisSpacing: 0,
+                              mainAxisSpacing: 12,),
                       itemCount: homeController.arrayPartners.length,
                       itemBuilder: (BuildContext context, int index) {
                         // return PartnersViewAllListItem(index, homeController);

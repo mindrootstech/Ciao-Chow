@@ -82,6 +82,9 @@ flutter:
     - family: InterMedium
       fonts:
         - asset: fonts/inter_medium.ttf
+    - family: InterItalic
+      fonts:
+        - asset: fonts/inter_italic.otf
 
 
   # To add assets to your application, add an assets section, like this:

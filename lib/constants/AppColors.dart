@@ -17,4 +17,5 @@ class AppColors {
   static const Color transparent = Color.fromRGBO(0, 0, 0, 0.0);
   static const Color home_progress = Color.fromRGBO(185, 6, 6, 1);
   static const Color grey_level = Color.fromRGBO(190, 190, 190, 1);
+  static const Color dividerClr = Color.fromRGBO(235, 235, 235, 1);
 }
