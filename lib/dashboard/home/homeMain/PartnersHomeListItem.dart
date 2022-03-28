@@ -3,7 +3,7 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
-import 'package:ciao_chow/dashboard/home/HomeController.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
 import 'package:ciao_chow/dashboard/home/detailPge/BusinessDetailsView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,12 +24,13 @@ class PartnersHomeListItem extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-              height: double.maxFinite,
+              // height: double.maxFinite,
               width: 150,
               margin: const EdgeInsets.only(right: 10),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: CachedNetworkImage(
+                  height: 200,
                   fit: BoxFit.cover,
                   imageUrl: homeController.arrayPartners[index].image,
                   placeholder: (context, url) => Transform.scale(

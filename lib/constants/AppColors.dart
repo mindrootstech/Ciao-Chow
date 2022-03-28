@@ -18,4 +18,5 @@ class AppColors {
   static const Color home_progress = Color.fromRGBO(185, 6, 6, 1);
   static const Color grey_level = Color.fromRGBO(190, 190, 190, 1);
   static const Color dividerClr = Color.fromRGBO(235, 235, 235, 1);
+  static const Color eventTicketsBackground = Color.fromRGBO(204, 54, 43, 0.2);
 }

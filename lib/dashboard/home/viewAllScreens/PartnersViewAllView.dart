@@ -3,15 +3,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
-import 'package:ciao_chow/dashboard/home/HomeController.dart';
-import 'package:ciao_chow/dashboard/home/PartnersHomeListItem.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
+import 'package:ciao_chow/dashboard/home/viewAllScreens/PartnersAroundItemList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class PartnersViewAllView extends StatelessWidget {
   PartnersViewAllView({Key? key}) : super(key: key);
-
   HomeController homeController = Get.find();
 
   final List<String> imgList = [
@@ -201,13 +200,15 @@ class PartnersViewAllView extends StatelessWidget {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 0,
+                              crossAxisSpacing: 10,mainAxisExtent: 200,
                               mainAxisSpacing: 12,),
                       itemCount: homeController.arrayPartners.length,
                       itemBuilder: (BuildContext context, int index) {
                         // return PartnersViewAllListItem(index, homeController);
-                        return PartnersHomeListItem(index, homeController);
+                        return PartnersAroundItemList(index, homeController);
                       }),
+
+                  const SizedBox(height: 20,)
                 ],
               ),
             )

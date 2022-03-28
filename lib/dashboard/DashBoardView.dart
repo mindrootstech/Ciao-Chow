@@ -2,7 +2,7 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/DashBoardController.dart';
 import 'package:ciao_chow/dashboard/events/EventsView.dart';
-import 'package:ciao_chow/dashboard/home/HomeView.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/HomeView.dart';
 import 'package:ciao_chow/dashboard/settings/SettingsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
