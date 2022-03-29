@@ -9,6 +9,7 @@ import 'package:ciao_chow/dashboard/home/homeMain/LatestCheckInListItem.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/ModelLatestCheckIns.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/ModelPartners.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/PartnersHomeListItem.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/ScanCheckInView.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/PartnersViewAllView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -130,7 +131,7 @@ class HomeView extends StatelessWidget {
         .toList();
 
     return Scaffold(
-      backgroundColor: AppColors.AppColorGrad2,
+      backgroundColor: AppColors.White,
       extendBody: true,
       appBar: AppBar(
         elevation: 0,
@@ -152,29 +153,31 @@ class HomeView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
+            Container(
+              color: AppColors.AppColorGrad2,
               height: 15,
             ),
+
+            // edited by Abhijeet Sir(29 Mar 2021)
+
             SizedBox(
-              height: 170,
+              height: 180,
               child: Stack(
                 children: [
-                  Column(
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: Container(
-                            color: AppColors.AppColorGrad2,
-                          )),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          width: Get.width,
-                          decoration: CommonUi.commonBoxDecoration(
-                              24.0, AppColors.White),
-                        ),
-                      ),
-                    ],
+                  Container(
+                    height: 180 / 2 + 30,
+                    color: AppColors.AppColorGrad2,
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    child: Container(
+                      height: 180 / 2,
+                      width: Get.width,
+                      decoration:
+                          CommonUi.commonBoxDecoration(24.0, AppColors.White),
+                    ),
                   ),
                   Container(
                       height: 160,
@@ -204,7 +207,7 @@ class HomeView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(left: 20, top: 0),
+                        margin: const EdgeInsets.only(left: 20),
                         child: Text(
                           Utils.getString(context, 'partners_around_you'),
                           style: CommonUi.customTextStyle1(
@@ -220,7 +223,7 @@ class HomeView extends StatelessWidget {
                           Get.to(PartnersViewAllView());
                         },
                         child: Container(
-                          margin: const EdgeInsets.only(right: 20, top: 20),
+                          margin: const EdgeInsets.only(right: 20, top: 0),
                           child: Text(
                             Utils.getString(context, 'view_all'),
                             style: CommonUi.customTextStyle1(
@@ -256,8 +259,7 @@ class HomeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Profile Overview',
-                              // Utils.getString(context, 'partners_around_you'),
+                              Utils.getString(context, 'profile_overview'),
                               style: CommonUi.customTextStyle1(
                                   Fonts.interSemiBold,
                                   18.0,
@@ -266,8 +268,7 @@ class HomeView extends StatelessWidget {
                                   TextDecoration.none),
                             ),
                             Text(
-                              'View Complete profile',
-                              // Utils.getString(context, 'partners_around_you'),
+                              Utils.getString(context, 'view_complete_profile'),
                               style: CommonUi.customTextStyle1(
                                   Fonts.interRegular,
                                   12.0,
@@ -284,8 +285,7 @@ class HomeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Current badges',
-                              // Utils.getString(context, 'partners_around_you'),
+                              Utils.getString(context, 'current_badges'),
                               style: CommonUi.customTextStyle1(
                                   Fonts.interSemiBold,
                                   14.0,
@@ -390,7 +390,7 @@ class HomeView extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(right: 20, top: 20),
+                        margin: const EdgeInsets.only(right: 20, top: 0),
                         child: Text(
                           Utils.getString(context, 'view_all'),
                           style: CommonUi.customTextStyle1(
@@ -427,7 +427,9 @@ class HomeView extends StatelessWidget {
             elevation: 40.0,
             backgroundColor: Colors.transparent,
             child: SvgPicture.asset(CommonUi.setSvgImage('scan_home')),
-            onPressed: () {}),
+            onPressed: () {
+              Get.to(ScanCheckInView());
+            }),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: BottomAppBar(

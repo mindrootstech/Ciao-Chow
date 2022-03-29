@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
+import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/PartnersAroundItemList.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class PartnersViewAllView extends StatelessWidget {
         ),
         centerTitle: true,
         title: Text(
-          'Featured Partners',
+          Utils.getString(context, 'featured_partners'),
           style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
               FontWeight.w600, AppColors.White, TextDecoration.none),
         ),
@@ -117,7 +118,7 @@ class PartnersViewAllView extends StatelessWidget {
                     width: Get.width,
                     margin: const EdgeInsets.only(left: 20, top: 20),
                     child: Text(
-                      'Featured partners',
+                      Utils.getString(context, 'featured_partners'),
                       style: CommonUi.customTextStyle1(
                           Fonts.interSemiBold,
                           18,

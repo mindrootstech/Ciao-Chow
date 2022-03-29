@@ -70,28 +70,23 @@ class BusinessDetailsView extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 245,
+              height: 250,
               child: Stack(
                 children: [
-                  Column(
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: Container(
-                            color: AppColors.AppColorGrad2,
-                          )),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          color: AppColors.AppColorGrad2,
-                          child: Container(
-                            width: Get.width,
-                            decoration: CommonUi.commonBoxDecoration(
-                                24.0, AppColors.White),
-                          ),
-                        ),
-                      ),
-                    ],
+                  Container(
+                    height: 250 / 2 + 30,
+                    color: AppColors.AppColorGrad2,
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    child: Container(
+                      height: 250 / 2,
+                      width: Get.width,
+                      decoration:
+                          CommonUi.commonBoxDecoration(24.0, AppColors.White),
+                    ),
                   ),
                   Container(
                       height: 240,
@@ -222,43 +217,36 @@ class BusinessDetailsView extends StatelessWidget {
                     color: AppColors.dividerClr,
                     margin: const EdgeInsets.only(top: 20, bottom: 20),
                   ),
-
-
-              RichText(
-                textAlign: TextAlign.start,
-                text: TextSpan(
-                  text: '',
-                  style: DefaultTextStyle.of(context).style,
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum.',
-                      style: CommonUi.customTextStyle1(
-                          Fonts.interRegular,
-                          12.0,
-                          FontWeight.w400,
-                          AppColors.textFieldsHint,
-                          TextDecoration.none),
+                  RichText(
+                    textAlign: TextAlign.start,
+                    text: TextSpan(
+                      text: '',
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                          text:
+                              'Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum.',
+                          style: CommonUi.customTextStyle1(
+                              Fonts.interRegular,
+                              12.0,
+                              FontWeight.w400,
+                              AppColors.textFieldsHint,
+                              TextDecoration.none),
+                        ),
+                        TextSpan(
+                            text: '\n' + Utils.getString(context, 'read_more'),
+                            style: CommonUi.customTextStyle1(
+                                Fonts.interMedium,
+                                12.0,
+                                FontWeight.w500,
+                                AppColors.AppColorGrad2,
+                                TextDecoration.none)),
+                      ],
                     ),
-                    TextSpan(
-                        text:'\n' + Utils.getString(context, 'read_more'),
-                        style: CommonUi.customTextStyle1(
-                            Fonts.interMedium,
-                            12.0,
-                            FontWeight.w500,
-                            AppColors.AppColorGrad2,
-                            TextDecoration.none)),
-                  ],
-                ),
-
-              ),
-
-
-
-
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-
                   Container(
                     height: 110,
                     decoration: CommonUi.commonBoxDecorationAllSides(
@@ -270,7 +258,7 @@ class BusinessDetailsView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Total Check-ins',
+                              Utils.getString(context, 'total_check_ins'),
                               style: CommonUi.customTextStyle1(
                                   Fonts.interMedium,
                                   14.0,
@@ -302,7 +290,7 @@ class BusinessDetailsView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Your Check-ins ',
+                              Utils.getString(context, 'your_check_ins'),
                               style: CommonUi.customTextStyle1(
                                   Fonts.interMedium,
                                   14.0,
@@ -327,9 +315,9 @@ class BusinessDetailsView extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  const SizedBox(height: 20,),
-
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -353,17 +341,12 @@ class BusinessDetailsView extends StatelessWidget {
                       ),
                     ],
                   ),
-
-
-
-
                 ],
               ),
             ),
-
             Container(
               height: 140,
-              margin: const EdgeInsets.only(left:20,top: 14),
+              margin: const EdgeInsets.only(left: 20, top: 14),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: homeController.arrayPartners.length,
@@ -372,9 +355,9 @@ class BusinessDetailsView extends StatelessWidget {
                 },
               ),
             ),
-
-            const SizedBox(height: 20,)
-
+            const SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),

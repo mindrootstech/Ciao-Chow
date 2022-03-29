@@ -4,11 +4,11 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
-import 'package:ciao_chow/dashboard/events/EventTicketsListItem.dart';
-import 'package:ciao_chow/dashboard/events/EventsController.dart';
-import 'package:ciao_chow/dashboard/events/ModelEventTickets.dart';
-import 'package:ciao_chow/dashboard/events/ModelUpcomingEvents.dart';
-import 'package:ciao_chow/dashboard/events/UpcomingEventsListItem.dart';
+import 'package:ciao_chow/dashboard/events/eventMain/EventTicketsListItem.dart';
+import 'package:ciao_chow/dashboard/events/eventMain/EventsController.dart';
+import 'package:ciao_chow/dashboard/events/eventMain/ModelEventTickets.dart';
+import 'package:ciao_chow/dashboard/events/eventMain/ModelUpcomingEvents.dart';
+import 'package:ciao_chow/dashboard/events/eventMain/UpcomingEventsListItem.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -128,7 +128,7 @@ class EventsView extends StatelessWidget {
         backgroundColor: AppColors.AppColorGrad2,
         centerTitle: true,
         title: Text(
-          'Events',
+          Utils.getString(context, 'events'),
           style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
               FontWeight.w600, AppColors.White, TextDecoration.none),
         ),
@@ -144,25 +144,20 @@ class EventsView extends StatelessWidget {
               height: 170,
               child: Stack(
                 children: [
-                  Column(
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: Container(
-                            color: AppColors.AppColorGrad2,
-                          )),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          color: AppColors.AppColorGrad2,
-                          child: Container(
-                            width: Get.width,
-                            decoration: CommonUi.commonBoxDecoration(
-                                24.0, AppColors.White),
-                          ),
-                        ),
-                      ),
-                    ],
+                  Container(
+                    height: 170 / 2 + 30,
+                    color: AppColors.AppColorGrad2,
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    child: Container(
+                      height: 170 / 2,
+                      width: Get.width,
+                      decoration:
+                      CommonUi.commonBoxDecoration(24.0, AppColors.White),
+                    ),
                   ),
                   Container(
                       height: 165,
@@ -193,8 +188,7 @@ class EventsView extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(left: 20),
                   child: Text(
-                    // Utils.getString(context, 'partners_around_you'),
-                    'My Event Tickets',
+                    Utils.getString(context, 'my_event_tickets'),
                     style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
                         FontWeight.w600, AppColors.Black, TextDecoration.none),
                   ),
@@ -228,8 +222,7 @@ class EventsView extends StatelessWidget {
               width: Get.width,
               margin: const EdgeInsets.only(left: 20, top: 20),
               child: Text(
-                // Utils.getString(context, 'partners_around_you'),
-                'My Event Tickets',
+                Utils.getString(context, 'upcoming_events'),
                 style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
                     FontWeight.w600, AppColors.Black, TextDecoration.none),
               ),

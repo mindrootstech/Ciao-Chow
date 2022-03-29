@@ -158,6 +158,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_seekbar:
+    dependency: "direct main"
+    description:
+      name: flutter_seekbar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -357,6 +364,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
+  qr_code_scanner:
+    dependency: "direct main"
+    description:
+      name: qr_code_scanner
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.2"
   rxdart:
     dependency: transitive
     description:

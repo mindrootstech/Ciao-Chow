@@ -1,3 +1,4 @@
+import 'package:ciao_chow/authentication/forgot/ForgotPasswordView.dart';
 import 'package:ciao_chow/authentication/signUp/SignupView.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
@@ -107,13 +108,18 @@ class SignInView extends StatelessWidget {
                         const SizedBox(height: 10),
                         Align(
                           alignment: Alignment.centerRight,
-                          child: Text(Utils.getString(context, 'forgot_password'),
-                              style: CommonUi.customTextStyle1(
-                                  Fonts.interRegular,
-                                  12.0,
-                                  FontWeight.w400,
-                                  AppColors.textFieldsHint,
-                                  TextDecoration.none)),
+                          child: GestureDetector(
+                            onTap: (){
+                              Get.to(ForgotPasswordView());
+                            },
+                            child: Text(Utils.getString(context, 'forgot_password'),
+                                style: CommonUi.customTextStyle1(
+                                    Fonts.interRegular,
+                                    12.0,
+                                    FontWeight.w400,
+                                    AppColors.textFieldsHint,
+                                    TextDecoration.none)),
+                          ),
                         ),
                         const Expanded(
                             child: SizedBox(

@@ -3,7 +3,7 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
-import 'package:ciao_chow/dashboard/events/EventsController.dart';
+import 'package:ciao_chow/dashboard/events/eventMain/EventsController.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

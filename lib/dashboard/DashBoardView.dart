@@ -1,7 +1,7 @@
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/DashBoardController.dart';
-import 'package:ciao_chow/dashboard/events/EventsView.dart';
+import 'package:ciao_chow/dashboard/events/eventMain/EventsView.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeView.dart';
 import 'package:ciao_chow/dashboard/settings/SettingsView.dart';
 import 'package:flutter/material.dart';
@@ -44,23 +44,60 @@ class DashBoardView extends StatelessWidget {
                 },
                 items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
-                    icon: SvgPicture.asset(CommonUi.setSvgImage('home')),label: '',
-                    activeIcon: SvgPicture.asset(
-                      CommonUi.setSvgImage('home'),
-                      color: AppColors.White,
+                    icon: Column(
+                      children: [
+                        SvgPicture.asset(CommonUi.setSvgImage('home')),
+                        const SizedBox(height: 10,),
+                        Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
+                      ],
+                    ),label: '',
+                    activeIcon: Column(
+                      children: [
+                        SvgPicture.asset(
+                          CommonUi.setSvgImage('home_active'),
+                          color: AppColors.White,
+                        ),
+                        const SizedBox(height: 10,),
+                        Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
+                      ],
                     ),
                   ),
                   BottomNavigationBarItem(
-                      icon: SvgPicture.asset(CommonUi.setSvgImage('events')),label: '',
-                      activeIcon: SvgPicture.asset(
-                        CommonUi.setSvgImage('events'),
-                        color: AppColors.White,
+                      icon: Column(
+                        children: [
+                          SvgPicture.asset(CommonUi.setSvgImage('events')),
+                          const SizedBox(height: 10,),
+                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
+                        ],
+                      ),label: '',
+                      activeIcon: Column(
+                        children: [
+                          SvgPicture.asset(
+                            CommonUi.setSvgImage('events_active'),
+                            color: AppColors.White,
+                          ),
+                          const SizedBox(height: 10,),
+                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
+                        ],
                       )),
                   BottomNavigationBarItem(
-                    icon: SvgPicture.asset(CommonUi.setSvgImage('settings')),label: '',
-                    activeIcon: SvgPicture.asset(
-                      'assets/svg/settings_minder.svg',
-                      color: AppColors.White,
+                    icon: Column(
+                      children: [
+                        SvgPicture.asset(CommonUi.setSvgImage('settings')),
+                        const SizedBox(height: 10,),
+                        Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
+                      ],
+                    ),label: '',
+                    activeIcon: Column(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/svg/settings_minder.svg',
+                          color: AppColors.White,
+                        ),
+
+                        const SizedBox(height: 10,),
+                        Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
+                      ],
                     ),
                   ),
                 ],
@@ -73,7 +110,7 @@ class DashBoardView extends StatelessWidget {
             ? HomeView()
             : dashboardController.selectedValue.value == 1
                 ? EventsView()
-                : SettingsView(),
+                : const SettingsView(),
       ),
     );
   }
