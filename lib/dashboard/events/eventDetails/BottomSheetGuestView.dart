@@ -2,6 +2,7 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/BookingDoneView.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventsController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_seekbar/flutter_seekbar.dart';
@@ -106,21 +107,26 @@ class BottomSheetGuestView extends StatelessWidget {
                             max: 1000,
                           ),
                         ),
-                        Container(
-                          child: Center(
-                            child: Text(Utils.getString(context, 'buy_tickets'),
-                                style: CommonUi.customTextStyle1(
-                                    Fonts.interMedium,
-                                    14.0,
-                                    FontWeight.w500,
-                                    AppColors.White,
-                                    TextDecoration.none)),
+                        GestureDetector(
+                          onTap: (){
+                            Get.to(BookingDoneView());
+                          },
+                          child: Container(
+                            child: Center(
+                              child: Text(Utils.getString(context, 'buy_tickets'),
+                                  style: CommonUi.customTextStyle1(
+                                      Fonts.interMedium,
+                                      14.0,
+                                      FontWeight.w500,
+                                      AppColors.White,
+                                      TextDecoration.none)),
+                            ),
+                            height: 50,
+                            width: Get.width,
+                            margin: const EdgeInsets.only(
+                                left: 20, right: 20, top: 90, bottom: 90),
+                            decoration: CommonUi.shadowRoundedContainer,
                           ),
-                          height: 50,
-                          width: Get.width,
-                          margin: const EdgeInsets.only(
-                              left: 20, right: 20, top: 90, bottom: 90),
-                          decoration: CommonUi.shadowRoundedContainer,
                         ),
                       ],
                     ),

@@ -54,7 +54,6 @@ class PartnersViewAllView extends StatelessWidget {
               onPressed: () {
                 Get.back();
               },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             );
           },
         ),
