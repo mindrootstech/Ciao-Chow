@@ -1,18 +1,29 @@
+import 'dart:io';
+
+import 'package:ciao_chow/authentication/signUp/ImageOptionChooser.dart';
+import 'package:ciao_chow/authentication/signUp/SignUpController.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
+import 'package:ciao_chow/dashboard/DashBoardView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 // class SignupView extends StatelessWidget with InputValidationMixin {
 class SignupView extends StatelessWidget {
+  var signUpController = Get.put(SignUpController());
+
+  SignupView({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.AppColorGrad2,
       body: Form(
+        key: _formKey,
         child: Column(
           children: [
             Container(
@@ -32,31 +43,76 @@ class SignupView extends StatelessWidget {
                   style: CommonUi.customTextStyle1(Fonts.interRegular, 14.0,
                       FontWeight.w400, AppColors.White, TextDecoration.none)),
             ),
-            Container(
-              width: 100,
-              height: 100,
-              margin: const EdgeInsets.only(top: 25),
-              child: Container(
-                padding: const EdgeInsets.all(1.0),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColors.whiteBorder,
-                    width: 1,
+            GestureDetector(
+              onTap: () {
+                ImageOptionChooser().showChooser(context);
+              },
+              child: Stack(
+                children: [
+                  Container(
+                    width: 120,
+                    height: 120,
+                    margin: const EdgeInsets.only(top: 25),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.whiteBorder,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(100)),
-                  child: SvgPicture.asset(
-                    CommonUi.setSvgImage('default_image'),
-                    // fit: BoxFit.cover,
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      padding: const EdgeInsets.all(4),
+                      margin: const EdgeInsets.only(top: 25),
+                      child: Container(
+                        padding: const EdgeInsets.all(4.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: AppColors.whiteBorder,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Obx(
+                          () => ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(100)),
+                            child: signUpController.imagePath.value == ''
+                                ? SvgPicture.asset(
+                                    CommonUi.setSvgImage('default_image'),
+                                    // fit: BoxFit.cover,
+                                  )
+                                : Image.file(
+                                    File(signUpController.imagePath.value),
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: SizedBox(
+                        width: 24,height: 24,
+                        child: SvgPicture.asset(
+                            CommonUi.setSvgImage('profile_edit')),
+                      ))
+                ],
               ),
             ),
             Expanded(
               child: Container(
-                decoration: CommonUi.commonBoxDecoration(24.0,AppColors.White),
+                decoration: CommonUi.commonBoxDecoration(24.0, AppColors.White),
                 margin: const EdgeInsets.only(top: 15),
                 child: SingleChildScrollView(
                   child: Column(
@@ -79,7 +135,7 @@ class SignupView extends StatelessWidget {
                         child: TextFormField(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter email';
+                                return 'Please enter name';
                               }
                               return null;
                             },
@@ -112,7 +168,7 @@ class SignupView extends StatelessWidget {
                         child: TextFormField(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter password';
+                                return 'Please enter email';
                               }
                               return null;
                             },
@@ -144,6 +200,12 @@ class SignupView extends StatelessWidget {
                         margin:
                             const EdgeInsets.only(top: 10, left: 20, right: 20),
                         child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter Mobile Number';
+                              }
+                              return null;
+                            },
                             cursorColor: AppColors.textFieldsHint,
                             decoration: CommonUi.textFieldDecoration(
                                 Utils.getString(context, 'mobile_hint')),
@@ -195,6 +257,12 @@ class SignupView extends StatelessWidget {
                               margin: const EdgeInsets.only(
                                   top: 10, left: 20, right: 8),
                               child: TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter Date of Birth';
+                                    }
+                                    return null;
+                                  },
                                   cursorColor: AppColors.textFieldsHint,
                                   decoration: CommonUi.textFieldDecoration(
                                       Utils.getString(context, 'dob_hint')),
@@ -212,6 +280,12 @@ class SignupView extends StatelessWidget {
                               margin: const EdgeInsets.only(
                                   top: 10, left: 8, right: 20),
                               child: TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter Gender';
+                                    }
+                                    return null;
+                                  },
                                   cursorColor: AppColors.textFieldsHint,
                                   decoration: CommonUi.textFieldDecoration(
                                       Utils.getString(context, 'gender_hint')),
@@ -243,6 +317,12 @@ class SignupView extends StatelessWidget {
                         margin:
                             const EdgeInsets.only(top: 10, left: 20, right: 20),
                         child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter Password';
+                              }
+                              return null;
+                            },
                             cursorColor: AppColors.textFieldsHint,
                             decoration: CommonUi.textFieldDecoration(
                                 Utils.getString(context, 'enter_password')),
@@ -269,21 +349,31 @@ class SignupView extends StatelessWidget {
                       // ),
 
                       // const Expanded(child: SizedBox(height: 1,)),
-                      Container(
-                        child: Center(
-                          child: Text(Utils.getString(context, 'sign_up_small'),
-                              style: CommonUi.customTextStyle1(
-                                  Fonts.interMedium,
-                                  14.0,
-                                  FontWeight.w500,
-                                  AppColors.White,
-                                  TextDecoration.none)),
+                      GestureDetector(
+                        onTap: () {
+                          if (_formKey.currentState!.validate()){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Processing Data')),
+                            );
+                            Get.off(DashBoardView());
+                          }
+                        },
+                        child: Container(
+                          child: Center(
+                            child: Text(Utils.getString(context, 'sign_up_small'),
+                                style: CommonUi.customTextStyle1(
+                                    Fonts.interMedium,
+                                    14.0,
+                                    FontWeight.w500,
+                                    AppColors.White,
+                                    TextDecoration.none)),
+                          ),
+                          height: 50,
+                          width: Get.width,
+                          margin: const EdgeInsets.only(
+                              left: 40, right: 40, top: 90, bottom: 24),
+                          decoration: CommonUi.shadowRoundedContainer,
                         ),
-                        height: 50,
-                        width: Get.width,
-                        margin: const EdgeInsets.only(
-                            left: 40, right: 40, top: 90, bottom: 24),
-                        decoration: CommonUi.shadowRoundedContainer,
                       ),
 
                       Container(

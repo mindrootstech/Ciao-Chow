@@ -45,6 +45,7 @@ dependencies:
   percent_indicator: ^4.0.0
   flutter_seekbar: ^0.0.1
   qr_code_scanner: ^0.5.2
+  image_picker: ^0.8.4+11
 
 
 dev_dependencies:
