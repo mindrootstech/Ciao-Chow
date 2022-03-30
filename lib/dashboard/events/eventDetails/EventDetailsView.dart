@@ -82,11 +82,11 @@ class EventDetailsView extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 250,
+                    height: 180,
                     child: Stack(
                       children: [
                         Container(
-                          height: 250 / 2 + 30,
+                          height: 180 / 2 + 30,
                           color: AppColors.AppColorGrad2,
                         ),
                         Positioned(
@@ -94,19 +94,19 @@ class EventDetailsView extends StatelessWidget {
                           right: 0,
                           left: 0,
                           child: Container(
-                            height: 250 / 2,
+                            height: 180 / 2,
                             width: Get.width,
                             decoration:
                             CommonUi.commonBoxDecoration(24.0, AppColors.White),
                           ),
                         ),
                         Container(
-                            height: 240,
+                            height: 160,
                             margin: const EdgeInsets.only(left: 20, right: 20),
                             width: Get.width,
                             child: ClipRRect(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(14)),
+                                const BorderRadius.all(Radius.circular(10)),
                                 child: CarouselSlider(
                                   options: CarouselOptions(
                                     viewportFraction: 1.0,

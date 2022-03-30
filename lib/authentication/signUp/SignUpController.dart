@@ -22,6 +22,7 @@ class SignUpController extends GetxController{
     PickedFile? image = await ImagePicker.platform
         .pickImage(source: ImageSource.gallery, imageQuality: 25);
     var imageName = image!.path.split('/').last;
+    imagePath.value = image.path;
     // getUploadImage(image.path, imageName);
   }
 

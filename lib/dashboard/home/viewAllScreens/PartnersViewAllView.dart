@@ -184,7 +184,7 @@ class PartnersViewAllView extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Partners around you',
+                      Utils.getString(context, 'partners_around_you'),
                       style: CommonUi.customTextStyle1(
                           Fonts.interSemiBold,
                           18,

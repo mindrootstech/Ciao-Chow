@@ -5,7 +5,6 @@ import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/BookingDoneView.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventsController.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_seekbar/flutter_seekbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +12,7 @@ class BottomSheetGuestView extends StatelessWidget {
   BottomSheetGuestView({Key? key}) : super(key: key);
 
   EventsController eventsController = Get.find();
+  int valueHolder = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -89,23 +89,55 @@ class BottomSheetGuestView extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                          child: SeekBar(
-                            bubbleMargin: 20,
-                            value: 1.0,
-                            // onValueChanged: (range) {
-                            //   try {
-                            //     _homeController.unConfirmGuestValue.value = range.value.truncate();
-                            //     _homeController.unConfirmGuestValue2.value = range.value;
-                            //   } catch (Exception) {
-                            //     var a = 0;
-                            //   }
-                            // },
-                            backgroundColor: AppColors.seekBarColor,
-                            progressColor: AppColors.seekBarColor,
-                            min: 1,
-                            indicatorRadius: 12,
-                            max: 1000,
-                          ),
+                          child: Container()
+                          // Material(
+                          //   child:
+
+                            // FlutterSlider(
+                            //   values: [30, 420],
+                            //   rangeSlider: true,
+                            //   max: 500,
+                            //   min: 0,
+                            //   onDragging: (handlerIndex, lowerValue, upperValue) {
+                            //     _lowerValue = lowerValue;
+                            //     _upperValue = upperValue;
+                            //   },
+                            // )
+
+                            // Slider(
+                            //     value: valueHolder.toDouble(),
+                            //     min: 1,
+                            //     max: 100,
+                            //     divisions: 100,
+                            //     activeColor: Colors.green,
+                            //     inactiveColor: Colors.grey,
+                            //     onChanged: (double newValue) {
+                            //       valueHolder = newValue.round();
+                            //
+                            //     },
+                            //     semanticFormatterCallback: (double newValue) {
+                            //       return '${newValue.round()}';
+                            //     }
+                            // )
+                          // ),
+
+                          // SeekBar(
+                          //   bubbleMargin: 20,
+                          //   value: 1.0,
+                          //   // onValueChanged: (range) {
+                          //   //   try {
+                          //   //     _homeController.unConfirmGuestValue.value = range.value.truncate();
+                          //   //     _homeController.unConfirmGuestValue2.value = range.value;
+                          //   //   } catch (Exception) {
+                          //   //     var a = 0;
+                          //   //   }
+                          //   // },
+                          //   backgroundColor: AppColors.seekBarColor,
+                          //   progressColor: AppColors.seekBarColor,
+                          //   min: 1,
+                          //   indicatorRadius: 12,
+                          //   max: 1000,
+                          // ),
                         ),
                         GestureDetector(
                           onTap: (){

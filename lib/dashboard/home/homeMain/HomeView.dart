@@ -10,6 +10,7 @@ import 'package:ciao_chow/dashboard/home/homeMain/ModelLatestCheckIns.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/ModelPartners.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/PartnersHomeListItem.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/ScanCheckInView.dart';
+import 'package:ciao_chow/dashboard/home/viewAllScreens/LatestCheckInViewAllView.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/PartnersViewAllView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -109,6 +110,117 @@ class HomeView extends StatelessWidget {
     modelLatest.image =
         "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
     homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+    modelLatest = ModelLatestCheckIns();
+    modelLatest.placeName = "Culture";
+    modelLatest.placeAddress = "Sector-26,chandigarh";
+    modelLatest.date = "23-Jan-2022";
+    modelLatest.time = "10:00PM";
+    modelLatest.image =
+        "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80";
+    homeController.arrayLatestCheckIns.add(modelLatest);
+
+
+
 
     final List<Widget> imageSliders = imgList
         .map((item) => ClipRRect(
@@ -389,16 +501,21 @@ class HomeView extends StatelessWidget {
                               TextDecoration.none),
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(right: 20, top: 0),
-                        child: Text(
-                          Utils.getString(context, 'view_all'),
-                          style: CommonUi.customTextStyle1(
-                              Fonts.interRegular,
-                              12.0,
-                              FontWeight.w400,
-                              AppColors.textFieldsHint,
-                              TextDecoration.none),
+                      GestureDetector(
+                        onTap: (){
+                          Get.to(LatestCheckInViewAllView());
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 20, top: 0),
+                          child: Text(
+                            Utils.getString(context, 'view_all'),
+                            style: CommonUi.customTextStyle1(
+                                Fonts.interRegular,
+                                12.0,
+                                FontWeight.w400,
+                                AppColors.textFieldsHint,
+                                TextDecoration.none),
+                          ),
                         ),
                       ),
                     ],
