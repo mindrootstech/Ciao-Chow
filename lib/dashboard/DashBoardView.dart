@@ -38,11 +38,15 @@ class DashBoardView extends StatelessWidget {
               child: BottomNavigationBar(
                 backgroundColor: Colors.transparent,
                 type: BottomNavigationBarType.fixed,
+                showUnselectedLabels: false,
+                showSelectedLabels: false,
                 currentIndex: dashboardController.selectedValue.value,
                 onTap: (value) {
                   dashboardController.selectedValue.value = value;
                 },
                 items: <BottomNavigationBarItem>[
+
+
                   BottomNavigationBarItem(
                     icon: Column(
                       children: [
@@ -80,18 +84,37 @@ class DashBoardView extends StatelessWidget {
                           Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
                         ],
                       )),
+
+                  BottomNavigationBarItem(
+                      icon: Column(
+                        children: [
+                          SvgPicture.asset(CommonUi.setSvgImage('notification')),
+                          const SizedBox(height: 10,),
+                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
+                        ],
+                      ),label: '',
+                      activeIcon: Column(
+                        children: [
+                          SvgPicture.asset(
+                            CommonUi.setSvgImage('notification_active'),
+                            color: AppColors.White,
+                          ),
+                          const SizedBox(height: 10,),
+                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
+                        ],
+                      )),
+
                   BottomNavigationBarItem(
                     icon: Column(
                       children: [
-                        SvgPicture.asset(CommonUi.setSvgImage('settings')),
+                        SvgPicture.asset(CommonUi.setSvgImage('profile')),
                         const SizedBox(height: 10,),
                         Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
                       ],
                     ),label: '',
                     activeIcon: Column(
                       children: [
-                        SvgPicture.asset(
-                          'assets/svg/settings_minder.svg',
+                        SvgPicture.asset(CommonUi.setSvgImage('profile_active'),
                           color: AppColors.White,
                         ),
 

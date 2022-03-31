@@ -141,11 +141,11 @@ class EventsView extends StatelessWidget {
               height: 16,
             ),
             SizedBox(
-              height: 170,
+              height: 190,
               child: Stack(
                 children: [
                   Container(
-                    height: 170 / 2 + 30,
+                    height: 190 / 2 + 30,
                     color: AppColors.AppColorGrad2,
                   ),
                   Positioned(
@@ -153,7 +153,7 @@ class EventsView extends StatelessWidget {
                     right: 0,
                     left: 0,
                     child: Container(
-                      height: 170 / 2,
+                      height: 190 / 2,
                       width: Get.width,
                       decoration:
                       CommonUi.commonBoxDecoration(24.0, AppColors.White),
@@ -179,72 +179,76 @@ class EventsView extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    Utils.getString(context, 'my_event_tickets'),
-                    style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
-                        FontWeight.w600, AppColors.Black, TextDecoration.none),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(right: 20),
-                  child: Text(
-                    Utils.getString(context, 'view_all'),
-                    style: CommonUi.customTextStyle1(
-                        Fonts.interRegular,
-                        12.0,
-                        FontWeight.w400,
-                        AppColors.textFieldsHint,
-                        TextDecoration.none),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              height: 192,
-              margin: const EdgeInsets.only(left: 20, top: 14),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: eventsController.arrayEventTicket.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return EventTicketsListItem(index, eventsController);
-                },
-              ),
-            ),
-            Container(
-              width: Get.width,
-              margin: const EdgeInsets.only(left: 20, top: 20),
-              child: Text(
-                Utils.getString(context, 'upcoming_events'),
-                style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
-                    FontWeight.w600, AppColors.Black, TextDecoration.none),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 16, right: 16, top: 15),
-              child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 12,
-                    mainAxisExtent: 200
-                  ),
-                  itemCount: eventsController.arrayUpcomingEvents.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return UpcomingEventsListItem(index, eventsController);
-                  }),
-            ),
 
-            const SizedBox(height: 20,)
+            Container(
+              color: AppColors.White,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 20),
+                        child: Text(
+                          Utils.getString(context, 'my_event_tickets'),
+                          style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
+                              FontWeight.w600, AppColors.Black, TextDecoration.none),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(right: 20),
+                        child: Text(
+                          Utils.getString(context, 'view_all'),
+                          style: CommonUi.customTextStyle1(
+                              Fonts.interRegular,
+                              12.0,
+                              FontWeight.w400,
+                              AppColors.textFieldsHint,
+                              TextDecoration.none),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    height: 192,
+                    margin: const EdgeInsets.only(left: 20, top: 14),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: eventsController.arrayEventTicket.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return EventTicketsListItem(index, eventsController);
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: Get.width,
+                    margin: const EdgeInsets.only(left: 20, top: 20),
+                    child: Text(
+                      Utils.getString(context, 'upcoming_events'),
+                      style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
+                          FontWeight.w600, AppColors.Black, TextDecoration.none),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 16, right: 16, top: 15),
+                    child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 12,
+                            mainAxisExtent: 230
+                        ),
+                        itemCount: eventsController.arrayUpcomingEvents.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return UpcomingEventsListItem(index, eventsController);
+                        }),
+                  ),
+                  const SizedBox(height: 20,)
+                ],
+              ),
+            ),
           ],
         ),
       ),

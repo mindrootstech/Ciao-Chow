@@ -20,7 +20,7 @@ class PartnersAroundItemList extends StatelessWidget{
         ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           child: CachedNetworkImage(
-            height: 200,
+            height: 230,
             fit: BoxFit.cover,
             imageUrl: homeController.arrayPartners[index].image,
             placeholder: (context, url) => Transform.scale(
@@ -33,7 +33,13 @@ class PartnersAroundItemList extends StatelessWidget{
           ),
         ),
 
-        // Image.network(homeController.arrayPartners[index].image,fit: BoxFit.cover,))),
+
+        Positioned(child: Container(
+          height: 230,
+          decoration: CommonUi.commonBoxDecorationAllOverlay(10.0),
+
+        )),
+
 
         Positioned(
           bottom: 0,
@@ -51,9 +57,9 @@ class PartnersAroundItemList extends StatelessWidget{
                         homeController.arrayPartners[index].placeName),
                     textAlign: TextAlign.start,
                     style: CommonUi.customTextStyle1(
-                        Fonts.interRegular,
-                        12.0,
-                        FontWeight.w400,
+                        Fonts.interMedium,
+                        14.0,
+                        FontWeight.w500,
                         AppColors.White,
                         TextDecoration.none),
                     maxLines: 2,
@@ -61,7 +67,7 @@ class PartnersAroundItemList extends StatelessWidget{
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 3),
+                  margin: const EdgeInsets.only(top: 5),
                   child: Text(
                     Utils.getString(context,
                         homeController.arrayPartners[index].placeAddress),
@@ -74,7 +80,7 @@ class PartnersAroundItemList extends StatelessWidget{
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 3),
+                  margin: const EdgeInsets.only(top: 7),
                   child: Row(
                     children: [
                       Image.asset(CommonUi.setPngImage('location_miles')),
@@ -87,8 +93,8 @@ class PartnersAroundItemList extends StatelessWidget{
                             homeController
                                 .arrayPartners[index].placeDistance),
                         style: CommonUi.customTextStyle1(
-                            Fonts.interRegular,
-                            12.0,
+                            Fonts.interItalic,
+                            8.0,
                             FontWeight.w400,
                             AppColors.White,
                             TextDecoration.none),

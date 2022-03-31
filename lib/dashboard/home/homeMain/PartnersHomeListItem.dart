@@ -43,6 +43,13 @@ class PartnersHomeListItem extends StatelessWidget {
                 ),
               )),
 
+          Positioned(child: Container(
+            width: 150,
+            margin: const EdgeInsets.only(right: 10),
+            decoration: CommonUi.commonBoxDecorationAllOverlay(10.0),
+
+          )),
+
           // Image.network(homeController.arrayPartners[index].image,fit: BoxFit.cover,))),
 
           Positioned(
@@ -61,9 +68,9 @@ class PartnersHomeListItem extends StatelessWidget {
                           homeController.arrayPartners[index].placeName),
                       textAlign: TextAlign.start,
                       style: CommonUi.customTextStyle1(
-                          Fonts.interRegular,
-                          12.0,
-                          FontWeight.w400,
+                          Fonts.interMedium,
+                          14.0,
+                          FontWeight.w500,
                           AppColors.White,
                           TextDecoration.none),
                       maxLines: 2,
@@ -71,7 +78,7 @@ class PartnersHomeListItem extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(top: 3),
+                    margin: const EdgeInsets.only(top: 5),
                     child: Text(
                       Utils.getString(context,
                           homeController.arrayPartners[index].placeAddress),
@@ -84,7 +91,7 @@ class PartnersHomeListItem extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(top: 3),
+                    margin: const EdgeInsets.only(top: 7),
                     child: Row(
                       children: [
                         Image.asset(CommonUi.setPngImage('location_miles')),
@@ -97,8 +104,8 @@ class PartnersHomeListItem extends StatelessWidget {
                               homeController
                                   .arrayPartners[index].placeDistance),
                           style: CommonUi.customTextStyle1(
-                              Fonts.interRegular,
-                              12.0,
+                              Fonts.interItalic,
+                              8.0,
                               FontWeight.w400,
                               AppColors.White,
                               TextDecoration.none),

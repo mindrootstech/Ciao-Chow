@@ -6,6 +6,7 @@ import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/PartnersHomeListItem.dart';
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -197,7 +198,7 @@ class BusinessDetailsView extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      SvgPicture.asset(CommonUi.setSvgImage('phone_details')),
+                      SvgPicture.asset(CommonUi.setSvgImage('timings')),
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
@@ -217,32 +218,12 @@ class BusinessDetailsView extends StatelessWidget {
                     color: AppColors.dividerClr,
                     margin: const EdgeInsets.only(top: 20, bottom: 20),
                   ),
-                  RichText(
-                    textAlign: TextAlign.start,
-                    text: TextSpan(
-                      text: '',
-                      style: DefaultTextStyle.of(context).style,
-                      children: <TextSpan>[
-                        TextSpan(
-                          text:
-                              'Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum.',
-                          style: CommonUi.customTextStyle1(
-                              Fonts.interRegular,
-                              12.0,
-                              FontWeight.w400,
-                              AppColors.textFieldsHint,
-                              TextDecoration.none),
-                        ),
-                        TextSpan(
-                            text: '\n' + Utils.getString(context, 'read_more'),
-                            style: CommonUi.customTextStyle1(
-                                Fonts.interMedium,
-                                12.0,
-                                FontWeight.w500,
-                                AppColors.AppColorGrad2,
-                                TextDecoration.none)),
-                      ],
-                    ),
+                  ExpandableText(
+                    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+                    expandText: '\n' +Utils.getString(context, 'read_more'),
+                    collapseText: '\n' + Utils.getString(context, 'read_less'),
+                    maxLines: 4,
+                    linkColor: AppColors.AppColorGrad2,style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0, FontWeight.w400, AppColors.textFieldsHint, TextDecoration.none),
                   ),
                   const SizedBox(
                     height: 20,

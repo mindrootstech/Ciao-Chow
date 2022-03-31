@@ -3,6 +3,10 @@ import 'package:ciao_chow/constants/Language.dart';
 import 'package:flutter/material.dart';
 
 class CommonUi {
+
+  static var dropDownButtonDecoration =
+  const InputDecoration.collapsed(hintText: "",border: InputBorder.none);
+
   static var gradientColorForSplash = const BoxDecoration(
     gradient: LinearGradient(
         begin: Alignment.centerLeft,
@@ -30,6 +34,15 @@ class CommonUi {
   static commonBoxDecorationAllSides(double radius, Color color) {
     return BoxDecoration(
         color: color, borderRadius: BorderRadius.all(Radius.circular(radius)));
+  }
+
+  static commonBoxDecorationAllOverlay(double radius) {
+    return BoxDecoration(
+        gradient: const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [AppColors.transparent, AppColors.Black]),
+        borderRadius: BorderRadius.all(Radius.circular(radius)));
   }
 
   static String setPngImage(String name) {
@@ -72,13 +85,24 @@ class CommonUi {
 
   static var shadowDecoration = const BoxShadow(
     color: AppColors.shadowColor,
-    blurRadius: 15.0, // soften the shadow
+    blurRadius: 5.0, // soften the shadow
     spreadRadius: 0.0, //extend the shadow
     offset: Offset(
       0.0, // Move to right 10  horizontally
-      4.0, // Move to bottom 10 Vertically
+      2.0, // Move to bottom 10 Vertically
     ),
   );
+
+  static emailValid(String email) {
+    return RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+  }
+
+
+  static phoneNumberValidator(String value) {
+    return RegExp(r'^(?:\+?88|0088)?01[13-9]\d{8}$').hasMatch(value);
+  }
 
   static final Language defaultLanguage =
       Language(languageCode: 'en', countryCode: 'US', name: 'English US');
@@ -103,4 +127,10 @@ class CommonUi {
       ),
     );
   }
+
+  static void hideKeyBoard(context) {
+    // FocusScope.of(context).requestFocus(FocusNode());
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
 }

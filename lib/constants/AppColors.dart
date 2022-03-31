@@ -24,4 +24,3 @@ class AppColors {
   static const Color lightBlack = Color.fromRGBO(5, 3, 13, 1);
   static const Color seekBarColor = Color.fromRGBO(223, 67, 61, 1);
 }
-

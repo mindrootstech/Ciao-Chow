@@ -105,7 +105,7 @@ class PartnersViewAllView extends StatelessWidget {
                                     FontWeight.w400,
                                     AppColors.textFieldsHint,
                                     TextDecoration.none),
-                                hintText: "Type in your text",
+                                hintText: Utils.getString(context, 'search_by_name'),
                               ),
                             ),
                           ),
@@ -133,36 +133,31 @@ class PartnersViewAllView extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 170,
+              height: 190,
               child: Stack(
                 children: [
-                  Column(
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: Container(
-                            color: AppColors.AppColorGrad2,
-                          )),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          color: AppColors.AppColorGrad2,
-                          child: Container(
-                            width: Get.width,
-                            decoration: CommonUi.commonBoxDecoration(
-                                24.0, AppColors.White),
-                          ),
-                        ),
-                      ),
-                    ],
+                  Container(
+                    height: 190 / 2 + 20,
+                    color: AppColors.AppColorGrad2,
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    child: Container(
+                      height: 190 / 2,
+                      width: Get.width,
+                      decoration:
+                      CommonUi.commonBoxDecoration(24.0, AppColors.White),
+                    ),
                   ),
                   Container(
-                      height: 160,
+                      height: 165,
                       margin: const EdgeInsets.only(left: 20, right: 20),
                       width: Get.width,
                       child: ClipRRect(
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
+                          const BorderRadius.all(Radius.circular(10)),
                           child: CarouselSlider(
                             options: CarouselOptions(
                               viewportFraction: 1.0,
@@ -178,7 +173,7 @@ class PartnersViewAllView extends StatelessWidget {
             ),
             Container(
               color: AppColors.White,
-              margin: const EdgeInsets.only(left: 16, right: 16, top: 20),
+              margin: const EdgeInsets.only(left: 16, right: 16),
               child: Column(
                 children: [
                   Align(
@@ -200,7 +195,7 @@ class PartnersViewAllView extends StatelessWidget {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 10,mainAxisExtent: 200,
+                              crossAxisSpacing: 10,mainAxisExtent: 230,
                               mainAxisSpacing: 12,),
                       itemCount: homeController.arrayPartners.length,
                       itemBuilder: (BuildContext context, int index) {

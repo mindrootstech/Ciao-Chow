@@ -243,28 +243,34 @@ class HomeView extends StatelessWidget {
         .toList();
 
     return Scaffold(
-      backgroundColor: AppColors.White,
+      backgroundColor: AppColors.AppColorGrad2,
       extendBody: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.AppColorGrad2,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Hi William',
-              style: CommonUi.customTextStyle1(Fonts.interSemiBold, 24.0,
-                  FontWeight.w600, AppColors.White, TextDecoration.none),
-            ),
-            SvgPicture.asset(
-              CommonUi.setSvgImage('notification_home'),
-            )
-          ],
-        ),
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   backgroundColor: AppColors.AppColorGrad2,
+      //   title:
+      // ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+
+            Container(
+              margin: const EdgeInsets.fromLTRB(20, 38, 20, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Hi William',
+                    style: CommonUi.customTextStyle1(Fonts.interSemiBold, 24.0,
+                        FontWeight.w600, AppColors.White, TextDecoration.none),
+                  ),
+                  SvgPicture.asset(
+                    CommonUi.setSvgImage('notification_home'),
+                  )
+                ],
+              ),
+            ),
+
             Container(
               color: AppColors.AppColorGrad2,
               height: 15,
@@ -273,11 +279,11 @@ class HomeView extends StatelessWidget {
             // edited by Abhijeet Sir(29 Mar 2021)
 
             SizedBox(
-              height: 180,
+              height: 190,
               child: Stack(
                 children: [
                   Container(
-                    height: 180 / 2 + 30,
+                    height: 190 / 2 + 20,
                     color: AppColors.AppColorGrad2,
                   ),
                   Positioned(
@@ -285,14 +291,14 @@ class HomeView extends StatelessWidget {
                     right: 0,
                     left: 0,
                     child: Container(
-                      height: 180 / 2,
+                      height: 190 / 2,
                       width: Get.width,
                       decoration:
                           CommonUi.commonBoxDecoration(24.0, AppColors.White),
                     ),
                   ),
                   Container(
-                      height: 160,
+                      height: 165,
                       margin: const EdgeInsets.only(left: 20, right: 20),
                       width: Get.width,
                       child: ClipRRect(
@@ -312,6 +318,7 @@ class HomeView extends StatelessWidget {
               ),
             ),
             Container(
+              // height: double.maxFinite,
               color: AppColors.White,
               child: Column(
                 children: [
@@ -350,7 +357,7 @@ class HomeView extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    height: 140,
+                    height: 142,
                     margin: const EdgeInsets.only(left: 20, top: 14),
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -364,7 +371,7 @@ class HomeView extends StatelessWidget {
                     padding: const EdgeInsets.all(15),
                     decoration: CommonUi.commonBoxDecorationAllSides(
                         10.0, AppColors.buttonColor1),
-                    margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                    margin: const EdgeInsets.only(left: 20, right: 20, top: 25),
                     child: Column(
                       children: [
                         Row(
@@ -484,20 +491,20 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 25,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(left: 20, top: 0),
+                        margin: const EdgeInsets.only(left: 20),
                         child: Text(
                           Utils.getString(context, 'latest_check_ins'),
                           style: CommonUi.customTextStyle1(
                               Fonts.interSemiBold,
                               18.0,
                               FontWeight.w600,
-                              AppColors.Black,
+                              AppColors.home_progress,
                               TextDecoration.none),
                         ),
                       ),
@@ -506,7 +513,7 @@ class HomeView extends StatelessWidget {
                           Get.to(LatestCheckInViewAllView());
                         },
                         child: Container(
-                          margin: const EdgeInsets.only(right: 20, top: 0),
+                          margin: const EdgeInsets.only(right: 20),
                           child: Text(
                             Utils.getString(context, 'view_all'),
                             style: CommonUi.customTextStyle1(
@@ -521,12 +528,14 @@ class HomeView extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    margin: const EdgeInsets.only(left: 16, right: 16, top: 15),
+                    color: AppColors.White,
+                    margin: const EdgeInsets.only(left: 16, right: 16,top: 16,bottom: 100),
                     child: ListView.builder(
+                      padding: const EdgeInsets.all(0),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: homeController.arrayLatestCheckIns.length,
+                      itemCount: 5,
                       itemBuilder: (BuildContext context, int index) {
                         return LatestCheckInListItem(index, homeController);
                       },

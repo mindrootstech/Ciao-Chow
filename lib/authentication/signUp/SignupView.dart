@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ciao_chow/authentication/signUp/DOBText.dart';
 import 'package:ciao_chow/authentication/signUp/ImageOptionChooser.dart';
 import 'package:ciao_chow/authentication/signUp/SignUpController.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
@@ -8,18 +9,22 @@ import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/DashBoardView.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-// class SignupView extends StatelessWidget with InputValidationMixin {
 class SignupView extends StatelessWidget {
   var signUpController = Get.put(SignUpController());
+
+  TimeOfDay selectedTime = TimeOfDay.now();
+  DateTime selectedDate = DateTime.now();
 
   SignupView({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    signUpController.addAccountItems("Date of Birth", false, "Gender", false);
     return Scaffold(
       backgroundColor: AppColors.AppColorGrad2,
       body: Form(
@@ -103,7 +108,8 @@ class SignupView extends StatelessWidget {
                       right: 0,
                       bottom: 0,
                       child: SizedBox(
-                        width: 24,height: 24,
+                        width: 24,
+                        height: 24,
                         child: SvgPicture.asset(
                             CommonUi.setSvgImage('profile_edit')),
                       ))
@@ -167,11 +173,21 @@ class SignupView extends StatelessWidget {
                             const EdgeInsets.only(top: 10, left: 20, right: 20),
                         child: TextFormField(
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
+                              if (value != null || value!.isNotEmpty) {
+                                if (CommonUi.emailValid(signUpController
+                                        .emailController.value.text
+                                        .trim()) ==
+                                    false) {
+                                  return 'Please enter valid email';
+                                } else {
+                                  return null;
+                                }
+                              } else {
                                 return 'Please enter email';
                               }
-                              return null;
+                              // return null;
                             },
+                            controller: signUpController.emailController.value,
                             cursorColor: AppColors.textFieldsHint,
                             decoration: CommonUi.textFieldDecoration(
                                 Utils.getString(context, 'email_hint')),
@@ -203,9 +219,18 @@ class SignupView extends StatelessWidget {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter Mobile Number';
+                              } else if (value != null || value.isNotEmpty) {
+                                if (signUpController.phoneController.value.text
+                                        .trim()
+                                        .length <
+                                    10) {
+                                  return 'Please Enter Valid Phone Number';
+                                }
                               }
                               return null;
                             },
+                            controller: signUpController.phoneController.value,
+                            keyboardType: TextInputType.phone,
                             cursorColor: AppColors.textFieldsHint,
                             decoration: CommonUi.textFieldDecoration(
                                 Utils.getString(context, 'mobile_hint')),
@@ -253,49 +278,112 @@ class SignupView extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                  top: 10, left: 20, right: 8),
-                              child: TextFormField(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter Date of Birth';
-                                    }
-                                    return null;
+                            child: GestureDetector(
+                              onTap: () {
+                                CommonUi.hideKeyBoard(context);
+                                signUpController.addAccountItems(
+                                    signUpController.accountDetail[0].name,
+                                    true,
+                                    signUpController.accountDetail[1].name,
+                                    false);
+                                if (Platform.isAndroid) {
+                                  pickDateDialog(context);
+                                } else if (Platform.isIOS) {
+                                  DatePicker.showDatePicker(context,
+                                      showTitleActions: true,
+                                      minTime:
+                                          DateTime(DateTime.now().year - 100),
+                                      maxTime: DateTime(
+                                          DateTime.now().year,
+                                          DateTime.now().month,
+                                          DateTime.now().day),
+                                      onChanged: (date) {},
+                                      onCancel: () {}, onConfirm: (date) {
+                                    signUpController.onDobSelection(date);
                                   },
-                                  cursorColor: AppColors.textFieldsHint,
-                                  decoration: CommonUi.textFieldDecoration(
-                                      Utils.getString(context, 'dob_hint')),
-                                  style: CommonUi.customTextStyle1(
-                                    Fonts.interRegular,
-                                    12.0,
-                                    FontWeight.w400,
-                                    AppColors.Black,
-                                    TextDecoration.none,
-                                  )),
+                                      currentTime: signUpController
+                                                  .accountDetail[0].name !=
+                                              'Date of Birth'
+                                          ? DateTime.parse(signUpController
+                                              .accountDetail[0].name)
+                                          : DateTime.now(),
+                                      locale: LocaleType.en);
+                                }
+                              },
+                              child: Obx(
+                                () => DOBText(
+                                    textValue:
+                                        signUpController.accountDetail[0]),
+                              ),
                             ),
                           ),
                           Expanded(
                             child: Container(
+                              padding: const EdgeInsets.only(left: 16,right: 16),
+                              decoration: BoxDecoration(
+                                  color: AppColors.textFieldsMain,
+                                  borderRadius: BorderRadius.circular(10)),
+                              height: 50,
                               margin: const EdgeInsets.only(
-                                  top: 10, left: 8, right: 20),
-                              child: TextFormField(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter Gender';
-                                    }
-                                    return null;
+                                  top: 20, left: 8, right: 20),
+                              child: Center(
+                                child: DropdownButtonFormField<String>(
+                                  isExpanded: true,
+                                  onTap: () {
+                                    CommonUi.hideKeyBoard(context);
+                                    signUpController.addAccountItems(
+                                        signUpController.accountDetail[0].name,
+                                        false,
+                                        signUpController.accountDetail[1].name,
+                                        true);
                                   },
-                                  cursorColor: AppColors.textFieldsHint,
-                                  decoration: CommonUi.textFieldDecoration(
-                                      Utils.getString(context, 'gender_hint')),
+
+                                  // underline: Container(),
+                                  decoration: CommonUi.dropDownButtonDecoration,
+                                  hint: Text(
+                                      Utils.getString(context, 'gender_hint'),
+                                      style: CommonUi.customTextStyle1(
+                                        Fonts.interRegular,
+                                        12.0,
+                                        FontWeight.w400,
+                                        AppColors.textFieldsHint,
+                                        TextDecoration.none,
+                                      )),
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: AppColors.textFieldsHint,
+                                  ),
                                   style: CommonUi.customTextStyle1(
                                     Fonts.interRegular,
                                     12.0,
                                     FontWeight.w400,
-                                    AppColors.Black,
+                                    AppColors.textFieldsHint,
                                     TextDecoration.none,
-                                  )),
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    CommonUi.hideKeyBoard(context);
+                                    signUpController.genderValue.value =
+                                        newValue!;
+                                  },
+                                  items: <String>['Male', 'Female', 'Other']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
+                                        style: CommonUi.customTextStyle1(
+                                          Fonts.interRegular,
+                                          12.0,
+                                          FontWeight.w400,
+                                          AppColors.Black,
+                                          TextDecoration.none,
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -351,7 +439,7 @@ class SignupView extends StatelessWidget {
                       // const Expanded(child: SizedBox(height: 1,)),
                       GestureDetector(
                         onTap: () {
-                          if (_formKey.currentState!.validate()){
+                          if (_formKey.currentState!.validate()) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Processing Data')),
                             );
@@ -360,7 +448,8 @@ class SignupView extends StatelessWidget {
                         },
                         child: Container(
                           child: Center(
-                            child: Text(Utils.getString(context, 'sign_up_small'),
+                            child: Text(
+                                Utils.getString(context, 'sign_up_small'),
                                 style: CommonUi.customTextStyle1(
                                     Fonts.interMedium,
                                     14.0,
@@ -422,15 +511,32 @@ class SignupView extends StatelessWidget {
       ),
     );
   }
-}
 
-// mixin InputValidationMixin {
-//   bool isPasswordValid(String password) => password.length == 6;
-//
-//   bool isEmailValid(String email) {
-//     Pattern pattern =
-//         r '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-//     RegExp regex = new RegExp(pattern);
-//     return regex.hasMatch(email);
-//   }
-// }
+  void pickDateDialog(BuildContext context) {
+    showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1900),
+        lastDate: DateTime.now(),
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: const ColorScheme.light(
+                primary: AppColors.AppColorGrad2,
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  primary: AppColors.AppColorGrad2,
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        }).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      signUpController.onDobSelection(pickedDate);
+    });
+  }
+}

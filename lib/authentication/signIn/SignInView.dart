@@ -8,12 +8,14 @@ import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/DashBoardView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class SignInView extends StatelessWidget {
   SignInView({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
   var signInController = Get.put(SignInController());
+  final getStorage = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class SignInView extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.only(left: 20,right: 20),
                         decoration: CommonUi.commonBoxDecoration(24.0,AppColors.White),
-                        margin: const EdgeInsets.only(top: 15),
+                        margin: const EdgeInsets.only(top:30),
                         child: Column(
                           children: [
                             const SizedBox(height: 20),
@@ -134,12 +136,6 @@ class SignInView extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 if (_formKey.currentState!.validate()){
-                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                  //   const SnackBar(content: Text('Processing Data')),
-                                  // );
-                                  // Get.off(DashBoardView());
-
-
                                   signInController.logInImplementation(
                                     signInController.emailController.value.text.trim(),
                                     signInController.passwordController.value.text.trim()).
@@ -148,6 +144,7 @@ class SignInView extends StatelessWidget {
                                       // signInController.getStorage.write('token', value.data.token);
                                       // signInController.getStorage.write("stripeCustomerId", value.data.stripeCustomerId);
                                       signInController.loginLoaderShow.value = false;
+                                      getStorage.write('isRegisterOrLoggedIn', true);
                                       Get.off(DashBoardView());
                                       // showToast(value.message);
                                     } else {
@@ -226,7 +223,7 @@ class SignInView extends StatelessWidget {
                 top: 0,
                 bottom: 0,
                 child: Obx(() => signInController.loginLoaderShow.value
-                    ? Center(child: CircularProgressIndicator())
+                    ? const Center(child: CircularProgressIndicator(color: AppColors.AppColorGrad2,))
                     : Container()),
               ),
             ],
