@@ -104,24 +104,22 @@ class ForgotPasswordView extends StatelessWidget {
                           )),
                       GestureDetector(
                         onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            if (_formKey.currentState!.validate()){
-                              forgotPasswordController.forgotApiImplementation(
-                                  forgotPasswordController.emailController.value.text.trim()).
-                              then((value) {
-                                if (value.status) {
-                                  // signInController.getStorage.write('token', value.data.token);
-                                  // signInController.getStorage.write("stripeCustomerId", value.data.stripeCustomerId);
-                                  forgotPasswordController.forgotLoaderShow.value = false;
-                                  Get.back();
-                                } else {
-                                  forgotPasswordController.forgotLoaderShow.value = false;
-                                }
-                              });
-                              forgotPasswordController.forgotLoaderShow.value = true;
-
-                            }
-                          }
+                          // if (_formKey.currentState!.validate()) {
+                          //   if (_formKey.currentState!.validate()){
+                          //     forgotPasswordController.forgotApiImplementation(
+                          //         forgotPasswordController.emailController.value.text.trim()).
+                          //     then((value) {
+                          //       if (value.status) {
+                          //         forgotPasswordController.forgotLoaderShow.value = false;
+                          //         Get.back();
+                          //       } else {
+                          //         forgotPasswordController.forgotLoaderShow.value = false;
+                          //       }
+                          //     });
+                          //     forgotPasswordController.forgotLoaderShow.value = true;
+                          //
+                          //   }
+                          // }
                         },
                         child: Container(
                           child: Center(

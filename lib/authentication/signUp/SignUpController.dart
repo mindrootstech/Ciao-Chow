@@ -1,4 +1,6 @@
+import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/authentication/signUp/ModelText.dart';
+import 'package:ciao_chow/authentication/signUp/SignUpModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,9 +12,14 @@ class SignUpController extends GetxController{
   var emailController = TextEditingController().obs;
   var passwordController = TextEditingController().obs;
   var phoneController = TextEditingController().obs;
+  var userName = TextEditingController().obs;
   var genderValue = 'Gender'.obs;
   var dobText = "Date of Birth".obs;
   var accountDetail = <ModelText>[].obs;
+  var signUpLoaderShow = false.obs;
+  final _apiProvider = ApiProvider();
+  var imageName = '';
+  var imagePathNew = '';
 
 
   Future<void> getCameraImage() async {
@@ -21,8 +28,9 @@ class SignUpController extends GetxController{
     source: ImageSource.camera,
         imageQuality: 25,
     ))!;
-    var imageName = image.path.split('/').last;
+    imageName = image.path.split('/').last;
     imagePath.value = image.path;
+    imagePathNew  = image.path;
     // getUploadImage(image.path, imageName);
 
 
@@ -31,24 +39,19 @@ class SignUpController extends GetxController{
   Future<void> getGalleryImage() async {
     PickedFile? image = await ImagePicker.platform
         .pickImage(source: ImageSource.gallery, imageQuality: 25);
-    var imageName = image!.path.split('/').last;
+     imageName = image!.path.split('/').last;
     imagePath.value = image.path;
+    imagePathNew  = image.path;
     // getUploadImage(image.path, imageName);
   }
 
   void onDobSelection(DateTime date) {
     String formattedDate = DateFormat('yyyy-MM-dd').format(date);
     dobText.value = formattedDate;
-    // ModelText modelText = ModelText();
-    // modelText = accountDetail[0];
-    // modelText.name = formattedDate;
-    // accountDetail[0] = modelText;
-    // int duration = (DateTime.now().difference(date).inDays / 365).floor();
-    // if (duration < 18) {
-    //   ageBelowEighteen.value = true;
-    // } else {
-    //   ageBelowEighteen.value = false;
-    // }
+    ModelText modelText = ModelText();
+    modelText = accountDetail[0];
+    modelText.name = formattedDate;
+    accountDetail[0] = modelText;
   }
 
   void addAccountItems(String firstName, bool firstSelected, String secondName, bool secondSelected) {
@@ -61,4 +64,22 @@ class SignUpController extends GetxController{
     model.name = secondName;
     model.isSelected = secondSelected;
     accountDetail.add(model);
-  }}
+  }
+
+  Future<SignUpModel> signUpImplementation(String userName, String phoneNumber, String email, String password) {
+
+    String gender;
+    if (genderValue.value == 'Male') {
+      gender = '1';
+    } else if (genderValue.value == 'Female') {
+      gender = '2';
+    } else {
+      gender = '3';
+    }
+
+    return _apiProvider.getSignUp(userName,phoneNumber,email,password,gender,accountDetail[0].name,imagePathNew,imageName);
+  }
+
+
+
+}

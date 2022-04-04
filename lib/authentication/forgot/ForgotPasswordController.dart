@@ -9,11 +9,11 @@ class ForgotPasswordController extends GetxController{
   final _apiProvider = ApiProvider();
 
 
-  Future<ForgotPasswordModel> forgotApiImplementation(
-      String email
-      ) {
-    return _apiProvider.getForgotPassword(
-        email);
-  }
+  // Future<ForgotPasswordModel> forgotApiImplementation(
+  //     String email
+  //     ) {
+  //   return _apiProvider.getForgotPassword(
+  //       email);
+  // }
 
 }

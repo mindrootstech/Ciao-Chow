@@ -32,7 +32,7 @@ class PartnersHomeListItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: 200,
                   fit: BoxFit.cover,
-                  imageUrl: homeController.arrayPartners[index].image,
+                  imageUrl: homeController.arrayPartners[index].featuredImage,
                   placeholder: (context, url) => Transform.scale(
                       scale: 0.2,
                       child: const CircularProgressIndicator(
@@ -65,7 +65,7 @@ class PartnersHomeListItem extends StatelessWidget {
                     width: 130,
                     child: Text(
                       Utils.getString(context,
-                          homeController.arrayPartners[index].placeName),
+                          homeController.arrayPartners[index].businessName),
                       textAlign: TextAlign.start,
                       style: CommonUi.customTextStyle1(
                           Fonts.interMedium,
@@ -81,7 +81,7 @@ class PartnersHomeListItem extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 5),
                     child: Text(
                       Utils.getString(context,
-                          homeController.arrayPartners[index].placeAddress),
+                          homeController.arrayPartners[index].address),
                       style: CommonUi.customTextStyle1(
                           Fonts.interRegular,
                           12.0,
@@ -102,7 +102,7 @@ class PartnersHomeListItem extends StatelessWidget {
                           Utils.getString(
                               context,
                               homeController
-                                  .arrayPartners[index].placeDistance),
+                                  .arrayPartners[index].distance),
                           style: CommonUi.customTextStyle1(
                               Fonts.interItalic,
                               8.0,

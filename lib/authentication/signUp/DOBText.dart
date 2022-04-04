@@ -2,9 +2,7 @@ import 'package:ciao_chow/authentication/signUp/ModelText.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
-import 'package:ciao_chow/constants/Utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class DOBText extends StatelessWidget {
@@ -26,7 +24,7 @@ class DOBText extends StatelessWidget {
             style: CommonUi.customTextStyle1(Fonts.interRegular,
               12.0,
               FontWeight.w400,
-              AppColors.textFieldsHint,
+              AppColors.Black,
               TextDecoration.none,),
           ),
           const Icon(Icons.keyboard_arrow_down,color: AppColors.textFieldsHint,)

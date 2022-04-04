@@ -141,7 +141,7 @@ class SignInView extends StatelessWidget {
                                     signInController.passwordController.value.text.trim()).
                                   then((value) {
                                     if (value.status) {
-                                      // signInController.getStorage.write('token', value.data.token);
+                                      getStorage.write('token', value.data.token);
                                       // signInController.getStorage.write("stripeCustomerId", value.data.stripeCustomerId);
                                       signInController.loginLoaderShow.value = false;
                                       getStorage.write('isRegisterOrLoggedIn', true);

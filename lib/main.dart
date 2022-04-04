@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -18,7 +19,8 @@ Future<void> main() async {
       saveLocale: true,
       startLocale: CommonUi.defaultLanguage.toLocale(),
       supportedLocales: getSupportedLanguages(),
-      child: MyApp()));
+      child: MyApp())
+  );
 }
 
 List<Locale> getSupportedLanguages() {

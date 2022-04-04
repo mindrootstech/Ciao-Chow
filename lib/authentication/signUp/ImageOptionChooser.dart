@@ -8,33 +8,31 @@ class ImageOptionChooser {
 
   void showChooser(context) {
     Get.bottomSheet(
-        Container(
-          child: Wrap(
-            children: [
-              ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text(
-                  'Take a picture from Camera',
-                  // style: CommonUi.customTextStyle1(Fonts.PoppinsRegular, 18, FontWeight.w500, ColorRes.textBlack),
-                ),
-                onTap: () {
-                  signUpController.getCameraImage();
-                  Get.back();
-                },
+        Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text(
+                'Take a picture from Camera',
+                // style: CommonUi.customTextStyle1(Fonts.PoppinsRegular, 18, FontWeight.w500, ColorRes.textBlack),
               ),
-              ListTile(
-                leading: Icon(Icons.photo),
-                title: Text(
-                  'Select from Phone Gallery',
-                  // style: CommonUi.customTextStyle1(Fonts.PoppinsRegular, 18, FontWeight.w500, ColorRes.textBlack),
-                ),
-                onTap: () {
-                  signUpController.getGalleryImage();
-                  Get.back();
-                },
-              )
-            ],
-          ),
+              onTap: () {
+                signUpController.getCameraImage();
+                Get.back();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo),
+              title: const Text(
+                'Select from Phone Gallery',
+                // style: CommonUi.customTextStyle1(Fonts.PoppinsRegular, 18, FontWeight.w500, ColorRes.textBlack),
+              ),
+              onTap: () {
+                signUpController.getGalleryImage();
+                Get.back();
+              },
+            )
+          ],
         ),
         backgroundColor: Colors.white
     );
