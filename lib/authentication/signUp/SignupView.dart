@@ -16,7 +16,6 @@ import 'package:get_storage/get_storage.dart';
 
 class SignupView extends StatelessWidget {
   var signUpController = Get.put(SignUpController());
-  final getStorage = GetStorage();
   TimeOfDay selectedTime = TimeOfDay.now();
   DateTime selectedDate = DateTime.now();
   SignupView({Key? key}) : super(key: key);
@@ -470,15 +469,15 @@ class SignupView extends StatelessWidget {
                                     signUpController.emailController.value.text.trim(),
                                     signUpController.passwordController.value.text.trim()).
                                 then((value) {
-                                  if (value.status) {
-                                    getStorage.write('token', value.data.token);
-                                    // signInController.getStorage.write("stripeCustomerId", value.data.stripeCustomerId);
+                                  if (value.status!) {
+                                    signUpController.getStorage.write('token', value.data!.token);
+                                    signUpController.getStorage.write("stripeCustomerId", value.data!.stripeId);
                                     signUpController.signUpLoaderShow.value = false;
-                                    getStorage.write('isRegisterOrLoggedIn', true);
+                                    signUpController.getStorage.write('isRegisterOrLoggedIn', true);
                                     Get.off(DashBoardView());
                                     // showToast(value.message);
                                   } else {
-                                    // showToast(value.message);
+                                    CommonUi.showToast(value.message!);
                                     signUpController.signUpLoaderShow.value = false;
                                   }
                                 });

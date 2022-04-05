@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/Language.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:intl/intl.dart';
 
 class CommonUi {
 
@@ -95,9 +98,7 @@ class CommonUi {
   );
 
   static emailValid(String email) {
-    return RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email);
+    return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+").hasMatch(email);
   }
 
 
@@ -143,6 +144,38 @@ class CommonUi {
         backgroundColor: Colors.black,
         textColor: Colors.white,
         fontSize: 16.0);
+  }
+
+  static String dateFormat(DateTime createdAt) {
+      final DateFormat formatter = DateFormat('yyyy-MM-dd');
+      final String formatted = formatter.format(createdAt);
+      return formatted;
+  }
+
+  static String timeFormat(DateTime createdAt) {
+    String formattedDate = DateFormat('kk:mm:a').format(createdAt);
+    return formattedDate;
+  }
+
+  static void imageSliders(List<dynamic> bannerList, RxList<Widget> imageSliders) {
+    imageSliders.value = bannerList
+        .map((item) => ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+      child: CachedNetworkImage(
+        fit: BoxFit.cover,
+        width: 1000.0,
+        imageUrl: item.image,
+        placeholder: (context, url) => Transform.scale(
+            scale: 0.2,
+            child: const CircularProgressIndicator(
+              strokeWidth: 10.5,
+              valueColor: AlwaysStoppedAnimation(Colors.white),
+            )),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      ),
+
+    ))
+        .toList();
   }
 
 }

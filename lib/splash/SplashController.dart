@@ -9,6 +9,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     Future.delayed(const Duration(milliseconds: 5000), () {
+
       getStorage.read('isRegisterOrLoggedIn') == true
           ? Get.off(DashBoardView())
           : Get.off(SignInView());

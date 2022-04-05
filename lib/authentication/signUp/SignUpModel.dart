@@ -6,58 +6,62 @@ import 'dart:convert';
 
 SignUpModel signUpModelFromJson(String str) => SignUpModel.fromJson(json.decode(str));
 
-// String signUpModelToJson(SignUpModel data) => json.encode(data.toJson());
+String signUpModelToJson(SignUpModel data) => json.encode(data.toJson());
 
 class SignUpModel {
   SignUpModel({
-    required this.status,
-    required this.data,
+    this.status,
+    this.data,
+    this.message,
   });
 
-  bool status;
-  Data data;
+  bool? status;
+  Data? data;
+  String? message;
 
   factory SignUpModel.fromJson(Map<String, dynamic> json) => SignUpModel(
     status: json["status"],
-    data: Data.fromJson(json["data"]),
+    data: json["data"]== null ? null :Data.fromJson(json["data"]),
+    message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data.toJson(),
+    "data": data?.toJson(),
+    "message": message,
   };
 }
 
 class Data {
   Data({
-    required this.name,
-    required this.email,
-    required this.mobileNumber,
-    required this.dob,
-    required this.gender,
-    required this.registerDeviceType,
-    required this.stripeId,
-    required this.status,
-    required this.updatedAt,
-    required this.createdAt,
-    required this.token,
-    required this.role,
-    required this.redirectToLogin,
+    this.name,
+    this.email,
+    this.mobileNumber,
+    this.dob,
+    this.gender,
+    this.registerDeviceType,
+    this.stripeId,
+    this.status,
+    this.updatedAt,
+    this.createdAt,
+    this.token,
+    this.role,
+    this.redirectToLogin,
   });
 
-  String name;
-  String email;
-  String mobileNumber;
-  DateTime dob;
-  String gender;
-  String registerDeviceType;
-  String stripeId;
-  int status;
-  DateTime updatedAt;
-  DateTime createdAt;
-  String token;
-  String role;
-  bool redirectToLogin;
+  String? name;
+  String? email;
+  String? mobileNumber;
+  DateTime? dob;
+  String? gender;
+  String? registerDeviceType;
+  String? stripeId;
+  int? status;
+  DateTime? updatedAt;
+  DateTime? createdAt;
+  String? token;
+  String? role;
+  bool? redirectToLogin;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     name: json["name"],
@@ -79,13 +83,13 @@ class Data {
     "name": name,
     "email": email,
     "mobile_number": mobileNumber,
-    "dob": "${dob.year.toString().padLeft(4, '0')}-${dob.month.toString().padLeft(2, '0')}-${dob.day.toString().padLeft(2, '0')}",
+    "dob": "${dob?.year.toString().padLeft(4, '0')}-${dob?.month.toString().padLeft(2, '0')}-${dob?.day.toString().padLeft(2, '0')}",
     "gender": gender,
     "register_device_type": registerDeviceType,
     "stripe_id": stripeId,
     "status": status,
-    "updated_at": updatedAt.toIso8601String(),
-    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "created_at": createdAt?.toIso8601String(),
     "token": token,
     "role": role,
     "redirect_to_login": redirectToLogin,

@@ -4,14 +4,14 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
-import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
+import 'package:ciao_chow/dashboard/home/viewAllScreens/businessNearAll/PartnersAllNearController.dart';
 import 'package:flutter/material.dart';
 
 class PartnersAroundItemList extends StatelessWidget{
   var index;
-  HomeController homeController;
+  PartnersAllNearController partnersAllNearController;
 
-  PartnersAroundItemList(this.index, this.homeController, {Key? key}) : super(key: key);
+  PartnersAroundItemList(this.index, this.partnersAllNearController, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class PartnersAroundItemList extends StatelessWidget{
           child: CachedNetworkImage(
             height: 230,
             fit: BoxFit.cover,
-            imageUrl: homeController.arrayPartners[index].featuredImage,
+            imageUrl: partnersAllNearController.arrayBusinessList[index].featuredImage!,
             placeholder: (context, url) => Transform.scale(
                 scale: 0.2,
                 child: const CircularProgressIndicator(
@@ -54,7 +54,7 @@ class PartnersAroundItemList extends StatelessWidget{
                   width: 130,
                   child: Text(
                     Utils.getString(context,
-                        homeController.arrayPartners[index].businessName),
+                        partnersAllNearController.arrayBusinessList[index].businessName!),
                     textAlign: TextAlign.start,
                     style: CommonUi.customTextStyle1(
                         Fonts.interMedium,
@@ -70,7 +70,7 @@ class PartnersAroundItemList extends StatelessWidget{
                   margin: const EdgeInsets.only(top: 5),
                   child: Text(
                     Utils.getString(context,
-                        homeController.arrayPartners[index].address),
+                        partnersAllNearController.arrayBusinessList[index].address!),
                     style: CommonUi.customTextStyle1(
                         Fonts.interRegular,
                         12.0,
@@ -90,8 +90,7 @@ class PartnersAroundItemList extends StatelessWidget{
                       Text(
                         Utils.getString(
                             context,
-                            homeController
-                                .arrayPartners[index].distance),
+                            partnersAllNearController.arrayBusinessList[index].distance!+ ' miles away'),
                         style: CommonUi.customTextStyle1(
                             Fonts.interItalic,
                             8.0,

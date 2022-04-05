@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
-import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
+import 'package:ciao_chow/dashboard/home/viewAllScreens/latest/LatestCheckInController.dart';
 import 'package:flutter/material.dart';
 
-class LatestCheckInListItem extends StatelessWidget {
+class LatestAllCheckIn extends StatelessWidget {
   var index;
-  HomeController homeController;
+  LatestCheckInController latestCheckInController;
 
-  LatestCheckInListItem(this.index, this.homeController, {Key? key})
+  LatestAllCheckIn(this.index, this.latestCheckInController, {Key? key})
       : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class LatestCheckInListItem extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: homeController.arrayLatestCheckIns[index].featuredImage,
+                    imageUrl: latestCheckInController.arrayAllCheckIns[index].featuredImage!,
                     placeholder: (context, url) => Transform.scale(
                         scale: 0.2,
                         child: const CircularProgressIndicator(
@@ -37,21 +37,21 @@ class LatestCheckInListItem extends StatelessWidget {
                           valueColor: AlwaysStoppedAnimation(Colors.white),
                         )),
                     errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
+                    const Icon(Icons.error),
                   ),
                 )),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  homeController.arrayLatestCheckIns[index].businessName , style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
-                  FontWeight.w500, AppColors.Black, TextDecoration.none),overflow: TextOverflow.ellipsis,maxLines: 1,
+                  latestCheckInController.arrayAllCheckIns[index].businessName! , style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
+                    FontWeight.w500, AppColors.Black, TextDecoration.none),overflow: TextOverflow.ellipsis,maxLines: 1,
                 ),
 
                 const SizedBox(height: 4,),
 
                 Text(
-                  homeController.arrayLatestCheckIns[index].address,
+                  latestCheckInController.arrayAllCheckIns[index].address!,
                   style: CommonUi.customTextStyle1(
                       Fonts.interRegular,
                       12.0,
@@ -61,7 +61,7 @@ class LatestCheckInListItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 4,),
                 Text(
-                  CommonUi.dateFormat(homeController.arrayLatestCheckIns[index].createdAt),
+                  CommonUi.dateFormat(latestCheckInController.arrayAllCheckIns[index].createdAt!),
                   style: CommonUi.customTextStyle1(
                       Fonts.interRegular,
                       12.0,
@@ -71,7 +71,7 @@ class LatestCheckInListItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 4,),
                 Text(
-                  CommonUi.timeFormat(homeController.arrayLatestCheckIns[index].createdAt),
+                  CommonUi.timeFormat(latestCheckInController.arrayAllCheckIns[index].createdAt!),
                   style: CommonUi.customTextStyle1(
                       Fonts.interRegular,
                       12.0,

@@ -102,7 +102,7 @@ class PartnersHomeListItem extends StatelessWidget {
                           Utils.getString(
                               context,
                               homeController
-                                  .arrayPartners[index].distance),
+                                  .arrayPartners[index].distance + ' miles away'),
                           style: CommonUi.customTextStyle1(
                               Fonts.interItalic,
                               8.0,

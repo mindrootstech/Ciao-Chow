@@ -15,7 +15,6 @@ class SignInView extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
   var signInController = Get.put(SignInController());
-  final getStorage = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +64,18 @@ class SignInView extends StatelessWidget {
                             const SizedBox(height: 10),
                             TextFormField(
                                 validator: (value) {
-                                  if (value == null || value.isEmpty) {
+                                  if (value != null || value!.isNotEmpty) {
+                                    if (CommonUi.emailValid(signInController
+                                        .emailController.value.text
+                                        .trim()) ==
+                                        false) {
+                                      return 'Please enter valid email';
+                                    } else {
+                                      return null;
+                                    }
+                                  } else {
                                     return 'Please enter email';
                                   }
-                                  return null;
                                 },
                                 controller: signInController.emailController.value,
                                 cursorColor: AppColors.textFieldsHint,
@@ -136,19 +143,24 @@ class SignInView extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 if (_formKey.currentState!.validate()){
+                                  if (signInController.passwordController.value.text.length < 6 ) {
+                                    CommonUi.showToast("password is too short.");
+                                    return;
+                                  }
+
                                   signInController.logInImplementation(
                                     signInController.emailController.value.text.trim(),
                                     signInController.passwordController.value.text.trim()).
                                   then((value) {
-                                    if (value.status) {
-                                      getStorage.write('token', value.data.token);
-                                      // signInController.getStorage.write("stripeCustomerId", value.data.stripeCustomerId);
+                                    if (value.status!) {
+                                      signInController.getStorage.write('token', value.data!.token);
+                                      signInController.getStorage.write("stripeCustomerId", value.data!.stripeId);
                                       signInController.loginLoaderShow.value = false;
-                                      getStorage.write('isRegisterOrLoggedIn', true);
+                                      signInController.getStorage.write('isRegisterOrLoggedIn', true);
                                       Get.off(DashBoardView());
                                       // showToast(value.message);
                                     } else {
-                                      // showToast(value.message);
+                                      CommonUi.showToast(value.message!);
                                       signInController.loginLoaderShow.value = false;
                                     }
                                   });

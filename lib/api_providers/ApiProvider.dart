@@ -8,14 +8,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-
-class ApiProvider extends GetConnect{
-
+class ApiProvider extends GetConnect {
   final getStorage = GetStorage();
 
   @override
   var baseUrl = "https://development.mind-roots.com/ciao-chow/api";
-
 
   Future<SignInModel> getLogIn(String emailText, String passwordText) async {
     final response = await post("/login", {
@@ -25,29 +22,54 @@ class ApiProvider extends GetConnect{
       'firebase_id': 'abc',
       'time_zone': 'india/kolkata'
     });
-      if (response.status.hasError) {
-        var errorResponce = loginModelFromJson(response.bodyString!);
-        return errorResponce;
-      } else {
-        var responce = loginModelFromJson(response.bodyString!);
-        return responce;
-      }
+    if (response.status.hasError) {
+      var errorResponce = loginModelFromJson(response.bodyString!);
+      return errorResponce;
+    } else {
+      var responce = loginModelFromJson(response.bodyString!);
+      return responce;
+    }
   }
 
-  Future<SignUpModel> getSignUp(String userName, String phoneNumber, String email, String password, String gender, String dateOfBirth, String imagePath, String imageName) async {
+  Future<SignUpModel> getSignUp(
+      String userName,
+      String phoneNumber,
+      String email,
+      String password,
+      String gender,
+      String dateOfBirth,
+      String imagePath,
+      String imageName) async {
     var request = http.MultipartRequest('POST', Uri.parse("/register"));
-    request.files.add(await http.MultipartFile.fromPath('profile_image', imagePath));
-    final response = await post("/register", {
-      'name': userName,
-      'mobile_number': phoneNumber,
-      'email': email,
-      'password': password,
-      'gender': gender,
-      'dob': dateOfBirth,
-      'register_device_type': '1',
-      'firebase_id': 'abc',
-      'time_zone': 'india/kolkata'
-    });
+    var response;
+    if (imagePath.isNotEmpty) {
+      request.files
+          .add(await http.MultipartFile.fromPath('profile_image', imagePath));
+      response = await post("/register", {
+        'name': userName,
+        'mobile_number': phoneNumber,
+        'email': email,
+        'password': password,
+        'gender': gender,
+        'dob': dateOfBirth,
+        'register_device_type': '1',
+        'firebase_id': 'abc',
+        'time_zone': 'india/kolkata'
+      });
+    } else {
+      response = await post("/register", {
+        'name': userName,
+        'mobile_number': phoneNumber,
+        'email': email,
+        'password': password,
+        'gender': gender,
+        'dob': dateOfBirth,
+        'register_device_type': '1',
+        'firebase_id': 'abc',
+        'time_zone': 'india/kolkata',
+        'profile_image': ''
+      });
+    }
     if (response.status.hasError) {
       var errorResponce = signUpModelFromJson(response.bodyString!);
       return errorResponce;
@@ -58,32 +80,55 @@ class ApiProvider extends GetConnect{
   }
 
   Future<String> getHomeData(String latitude, String longitude) async {
+    final response = await post('/home', {
+      'lat': latitude,
+      'long': longitude,
+    }, headers: {
+      'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+  }
 
-
-    final response = await post('/home', {'lat': latitude,
-      'long': longitude,},
+  Future<String> getLatestCheckIns() async {
+    final response = await post('/view-all-user-checkins', {},
         headers: {'Authorization': 'Bearer ${getStorage.read('token')}'});
     if (response.status.hasError) {
       return 'error';
     } else {
       return json.encode(response.body);
     }
-
-
   }
 
-  // Future<ForgotPasswordModel> getForgotPassword(String email) async {
-  //   final response = await post("/forgot-password", {
-  //     'email': email
-  //   });
-  //   if (response.status.hasError) {
-  //     var errorResponce = forgotModelFromJson(response.bodyString!);
-  //     return errorResponce;
-  //   } else {
-  //     var responce = forgotModelFromJson(response.bodyString!);
-  //     return responce;
-  //   }
-  // }
+  Future<String> getAllBusiness() async {
+    final response = await post('/view-all-business', {
+      'page_no': '1',
+      'lat': getStorage.read('lat'),
+      'long': getStorage.read('long')
+    }, headers: {
+      'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+  }
+
+// Future<ForgotPasswordModel> getForgotPassword(String email) async {
+//   final response = await post("/forgot-password", {
+//     'email': email
+//   });
+//   if (response.status.hasError) {
+//     var errorResponce = forgotModelFromJson(response.bodyString!);
+//     return errorResponce;
+//   } else {
+//     var responce = forgotModelFromJson(response.bodyString!);
+//     return responce;
+//   }
+// }
 
 }
-
