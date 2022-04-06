@@ -142,4 +142,20 @@ class ApiProvider extends GetConnect {
       return json.encode(response.body);
     }
   }
+
+  Future<String> getBusinessDetails() async {
+    final response = await post('/user-checkin', {
+      'business_id': '1',
+      'lat': getStorage.read('lat'),
+      'long': getStorage.read('long')
+    }, headers: {
+      'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+
+  }
 }

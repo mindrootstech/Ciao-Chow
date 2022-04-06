@@ -4,7 +4,7 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
-import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
+import 'package:ciao_chow/dashboard/home/detailPge/BusinessDetailsController.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/PartnersHomeListItem.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 class BusinessDetailsView extends StatelessWidget {
   BusinessDetailsView({Key? key}) : super(key: key);
 
-  HomeController homeController = Get.find();
+  var businessDetailsController = Get.put(BusinessDetailsController());
 
   final List<String> imgList = [
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -43,6 +43,8 @@ class BusinessDetailsView extends StatelessWidget {
               ),
             ))
         .toList();
+
+    apiImplementation();
 
     return Scaffold(
       backgroundColor: AppColors.White,
@@ -334,17 +336,17 @@ class BusinessDetailsView extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-              height: 140,
-              margin: const EdgeInsets.only(left: 20, top: 14),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: homeController.arrayPartners.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return PartnersHomeListItem(index, homeController);
-                },
-              ),
-            ),
+            // Container(
+            //   height: 140,
+            //   margin: const EdgeInsets.only(left: 20, top: 14),
+            //   child: ListView.builder(
+            //     scrollDirection: Axis.horizontal,
+            //     itemCount: homeController.arrayPartners.length,
+            //     itemBuilder: (BuildContext context, int index) {
+            //       return PartnersHomeListItem(index, homeController);
+            //     },
+            //   ),
+            // ),
             const SizedBox(
               height: 20,
             ),
@@ -352,5 +354,10 @@ class BusinessDetailsView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void apiImplementation() {
+    businessDetailsController.getBusinessDetails();
+
   }
 }
