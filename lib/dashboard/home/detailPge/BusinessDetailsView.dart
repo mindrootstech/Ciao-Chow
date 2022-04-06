@@ -223,10 +223,16 @@ class BusinessDetailsView extends StatelessWidget {
                   ),
                   ExpandableText(
                     'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-                    expandText: '\n' +Utils.getString(context, 'read_more'),
+                    expandText: '\n' + Utils.getString(context, 'read_more'),
                     collapseText: '\n' + Utils.getString(context, 'read_less'),
                     maxLines: 4,
-                    linkColor: AppColors.AppColorGrad2,style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0, FontWeight.w400, AppColors.textFieldsHint, TextDecoration.none),
+                    linkColor: AppColors.AppColorGrad2,
+                    style: CommonUi.customTextStyle1(
+                        Fonts.interRegular,
+                        12.0,
+                        FontWeight.w400,
+                        AppColors.textFieldsHint,
+                        TextDecoration.none),
                   ),
                   const SizedBox(
                     height: 20,
