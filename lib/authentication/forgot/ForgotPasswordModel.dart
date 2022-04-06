@@ -6,24 +6,24 @@ import 'dart:convert';
 
 ForgotPasswordModel forgotPasswordModelFromJson(String str) => ForgotPasswordModel.fromJson(json.decode(str));
 
-String forgotModelFromJson(ForgotPasswordModel data) => json.encode(data.toJson());
+String forgotPasswordModelToJson(ForgotPasswordModel data) => json.encode(data.toJson());
 
 class ForgotPasswordModel {
   ForgotPasswordModel({
-    required this.status,
-    required this.data,
+    this.status,
+    this.text,
   });
 
-  bool status;
-  String data;
+  bool? status;
+  String? text;
 
   factory ForgotPasswordModel.fromJson(Map<String, dynamic> json) => ForgotPasswordModel(
     status: json["status"],
-    data: json["data"],
+    text: json["text"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data,
+    "text": text,
   };
 }

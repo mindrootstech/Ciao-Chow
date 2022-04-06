@@ -29,7 +29,7 @@ class LatestCheckInListItem extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: homeController.arrayLatestCheckIns[index].featuredImage,
+                    imageUrl: homeController.arrayLatestCheckIns[index].featuredImage!,
                     placeholder: (context, url) => Transform.scale(
                         scale: 0.2,
                         child: const CircularProgressIndicator(
@@ -44,14 +44,14 @@ class LatestCheckInListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  homeController.arrayLatestCheckIns[index].businessName , style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
+                  homeController.arrayLatestCheckIns[index].businessName! , style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
                   FontWeight.w500, AppColors.Black, TextDecoration.none),overflow: TextOverflow.ellipsis,maxLines: 1,
                 ),
 
                 const SizedBox(height: 4,),
 
                 Text(
-                  homeController.arrayLatestCheckIns[index].address,
+                  homeController.arrayLatestCheckIns[index].address!,
                   style: CommonUi.customTextStyle1(
                       Fonts.interRegular,
                       12.0,
@@ -61,7 +61,7 @@ class LatestCheckInListItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 4,),
                 Text(
-                  CommonUi.dateFormat(homeController.arrayLatestCheckIns[index].createdAt),
+                  CommonUi.dateFormat(homeController.arrayLatestCheckIns[index].createdAt!),
                   style: CommonUi.customTextStyle1(
                       Fonts.interRegular,
                       12.0,
@@ -71,7 +71,7 @@ class LatestCheckInListItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 4,),
                 Text(
-                  CommonUi.timeFormat(homeController.arrayLatestCheckIns[index].createdAt),
+                  CommonUi.timeFormat(homeController.arrayLatestCheckIns[index].createdAt!),
                   style: CommonUi.customTextStyle1(
                       Fonts.interRegular,
                       12.0,

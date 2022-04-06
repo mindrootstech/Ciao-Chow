@@ -7,13 +7,11 @@ class ForgotPasswordController extends GetxController{
 
   var emailController = TextEditingController().obs;
   final _apiProvider = ApiProvider();
+  var forgotLoaderShow = false.obs;
 
 
-  // Future<ForgotPasswordModel> forgotApiImplementation(
-  //     String email
-  //     ) {
-  //   return _apiProvider.getForgotPassword(
-  //       email);
-  // }
+  Future<ForgotPasswordModel> forgotApiImplementation(String email) {
+    return _apiProvider.getForgotPassword(email);
+  }
 
 }

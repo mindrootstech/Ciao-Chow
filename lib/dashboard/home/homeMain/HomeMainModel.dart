@@ -12,12 +12,12 @@ String homeMainModelToJson(HomeMainModel data) => json.encode(data.toJson());
 
 class HomeMainModel {
   HomeMainModel({
-    required this.status,
-    required this.data,
+    this.status,
+    this.data,
   });
 
-  bool status;
-  Data data;
+  bool? status;
+  Data? data;
 
   factory HomeMainModel.fromJson(Map<String, dynamic> json) => HomeMainModel(
     status: json["status"],
@@ -26,7 +26,7 @@ class HomeMainModel {
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data.toJson(),
+    "data": data?.toJson(),
   };
 }
 
@@ -60,24 +60,24 @@ class Data {
 
 class Banner {
   Banner({
-   required this.id,
-   required this.bannerName,
-   required this.image,
-   required this.clickType,
-   required this.clickValue,
-   required this.status,
-   required this.createdAt,
-   required this.updatedAt,
+   this.id,
+   this.bannerName,
+   this.image,
+   this.clickType,
+   this.clickValue,
+   this.status,
+   this.createdAt,
+   this.updatedAt,
   });
 
-  int id;
-  String bannerName;
-  String image;
-  int clickType;
-  String clickValue;
-  int status;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? id;
+  String? bannerName;
+  String? image;
+  int? clickType;
+  String? clickValue;
+  int? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory Banner.fromJson(Map<String, dynamic> json) => Banner(
     id: json["id"],
@@ -97,55 +97,55 @@ class Banner {
     "click_type": clickType,
     "click_value": clickValue,
     "status": status,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
   };
 }
 
 class BusinessList {
   BusinessList({
-    required this.id,
-    required this.businessName,
-    required this.businessIdentifier,
-    required this.featuredImage,
-    required this.address,
-    required this.lat,
-    required this.long,
-    required this.allowedRadius,
-    required this.emailAddress,
-    required this.contactNumber,
-    required this.openingHours,
-    required this.description,
-    required this.totalCheckins,
-    required this.payoutDetails,
-    required this.status,
-    required this.isFeatured,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.createdBy,
-    required this.distance,
+    this.id,
+    this.businessName,
+    this.businessIdentifier,
+    this.featuredImage,
+    this.address,
+    this.lat,
+    this.long,
+    this.allowedRadius,
+    this.emailAddress,
+    this.contactNumber,
+    this.openingHours,
+    this.description,
+    this.totalCheckins,
+    this.payoutDetails,
+    this.status,
+    this.isFeatured,
+    this.createdAt,
+    this.updatedAt,
+    this.createdBy,
+    this.distance,
   });
 
-  int id;
-  String businessName;
-  String businessIdentifier;
-  String featuredImage;
-  String address;
-  String lat;
-  String long;
-  String allowedRadius;
-  String emailAddress;
-  String contactNumber;
-  String openingHours;
-  String description;
-  String totalCheckins;
-  String payoutDetails;
-  int status;
-  String isFeatured;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int createdBy;
-  String distance;
+  int? id;
+  String? businessName;
+  String? businessIdentifier;
+  String? featuredImage;
+  String? address;
+  String? lat;
+  String? long;
+  String? allowedRadius;
+  String? emailAddress;
+  String? contactNumber;
+  String? openingHours;
+  String? description;
+  String? totalCheckins;
+  String? payoutDetails;
+  int? status;
+  String? isFeatured;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? createdBy;
+  String? distance;
 
   factory BusinessList.fromJson(Map<String, dynamic> json) => BusinessList(
     id: json["id"],
@@ -187,8 +187,8 @@ class BusinessList {
     "payout_details": payoutDetails,
     "status": status,
     "is_featured": isFeatured,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
     "created_by": createdBy,
     "distance": distance,
   };
@@ -264,18 +264,18 @@ class Profile {
 
 class UserCheckin {
   UserCheckin({
-    required this.featuredImage,
-    required this.businessName,
-    required this.address,
-    required this.createdAt,
-    required this.businessId,
+    this.featuredImage,
+    this.businessName,
+    this.address,
+    this.createdAt,
+    this.businessId,
   });
 
-  String featuredImage;
-  String businessName;
-  String address;
-  DateTime createdAt;
-  int businessId;
+  String? featuredImage;
+  String? businessName;
+  String? address;
+  DateTime? createdAt;
+  int? businessId;
 
   factory UserCheckin.fromJson(Map<String, dynamic> json) => UserCheckin(
     featuredImage: json["featured_image"],
@@ -289,7 +289,7 @@ class UserCheckin {
     "featured_image": featuredImage,
     "business_name": businessName,
     "address": address,
-    "created_at": createdAt.toIso8601String(),
+    "created_at": createdAt?.toIso8601String(),
     "business_id": businessId,
   };
 }

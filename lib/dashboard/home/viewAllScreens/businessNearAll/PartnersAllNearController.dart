@@ -11,6 +11,7 @@ class PartnersAllNearController extends GetxController{
   List<BusinessList> arrayBusinessList = <gt.BusinessList>[].obs;
   var  imageSliders = <Widget>[].obs;
   var bannerList = <gt.Banner>[].obs;
+  var parentAllLoaderShow = false.obs;
 
   void getAllBusinessList() {
     _apiProvider.getAllBusiness().then((value)
@@ -21,6 +22,7 @@ class PartnersAllNearController extends GetxController{
       arrayBusinessList.addAll(response.data!.businessList);
       bannerList.addAll(response.data!.banners);
       addBannerList(bannerList);
+      parentAllLoaderShow.value = false;
 
     });
   }

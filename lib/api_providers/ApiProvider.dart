@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:ciao_chow/authentication/forgot/ForgotPasswordModel.dart';
 import 'package:ciao_chow/authentication/signIn/SignInModel.dart';
 import 'package:ciao_chow/authentication/signUp/SignUpModel.dart';
-import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -118,17 +117,29 @@ class ApiProvider extends GetConnect {
     }
   }
 
-// Future<ForgotPasswordModel> getForgotPassword(String email) async {
-//   final response = await post("/forgot-password", {
-//     'email': email
-//   });
-//   if (response.status.hasError) {
-//     var errorResponce = forgotModelFromJson(response.bodyString!);
-//     return errorResponce;
-//   } else {
-//     var responce = forgotModelFromJson(response.bodyString!);
-//     return responce;
-//   }
-// }
+  Future<ForgotPasswordModel> getForgotPassword(String email) async {
+    final response = await post("/forgot-password", {'email': email});
+    if (response.status.hasError) {
+      var errorResponce = forgotPasswordModelFromJson(response.bodyString!);
+      return errorResponce;
+    } else {
+      var responce = forgotPasswordModelFromJson(response.bodyString!);
+      return responce;
+    }
+  }
 
+  Future<String> getScannedData(String result) async {
+    final response = await post('/user-checkin', {
+      'business_identifier': result,
+      'user_lat': getStorage.read('lat'),
+      'user_long': getStorage.read('long')
+    }, headers: {
+      'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+  }
 }

@@ -91,15 +91,18 @@ class BusinessDetailsView extends StatelessWidget {
                   ),
                   Container(
                       height: 240,
-                      margin: const EdgeInsets.only(left: 20, right: 20),
+                      // margin: const EdgeInsets.only(left: 20, right: 20),
                       width: Get.width,
                       child: ClipRRect(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(14)),
                           child: CarouselSlider(
                             options: CarouselOptions(
-                              viewportFraction: 1.0,
-                              enlargeCenterPage: false,
+                              viewportFraction: 0.8,
+                              initialPage: 0,
+                              enableInfiniteScroll: false,
+                              reverse: false,
+                              enlargeCenterPage: true,
                               // autoPlay: false,
                               // aspectRatio: 2.0,
                               // enlargeCenterPage: false,

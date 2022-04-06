@@ -168,8 +168,11 @@ class EventsView extends StatelessWidget {
                               const BorderRadius.all(Radius.circular(14)),
                           child: CarouselSlider(
                             options: CarouselOptions(
-                              viewportFraction: 1.0,
-                              enlargeCenterPage: false,
+                              viewportFraction: 0.8,
+                              initialPage: 0,
+                              enableInfiniteScroll: false,
+                              reverse: false,
+                              enlargeCenterPage: true,
                               // autoPlay: false,
                               // aspectRatio: 2.0,
                               // enlargeCenterPage: false,

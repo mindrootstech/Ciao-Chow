@@ -7,9 +7,8 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
 
 class CommonUi {
-
   static var dropDownButtonDecoration =
-  const InputDecoration.collapsed(hintText: "",border: InputBorder.none);
+      const InputDecoration.collapsed(hintText: "", border: InputBorder.none);
 
   static var gradientColorForSplash = const BoxDecoration(
     gradient: LinearGradient(
@@ -37,7 +36,18 @@ class CommonUi {
 
   static commonBoxDecorationAllSides(double radius, Color color) {
     return BoxDecoration(
-        color: color, borderRadius: BorderRadius.all(Radius.circular(radius)));
+        color: color,
+        borderRadius: BorderRadius.all(Radius.circular(
+          radius,
+        )));
+  }
+
+  static commonBorderDecoration(double radius, Color color) {
+    return BoxDecoration(
+        border: Border.all(color: color, width: 3),
+        borderRadius: BorderRadius.all(Radius.circular(
+          radius,
+        )));
   }
 
   static commonBoxDecorationAllOverlay(double radius) {
@@ -98,9 +108,10 @@ class CommonUi {
   );
 
   static emailValid(String email) {
-    return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+").hasMatch(email);
+    return RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+")
+        .hasMatch(email);
   }
-
 
   static phoneNumberValidator(String value) {
     return RegExp(r'^(?:\+?88|0088)?01[13-9]\d{8}$').hasMatch(value);
@@ -147,9 +158,9 @@ class CommonUi {
   }
 
   static String dateFormat(DateTime createdAt) {
-      final DateFormat formatter = DateFormat('yyyy-MM-dd');
-      final String formatted = formatter.format(createdAt);
-      return formatted;
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String formatted = formatter.format(createdAt);
+    return formatted;
   }
 
   static String timeFormat(DateTime createdAt) {
@@ -157,25 +168,24 @@ class CommonUi {
     return formattedDate;
   }
 
-  static void imageSliders(List<dynamic> bannerList, RxList<Widget> imageSliders) {
+  static void imageSliders(
+      List<dynamic> bannerList, RxList<Widget> imageSliders) {
     imageSliders.value = bannerList
         .map((item) => ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-      child: CachedNetworkImage(
-        fit: BoxFit.cover,
-        width: 1000.0,
-        imageUrl: item.image,
-        placeholder: (context, url) => Transform.scale(
-            scale: 0.2,
-            child: const CircularProgressIndicator(
-              strokeWidth: 10.5,
-              valueColor: AlwaysStoppedAnimation(Colors.white),
-            )),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
-      ),
-
-    ))
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                width: 1000.0,
+                imageUrl: item.image,
+                placeholder: (context, url) => Transform.scale(
+                    scale: 0.2,
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 10.5,
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    )),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ))
         .toList();
   }
-
 }

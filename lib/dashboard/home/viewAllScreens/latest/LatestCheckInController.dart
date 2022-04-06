@@ -6,6 +6,7 @@ class LatestCheckInController extends GetxController{
 
   List<UserCheckin> arrayAllCheckIns = <UserCheckin>[].obs;
   final _apiProvider = ApiProvider();
+  var loaderLatest = false.obs;
 
 
   getLatestCheckIns() {
@@ -14,6 +15,7 @@ class LatestCheckInController extends GetxController{
       var response = latestCheckInMainModelFromJson(value);
       arrayAllCheckIns.clear();
       arrayAllCheckIns.addAll(response.data!.userCheckins);
+      loaderLatest.value = false;
 
     });
 

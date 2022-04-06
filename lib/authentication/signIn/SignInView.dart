@@ -8,7 +8,6 @@ import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/DashBoardView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class SignInView extends StatelessWidget {
   SignInView({Key? key}) : super(key: key);
@@ -18,6 +17,7 @@ class SignInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: AppColors.AppColorGrad2,
       body: Form(

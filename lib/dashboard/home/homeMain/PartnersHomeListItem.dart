@@ -32,7 +32,7 @@ class PartnersHomeListItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: 200,
                   fit: BoxFit.cover,
-                  imageUrl: homeController.arrayPartners[index].featuredImage,
+                  imageUrl: homeController.arrayPartners[index].featuredImage!,
                   placeholder: (context, url) => Transform.scale(
                       scale: 0.2,
                       child: const CircularProgressIndicator(
@@ -102,7 +102,7 @@ class PartnersHomeListItem extends StatelessWidget {
                           Utils.getString(
                               context,
                               homeController
-                                  .arrayPartners[index].distance + ' miles away'),
+                                  .arrayPartners[index].distance! + ' miles away'),
                           style: CommonUi.customTextStyle1(
                               Fonts.interItalic,
                               8.0,
