@@ -21,6 +21,7 @@ class SignUpController extends GetxController{
   final _apiProvider = ApiProvider();
   var imageName = '';
   var imagePathNew = '';
+  var passwordVisibleLogin = false.obs;
   final getStorage = GetStorage();
 
 

@@ -30,21 +30,25 @@ class BusinessMainModel {
 
 class Data {
   Data({
-    required this.banners,
-    required this.businessList,
+    this.banners,
+    this.businessList,
+    this.businessCount,
   });
 
-  List<Banner> banners;
-  List<BusinessList> businessList;
+  List<Banner>? banners;
+  List<BusinessList>? businessList;
+  int? businessCount;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     banners: List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
     businessList: List<BusinessList>.from(json["business_list"].map((x) => BusinessList.fromJson(x))),
+    businessCount: json["business_count"],
   );
 
   Map<String, dynamic> toJson() => {
-    "banners": List<dynamic>.from(banners.map((x) => x.toJson())),
-    "business_list": List<dynamic>.from(businessList.map((x) => x.toJson())),
+    "banners": List<dynamic>.from(banners!.map((x) => x.toJson())),
+    "business_list": List<dynamic>.from(businessList!.map((x) => x.toJson())),
+    "business_count": businessCount,
   };
 }
 
@@ -97,7 +101,6 @@ class BusinessList {
     this.id,
     this.businessName,
     this.businessIdentifier,
-    this.featuredImage,
     this.address,
     this.lat,
     this.long,
@@ -108,18 +111,17 @@ class BusinessList {
     this.description,
     this.totalCheckins,
     this.payoutDetails,
-    this.status,
     this.isFeatured,
     this.createdAt,
     this.updatedAt,
-    this.createdBy,
     this.distance,
+    this.featuredImageUrl,
+    this.images,
   });
 
   int? id;
   String? businessName;
   String? businessIdentifier;
-  String? featuredImage;
   String? address;
   String? lat;
   String? long;
@@ -130,18 +132,17 @@ class BusinessList {
   String? description;
   String? totalCheckins;
   String? payoutDetails;
-  int? status;
   String? isFeatured;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int? createdBy;
   String? distance;
+  String? featuredImageUrl;
+  List<String>? images;
 
   factory BusinessList.fromJson(Map<String, dynamic> json) => BusinessList(
     id: json["id"],
     businessName: json["business_name"],
     businessIdentifier: json["business_identifier"],
-    featuredImage: json["featured_image"],
     address: json["address"],
     lat: json["lat"],
     long: json["long"],
@@ -152,19 +153,18 @@ class BusinessList {
     description: json["description"],
     totalCheckins: json["total_checkins"],
     payoutDetails: json["payout_details"],
-    status: json["status"],
     isFeatured: json["is_featured"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    createdBy: json["created_by"],
     distance: json["distance"],
+    featuredImageUrl: json["featured_image_url"],
+    images: List<String>.from(json["images"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "business_name": businessName,
     "business_identifier": businessIdentifier,
-    "featured_image": featuredImage,
     "address": address,
     "lat": lat,
     "long": long,
@@ -175,11 +175,11 @@ class BusinessList {
     "description": description,
     "total_checkins": totalCheckins,
     "payout_details": payoutDetails,
-    "status": status,
     "is_featured": isFeatured,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
-    "created_by": createdBy,
     "distance": distance,
+    "featured_image_url": featuredImageUrl,
+    "images": List<dynamic>.from(images!.map((x) => x)),
   };
 }

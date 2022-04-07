@@ -1,5 +1,3 @@
-// // To parse this JSON data, do
-// //
 // To parse this JSON data, do
 //
 //     final homeMainModel = homeMainModelFromJson(jsonString);
@@ -32,42 +30,42 @@ class HomeMainModel {
 
 class Data {
   Data({
-    required this.profile,
-    required this.banners,
-    required this.businessList,
-    required this.userCheckins,
+    this.profile,
+    this.banners,
+    this.businessList,
+    this.userCheckins,
   });
 
-  Profile profile;
-  List<Banner> banners;
-  List<BusinessList> businessList;
-  List<UserCheckin> userCheckins;
+  Profile? profile;
+  List<Banner>? banners;
+  List<Business>? businessList;
+  List<UserCheckin>? userCheckins;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     profile: Profile.fromJson(json["profile"]),
     banners: List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
-    businessList: List<BusinessList>.from(json["business_list"].map((x) => BusinessList.fromJson(x))),
+    businessList: List<Business>.from(json["business_list"].map((x) => Business.fromJson(x))),
     userCheckins: List<UserCheckin>.from(json["user_checkins"].map((x) => UserCheckin.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "profile": profile.toJson(),
-    "banners": List<dynamic>.from(banners.map((x) => x.toJson())),
-    "business_list": List<dynamic>.from(businessList.map((x) => x.toJson())),
-    "user_checkins": List<dynamic>.from(userCheckins.map((x) => x.toJson())),
+    "profile": profile?.toJson(),
+    "banners": List<dynamic>.from(banners!.map((x) => x.toJson())),
+    "business_list": List<dynamic>.from(businessList!.map((x) => x.toJson())),
+    "user_checkins": List<dynamic>.from(userCheckins!.map((x) => x.toJson())),
   };
 }
 
 class Banner {
   Banner({
-   this.id,
-   this.bannerName,
-   this.image,
-   this.clickType,
-   this.clickValue,
-   this.status,
-   this.createdAt,
-   this.updatedAt,
+    this.id,
+    this.bannerName,
+    this.image,
+    this.clickType,
+    this.clickValue,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
   });
 
   int? id;
@@ -102,12 +100,11 @@ class Banner {
   };
 }
 
-class BusinessList {
-  BusinessList({
+class Business {
+  Business({
     this.id,
     this.businessName,
     this.businessIdentifier,
-    this.featuredImage,
     this.address,
     this.lat,
     this.long,
@@ -118,18 +115,17 @@ class BusinessList {
     this.description,
     this.totalCheckins,
     this.payoutDetails,
-    this.status,
     this.isFeatured,
     this.createdAt,
     this.updatedAt,
-    this.createdBy,
     this.distance,
+    this.featuredImageUrl,
+    this.images,
   });
 
   int? id;
   String? businessName;
   String? businessIdentifier;
-  String? featuredImage;
   String? address;
   String? lat;
   String? long;
@@ -140,18 +136,17 @@ class BusinessList {
   String? description;
   String? totalCheckins;
   String? payoutDetails;
-  int? status;
   String? isFeatured;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int? createdBy;
   String? distance;
+  String? featuredImageUrl;
+  List<String>? images;
 
-  factory BusinessList.fromJson(Map<String, dynamic> json) => BusinessList(
+  factory Business.fromJson(Map<String, dynamic> json) => Business(
     id: json["id"],
     businessName: json["business_name"],
     businessIdentifier: json["business_identifier"],
-    featuredImage: json["featured_image"],
     address: json["address"],
     lat: json["lat"],
     long: json["long"],
@@ -162,19 +157,18 @@ class BusinessList {
     description: json["description"],
     totalCheckins: json["total_checkins"],
     payoutDetails: json["payout_details"],
-    status: json["status"],
     isFeatured: json["is_featured"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    createdBy: json["created_by"],
-    distance: json["distance"],
+    distance: json["distance"] == null ? null : json["distance"],
+    featuredImageUrl: json["featured_image_url"],
+    images: List<String>.from(json["images"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "business_name": businessName,
     "business_identifier": businessIdentifier,
-    "featured_image": featuredImage,
     "address": address,
     "lat": lat,
     "long": long,
@@ -185,31 +179,31 @@ class BusinessList {
     "description": description,
     "total_checkins": totalCheckins,
     "payout_details": payoutDetails,
-    "status": status,
     "is_featured": isFeatured,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
-    "created_by": createdBy,
-    "distance": distance,
+    "distance": distance == null ? null : distance,
+    "featured_image_url": featuredImageUrl,
+    "images": List<dynamic>.from(images!.map((x) => x)),
   };
 }
 
 class Profile {
   Profile({
-     this.name,
-     this.profileImage,
-     this.email,
-     this.mobileNumber,
-     this.dob,
-     this.gender,
-     this.registerDeviceType,
-     this.level,
-     this.totalPoints,
-     this.resetPassToken,
-     this.stripeId,
-     this.status,
-     this.createdAt,
-     this.updatedAt,
+    this.name,
+    this.profileImage,
+    this.email,
+    this.mobileNumber,
+    this.dob,
+    this.gender,
+    this.registerDeviceType,
+    this.level,
+    this.totalPoints,
+    this.resetPassToken,
+    this.stripeId,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
   });
 
   String? name;
@@ -264,32 +258,44 @@ class Profile {
 
 class UserCheckin {
   UserCheckin({
-    this.featuredImage,
-    this.businessName,
-    this.address,
-    this.createdAt,
+    this.id,
+    this.userId,
     this.businessId,
+    this.userLat,
+    this.userLong,
+    this.createdAt,
+    this.updatedAt,
+    this.business,
   });
 
-  String? featuredImage;
-  String? businessName;
-  String? address;
-  DateTime? createdAt;
+  int? id;
+  int? userId;
   int? businessId;
+  String? userLat;
+  String? userLong;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  Business? business;
 
   factory UserCheckin.fromJson(Map<String, dynamic> json) => UserCheckin(
-    featuredImage: json["featured_image"],
-    businessName: json["business_name"],
-    address: json["address"],
-    createdAt: DateTime.parse(json["created_at"]),
+    id: json["id"],
+    userId: json["user_id"],
     businessId: json["business_id"],
+    userLat: json["user_lat"],
+    userLong: json["user_long"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    business: Business.fromJson(json["business"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "featured_image": featuredImage,
-    "business_name": businessName,
-    "address": address,
-    "created_at": createdAt?.toIso8601String(),
+    "id": id,
+    "user_id": userId,
     "business_id": businessId,
+    "user_lat": userLat,
+    "user_long": userLong,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "business": business?.toJson(),
   };
 }

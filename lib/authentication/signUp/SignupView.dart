@@ -9,18 +9,18 @@ import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/DashBoardView.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class SignupView extends StatelessWidget {
   var signUpController = Get.put(SignUpController());
   TimeOfDay selectedTime = TimeOfDay.now();
   DateTime selectedDate = DateTime.now();
+
   SignupView({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +47,12 @@ class SignupView extends StatelessWidget {
                   width: Get.width,
                   margin: const EdgeInsets.only(top: 10, left: 20),
                   child: Text(Utils.getString(context, 'please_register'),
-                      style: CommonUi.customTextStyle1(Fonts.interRegular, 14.0,
-                          FontWeight.w400, AppColors.White, TextDecoration.none)),
+                      style: CommonUi.customTextStyle1(
+                          Fonts.interRegular,
+                          14.0,
+                          FontWeight.w400,
+                          AppColors.White,
+                          TextDecoration.none)),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -89,8 +93,8 @@ class SignupView extends StatelessWidget {
                             ),
                             child: Obx(
                               () => ClipRRect(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(100)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(100)),
                                 child: signUpController.imagePath.value == ''
                                     ? SvgPicture.asset(
                                         CommonUi.setSvgImage('default_image'),
@@ -120,7 +124,8 @@ class SignupView extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    decoration: CommonUi.commonBoxDecoration(24.0, AppColors.White),
+                    decoration:
+                        CommonUi.commonBoxDecoration(24.0, AppColors.White),
                     margin: const EdgeInsets.only(top: 15),
                     child: SingleChildScrollView(
                       child: Column(
@@ -138,8 +143,8 @@ class SignupView extends StatelessWidget {
                           ),
                           Container(
                             width: Get.width,
-                            margin:
-                                const EdgeInsets.only(top: 10, left: 20, right: 20),
+                            margin: const EdgeInsets.only(
+                                top: 10, left: 20, right: 20),
                             child: TextFormField(
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -172,8 +177,8 @@ class SignupView extends StatelessWidget {
                           ),
                           Container(
                             width: Get.width,
-                            margin:
-                                const EdgeInsets.only(top: 10, left: 20, right: 20),
+                            margin: const EdgeInsets.only(
+                                top: 10, left: 20, right: 20),
                             child: TextFormField(
                                 validator: (value) {
                                   if (value != null || value!.isNotEmpty) {
@@ -190,7 +195,8 @@ class SignupView extends StatelessWidget {
                                   }
                                   // return null;
                                 },
-                                controller: signUpController.emailController.value,
+                                controller:
+                                    signUpController.emailController.value,
                                 cursorColor: AppColors.textFieldsHint,
                                 decoration: CommonUi.textFieldDecoration(
                                     Utils.getString(context, 'email_hint')),
@@ -206,7 +212,8 @@ class SignupView extends StatelessWidget {
                           Container(
                             width: Get.width,
                             margin: const EdgeInsets.only(top: 20, left: 20),
-                            child: Text(Utils.getString(context, 'mobile_number'),
+                            child: Text(
+                                Utils.getString(context, 'mobile_number'),
                                 style: CommonUi.customTextStyle1(
                                     Fonts.interMedium,
                                     14.0,
@@ -216,23 +223,34 @@ class SignupView extends StatelessWidget {
                           ),
                           Container(
                             width: Get.width,
-                            margin:
-                                const EdgeInsets.only(top: 10, left: 20, right: 20),
+                            margin: const EdgeInsets.only(
+                                top: 10, left: 20, right: 20),
                             child: TextFormField(
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter Mobile Number';
-                                  } else if (value != null || value.isNotEmpty) {
-                                    if (signUpController.phoneController.value.text
-                                            .trim()
-                                            .length !=
-                                        10) {
+                                  } else if (value != null ||
+                                      value.isNotEmpty) {
+                                    if (signUpController
+                                                .phoneController.value.text
+                                                .trim()
+                                                .length <
+                                            9 ||
+                                        signUpController
+                                                .phoneController.value.text
+                                                .trim()
+                                                .length >
+                                            12) {
                                       return 'Please Enter Valid Phone Number';
                                     }
                                   }
                                   return null;
                                 },
-                                controller: signUpController.phoneController.value,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(12),
+                                ],
+                                controller:
+                                    signUpController.phoneController.value,
                                 keyboardType: TextInputType.phone,
                                 cursorColor: AppColors.textFieldsHint,
                                 decoration: CommonUi.textFieldDecoration(
@@ -252,7 +270,8 @@ class SignupView extends StatelessWidget {
                               Expanded(
                                 child: Container(
                                   width: Get.width,
-                                  margin: const EdgeInsets.only(top: 20, left: 20),
+                                  margin:
+                                      const EdgeInsets.only(top: 20, left: 20),
                                   child: Text(Utils.getString(context, 'dob'),
                                       style: CommonUi.customTextStyle1(
                                           Fonts.interMedium,
@@ -265,8 +284,10 @@ class SignupView extends StatelessWidget {
                               Expanded(
                                 child: Container(
                                   width: Get.width,
-                                  margin: const EdgeInsets.only(top: 20, left: 20),
-                                  child: Text(Utils.getString(context, 'gender'),
+                                  margin:
+                                      const EdgeInsets.only(top: 20, left: 20),
+                                  child: Text(
+                                      Utils.getString(context, 'gender'),
                                       style: CommonUi.customTextStyle1(
                                           Fonts.interMedium,
                                           14.0,
@@ -294,8 +315,8 @@ class SignupView extends StatelessWidget {
                                     } else if (Platform.isIOS) {
                                       DatePicker.showDatePicker(context,
                                           showTitleActions: true,
-                                          minTime:
-                                              DateTime(DateTime.now().year - 100),
+                                          minTime: DateTime(
+                                              DateTime.now().year - 100),
                                           maxTime: DateTime(
                                               DateTime.now().year,
                                               DateTime.now().month,
@@ -322,7 +343,8 @@ class SignupView extends StatelessWidget {
                               ),
                               Expanded(
                                 child: Container(
-                                  padding: const EdgeInsets.only(left: 16,right: 16),
+                                  padding: const EdgeInsets.only(
+                                      left: 16, right: 16),
                                   decoration: BoxDecoration(
                                       color: AppColors.textFieldsMain,
                                       borderRadius: BorderRadius.circular(10)),
@@ -335,16 +357,20 @@ class SignupView extends StatelessWidget {
                                       onTap: () {
                                         CommonUi.hideKeyBoard(context);
                                         signUpController.addAccountItems(
-                                            signUpController.accountDetail[0].name,
+                                            signUpController
+                                                .accountDetail[0].name,
                                             false,
-                                            signUpController.accountDetail[1].name,
+                                            signUpController
+                                                .accountDetail[1].name,
                                             true);
                                       },
 
                                       // underline: Container(),
-                                      decoration: CommonUi.dropDownButtonDecoration,
+                                      decoration:
+                                          CommonUi.dropDownButtonDecoration,
                                       hint: Text(
-                                          Utils.getString(context, 'gender_hint'),
+                                          Utils.getString(
+                                              context, 'gender_hint'),
                                           style: CommonUi.customTextStyle1(
                                             Fonts.interRegular,
                                             12.0,
@@ -405,26 +431,62 @@ class SignupView extends StatelessWidget {
                           ),
                           Container(
                             width: Get.width,
-                            margin:
-                                const EdgeInsets.only(top: 10, left: 20, right: 20),
-                            child: TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter Password';
-                                  }
-                                  return null;
-                                },
-                                controller: signUpController.passwordController.value,
-                                cursorColor: AppColors.textFieldsHint,
-                                decoration: CommonUi.textFieldDecoration(
-                                    Utils.getString(context, 'enter_password')),
-                                style: CommonUi.customTextStyle1(
-                                  Fonts.interRegular,
-                                  12.0,
-                                  FontWeight.w400,
-                                  AppColors.Black,
-                                  TextDecoration.none,
-                                )),
+                            margin: const EdgeInsets.only(
+                                top: 10, left: 20, right: 20),
+                            child: Obx(
+                              () => Stack(
+                                children: [
+                                  TextFormField(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter Password';
+                                        }
+                                        return null;
+                                      },
+                                      obscureText: signUpController
+                                          .passwordVisibleLogin.value,
+                                      controller: signUpController
+                                          .passwordController.value,
+                                      cursorColor: AppColors.textFieldsHint,
+                                      decoration: CommonUi.textFieldDecoration(
+                                          Utils.getString(
+                                              context, 'enter_password')),
+                                      style: CommonUi.customTextStyle1(
+                                        Fonts.interRegular,
+                                        12.0,
+                                        FontWeight.w400,
+                                        AppColors.Black,
+                                        TextDecoration.none,
+                                      )),
+                                  Positioned(
+                                    right: 16,
+                                    top: 0,
+                                    bottom: 0,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          signUpController.passwordVisibleLogin
+                                                      .value ==
+                                                  false
+                                              ? signUpController
+                                                  .passwordVisibleLogin
+                                                  .value = true
+                                              : signUpController
+                                                  .passwordVisibleLogin
+                                                  .value = false;
+                                        },
+                                        child: signUpController
+                                                    .passwordVisibleLogin.value ==
+                                                true
+                                            ? SvgPicture.asset(
+                                                CommonUi.setSvgImage(
+                                                    'password_show'))
+                                            : SvgPicture.asset(
+                                                CommonUi.setSvgImage(
+                                                    'notification'))),
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
 
                           // Container(
@@ -449,41 +511,58 @@ class SignupView extends StatelessWidget {
                                 // );
                                 // Get.off(DashBoardView());
 
-                                if (signUpController.accountDetail[0].name == 'Date of Birth') {
-                                  CommonUi.showToast("Select your Date of Birth.");
+                                if (signUpController.accountDetail[0].name ==
+                                    'Date of Birth') {
+                                  CommonUi.showToast(
+                                      "Select your Date of Birth.");
                                   return;
                                 }
-                                if (signUpController.genderValue.value == 'Gender') {
+                                if (signUpController.genderValue.value ==
+                                    'Gender') {
                                   CommonUi.showToast("Select your Gender.");
                                   return;
                                 }
 
-                                if (signUpController.passwordController.value.text.length < 6 ) {
+                                if (signUpController
+                                        .passwordController.value.text.length <
+                                    6) {
                                   CommonUi.showToast("password is too short.");
                                   return;
                                 }
 
-
-                                signUpController.signUpImplementation(
-                                  signUpController.userName.value.text.trim(),signUpController.phoneController.value.text.trim(),
-                                    signUpController.emailController.value.text.trim(),
-                                    signUpController.passwordController.value.text.trim()).
-                                then((value) {
+                                signUpController
+                                    .signUpImplementation(
+                                        signUpController.userName.value.text
+                                            .trim(),
+                                        signUpController
+                                            .phoneController.value.text
+                                            .trim(),
+                                        signUpController
+                                            .emailController.value.text
+                                            .trim(),
+                                        signUpController
+                                            .passwordController.value.text
+                                            .trim())
+                                    .then((value) {
                                   if (value.status!) {
-                                    signUpController.getStorage.write('token', value.data!.token);
-                                    signUpController.getStorage.write("stripeCustomerId", value.data!.stripeId);
-                                    signUpController.signUpLoaderShow.value = false;
-                                    signUpController.getStorage.write('isRegisterOrLoggedIn', true);
+                                    signUpController.getStorage
+                                        .write('token', value.data!.token);
+                                    signUpController.getStorage.write(
+                                        "stripeCustomerId",
+                                        value.data!.stripeId);
+                                    signUpController.signUpLoaderShow.value =
+                                        false;
+                                    signUpController.getStorage
+                                        .write('isRegisterOrLoggedIn', true);
                                     Get.off(DashBoardView());
                                     // showToast(value.message);
                                   } else {
                                     CommonUi.showToast(value.message!);
-                                    signUpController.signUpLoaderShow.value = false;
+                                    signUpController.signUpLoaderShow.value =
+                                        false;
                                   }
                                 });
                                 signUpController.signUpLoaderShow.value = true;
-
-
                               }
                             },
                             child: Container(
@@ -529,7 +608,8 @@ class SignupView extends StatelessWidget {
                                             AppColors.Black,
                                             TextDecoration.none)),
                                     TextSpan(
-                                        text: Utils.getString(context, 'signin'),
+                                        text:
+                                            Utils.getString(context, 'signin'),
                                         style: CommonUi.customTextStyle1(
                                             Fonts.interMedium,
                                             14.0,
@@ -554,7 +634,10 @@ class SignupView extends StatelessWidget {
               top: 0,
               bottom: 0,
               child: Obx(() => signUpController.signUpLoaderShow.value
-                  ? const Center(child: CircularProgressIndicator(color: AppColors.AppColorGrad2,))
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                      color: AppColors.AppColorGrad2,
+                    ))
                   : Container()),
             ),
           ],

@@ -19,7 +19,7 @@ class PartnersHomeListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(BusinessDetailsView());
+        Get.to(BusinessDetailsView(homeController.arrayPartners[index].id!.toString()));
       },
       child: Stack(
         children: [
@@ -32,7 +32,7 @@ class PartnersHomeListItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: 200,
                   fit: BoxFit.cover,
-                  imageUrl: homeController.arrayPartners[index].featuredImage!,
+                  imageUrl: homeController.arrayPartners[index].featuredImageUrl!,
                   placeholder: (context, url) => Transform.scale(
                       scale: 0.2,
                       child: const CircularProgressIndicator(

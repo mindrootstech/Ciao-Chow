@@ -65,6 +65,7 @@ class GetBusiness {
     this.payoutDetails,
     this.isFeatured,
     this.createdAt,
+    this.updatedAt,
     this.distance,
     this.featuredImageUrl,
     this.images,
@@ -85,6 +86,7 @@ class GetBusiness {
   String? payoutDetails;
   String? isFeatured;
   DateTime? createdAt;
+  DateTime? updatedAt;
   String? distance;
   String? featuredImageUrl;
   List<String>? images;
@@ -105,6 +107,7 @@ class GetBusiness {
     payoutDetails: json["payout_details"],
     isFeatured: json["is_featured"],
     createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
     distance: json["distance"],
     featuredImageUrl: json["featured_image_url"],
     images: List<String>.from(json["images"].map((x) => x)),
@@ -126,6 +129,7 @@ class GetBusiness {
     "payout_details": payoutDetails,
     "is_featured": isFeatured,
     "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
     "distance": distance,
     "featured_image_url": featuredImageUrl,
     "images": List<dynamic>.from(images!.map((x) => x)),

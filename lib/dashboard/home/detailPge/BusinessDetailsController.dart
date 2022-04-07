@@ -9,25 +9,26 @@ class BusinessDetailsController extends GetxController{
   final _apiProvider = ApiProvider();
   var imageSliders = <Widget>[].obs;
   List<String> arrayImages = <String>[].obs;
+  var getBusiness = GetBusiness().obs;
+  var userCheckIn = ''.obs;
+  var businessDetailsLoaderShow = false.obs;
 
-  void getBusinessDetails() {
-
-    _apiProvider.getBusinessDetails().then((value)
+  void getBusinessDetails(String id) {
+    _apiProvider.getBusinessDetails(id).then((value)
     {
       var response = businessDetailsMainModelFromJson(value);
       arrayImages.clear();
       arrayImages.addAll(response.data!.getBusiness!.images!);
+      getBusiness.value = response.data!.getBusiness!;
+      userCheckIn.value = response.data!.usersCheckins!;
       addBannerList(arrayImages);
-      // loaderLatest.value = false;
-
+      businessDetailsLoaderShow.value = false;
     });
-
-
   }
 
 
   void addBannerList(List<dynamic> bannerList) {
-    CommonUi.imageSliders(bannerList, imageSliders);
+    CommonUi.imageSlidersDetails(bannerList, imageSliders);
   }
 
 

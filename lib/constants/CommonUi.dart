@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
 
+
 class CommonUi {
   static var dropDownButtonDecoration =
       const InputDecoration.collapsed(hintText: "", border: InputBorder.none);
@@ -172,11 +173,31 @@ class CommonUi {
       List<dynamic> bannerList, RxList<Widget> imageSliders) {
     imageSliders.value = bannerList
         .map((item) => ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              borderRadius: const BorderRadius.all(Radius.circular(14.0)),
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
                 width: 1000.0,
                 imageUrl: item.image,
+                placeholder: (context, url) => Transform.scale(
+                    scale: 0.2,
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 10.5,
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    )),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            )).toList();
+  }
+
+
+  static void imageSlidersDetails(List<dynamic> bannerList, RxList<Widget> imageSliders) {
+    imageSliders.value = bannerList
+        .map((item) => ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(14.0)),
+              child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                width: 1000.0,
+                imageUrl: item,
                 placeholder: (context, url) => Transform.scale(
                     scale: 0.2,
                     child: const CircularProgressIndicator(

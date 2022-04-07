@@ -66,7 +66,6 @@ class ApiProvider extends GetConnect {
         'register_device_type': '1',
         'firebase_id': 'abc',
         'time_zone': 'india/kolkata',
-        'profile_image': ''
       });
     }
     if (response.status.hasError) {
@@ -92,8 +91,8 @@ class ApiProvider extends GetConnect {
     }
   }
 
-  Future<String> getLatestCheckIns() async {
-    final response = await post('/view-all-user-checkins', {},
+  Future<String> getLatestCheckIns(String page) async {
+    final response = await post('/view-all-user-checkins', {'page_no' : page},
         headers: {'Authorization': 'Bearer ${getStorage.read('token')}'});
     if (response.status.hasError) {
       return 'error';
@@ -102,9 +101,9 @@ class ApiProvider extends GetConnect {
     }
   }
 
-  Future<String> getAllBusiness() async {
+  Future<String> getAllBusiness(String page) async {
     final response = await post('/view-all-business', {
-      'page_no': '1',
+      'page_no': page,
       'lat': getStorage.read('lat'),
       'long': getStorage.read('long')
     }, headers: {
@@ -143,9 +142,9 @@ class ApiProvider extends GetConnect {
     }
   }
 
-  Future<String> getBusinessDetails() async {
-    final response = await post('/user-checkin', {
-      'business_id': '1',
+  Future<String> getBusinessDetails(String id) async {
+    final response = await post('/business-details', {
+      'business_id': id,
       'lat': getStorage.read('lat'),
       'long': getStorage.read('long')
     }, headers: {
@@ -156,6 +155,5 @@ class ApiProvider extends GetConnect {
     } else {
       return json.encode(response.body);
     }
-
   }
 }

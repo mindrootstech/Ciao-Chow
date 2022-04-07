@@ -109,7 +109,7 @@ class EventDetailsView extends StatelessWidget {
                                 const BorderRadius.all(Radius.circular(10)),
                                 child: CarouselSlider(
                                   options: CarouselOptions(
-                                    viewportFraction: 0.8,
+                                    viewportFraction: 0.83,
                                     initialPage: 0,
                                     enableInfiniteScroll: false,
                                     reverse: false,

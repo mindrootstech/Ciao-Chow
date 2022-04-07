@@ -21,7 +21,7 @@ class LatestCheckInModel {
 
   factory LatestCheckInModel.fromJson(Map<String, dynamic> json) => LatestCheckInModel(
     status: json["status"],
-    data: Data.fromJson(json["data"]),
+    data: json["data"] == null ? null : Data.fromJson(json["data"]),
     message: json["message"],
   );
 

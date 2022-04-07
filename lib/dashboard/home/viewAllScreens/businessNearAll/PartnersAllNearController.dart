@@ -12,16 +12,21 @@ class PartnersAllNearController extends GetxController{
   var  imageSliders = <Widget>[].obs;
   var bannerList = <gt.Banner>[].obs;
   var parentAllLoaderShow = false.obs;
+  var scrollController = ScrollController();
+  var page = 1;
+  var pageLoader = false.obs;
+  var totalBusinessItems = 0;
 
   void getAllBusinessList() {
-    _apiProvider.getAllBusiness().then((value)
+    _apiProvider.getAllBusiness(page.toString()).then((value)
     {
       var response = businessMainModelFromJson(value);
       arrayBusinessList.clear();
       bannerList.clear();
-      arrayBusinessList.addAll(response.data!.businessList);
-      bannerList.addAll(response.data!.banners);
+      arrayBusinessList.addAll(response.data!.businessList!);
+      bannerList.addAll(response.data!.banners!);
       addBannerList(bannerList);
+      totalBusinessItems = response.data!.businessCount!;
       parentAllLoaderShow.value = false;
 
     });
@@ -29,6 +34,21 @@ class PartnersAllNearController extends GetxController{
 
   void addBannerList(List<dynamic> bannerList) {
     CommonUi.imageSliders(bannerList,imageSliders);
+  }
+
+
+  void pagination() {
+    if ((scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent)) {
+      page = page + 1;
+      if (totalBusinessItems > arrayBusinessList.length) {
+        pageLoader.value = true;
+        getAllBusinessList();
+      } else {
+        pageLoader.value = false;
+        page = 0;
+      }
+    }
   }
 
 

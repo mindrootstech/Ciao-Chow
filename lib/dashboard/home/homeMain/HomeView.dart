@@ -6,9 +6,10 @@ import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/LatestCheckInListItem.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/PartnersHomeListItem.dart';
-import 'package:ciao_chow/dashboard/home/homeMain/ScanCheckInView.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/scan/ScanCheckInView.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/latest/LatestCheckInViewAllView.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/businessNearAll/PartnersViewAllView.dart';
+import 'package:ciao_chow/notifications/NotificationsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -31,36 +32,52 @@ class HomeView extends StatelessWidget {
     return Stack(
       children: [
         Scaffold(
-          backgroundColor: AppColors.AppColorGrad2,
+          backgroundColor: AppColors.White,
           extendBody: true,
           body: SingleChildScrollView(
             child: Column(
               children: [
                 Container(
-                  margin: const EdgeInsets.fromLTRB(20, 38, 20, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Hi William',
-                        style: CommonUi.customTextStyle1(
-                            Fonts.interSemiBold,
-                            24.0,
-                            FontWeight.w600,
-                            AppColors.White,
-                            TextDecoration.none),
-                      ),
-                      SvgPicture.asset(
-                        CommonUi.setSvgImage('notification_home'),
-                      )
-                    ],
-                  ),
+                  color: AppColors.AppColorGrad2,
+                  child: Column(children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(20, 38, 0, 0),
+                          child: Obx(
+                            ()=> Text(
+                              'Hi, ' +homeController.profileData.value.name!,
+                              style: CommonUi.customTextStyle1(
+                                  Fonts.interSemiBold,
+                                  24.0,
+                                  FontWeight.w600,
+                                  AppColors.White,
+                                  TextDecoration.none),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            const NotificationsView();
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.fromLTRB(0, 38, 20, 0),
+                            child: SvgPicture.asset(
+                              CommonUi.setSvgImage('notification_home'),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+
+                    Container(
+                      color: AppColors.AppColorGrad2,
+                      height: 15,
+                    ),
+                  ],),
                 ),
 
-                Container(
-                  color: AppColors.AppColorGrad2,
-                  height: 15,
-                ),
 
                 // edited by Abhijeet Sir(29 Mar 2021)
 
@@ -83,9 +100,8 @@ class HomeView extends StatelessWidget {
                               24.0, AppColors.White),
                         ),
                       ),
-                      Container(
+                      SizedBox(
                           height: 165,
-                          margin: const EdgeInsets.only(left: 20, right: 20),
                           width: Get.width,
                           child: ClipRRect(
                               borderRadius:
@@ -93,7 +109,7 @@ class HomeView extends StatelessWidget {
                               child: Obx(
                                 () => CarouselSlider(
                                   options: CarouselOptions(
-                                    viewportFraction: 0.8,
+                                    viewportFraction: 0.83,
                                     initialPage: 0,
                                     enableInfiniteScroll: false,
                                     reverse: false,
@@ -344,58 +360,63 @@ class HomeView extends StatelessWidget {
                       const SizedBox(
                         height: 25,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(left: 20),
-                            child: Text(
-                              Utils.getString(context, 'latest_check_ins'),
-                              style: CommonUi.customTextStyle1(
-                                  Fonts.interSemiBold,
-                                  18.0,
-                                  FontWeight.w600,
-                                  AppColors.home_progress,
-                                  TextDecoration.none),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(LatestCheckInViewAllView());
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 20),
+                      Obx(
+                        () => homeController.arrayLatestCheckIns.length > 0 ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(left: 20),
                               child: Text(
-                                Utils.getString(context, 'view_all'),
+                                Utils.getString(context, 'latest_check_ins'),
                                 style: CommonUi.customTextStyle1(
-                                    Fonts.interRegular,
-                                    12.0,
-                                    FontWeight.w400,
-                                    AppColors.textFieldsHint,
+                                    Fonts.interSemiBold,
+                                    18.0,
+                                    FontWeight.w600,
+                                    AppColors.home_progress,
                                     TextDecoration.none),
                               ),
                             ),
-                          ),
-                        ],
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(LatestCheckInViewAllView());
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 20),
+                                child: Text(
+                                  Utils.getString(context, 'view_all'),
+                                  style: CommonUi.customTextStyle1(
+                                      Fonts.interRegular,
+                                      12.0,
+                                      FontWeight.w400,
+                                      AppColors.textFieldsHint,
+                                      TextDecoration.none),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ) : Container(),
                       ),
                       Obx(
-                        () => Container(
-                          color: AppColors.White,
-                          margin: const EdgeInsets.only(
-                              left: 16, right: 16, top: 16, bottom: 100),
-                          child: ListView.builder(
-                            padding: const EdgeInsets.all(0),
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount:
-                                homeController.arrayLatestCheckIns.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return LatestCheckInListItem(
-                                  index, homeController);
-                            },
-                          ),
-                        ),
+                        () => homeController.arrayLatestCheckIns.length > 0
+                            ? Container(
+                                color: AppColors.White,
+                                margin: const EdgeInsets.only(
+                                    left: 16, right: 16, top: 16, bottom: 100),
+                                child: ListView.builder(
+                                  padding: const EdgeInsets.all(0),
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount:
+                                      homeController.arrayLatestCheckIns.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return LatestCheckInListItem(
+                                        index, homeController);
+                                  },
+                                ),
+                              )
+                            : Container(),
                       ),
                     ],
                   ),
@@ -430,13 +451,13 @@ class HomeView extends StatelessWidget {
           bottom: 0,
           child: Obx(() => homeController.homeLoaderShow.value
               ? Container(
-              width: Get.width,
-              color: AppColors.White,
-              child: const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.AppColorGrad2,
-                ),
-              ))
+                  width: Get.width,
+                  color: AppColors.White,
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.AppColorGrad2,
+                    ),
+                  ))
               : Container()),
         ),
       ],

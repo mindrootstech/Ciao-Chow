@@ -29,7 +29,7 @@ class LatestAllCheckIn extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: latestCheckInController.arrayAllCheckIns[index].featuredImage!,
+                    imageUrl: latestCheckInController.arrayAllCheckIns[index].business!.featuredImageUrl!,
                     placeholder: (context, url) => Transform.scale(
                         scale: 0.2,
                         child: const CircularProgressIndicator(
@@ -44,14 +44,14 @@ class LatestAllCheckIn extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  latestCheckInController.arrayAllCheckIns[index].businessName! , style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
+                  latestCheckInController.arrayAllCheckIns[index].business!.businessName! , style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
                     FontWeight.w500, AppColors.Black, TextDecoration.none),overflow: TextOverflow.ellipsis,maxLines: 1,
                 ),
 
                 const SizedBox(height: 4,),
 
                 Text(
-                  latestCheckInController.arrayAllCheckIns[index].address!,
+                  latestCheckInController.arrayAllCheckIns[index].business!.address!,
                   style: CommonUi.customTextStyle1(
                       Fonts.interRegular,
                       12.0,

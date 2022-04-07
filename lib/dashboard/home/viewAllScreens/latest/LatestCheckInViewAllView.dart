@@ -50,7 +50,7 @@ class LatestCheckInViewAllView extends StatelessWidget {
                   child: Stack(
                     children: [
                       Container(
-                        height: 50 / 2 + 30,
+                        height: 48,
                         color: AppColors.AppColorGrad2,
                       ),
                       Positioned(
@@ -58,7 +58,7 @@ class LatestCheckInViewAllView extends StatelessWidget {
                         right: 0,
                         left: 0,
                         child: Container(
-                          height: 100 / 4,
+                          height: 25,
                           width: Get.width,
                           decoration:
                           CommonUi.commonBoxDecoration(24.0, AppColors.White),
