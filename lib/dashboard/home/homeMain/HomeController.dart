@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart' as gt;
@@ -6,6 +8,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:location/location.dart' as gt;
+import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class HomeController extends GetxController {
@@ -84,5 +89,81 @@ class HomeController extends GetxController {
     });
   }
 
+  Future<void> request_permission1() async{
 
+         getLocation1();
+         Timer.periodic(const Duration(seconds: 1), (timer) async {
+           Permission location_permission= Permission.location;
+           bool location_status=false;
+           bool ispermanetelydenied= await location_permission.isPermanentlyDenied;
+           var status = await Permission.locationWhenInUse.status;
+
+           if(status.isGranted) {
+             timer.cancel();
+             getLocation1();
+           }
+         });
+  }
+
+  Future<void> getLocation() async {
+    try {
+      Location location = Location();
+
+      bool _serviceEnabled;
+      gt.PermissionStatus _permissionGranted;
+      LocationData locationData;
+
+      // _serviceEnabled = await location.serviceEnabled();
+      // if (!_serviceEnabled) {
+      //   _serviceEnabled = await location.requestService();
+      //   if (!_serviceEnabled) {
+      //     return;
+      //   }
+      // }
+
+      locationData = await location.getLocation();
+
+
+      _permissionGranted = (await location.hasPermission()) as gt.PermissionStatus;
+      if (_permissionGranted == gt.PermissionStatus.denied ||
+          _permissionGranted == gt.PermissionStatus.deniedForever || _permissionGranted == gt.PermissionStatus.grantedLimited) {
+        _permissionGranted = await location.requestPermission();
+        if (_permissionGranted != gt.PermissionStatus.granted) {
+          getHomeData('', '');
+          getStorage.write('lat', '');
+          getStorage.write('long', '');
+          homeLoaderShow.value = true;
+        }
+      } else {
+        getHomeData(locationData.latitude!.toString(),
+            locationData.longitude!.toString());
+
+        getStorage
+            .write('lat', locationData.latitude!.toString());
+        getStorage
+            .write('long', locationData.longitude!.toString());
+        homeLoaderShow.value = true;
+      }
+    } catch (e) {
+      getHomeData('', '');
+      getStorage.write('lat', '');
+      getStorage.write('long', '');
+      homeLoaderShow.value = true;
+    }
+  }
+
+  Future<void> getLocation1() async {
+    Permission location_permission= Permission.location;
+    bool location_status=false;
+    bool ispermanetelydenied= await location_permission.isPermanentlyDenied;
+    var status = await Permission.locationWhenInUse.status;
+
+    if(ispermanetelydenied||!status.isGranted) {
+      await  openAppSettings();
+    }else{
+      var location_statu = await location_permission.request();
+      location_status=location_statu.isGranted;
+      getLocation();
+    }
+  }
 }

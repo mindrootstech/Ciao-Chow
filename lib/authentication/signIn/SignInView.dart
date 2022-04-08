@@ -109,6 +109,7 @@ class SignInView extends StatelessWidget {
                                   }
                                   return null;
                                 },
+                                obscureText : true,
                                 controller: signInController.passwordController.value,
                                 cursorColor: AppColors.textFieldsHint,
                                 decoration: CommonUi.textFieldDecoration(

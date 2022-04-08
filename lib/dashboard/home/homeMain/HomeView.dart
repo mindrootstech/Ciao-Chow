@@ -27,7 +27,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     homeController.homeLoaderShow.value = true;
-    getLocation();
+    homeController.getLocation();
 
     return Stack(
       children: [
@@ -40,35 +40,32 @@ class HomeView extends StatelessWidget {
                 Container(
                   color: AppColors.AppColorGrad2,
                   child: Column(children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(20, 38, 0, 0),
-                          child: Obx(
-                            ()=> Text(
-                              'Hi, ' +homeController.profileData.value.name!,
-                              style: CommonUi.customTextStyle1(
-                                  Fonts.interSemiBold,
-                                  24.0,
-                                  FontWeight.w600,
-                                  AppColors.White,
-                                  TextDecoration.none),
-                            ),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(20, 38, 20, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Obx(
+                            () => Text(
+                                'Hi, '  + homeController.profileData.value.name!,
+                                style: CommonUi.customTextStyle1(
+                                    Fonts.interSemiBold,
+                                    24.0,
+                                    FontWeight.w600,
+                                    AppColors.White,
+                                    TextDecoration.none),
+                              ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            const NotificationsView();
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.fromLTRB(0, 38, 20, 0),
+                          GestureDetector(
+                            onTap: () {
+                              const NotificationsView();
+                            },
                             child: SvgPicture.asset(
                               CommonUi.setSvgImage('notification_home'),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
 
                     Container(
@@ -134,7 +131,8 @@ class HomeView extends StatelessWidget {
                             homeController.viewShowHide.value == ''
                                 ? GestureDetector(
                                     onTap: () {
-                                      getLocation();
+                                      homeController.request_permission1();
+                                      // getLocation();
                                     },
                                     child: Container(
                                       margin: const EdgeInsets.only(
@@ -431,6 +429,7 @@ class HomeView extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 child: SvgPicture.asset(CommonUi.setSvgImage('scan_home')),
                 onPressed: () {
+                  homeController.getStorage.read('lat') == '' ? _showMyDialog(context) :
                   Get.to(ScanCheckInView());
                 }),
           ),
@@ -464,50 +463,36 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Future<void> getLocation() async {
-    try {
-      gt.Location location = gt.Location();
 
-      bool _serviceEnabled;
-      gt.PermissionStatus _permissionGranted;
-      gt.LocationData locationData;
 
-      // _serviceEnabled = await location.serviceEnabled();
-      // if (!_serviceEnabled) {
-      //   _serviceEnabled = await location.requestService();
-      //   if (!_serviceEnabled) {
-      //     return;
-      //   }
-      // }
 
-      locationData = await location.getLocation();
-      _permissionGranted = await location.hasPermission();
-      if (_permissionGranted == gt.PermissionStatus.denied ||
-          _permissionGranted == gt.PermissionStatus.deniedForever) {
-        _permissionGranted = await location.requestPermission();
-        if (_permissionGranted != gt.PermissionStatus.granted) {
-          homeController.getHomeData('', '');
-          homeController.getStorage.write('lat', '');
-          homeController.getStorage.write('long', '');
-          homeController.homeLoaderShow.value = true;
-        }
-      } else {
-        homeController.getHomeData(locationData.latitude!.toString(),
-            locationData.longitude!.toString());
-
-        homeController.getStorage
-            .write('lat', locationData.latitude!.toString());
-        homeController.getStorage
-            .write('long', locationData.longitude!.toString());
-        homeController.homeLoaderShow.value = true;
-      }
-    } catch (e) {
-      homeController.getHomeData('', '');
-      homeController.getStorage.write('lat', '');
-      homeController.getStorage.write('long', '');
-      homeController.homeLoaderShow.value = true;
-    }
+  Future<void> goToSettings() async {
   }
 
-  void goToSettings() {}
+  _showMyDialog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          // title:  Text('AlertDialog Title',style: CommonUi.customTextStyle1(Fonts.interSemiBold, 14.0, FontWeight.w500, AppColors.Black, TextDecoration.none),),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('You haven\'t allow your location permissions yet. Please allow your location permission to Check-In.',style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0, FontWeight.w400, AppColors.Black, TextDecoration.none),),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Ok',style: CommonUi.customTextStyle1(Fonts.interSemiBold, 14.0, FontWeight.w500, AppColors.AppColorGrad2, TextDecoration.none),),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
