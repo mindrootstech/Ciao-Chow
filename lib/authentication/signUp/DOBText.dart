@@ -13,7 +13,7 @@ class DOBText extends StatelessWidget {
     return Container(
       width: Get.width,
       padding: const EdgeInsets.only(left: 20, right: 20),
-      margin: const EdgeInsets.only(top: 20,left: 20),
+      margin: const EdgeInsets.only(top: 12,left: 20),
       height: 50,
       decoration: CommonUi.commonBoxDecorationAllSides(10.0,AppColors.textFieldsMain),
       child: Row(

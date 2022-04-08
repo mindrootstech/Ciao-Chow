@@ -54,6 +54,8 @@ dependencies:
   location: ^4.3.0
   firebase_core: ^1.14.0
   permission_handler: ^9.2.0
+  firebase_auth: ^3.3.13
+  firebase_messaging: ^11.2.12
 
 
 dev_dependencies:

@@ -47,7 +47,7 @@ class HomeView extends StatelessWidget {
                         children: [
                           Obx(
                             () => Text(
-                                'Hi, '  + homeController.profileData.value.name!,
+                                'Hi '  + homeController.profileData.value.name!,
                                 style: CommonUi.customTextStyle1(
                                     Fonts.interSemiBold,
                                     24.0,

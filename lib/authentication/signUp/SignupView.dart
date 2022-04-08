@@ -350,7 +350,7 @@ class SignupView extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10)),
                                   height: 50,
                                   margin: const EdgeInsets.only(
-                                      top: 20, left: 8, right: 20),
+                                      top: 10, left: 8, right: 20),
                                   child: Center(
                                     child: DropdownButtonFormField<String>(
                                       isExpanded: true,
@@ -466,23 +466,23 @@ class SignupView extends StatelessWidget {
                                         onTap: () {
                                           signUpController.passwordVisibleLogin
                                                       .value ==
-                                                  false
+                                                  true
                                               ? signUpController
                                                   .passwordVisibleLogin
-                                                  .value = true
+                                                  .value = false
                                               : signUpController
                                                   .passwordVisibleLogin
-                                                  .value = false;
+                                                  .value = true;
                                         },
                                         child: signUpController
                                                     .passwordVisibleLogin.value ==
                                                 true
                                             ? SvgPicture.asset(
                                                 CommonUi.setSvgImage(
-                                                    'password_show'))
+                                                    'password_hide'))
                                             : SvgPicture.asset(
                                                 CommonUi.setSvgImage(
-                                                    'notification'))),
+                                                    'password_show'))),
                                   )
                                 ],
                               ),
@@ -652,6 +652,7 @@ class SignupView extends StatelessWidget {
         initialDate: selectedDate,
         firstDate: DateTime(1900),
         lastDate: DateTime.now(),
+        initialEntryMode: DatePickerEntryMode.calendarOnly, // <- this
         builder: (context, child) {
           return Theme(
             data: Theme.of(context).copyWith(
@@ -664,6 +665,7 @@ class SignupView extends StatelessWidget {
                 ),
               ),
             ),
+
             child: child!,
           );
         }).then((pickedDate) {

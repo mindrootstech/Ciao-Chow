@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "824741832969",
+    "project_id": "ciao-chow",
+    "storage_bucket": "ciao-chow.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824741832969:android:60c09d81b102799d210bd8",
+        "android_client_info": {
+          "package_name": "com.example.ciao_chow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "824741832969-ivnu1jrnb96m24qdabomvua31di5taap.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ciao_chow",
+            "certificate_hash": "1cc9b5d0dddf0b05280471375f19d0ab9ffec8bc"
+          }
+        },
+        {
+          "client_id": "824741832969-psi975cj6aa0di7k42lni3u29dpsq5cm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEDb1LnZ1cmrLWD1rb-3mXBV8cBmWmgDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "824741832969-psi975cj6aa0di7k42lni3u29dpsq5cm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -37,10 +37,12 @@ class BusinessDetailsView extends StatelessWidget {
               },
             ),
             centerTitle: true,
-            title: Text(
-              'JW Marriot',
-              style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
-                  FontWeight.w600, AppColors.White, TextDecoration.none),
+            title: Obx(() =>
+               Text(
+                 businessDetailsController.getBusiness.value.businessName!,
+                style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
+                    FontWeight.w600, AppColors.White, TextDecoration.none),
+              ),
             ),
           ),
           body: SingleChildScrollView(
@@ -98,7 +100,7 @@ class BusinessDetailsView extends StatelessWidget {
                     children: [
                       Obx(
                         () => Text(
-                         '',
+                          businessDetailsController.getBusiness.value.businessName!,
                           style: CommonUi.customTextStyle1(
                               Fonts.interSemiBold,
                               18.0,

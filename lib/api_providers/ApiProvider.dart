@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:ciao_chow/authentication/forgot/ForgotPasswordModel.dart';
 import 'package:ciao_chow/authentication/signIn/SignInModel.dart';
 import 'package:ciao_chow/authentication/signUp/SignUpModel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -10,15 +11,17 @@ import 'package:http/http.dart' as http;
 class ApiProvider extends GetConnect {
   final getStorage = GetStorage();
 
+
   @override
   var baseUrl = "https://development.mind-roots.com/ciao-chow/api";
 
-  Future<SignInModel> getLogIn(String emailText, String passwordText) async {
+  Future<SignInModel> getLogIn(String emailText, String passwordText, String uid) async {
+
     final response = await post("/login", {
       'email': emailText,
       'password': passwordText,
       'register_device_type': '1',
-      'firebase_id': 'abc',
+      'firebase_id': uid,
       'time_zone': 'india/kolkata'
     });
     if (response.status.hasError) {
@@ -38,9 +41,12 @@ class ApiProvider extends GetConnect {
       String gender,
       String dateOfBirth,
       String imagePath,
-      String imageName) async {
+      String imageName, String uid) async {
     var request = http.MultipartRequest('POST', Uri.parse("/register"));
     var response;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User user = auth.currentUser!;
+    final uid = user.uid;
     if (imagePath.isNotEmpty) {
       request.files
           .add(await http.MultipartFile.fromPath('profile_image', imagePath));
@@ -52,7 +58,7 @@ class ApiProvider extends GetConnect {
         'gender': gender,
         'dob': dateOfBirth,
         'register_device_type': '1',
-        'firebase_id': 'abc',
+        'firebase_id': uid,
         'time_zone': 'india/kolkata'
       });
     } else {
@@ -64,7 +70,7 @@ class ApiProvider extends GetConnect {
         'gender': gender,
         'dob': dateOfBirth,
         'register_device_type': '1',
-        'firebase_id': 'abc',
+        'firebase_id': uid,
         'time_zone': 'india/kolkata',
       });
     }
@@ -92,7 +98,7 @@ class ApiProvider extends GetConnect {
   }
 
   Future<String> getLatestCheckIns(String page) async {
-    final response = await post('/view-all-user-checkins', {'page_no' : page},
+    final response = await post('/view-all-user-checkins', {'page_no': page},
         headers: {'Authorization': 'Bearer ${getStorage.read('token')}'});
     if (response.status.hasError) {
       return 'error';

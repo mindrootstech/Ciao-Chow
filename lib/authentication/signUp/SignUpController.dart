@@ -2,6 +2,7 @@ import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/authentication/signUp/ModelText.dart';
 import 'package:ciao_chow/authentication/signUp/SignUpModel.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -21,8 +22,9 @@ class SignUpController extends GetxController{
   final _apiProvider = ApiProvider();
   var imageName = '';
   var imagePathNew = '';
-  var passwordVisibleLogin = false.obs;
+  var passwordVisibleLogin = true.obs;
   final getStorage = GetStorage();
+  late FirebaseMessaging messaging;
 
 
 
@@ -70,7 +72,7 @@ class SignUpController extends GetxController{
     accountDetail.add(model);
   }
 
-  Future<SignUpModel> signUpImplementation(String userName, String phoneNumber, String email, String password) {
+  Future<SignUpModel> signUpImplementation(String userName, String phoneNumber, String email, String password) async {
 
     String gender;
     if (genderValue.value == 'Male') {
@@ -81,9 +83,11 @@ class SignUpController extends GetxController{
       gender = '3';
     }
 
-    return _apiProvider.getSignUp(userName,phoneNumber,email,password,gender,accountDetail[0].name,imagePathNew,imageName);
+    messaging = FirebaseMessaging.instance;
+    await messaging.getToken().then((token) {
+      getStorage.write('firebaseToken', token);
+    });
+
+    return _apiProvider.getSignUp(userName,phoneNumber,email,password,gender,accountDetail[0].name,imagePathNew,imageName,getStorage.read('firebaseToken'));
   }
-
-
-
 }
