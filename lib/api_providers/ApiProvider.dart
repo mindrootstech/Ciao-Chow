@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:ciao_chow/authentication/forgot/ForgotPasswordModel.dart';
 import 'package:ciao_chow/authentication/signIn/SignInModel.dart';
@@ -17,10 +18,17 @@ class ApiProvider extends GetConnect {
 
   Future<SignInModel> getLogIn(String emailText, String passwordText, String uid) async {
 
+    var type = '';
+    if (Platform.isAndroid) {
+      type = '1';
+    }else if(Platform.isIOS){
+      type = '2';
+    }
+
     final response = await post("/login", {
       'email': emailText,
       'password': passwordText,
-      'register_device_type': '1',
+      'register_device_type': type,
       'firebase_id': uid,
       'time_zone': 'india/kolkata'
     });
@@ -44,9 +52,14 @@ class ApiProvider extends GetConnect {
       String imageName, String uid) async {
     var request = http.MultipartRequest('POST', Uri.parse("/register"));
     var response;
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final User user = auth.currentUser!;
-    final uid = user.uid;
+
+    var type = '';
+    if (Platform.isAndroid) {
+      type = '1';
+    }else if(Platform.isIOS){
+      type = '2';
+    }
+
     if (imagePath.isNotEmpty) {
       request.files
           .add(await http.MultipartFile.fromPath('profile_image', imagePath));
@@ -57,7 +70,7 @@ class ApiProvider extends GetConnect {
         'password': password,
         'gender': gender,
         'dob': dateOfBirth,
-        'register_device_type': '1',
+        'register_device_type': type,
         'firebase_id': uid,
         'time_zone': 'india/kolkata'
       });
