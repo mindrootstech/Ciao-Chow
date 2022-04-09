@@ -1,17 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:ciao_chow/authentication/forgot/ForgotPasswordModel.dart';
 import 'package:ciao_chow/authentication/signIn/SignInModel.dart';
 import 'package:ciao_chow/authentication/signUp/SignUpModel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 class ApiProvider extends GetConnect {
   final getStorage = GetStorage();
-
 
   @override
   var baseUrl = "https://development.mind-roots.com/ciao-chow/api";
