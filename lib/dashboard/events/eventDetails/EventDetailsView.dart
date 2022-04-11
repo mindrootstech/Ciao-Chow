@@ -5,6 +5,7 @@ import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/BottomSheetGuestView.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/BottomSheetPaymentView.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventsController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -32,6 +33,7 @@ class EventDetailsView extends StatelessWidget {
     }
 
     eventsController.showBottomSheet.value = false;
+    eventsController.whichSheet.value = '1';
     final List<Widget> imageSliders = imgList
         .map((item) => ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(14.0)),
@@ -433,9 +435,10 @@ class EventDetailsView extends StatelessWidget {
           ),
           Obx(() => eventsController.showBottomSheet.value
               ? BottomSheetGuestView()
-              : Container())
+              :  Container())
         ],
       ),
     );
   }
 }
+

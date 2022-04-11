@@ -35,6 +35,18 @@ class CommonUi {
         borderRadius: BorderRadius.all(Radius.circular(radius)));
   }
 
+   static commonPaymentBoxGrad(double radius) {
+    return BoxDecoration(
+        gradient: const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [AppColors.greyGrad1, AppColors.greyGrad2,AppColors.greyGrad3]),
+        borderRadius: BorderRadius.all(Radius.circular(radius)));
+
+  }
+
+
+
   static commonBoxDecorationAllSides(double radius, Color color) {
     return BoxDecoration(
         color: color,
@@ -73,7 +85,7 @@ class CommonUi {
     return TextStyle(
       fontFamily: fontFamily,
       fontSize: fontSize,
-      fontWeight: fontWeight,
+      // fontWeight: fontWeight,
       color: color,
       decoration: txtDecoration,
     );

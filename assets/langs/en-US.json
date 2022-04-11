@@ -53,5 +53,6 @@
   "your_booking_was_successfully_done": "Your booking was successfully done",
   "back_to_home": "Back to home",
   "ok": "Ok",
-  "search_by_name": "Search by name"
+  "search_by_name": "Search by name",
+  "confirm_payment": "Confirm Payment"
 }

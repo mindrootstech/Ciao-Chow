@@ -23,4 +23,12 @@ class AppColors {
       0, 0, 0, 0.5);
   static const Color lightBlack = Color.fromRGBO(5, 3, 13, 1);
   static const Color seekBarColor = Color.fromRGBO(223, 67, 61, 1);
+  static const Color greyGrad1 = Color.fromRGBO(196, 196, 196, 0.5);
+  static const Color greyGrad2 = Color.fromRGBO(196, 196, 196, 0.22);
+  static const Color greyGrad3 = Color.fromRGBO(196, 196, 196, 0.3);
+  static const Color redPayment = Color.fromRGBO(247, 49, 73, 1);
+  static const Color blackLight = Color.fromRGBO(47, 53, 63, 1);
+  static const Color redPrice = Color.fromRGBO(216, 61, 53, 1);
+
 }
+
