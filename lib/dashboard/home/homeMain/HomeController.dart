@@ -18,9 +18,7 @@ class HomeController extends GetxController {
   List<gt.UserCheckin> arrayLatestCheckIns = <gt.UserCheckin>[].obs;
   var bannerList = <gt.Banner>[].obs;
   var imageSliders = <Widget>[].obs;
-  var profileData = gt
-      .Profile()
-      .obs;
+  var profileData = gt.Profile().obs;
   Barcode? result;
   QRViewController? controller;
   final _apiProvider = ApiProvider();
@@ -33,6 +31,8 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    homeLoaderShow.value = true;
+    getLocation();
   }
 
   void onQRViewCreated(QRViewController controller) {

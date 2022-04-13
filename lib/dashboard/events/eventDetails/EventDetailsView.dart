@@ -1,56 +1,28 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
-import 'package:ciao_chow/dashboard/events/eventDetails/BottomSheetGuestView.dart';
-import 'package:ciao_chow/dashboard/events/eventDetails/BottomSheetPaymentView.dart';
-import 'package:ciao_chow/dashboard/events/eventMain/EventsController.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/BottomSheetMainView.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class EventDetailsView extends StatelessWidget {
-  EventsController eventsController = Get.find();
 
-  final List<String> imgList = [
-    'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-    'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-    'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
-  ];
-
-  EventDetailsView({Key? key}) : super(key: key);
+  String eventId;
+  String fromWhere;
+  EventDetailsView(this.fromWhere, this.eventId, {Key? key}) : super(key: key);
+  var eventDetailsController = Get.put(EventDetailsController(eventId));
 
   @override
   Widget build(BuildContext context) {
     Future<bool> _onWillPop() async {
-      return eventsController.showBottomSheet.value
-          ? eventsController.showBottomSheet.value = false
+      return eventDetailsController.showBottomSheet.value
+          ? eventDetailsController.showBottomSheet.value = false
           : true;
     }
-
-    eventsController.showBottomSheet.value = false;
-    eventsController.whichSheet.value = '1';
-    final List<Widget> imageSliders = imgList
-        .map((item) => ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(14.0)),
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                width: 500.0,
-                imageUrl: item,
-                placeholder: (context, url) => Transform.scale(
-                    scale: 0.2,
-                    child: const CircularProgressIndicator(
-                      strokeWidth: 10.5,
-                      valueColor: AlwaysStoppedAnimation(Colors.white),
-                    )),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
-            ))
-        .toList();
 
     return WillPopScope(
       onWillPop: _onWillPop,
@@ -116,9 +88,6 @@ class EventDetailsView extends StatelessWidget {
                                     enableInfiniteScroll: false,
                                     reverse: false,
                                     enlargeCenterPage: true,
-                                    // autoPlay: false,
-                                    // aspectRatio: 2.0,
-                                    // enlargeCenterPage: false,
                                   ),
                                   items: imageSliders,
                                 ))),
@@ -403,7 +372,7 @@ class EventDetailsView extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             // Get.to(BottomSheetGuestView());
-                            eventsController.showBottomSheet.value = true;
+                            eventDetailsController.showBottomSheet.value = true;
                           },
                           child: Container(
                             child: Center(
@@ -433,7 +402,7 @@ class EventDetailsView extends StatelessWidget {
               ),
             ),
           ),
-          Obx(() => eventsController.showBottomSheet.value
+          Obx(() => eventDetailsController.showBottomSheet.value
               ? BottomSheetGuestView()
               :  Container())
         ],

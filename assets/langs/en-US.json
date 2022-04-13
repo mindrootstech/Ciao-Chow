@@ -54,5 +54,12 @@
   "back_to_home": "Back to home",
   "ok": "Ok",
   "search_by_name": "Search by name",
-  "confirm_payment": "Confirm Payment"
+  "confirm_payment": "Confirm Payment",
+  "add_new_card": "Add New Card",
+  "expiry_date": "Expiry Date (MM / YY)",
+  "cvv": "CVV",
+  "card_number": "Card Number",
+  "name_on_card": "Name on card",
+  "choose_other_cards": "Choose Other Cards",
+  "please_fill_details": "Please fill in the details below to add a new card. You will be able to select this card during the checkout flow."
 }

@@ -54,6 +54,7 @@ dependencies:
   location: ^4.3.0
   permission_handler: ^9.2.0
   firebase_messaging: ^11.2.12
+  flutter_stripe: ^2.4.0
 
 
 dev_dependencies:
@@ -97,6 +98,9 @@ flutter:
     - family: InterItalic
       fonts:
         - asset: fonts/inter_italic.otf
+    - family: InterLight
+      fonts:
+        - asset: fonts/inter_light.ttf
 
 
   # To add assets to your application, add an assets section, like this:

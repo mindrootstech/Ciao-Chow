@@ -87,7 +87,33 @@ class CommonUi {
       fontSize: fontSize,
       // fontWeight: fontWeight,
       color: color,
-      decoration: txtDecoration,
+      decoration: txtDecoration
+
+    );
+  }
+
+  static customTextStyleUnderLine(String fontFamily, double fontSize,
+      FontWeight fontWeight, Color color, TextDecoration txtDecoration) {
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontSize: fontSize,
+      // fontWeight: fontWeight,
+      color: color,
+      decoration: txtDecoration,decorationColor: AppColors.Black,
+
+    );
+  }
+
+
+
+  static customTextStyle2(String fontFamily, double fontSize,
+      FontWeight fontWeight, Color color, TextDecoration txtDecoration) {
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontSize: fontSize,
+      // fontWeight: fontWeight,
+      color: color,
+      decoration: txtDecoration,letterSpacing: 1.0,height: 1.4
     );
   }
 
@@ -149,6 +175,23 @@ class CommonUi {
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: AppColors.transparent),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+  }
+
+  static textFieldDecorationCard(String hintTxt) {
+    return InputDecoration(
+      hintText: hintTxt,
+      hintStyle: const TextStyle(color: AppColors.txtHintCard),
+      filled: true,
+      fillColor: AppColors.White,
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.greyCheckBox),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.greyCheckBox),
         borderRadius: BorderRadius.circular(10),
       ),
     );

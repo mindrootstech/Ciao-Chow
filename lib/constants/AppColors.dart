@@ -29,6 +29,7 @@ class AppColors {
   static const Color redPayment = Color.fromRGBO(247, 49, 73, 1);
   static const Color blackLight = Color.fromRGBO(47, 53, 63, 1);
   static const Color redPrice = Color.fromRGBO(216, 61, 53, 1);
+  static const Color greyCheckBox = Color.fromRGBO(222, 222, 222, 1);
+  static const Color txtHintCard = Color.fromRGBO(147, 147, 147, 1);
 
 }
-

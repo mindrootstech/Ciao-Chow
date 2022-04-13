@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/DashBoardController.dart';
@@ -18,7 +20,7 @@ class DashBoardView extends StatelessWidget {
       () => Scaffold(
         extendBody: true,
         bottomNavigationBar: SizedBox(
-          height: 88,
+          height: Platform.isAndroid?88:105,
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(45.0),

@@ -20,7 +20,7 @@ class UpcomingEventsListItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: (){
-        Get.to(EventDetailsView());
+        Get.to(EventDetailsView('notPurchased',eventsController.arrayUpcomingEvents[index].id!.toString()));
       },
       child: Container(
         width: Get.width,
@@ -36,7 +36,7 @@ class UpcomingEventsListItem extends StatelessWidget {
                     height: 230,
                     fit: BoxFit.cover,
                     imageUrl:
-                    eventsController.arrayEventTicket[index].eventImage,
+                    eventsController.arrayUpcomingEvents[index].featuredImageUrl!,
                     placeholder: (context, url) => Transform.scale(
                         scale: 0.2,
                         child: const CircularProgressIndicator(
@@ -68,7 +68,7 @@ class UpcomingEventsListItem extends StatelessWidget {
                           width: 130,
                           child: Text(
                             Utils.getString(context,
-                                eventsController.arrayUpcomingEvents[index].placeName),
+                                eventsController.arrayUpcomingEvents[index].eventName!),
                             textAlign: TextAlign.start,
                             style: CommonUi.customTextStyle1(
                                 Fonts.interMedium,
@@ -87,7 +87,7 @@ class UpcomingEventsListItem extends StatelessWidget {
                           margin: const EdgeInsets.only(top: 3),
                           child: Text(
                             Utils.getString(context,
-                                eventsController.arrayUpcomingEvents[index].placeAddress),
+                                eventsController.arrayUpcomingEvents[index].eventName!),
                             style: CommonUi.customTextStyle1(
                                 Fonts.interRegular,
                                 12.0,

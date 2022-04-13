@@ -26,9 +26,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    homeController.homeLoaderShow.value = true;
-    homeController.getLocation();
-
     return Stack(
       children: [
         Scaffold(
@@ -38,41 +35,33 @@ class HomeView extends StatelessWidget {
             child: Column(
               children: [
                 Container(
+                  width: Get.width,
                   color: AppColors.AppColorGrad2,
-                  child: Column(children: [
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(20, 38, 20, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Obx(
-                            () => Text(
-                                'Hi '  + homeController.profileData.value.name!,
-                                style: CommonUi.customTextStyle1(
-                                    Fonts.interSemiBold,
-                                    24.0,
-                                    FontWeight.w600,
-                                    AppColors.White,
-                                    TextDecoration.none),
-                              ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              const NotificationsView();
-                            },
-                            child: SvgPicture.asset(
-                              CommonUi.setSvgImage('notification_home'),
-                            ),
-                          )
-                        ],
+                  padding: const EdgeInsets.fromLTRB(20, 38, 20, 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Obx(
+                        () =>homeController.profileData.value.name.toString()!="null"? Text(
+                            'Hi '  +  homeController.profileData.value.name.toString(),
+                            style: CommonUi.customTextStyle1(
+                                Fonts.interSemiBold,
+                                24.0,
+                                FontWeight.w600,
+                                AppColors.White,
+                                TextDecoration.none),
+                          ):SizedBox(),
                       ),
-                    ),
-
-                    Container(
-                      color: AppColors.AppColorGrad2,
-                      height: 15,
-                    ),
-                  ],),
+                      GestureDetector(
+                        onTap: () {
+                          const NotificationsView();
+                        },
+                        child: SvgPicture.asset(
+                          CommonUi.setSvgImage('notification_home'),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
 
 
@@ -93,8 +82,7 @@ class HomeView extends StatelessWidget {
                         child: Container(
                           height: 190 / 2,
                           width: Get.width,
-                          decoration: CommonUi.commonBoxDecoration(
-                              24.0, AppColors.White),
+                          decoration: CommonUi.commonBoxDecoration(24.0, AppColors.White),
                         ),
                       ),
                       SizedBox(
