@@ -43,55 +43,70 @@ class BottomSheetPaymentView extends StatelessWidget {
                 SizedBox(
                   width: 116,
                   height: 116,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(100)),
-                    child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      width: 500.0,
-                      imageUrl:
-                          'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-                      placeholder: (context, url) => Transform.scale(
-                          scale: 0.2,
-                          child: const CircularProgressIndicator(
-                            strokeWidth: 10.5,
-                            valueColor: AlwaysStoppedAnimation(Colors.white),
-                          )),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    ),
+                  child: Obx(
+                    () => eventsController.eventDetails.value.featuredImageUrl
+                                .toString() !=
+                            "null"
+                        ? ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(100)),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              width: 500.0,
+                              imageUrl: eventsController
+                                  .eventDetails.value.featuredImageUrl!,
+                              placeholder: (context, url) => Transform.scale(
+                                  scale: 0.2,
+                                  child: const CircularProgressIndicator(
+                                    strokeWidth: 10.5,
+                                    valueColor:
+                                        AlwaysStoppedAnimation(Colors.white),
+                                  )),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
+                          )
+                        : const SizedBox(),
                   ),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                Text(
-                  'JW Marriott',
+                eventsController.eventDetails.value.business!.businessName
+                    .toString() !=
+                    "null"
+                    ? Text(
+                  eventsController.eventDetails.value.business!.businessName!,
                   style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
                       FontWeight.w600, AppColors.Black, TextDecoration.none),
-                ),
+                ) : const SizedBox(),
                 const SizedBox(
                   height: 12,
                 ),
-                Text(
-                  'Magikk culture ll Dj Night',
-                  style: CommonUi.customTextStyle1(
-                      Fonts.interRegular,
-                      12.0,
-                      FontWeight.w400,
-                      AppColors.textFieldsHint,
-                      TextDecoration.none),
+                Obx(
+                  () => eventsController.eventDetails.value.eventName.toString() != 'null'? Text(
+                    eventsController.eventDetails.value.eventName!,
+                    style: CommonUi.customTextStyle1(
+                        Fonts.interRegular,
+                        12.0,
+                        FontWeight.w400,
+                        AppColors.textFieldsHint,
+                        TextDecoration.none),
+                  ) : const SizedBox(),
                 ),
                 const SizedBox(
                   height: 8,
                 ),
-                Text(
-                  'Sector-35, chandigarh india',
-                  style: CommonUi.customTextStyle1(
-                      Fonts.interRegular,
-                      12.0,
-                      FontWeight.w400,
-                      AppColors.textFieldsHint,
-                      TextDecoration.none),
+                Obx(
+                  () => eventsController.eventDetails.value.business!.address.toString() != 'null' ?Text(
+                    eventsController.eventDetails.value.business!.address!,
+                    style: CommonUi.customTextStyle1(
+                        Fonts.interRegular,
+                        12.0,
+                        FontWeight.w400,
+                        AppColors.textFieldsHint,
+                        TextDecoration.none),
+                  ): const SizedBox(),
                 ),
                 const SizedBox(
                   height: 28,
@@ -117,14 +132,23 @@ class BottomSheetPaymentView extends StatelessWidget {
                           const SizedBox(
                             height: 8,
                           ),
-                          Text(
-                            'No Card  Added',
-                            style: CommonUi.customTextStyle1(
-                                Fonts.interMedium,
-                                12.0,
-                                FontWeight.w500,
-                                AppColors.redPayment,
-                                TextDecoration.none),
+                          Obx(
+                            () => GestureDetector(
+                              onTap: (){
+                                eventsController.allCardsList.length > 0 ?  eventsController.whichSheet.value = '4' : false;
+                              },
+
+
+                              child: Text(
+                                eventsController.allCardsList.length > 0 ? 'Choose other Cards for payment' :'No Card  Added'  ,
+                                style: CommonUi.customTextStyle1(
+                                    Fonts.interMedium,
+                                    12.0,
+                                    FontWeight.w500,
+                                    AppColors.redPayment,
+                                    TextDecoration.none),
+                              ),
+                            ),
                           )
                         ],
                       ),
@@ -136,14 +160,19 @@ class BottomSheetPaymentView extends StatelessWidget {
                             const SizedBox(
                               width: 8,
                             ),
-                            Text(
-                              'Add Card',
-                              style: CommonUi.customTextStyle1(
-                                  Fonts.interSemiBold,
-                                  16.0,
-                                  FontWeight.w700,
-                                  AppColors.redPayment,
-                                  TextDecoration.none),
+                            GestureDetector(
+                              onTap: (){
+                                eventsController.whichSheet.value = '3';
+                              },
+                              child: Text(
+                                'Add Card',
+                                style: CommonUi.customTextStyle1(
+                                    Fonts.interSemiBold,
+                                    16.0,
+                                    FontWeight.w700,
+                                    AppColors.redPayment,
+                                    TextDecoration.none),
+                              ),
                             ),
                           ],
                         ),
@@ -173,14 +202,16 @@ class BottomSheetPaymentView extends StatelessWidget {
                       const SizedBox(
                         height: 8,
                       ),
-                      Text(
-                        '12th Jan, 2021 05:00pm',
-                        style: CommonUi.customTextStyle1(
-                            Fonts.interMedium,
-                            14.0,
-                            FontWeight.w500,
-                            AppColors.blackLight,
-                            TextDecoration.none),
+                      Obx(
+                        () => eventsController.eventDetails.value.business!.address != 'null' ? Text(
+                          '',
+                          style: CommonUi.customTextStyle1(
+                              Fonts.interMedium,
+                              14.0,
+                              FontWeight.w500,
+                              AppColors.blackLight,
+                              TextDecoration.none),
+                        ) : const SizedBox(),
                       ),
                       const SizedBox(
                         height: 8,
@@ -251,7 +282,7 @@ class BottomSheetPaymentView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    eventsController.whichSheet.value = '3';
+                    // eventsController.whichSheet.value = '4';
                   },
                   child: Container(
                     child: Center(

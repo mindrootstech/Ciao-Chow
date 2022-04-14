@@ -13,12 +13,18 @@ class ApiProvider extends GetConnect {
   @override
   var baseUrl = "https://development.mind-roots.com/ciao-chow/api";
 
-  Future<SignInModel> getLogIn(String emailText, String passwordText, String uid) async {
+  var stripeKey =
+      'Bearer sk_test_51KaYKaFweZ0Ebm3nR7s7leYZAKzl1P4ph22hi4AOhsMI2uA8oQ23DqebuvYEwV2ympTOgKb6ud2okrnxZxMS4a5R00TLWyVDF8';
 
+  var stripeUrl = 'https://api.stripe.com/v1/customers/';
+  var stripeTokenUrl = 'https://api.stripe.com/v1/tokens';
+
+  Future<SignInModel> getLogIn(
+      String emailText, String passwordText, String uid) async {
     var type = '';
     if (Platform.isAndroid) {
       type = '1';
-    }else if(Platform.isIOS){
+    } else if (Platform.isIOS) {
       type = '2';
     }
 
@@ -46,14 +52,15 @@ class ApiProvider extends GetConnect {
       String gender,
       String dateOfBirth,
       String imagePath,
-      String imageName, String uid) async {
+      String imageName,
+      String uid) async {
     var request = http.MultipartRequest('POST', Uri.parse("/register"));
     var response;
 
     var type = '';
     if (Platform.isAndroid) {
       type = '1';
-    }else if(Platform.isIOS){
+    } else if (Platform.isIOS) {
       type = '2';
     }
 
@@ -173,10 +180,9 @@ class ApiProvider extends GetConnect {
     }
   }
 
-  Future<String> getEventsData() async{
-    final response = await post('/view-all-events', {}, headers: {
-      'Authorization': 'Bearer ${getStorage.read('token')}'
-    });
+  Future<String> getEventsData() async {
+    final response = await post('/view-all-events', {},
+        headers: {'Authorization': 'Bearer ${getStorage.read('token')}'});
     if (response.status.hasError) {
       return 'error';
     } else {
@@ -189,6 +195,40 @@ class ApiProvider extends GetConnect {
       'event_id': eventId,
     }, headers: {
       'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+  }
+
+  Future<String> getAllCards() async {
+    final response = await http.get(
+        Uri.parse(
+            (stripeUrl + getStorage.read('stripeCustomerId')) + '/sources'),
+        headers: {
+          'Authorization': stripeKey,
+          'Content-Type': 'application/json'
+        });
+    if (response.statusCode != 200) {
+      return 'error';
+    } else {
+      return (response.body).toString();
+    }
+  }
+
+  Future<String> getAddCard(String cardNumber, String cvvNo, String cardName,
+      String expMonth, String expYear) async {
+    final response = await post(stripeTokenUrl + '?', {
+      'card[number]': cardNumber,
+      'card[cvc]': cvvNo,
+      'card[name]': cardName,
+      'card[exp_month]': expMonth,
+      'card[exp_year]': expYear,
+    }, headers: {
+      'Authorization': stripeKey,
+      'Content-Type': 'application/json'
     });
     if (response.status.hasError) {
       return 'error';

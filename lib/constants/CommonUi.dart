@@ -194,6 +194,16 @@ class CommonUi {
         borderSide: const BorderSide(color: AppColors.greyCheckBox),
         borderRadius: BorderRadius.circular(10),
       ),
+      errorBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.greyCheckBox),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.greyCheckBox),
+        borderRadius: BorderRadius.circular(10),
+      ),
+
+
     );
   }
 
@@ -218,6 +228,14 @@ class CommonUi {
     final String formatted = formatter.format(createdAt);
     return formatted;
   }
+
+   static String dateFormatEvents(DateTime createdAt) {
+    final DateFormat formatter = DateFormat('dd,MMM,yyyy');
+    final String formatted = formatter.format(createdAt);
+    return formatted;
+  }
+
+
 
   static String timeFormat(DateTime createdAt) {
     String formattedDate = DateFormat('kk:mm:a').format(createdAt);

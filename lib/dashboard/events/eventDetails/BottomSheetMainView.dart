@@ -1,5 +1,6 @@
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/BottomSheetAddCard.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/BottomSheetAlreadyCards.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/BottomSheetPaymentView.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/BottomSheetSelectAge.dart';
@@ -16,6 +17,8 @@ class BottomSheetGuestView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       backgroundColor: AppColors.transparent,
       body : Container(
@@ -31,8 +34,14 @@ class BottomSheetGuestView extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
+
+                        eventsController.whichSheet.value == '4' ? eventsController.whichSheet.value = '2':
+                        eventsController.whichSheet.value == '3' ? eventsController.whichSheet.value = '2':
+                        // eventsController.whichSheet.value == '2' ? eventsController.whichSheet.value = '1':
+
+
                         eventsController.showBottomSheet.value = false;
-                        eventsController.whichSheet.value = '1';
+                        // eventsController.whichSheet.value = '1';
                       },
                       child: Container(
                         margin: const EdgeInsets.all(14),
@@ -42,12 +51,10 @@ class BottomSheetGuestView extends StatelessWidget {
                                 CommonUi.setSvgImage('white_cross_sheet'))),
                       ),
                     ),
-                    eventsController.whichSheet.value == '1'
-                        ? BottomSheetSelectAge()
-                        : eventsController.whichSheet.value == '2'
-                            ? BottomSheetPaymentView()
-                        // : const BottomSheetAddCard(),
-                        : BottomSheetAlreadyCards(),
+                    eventsController.whichSheet.value == '1' ? BottomSheetSelectAge()
+                        : eventsController.whichSheet.value == '2' ? BottomSheetPaymentView()
+                        : eventsController.whichSheet.value == '3' ? BottomSheetAddCard()
+                        : eventsController.whichSheet.value == '4' ? BottomSheetAlreadyCards():const SizedBox()
                   ],
                 ),
               ),

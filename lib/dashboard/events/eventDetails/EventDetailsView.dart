@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
@@ -10,14 +9,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class EventDetailsView extends StatelessWidget {
-
   String eventId;
   String fromWhere;
+
   EventDetailsView(this.fromWhere, this.eventId, {Key? key}) : super(key: key);
-  var eventDetailsController = Get.put(EventDetailsController(eventId));
+  var eventDetailsController = Get.put(EventDetailsController());
 
   @override
   Widget build(BuildContext context) {
+    eventDetailsController.getEventDetails(eventId);
+    eventDetailsController.showBottomSheet.value = false;
+    eventDetailsController.whichSheet.value = '1';
+
     Future<bool> _onWillPop() async {
       return eventDetailsController.showBottomSheet.value
           ? eventDetailsController.showBottomSheet.value = false
@@ -46,10 +49,20 @@ class EventDetailsView extends StatelessWidget {
                 },
               ),
               centerTitle: true,
-              title: Text(
-                'JW Marriott',
-                style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
-                    FontWeight.w600, AppColors.White, TextDecoration.none),
+              title: Obx(
+                () => eventDetailsController
+                            .eventDetails.value.business!.businessName
+                            .toString() != "null" ? Text(
+                        eventDetailsController
+                            .eventDetails.value.business!.businessName!,
+                        style: CommonUi.customTextStyle1(
+                            Fonts.interSemiBold,
+                            18.0,
+                            FontWeight.w600,
+                            AppColors.White,
+                            TextDecoration.none),
+                      )
+                    : const SizedBox(),
               ),
             ),
             body: SingleChildScrollView(
@@ -70,8 +83,8 @@ class EventDetailsView extends StatelessWidget {
                           child: Container(
                             height: 180 / 2,
                             width: Get.width,
-                            decoration:
-                            CommonUi.commonBoxDecoration(24.0, AppColors.White),
+                            decoration: CommonUi.commonBoxDecoration(
+                                24.0, AppColors.White),
                           ),
                         ),
                         Container(
@@ -80,17 +93,20 @@ class EventDetailsView extends StatelessWidget {
                             width: Get.width,
                             child: ClipRRect(
                                 borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                                child: CarouselSlider(
-                                  options: CarouselOptions(
-                                    viewportFraction: 0.83,
-                                    initialPage: 0,
-                                    enableInfiniteScroll: false,
-                                    reverse: false,
-                                    enlargeCenterPage: true,
-                                  ),
-                                  items: imageSliders,
-                                ))),
+                                    const BorderRadius.all(Radius.circular(10)),
+                                child: Container()
+                                // CarouselSlider(
+                                //   options: CarouselOptions(
+                                //     viewportFraction: 0.83,
+                                //     initialPage: 0,
+                                //     enableInfiniteScroll: false,
+                                //     reverse: false,
+                                //     enlargeCenterPage: true,
+                                //   ),
+                                //   items: imageSliders,
+                                // )
+
+                                )),
                       ],
                     ),
                   ),
@@ -102,22 +118,40 @@ class EventDetailsView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: Text(
-                                  'Magik culture ll Dj Night Magik culture ll Dj Night',
-                                  style: CommonUi.customTextStyle1(
-                                      Fonts.interSemiBold,
-                                      18.0,
-                                      FontWeight.w600,
-                                      AppColors.Black,
-                                      TextDecoration.none)),
+                              child: Obx(
+                                () => eventDetailsController
+                                            .eventDetails.value.eventName
+                                            .toString() !=
+                                        'null'
+                                    ? Text(
+                                        eventDetailsController
+                                            .eventDetails.value.eventName!,
+                                        style: CommonUi.customTextStyle1(
+                                            Fonts.interSemiBold,
+                                            18.0,
+                                            FontWeight.w600,
+                                            AppColors.Black,
+                                            TextDecoration.none))
+                                    : const SizedBox(),
+                              ),
                             ),
-                            Text('\$20',
-                                style: CommonUi.customTextStyle1(
-                                    Fonts.interSemiBold,
-                                    24.0,
-                                    FontWeight.w600,
-                                    AppColors.AppColorGrad2,
-                                    TextDecoration.none))
+                            Obx(
+                              () => eventDetailsController
+                                          .eventDetails.value.ticketPrice
+                                          .toString() !=
+                                      "null"
+                                  ? Text(
+                                      '\$' +
+                                          eventDetailsController
+                                              .eventDetails.value.ticketPrice!,
+                                      style: CommonUi.customTextStyle1(
+                                          Fonts.interSemiBold,
+                                          24.0,
+                                          FontWeight.w600,
+                                          AppColors.AppColorGrad2,
+                                          TextDecoration.none))
+                                  : const SizedBox(),
+                            )
                           ],
                         ),
                         const SizedBox(
@@ -155,8 +189,7 @@ class EventDetailsView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    Utils.getString(
-                                        context, 'overview'),
+                                    Utils.getString(context, 'overview'),
                                     style: CommonUi.customTextStyle1(
                                         Fonts.interMedium,
                                         14.0,
@@ -167,16 +200,24 @@ class EventDetailsView extends StatelessWidget {
                                   const SizedBox(
                                     height: 6,
                                   ),
-                                  Text(
-                                    'Lorem ipsum is simply dummy text of the printing',
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interRegular,
-                                        12.0,
-                                        FontWeight.w400,
-                                        AppColors.textFieldsHint,
-                                        TextDecoration.none),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                  Obx(
+                                    () => eventDetailsController
+                                                .eventDetails.value.description
+                                                .toString() !=
+                                            "null"
+                                        ? Text(
+                                            eventDetailsController.eventDetails
+                                                .value.description!,
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interRegular,
+                                                12.0,
+                                                FontWeight.w400,
+                                                AppColors.textFieldsHint,
+                                                TextDecoration.none),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          )
+                                        : const SizedBox(),
                                   ),
                                 ],
                               ),
@@ -198,8 +239,7 @@ class EventDetailsView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    Utils.getString(
-                                        context, 'start_end_date'),
+                                    Utils.getString(context, 'start_end_date'),
                                     style: CommonUi.customTextStyle1(
                                         Fonts.interMedium,
                                         14.0,
@@ -210,30 +250,57 @@ class EventDetailsView extends StatelessWidget {
                                   const SizedBox(
                                     height: 6,
                                   ),
-                                  Text(
-                                    '23,Jan,2022 - 29,Jan,2022',
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interRegular,
-                                        12.0,
-                                        FontWeight.w400,
-                                        AppColors.textFieldsHint,
-                                        TextDecoration.none),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                  Obx(
+                                    () => eventDetailsController.eventDetails
+                                                .value.eventStartDate
+                                                .toString() !=
+                                            "null"
+                                        ? Text(
+                                            CommonUi.dateFormatEvents(
+                                                    eventDetailsController
+                                                        .eventDetails
+                                                        .value
+                                                        .eventStartDate!) +
+                                                ' - ' +
+                                                CommonUi.dateFormatEvents(
+                                                    eventDetailsController
+                                                        .eventDetails
+                                                        .value
+                                                        .eventEndDate!),
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interRegular,
+                                                12.0,
+                                                FontWeight.w400,
+                                                AppColors.textFieldsHint,
+                                                TextDecoration.none),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          )
+                                        : const SizedBox(),
                                   ),
                                   const SizedBox(
                                     height: 6,
                                   ),
-                                  Text(
-                                    'Lorem ipsum is simply dummy text of the printing',
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interRegular,
-                                        12.0,
-                                        FontWeight.w400,
-                                        AppColors.textFieldsHint,
-                                        TextDecoration.none),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                  Obx(
+                                    () => eventDetailsController.eventDetails
+                                                .value.eventDurationDescription
+                                                .toString() !=
+                                            "null"
+                                        ? Text(
+                                      eventDetailsController
+                                          .eventDetails
+                                          .value
+                                          .eventDurationDescription!,
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interRegular,
+                                                12.0,
+                                                FontWeight.w400,
+                                                AppColors.textFieldsHint,
+                                                TextDecoration.none),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          )
+                                        : const SizedBox(),
                                   ),
                                 ],
                               ),
@@ -267,17 +334,24 @@ class EventDetailsView extends StatelessWidget {
                                   const SizedBox(
                                     height: 6,
                                   ),
-                                  Text(
-                                    'JW Marriott',
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interRegular,
-                                        12.0,
-                                        FontWeight.w400,
-                                        AppColors.textFieldsHint,
-                                        TextDecoration.none),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                                  // Obx(
+                                  //   () => eventDetailsController.eventDetails
+                                  //       .value.eventDurationDescription
+                                  //       .toString() !=
+                                  //       "null"
+                                  //       ? Text(
+                                  //     Utils.getString(
+                                  //         context, 'associated_business'),
+                                  //     style: CommonUi.customTextStyle1(
+                                  //         Fonts.interRegular,
+                                  //         12.0,
+                                  //         FontWeight.w400,
+                                  //         AppColors.textFieldsHint,
+                                  //         TextDecoration.none),
+                                  //     maxLines: 1,
+                                  //     overflow: TextOverflow.ellipsis,
+                                  //   ): const SizedBox(),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -310,16 +384,31 @@ class EventDetailsView extends StatelessWidget {
                                   const SizedBox(
                                     height: 6,
                                   ),
-                                  Text(
-                                    '100 / 500',
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interRegular,
-                                        12.0,
-                                        FontWeight.w400,
-                                        AppColors.textFieldsHint,
-                                        TextDecoration.none),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                  Obx(
+                                    () => eventDetailsController
+                                                .eventDetails.value.totalTickets
+                                                .toString() !=
+                                            "null"
+                                        ? Text(
+                                      eventDetailsController
+                                          .eventDetails
+                                          .value
+                                          .availableTickets.toString() +
+                                                ' / ' +
+                                          eventDetailsController
+                                              .eventDetails
+                                              .value
+                                              .totalTickets.toString(),
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interRegular,
+                                                12.0,
+                                                FontWeight.w400,
+                                                AppColors.textFieldsHint,
+                                                TextDecoration.none),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          )
+                                        : const SizedBox(),
                                   ),
                                 ],
                               ),
@@ -353,16 +442,26 @@ class EventDetailsView extends StatelessWidget {
                                   const SizedBox(
                                     height: 6,
                                   ),
-                                  Text(
-                                    'Lorem ipsum is simply dummy text of the printing',
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interRegular,
-                                        12.0,
-                                        FontWeight.w400,
-                                        AppColors.textFieldsHint,
-                                        TextDecoration.none),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                  Obx(
+                                    () => eventDetailsController.eventDetails
+                                                .value.termsConditions
+                                                .toString() !=
+                                            "null"
+                                        ? Text(
+                                      eventDetailsController
+                                          .eventDetails
+                                          .value
+                                          .termsConditions!,
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interRegular,
+                                                12.0,
+                                                FontWeight.w400,
+                                                AppColors.textFieldsHint,
+                                                TextDecoration.none),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          )
+                                        : const SizedBox(),
                                   ),
                                 ],
                               ),
@@ -373,6 +472,7 @@ class EventDetailsView extends StatelessWidget {
                           onTap: () {
                             // Get.to(BottomSheetGuestView());
                             eventDetailsController.showBottomSheet.value = true;
+                            eventDetailsController.whichSheet.value = '1';
                           },
                           child: Container(
                             child: Center(
@@ -404,10 +504,9 @@ class EventDetailsView extends StatelessWidget {
           ),
           Obx(() => eventDetailsController.showBottomSheet.value
               ? BottomSheetGuestView()
-              :  Container())
+              : Container())
         ],
       ),
     );
   }
 }
-

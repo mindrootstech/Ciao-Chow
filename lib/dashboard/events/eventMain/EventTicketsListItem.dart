@@ -60,10 +60,8 @@ class EventTicketsListItem extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 6, bottom: 6),
                         child: Text(
-                          Utils.getString(
-                              context,
-                              eventsController
-                                  .arrayEventTicket[index].event!.eventName!),
+                          eventsController
+                              .arrayEventTicket[index].event!.eventName!,
                           textAlign: TextAlign.start,
                           style: CommonUi.customTextStyle1(
                               Fonts.interMedium,
@@ -84,10 +82,8 @@ class EventTicketsListItem extends StatelessWidget {
               width: Get.width,
               margin: const EdgeInsets.only(left: 10, top: 8),
               child: Text(
-                Utils.getString(
-                    context,
-                    CommonUi.dateFormat(eventsController
-                        .arrayEventTicket[index].event!.eventStartDate!)),
+                CommonUi.dateFormat(eventsController
+                    .arrayEventTicket[index].event!.eventStartDate!),
                 textAlign: TextAlign.start,
                 style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
                     FontWeight.w400, AppColors.Black, TextDecoration.none),
@@ -104,16 +100,8 @@ class EventTicketsListItem extends StatelessWidget {
                     eventsController.arrayEventTicket[index].event!
                                 .availableTickets! ==
                             '1'
-                        ? Utils.getString(
-                            context,
-                            eventsController.arrayEventTicket[index].event!
-                                    .availableTickets! +
-                                ' Ticket')
-                        : Utils.getString(
-                            context,
-                            eventsController.arrayEventTicket[index].event!
-                                    .availableTickets! +
-                                ' Tickets'),
+                        ?  eventsController.arrayEventTicket[index].event!.availableTickets! + ' Ticket'
+                        : eventsController.arrayEventTicket[index].event!.availableTickets! + ' Tickets',
                     textAlign: TextAlign.start,
                     style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
                         FontWeight.w400, AppColors.Black, TextDecoration.none),
@@ -121,9 +109,7 @@ class EventTicketsListItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '\$' +
-                        Utils.getString(context,
-                            eventsController.arrayEventTicket[index].ticketPrice),
+                    '\$' + eventsController.arrayEventTicket[index].ticketPrice!,
                     textAlign: TextAlign.start,
                     style: CommonUi.customTextStyle1(Fonts.interSemiBold, 12.0,
                         FontWeight.w600, AppColors.Black, TextDecoration.none),

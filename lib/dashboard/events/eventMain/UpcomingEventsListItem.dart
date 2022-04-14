@@ -17,10 +17,10 @@ class UpcomingEventsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
-      onTap: (){
-        Get.to(EventDetailsView('notPurchased',eventsController.arrayUpcomingEvents[index].id!.toString()));
+      onTap: () {
+        Get.to(EventDetailsView('notPurchased',
+            eventsController.arrayUpcomingEvents[index].id!.toString()));
       },
       child: Container(
         width: Get.width,
@@ -35,8 +35,8 @@ class UpcomingEventsListItem extends StatelessWidget {
                   child: CachedNetworkImage(
                     height: 230,
                     fit: BoxFit.cover,
-                    imageUrl:
-                    eventsController.arrayUpcomingEvents[index].featuredImageUrl!,
+                    imageUrl: eventsController
+                        .arrayUpcomingEvents[index].featuredImageUrl!,
                     placeholder: (context, url) => Transform.scale(
                         scale: 0.2,
                         child: const CircularProgressIndicator(
@@ -44,17 +44,15 @@ class UpcomingEventsListItem extends StatelessWidget {
                           valueColor: AlwaysStoppedAnimation(Colors.white),
                         )),
                     errorWidget: (context, url, error) =>
-                    const Icon(Icons.error),
+                        const Icon(Icons.error),
                   ),
                 ),
-
-                Positioned(child: Container(
+                Positioned(
+                    child: Container(
                   width: Get.width,
                   height: 230,
                   decoration: CommonUi.commonBoxDecorationAllOverlay(10.0),
-
                 )),
-
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -66,35 +64,39 @@ class UpcomingEventsListItem extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: 130,
-                          child: Text(
-                            Utils.getString(context,
-                                eventsController.arrayUpcomingEvents[index].eventName!),
-                            textAlign: TextAlign.start,
-                            style: CommonUi.customTextStyle1(
-                                Fonts.interMedium,
-                                14.0,
-                                FontWeight.w500,
-                                AppColors.White,
-                                TextDecoration.none),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                          child: eventsController.arrayUpcomingEvents[index]
+                                      .business!.businessName !=
+                                  'null'
+                              ? Text(
+                            eventsController.arrayUpcomingEvents[index].business!.businessName!,
+                                  textAlign: TextAlign.start,
+                                  style: CommonUi.customTextStyle1(
+                                      Fonts.interMedium,
+                                      14.0,
+                                      FontWeight.w500,
+                                      AppColors.White,
+                                      TextDecoration.none),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              : const SizedBox(),
                         ),
-
-                        const SizedBox(height: 4,),
-
+                        const SizedBox(
+                          height: 4,
+                        ),
                         Container(
                           margin: const EdgeInsets.only(top: 3),
-                          child: Text(
-                            Utils.getString(context,
-                                eventsController.arrayUpcomingEvents[index].eventName!),
+                          child: eventsController.arrayUpcomingEvents[index]
+                              .business!.address != 'null' ? Text(
+                            eventsController.arrayUpcomingEvents[index]
+                                .business!.address!,
                             style: CommonUi.customTextStyle1(
                                 Fonts.interRegular,
                                 12.0,
                                 FontWeight.w400,
                                 AppColors.White,
                                 TextDecoration.none),
-                          ),
+                          ): const SizedBox(),
                         ),
                       ],
                     ),
@@ -106,6 +108,5 @@ class UpcomingEventsListItem extends StatelessWidget {
         ),
       ),
     );
-
   }
 }

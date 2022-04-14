@@ -285,7 +285,7 @@ class HomeView extends StatelessWidget {
                                                 null
                                             ? homeController
                                                 .profileData.value.totalPoints!
-                                                .toDouble()
+                                                .toDouble() / 10
                                             : 0.0,
                                         barRadius: const Radius.circular(30),
                                         progressColor: AppColors.home_progress,
