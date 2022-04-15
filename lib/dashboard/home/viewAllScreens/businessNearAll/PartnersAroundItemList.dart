@@ -59,8 +59,7 @@ class PartnersAroundItemList extends StatelessWidget{
                   SizedBox(
                     width: 130,
                     child: Text(
-                      Utils.getString(context,
-                          partnersAllNearController.arrayBusinessList[index].businessName!),
+                      partnersAllNearController.arrayBusinessList[index].businessName!,
                       textAlign: TextAlign.start,
                       style: CommonUi.customTextStyle1(
                           Fonts.interMedium,
@@ -75,8 +74,7 @@ class PartnersAroundItemList extends StatelessWidget{
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     child: Text(
-                      Utils.getString(context,
-                          partnersAllNearController.arrayBusinessList[index].address!),
+                      partnersAllNearController.arrayBusinessList[index].address!,
                       style: CommonUi.customTextStyle1(
                           Fonts.interRegular,
                           12.0,
@@ -94,9 +92,7 @@ class PartnersAroundItemList extends StatelessWidget{
                           width: 4,
                         ),
                         Text(
-                          Utils.getString(
-                              context,
-                              partnersAllNearController.arrayBusinessList[index].distance!+ ' miles away'),
+                          partnersAllNearController.arrayBusinessList[index].distance!+ ' miles away',
                           style: CommonUi.customTextStyle1(
                               Fonts.interItalic,
                               8.0,

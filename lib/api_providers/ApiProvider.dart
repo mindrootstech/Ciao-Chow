@@ -220,20 +220,40 @@ class ApiProvider extends GetConnect {
 
   Future<String> getAddCard(String cardNumber, String cvvNo, String cardName,
       String expMonth, String expYear) async {
-    final response = await post(stripeTokenUrl + '?', {
-      'card[number]': cardNumber,
-      'card[cvc]': cvvNo,
-      'card[name]': cardName,
-      'card[exp_month]': expMonth,
-      'card[exp_year]': expYear,
-    }, headers: {
+    final response = await http.post(
+        Uri.parse(stripeTokenUrl +
+            '?' +
+            'card[number]=' +
+            cardNumber +
+            '&card[cvc]=' +
+            cvvNo +
+            '&card[name]=' +
+            cardName +
+            '&card[exp_month]=' +
+            expMonth +
+            '&card[exp_year]=' +
+            expYear),
+        headers: {
+          'Authorization': stripeKey,
+          'Content-Type': 'application/json'
+        });
+    if (response.statusCode != 200) {
+      return 'error';
+    } else {
+      return (response.body).toString();
+    }
+  }
+
+  Future<String> fetchCard(String id) async {
+    final response = await http
+        .post(Uri.parse(stripeUrl + getStorage.read('stripeCustomerId') + '/sources?' + 'source=' + id), headers: {
       'Authorization': stripeKey,
       'Content-Type': 'application/json'
     });
-    if (response.status.hasError) {
+    if (response.statusCode != 200) {
       return 'error';
     } else {
-      return json.encode(response.body);
+      return (response.body).toString();
     }
   }
 }

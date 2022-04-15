@@ -13,7 +13,7 @@ class EventsController extends GetxController {
   var bannerList = <gt.Banner>[].obs;
   var isChecked = false.obs;
   final _apiProvider = ApiProvider();
-  List<ModelCards> arrayCards = <ModelCards>[];
+  var arrayCards = <ModelCards>[];
   var imageSliders = <Widget>[].obs;
 
   @override

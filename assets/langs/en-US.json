@@ -61,5 +61,7 @@
   "card_number": "Card Number",
   "name_on_card": "Name on card",
   "choose_other_cards": "Choose Other Cards",
+  "event_details": "Event Details",
+  "i_understand": "I understand and accept the deal's terms and\nconditions.",
   "please_fill_details": "Please fill in the details below to add a new card. You will be able to select this card during the checkout flow."
 }

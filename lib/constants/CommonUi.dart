@@ -6,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
 
-
 class CommonUi {
   static var dropDownButtonDecoration =
       const InputDecoration.collapsed(hintText: "", border: InputBorder.none);
@@ -35,17 +34,18 @@ class CommonUi {
         borderRadius: BorderRadius.all(Radius.circular(radius)));
   }
 
-   static commonPaymentBoxGrad(double radius) {
+  static commonPaymentBoxGrad(double radius) {
     return BoxDecoration(
         gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [AppColors.greyGrad1, AppColors.greyGrad2,AppColors.greyGrad3]),
+            colors: [
+              AppColors.greyGrad1,
+              AppColors.greyGrad2,
+              AppColors.greyGrad3
+            ]),
         borderRadius: BorderRadius.all(Radius.circular(radius)));
-
   }
-
-
 
   static commonBoxDecorationAllSides(double radius, Color color) {
     return BoxDecoration(
@@ -83,13 +83,11 @@ class CommonUi {
   static customTextStyle1(String fontFamily, double fontSize,
       FontWeight fontWeight, Color color, TextDecoration txtDecoration) {
     return TextStyle(
-      fontFamily: fontFamily,
-      fontSize: fontSize,
-      // fontWeight: fontWeight,
-      color: color,
-      decoration: txtDecoration
-
-    );
+        fontFamily: fontFamily,
+        fontSize: fontSize,
+        // fontWeight: fontWeight,
+        color: color,
+        decoration: txtDecoration);
   }
 
   static customTextStyleUnderLine(String fontFamily, double fontSize,
@@ -99,22 +97,21 @@ class CommonUi {
       fontSize: fontSize,
       // fontWeight: fontWeight,
       color: color,
-      decoration: txtDecoration,decorationColor: AppColors.Black,
-
+      decoration: txtDecoration,
+      decorationColor: AppColors.Black,
     );
   }
-
-
 
   static customTextStyle2(String fontFamily, double fontSize,
       FontWeight fontWeight, Color color, TextDecoration txtDecoration) {
     return TextStyle(
-      fontFamily: fontFamily,
-      fontSize: fontSize,
-      // fontWeight: fontWeight,
-      color: color,
-      decoration: txtDecoration,letterSpacing: 1.0,height: 1.4
-    );
+        fontFamily: fontFamily,
+        fontSize: fontSize,
+        // fontWeight: fontWeight,
+        color: color,
+        decoration: txtDecoration,
+        letterSpacing: 1.0,
+        height: 1.4);
   }
 
   static var shadowRoundedContainer = BoxDecoration(
@@ -202,8 +199,6 @@ class CommonUi {
         borderSide: const BorderSide(color: AppColors.greyCheckBox),
         borderRadius: BorderRadius.circular(10),
       ),
-
-
     );
   }
 
@@ -229,13 +224,23 @@ class CommonUi {
     return formatted;
   }
 
-   static String dateFormatEvents(DateTime createdAt) {
+  static String dateFormatEvents(DateTime createdAt) {
     final DateFormat formatter = DateFormat('dd,MMM,yyyy');
     final String formatted = formatter.format(createdAt);
     return formatted;
   }
 
+  static String dateFormatWithTime(DateTime createdAt) {
+    final DateFormat formatter = DateFormat('MMM, yyyy kk:mm:a');
+    final String formatted = formatter.format(createdAt);
+    return formatted;
+  }
 
+  static String dateFormatOnlyDate(DateTime createdAt) {
+    final DateFormat formatter = DateFormat('dd');
+    final String formatted = formatter.format(createdAt);
+    return formatted.toString();
+  }
 
   static String timeFormat(DateTime createdAt) {
     String formattedDate = DateFormat('kk:mm:a').format(createdAt);
@@ -259,11 +264,12 @@ class CommonUi {
                     )),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-            )).toList();
+            ))
+        .toList();
   }
 
-
-  static void imageSlidersDetails(List<dynamic> bannerList, RxList<Widget> imageSliders) {
+  static void imageSlidersDetails(
+      List<dynamic> bannerList, RxList<Widget> imageSliders) {
     imageSliders.value = bannerList
         .map((item) => ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(14.0)),
@@ -281,5 +287,26 @@ class CommonUi {
               ),
             ))
         .toList();
+  }
+
+  static String getDayOfMonthSuffix(int dayNum) {
+    if (!(dayNum >= 1 && dayNum <= 31)) {
+      throw Exception('Invalid day of month');
+    }
+
+    if (dayNum >= 11 && dayNum <= 13) {
+      return 'th';
+    }
+
+    switch (dayNum % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
   }
 }

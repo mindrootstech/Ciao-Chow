@@ -73,40 +73,55 @@ class BottomSheetPaymentView extends StatelessWidget {
                   height: 15,
                 ),
                 eventsController.eventDetails.value.business!.businessName
-                    .toString() !=
-                    "null"
+                            .toString() !=
+                        "null"
                     ? Text(
-                  eventsController.eventDetails.value.business!.businessName!,
-                  style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
-                      FontWeight.w600, AppColors.Black, TextDecoration.none),
-                ) : const SizedBox(),
+                        eventsController
+                            .eventDetails.value.business!.businessName!,
+                        style: CommonUi.customTextStyle1(
+                            Fonts.interSemiBold,
+                            18.0,
+                            FontWeight.w600,
+                            AppColors.Black,
+                            TextDecoration.none),
+                      )
+                    : const SizedBox(),
                 const SizedBox(
                   height: 12,
                 ),
                 Obx(
-                  () => eventsController.eventDetails.value.eventName.toString() != 'null'? Text(
-                    eventsController.eventDetails.value.eventName!,
-                    style: CommonUi.customTextStyle1(
-                        Fonts.interRegular,
-                        12.0,
-                        FontWeight.w400,
-                        AppColors.textFieldsHint,
-                        TextDecoration.none),
-                  ) : const SizedBox(),
+                  () => eventsController.eventDetails.value.eventName
+                              .toString() !=
+                          'null'
+                      ? Text(
+                          eventsController.eventDetails.value.eventName!,
+                          style: CommonUi.customTextStyle1(
+                              Fonts.interRegular,
+                              12.0,
+                              FontWeight.w400,
+                              AppColors.textFieldsHint,
+                              TextDecoration.none),
+                        )
+                      : const SizedBox(),
                 ),
                 const SizedBox(
                   height: 8,
                 ),
                 Obx(
-                  () => eventsController.eventDetails.value.business!.address.toString() != 'null' ?Text(
-                    eventsController.eventDetails.value.business!.address!,
-                    style: CommonUi.customTextStyle1(
-                        Fonts.interRegular,
-                        12.0,
-                        FontWeight.w400,
-                        AppColors.textFieldsHint,
-                        TextDecoration.none),
-                  ): const SizedBox(),
+                  () => eventsController.eventDetails.value.business!.address
+                              .toString() !=
+                          'null'
+                      ? Text(
+                          eventsController
+                              .eventDetails.value.business!.address!,
+                          style: CommonUi.customTextStyle1(
+                              Fonts.interRegular,
+                              12.0,
+                              FontWeight.w400,
+                              AppColors.textFieldsHint,
+                              TextDecoration.none),
+                        )
+                      : const SizedBox(),
                 ),
                 const SizedBox(
                   height: 28,
@@ -117,54 +132,58 @@ class BottomSheetPaymentView extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Payment Method',
-                            style: CommonUi.customTextStyle1(
-                                Fonts.interMedium,
-                                16.0,
-                                FontWeight.w500,
-                                AppColors.Black,
-                                TextDecoration.none),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Obx(
-                            () => GestureDetector(
-                              onTap: (){
-                                eventsController.allCardsList.length > 0 ?  eventsController.whichSheet.value = '4' : false;
-                              },
-
-
-                              child: Text(
-                                eventsController.allCardsList.length > 0 ? 'Choose other Cards for payment' :'No Card  Added'  ,
-                                style: CommonUi.customTextStyle1(
-                                    Fonts.interMedium,
-                                    12.0,
-                                    FontWeight.w500,
-                                    AppColors.redPayment,
-                                    TextDecoration.none),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Row(
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SvgPicture.asset(CommonUi.setSvgImage('add_card')),
-                            const SizedBox(
-                              width: 8,
+                            Text(
+                              'Payment Method',
+                              style: CommonUi.customTextStyle1(
+                                  Fonts.interMedium,
+                                  16.0,
+                                  FontWeight.w500,
+                                  AppColors.Black,
+                                  TextDecoration.none),
                             ),
-                            GestureDetector(
-                              onTap: (){
-                                eventsController.whichSheet.value = '3';
-                              },
-                              child: Text(
+                            const SizedBox(
+                              height: 8,
+                            ),
+                             GestureDetector(
+                                onTap: () {
+                                  eventsController.allCardsList.isNotEmpty
+                                      ? eventsController.whichSheet.value = '4'
+                                      : false;
+                                },
+                                child:
+                                          Text(
+                                eventsController.allCardsList.length > 0
+                                       ? 'Choose other Cards for payment'
+                                       :
+                                          'No Card  Added',
+                                  style: CommonUi.customTextStyle1(
+                                      Fonts.interMedium,
+                                      12.0,
+                                      FontWeight.w500,
+                                      AppColors.redPayment,
+                                      TextDecoration.none),
+                                ),
+
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            eventsController.whichSheet.value = '3';
+                          },
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(CommonUi.setSvgImage('add_card')),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Text(
                                 'Add Card',
                                 style: CommonUi.customTextStyle1(
                                     Fonts.interSemiBold,
@@ -173,8 +192,8 @@ class BottomSheetPaymentView extends StatelessWidget {
                                     AppColors.redPayment,
                                     TextDecoration.none),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -203,27 +222,50 @@ class BottomSheetPaymentView extends StatelessWidget {
                         height: 8,
                       ),
                       Obx(
-                        () => eventsController.eventDetails.value.business!.address != 'null' ? Text(
-                          '',
-                          style: CommonUi.customTextStyle1(
-                              Fonts.interMedium,
-                              14.0,
-                              FontWeight.w500,
-                              AppColors.blackLight,
-                              TextDecoration.none),
-                        ) : const SizedBox(),
+                        () => eventsController.eventDetails.value.business!.createdAt.toString() != 'null'
+                            ? Text(
+                                CommonUi.dateFormatOnlyDate(eventsController
+                                        .eventDetails
+                                        .value
+                                        .business!
+                                        .createdAt!) +
+                                    CommonUi.getDayOfMonthSuffix(int.parse(
+                                        CommonUi.dateFormatOnlyDate(
+                                            eventsController.eventDetails.value
+                                                .business!.createdAt!))) +
+                                    " " +
+                                    CommonUi.dateFormatWithTime(eventsController
+                                        .eventDetails
+                                        .value
+                                        .business!
+                                        .createdAt!),
+                                style: CommonUi.customTextStyle1(
+                                    Fonts.interMedium,
+                                    14.0,
+                                    FontWeight.w500,
+                                    AppColors.blackLight,
+                                    TextDecoration.none),
+                              )
+                            : const SizedBox(),
                       ),
                       const SizedBox(
                         height: 8,
                       ),
-                      Text(
-                        'Lorem lupsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text.',
-                        style: CommonUi.customTextStyle1(
-                            Fonts.interRegular,
-                            12.0,
-                            FontWeight.w400,
-                            AppColors.textFieldsHint,
-                            TextDecoration.none),
+                      Obx(
+                        () => eventsController.eventDetails.value.description
+                                    .toString() !=
+                                'null'
+                            ? Text(
+                                eventsController
+                                    .eventDetails.value.description!,
+                                style: CommonUi.customTextStyle1(
+                                    Fonts.interRegular,
+                                    12.0,
+                                    FontWeight.w400,
+                                    AppColors.textFieldsHint,
+                                    TextDecoration.none),
+                              )
+                            : const SizedBox(),
                       )
                     ],
                   ),
@@ -243,14 +285,19 @@ class BottomSheetPaymentView extends StatelessWidget {
                           AppColors.Black,
                           TextDecoration.none),
                     ),
-                    Text(
-                      '\$100',
-                      style: CommonUi.customTextStyle1(
-                          Fonts.interSemiBold,
-                          24.0,
-                          FontWeight.w600,
-                          AppColors.redPrice,
-                          TextDecoration.none),
+                    Obx(
+                      () => eventsController.eventDetails.value.ticketPrice
+                          .toString() !=
+                          'null'
+                          ? Text(
+                        '\$' + eventsController.eventDetails.value.ticketPrice!,
+                        style: CommonUi.customTextStyle1(
+                            Fonts.interSemiBold,
+                            24.0,
+                            FontWeight.w600,
+                            AppColors.redPrice,
+                            TextDecoration.none),
+                      ): const SizedBox(),
                     )
                   ],
                 ),
@@ -269,8 +316,7 @@ class BottomSheetPaymentView extends StatelessWidget {
                             eventsController.isChecked.value = value!;
                           }),
                     ),
-                    Text(
-                      'I understand and accept the deal\'s terms and\nconditions.',
+                    Text(Utils.getString(context, 'i_understand'),
                       style: CommonUi.customTextStyle1(
                           Fonts.interRegular,
                           12.0,

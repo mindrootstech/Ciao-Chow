@@ -29,35 +29,41 @@ class BottomSheetGuestView extends StatelessWidget {
               bottom: 0,
               left: 0,
               right: 0,
-              child: Obx(
-                () => Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
+              child:
+                 Obx(()=> Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
 
-                        eventsController.whichSheet.value == '4' ? eventsController.whichSheet.value = '2':
-                        eventsController.whichSheet.value == '3' ? eventsController.whichSheet.value = '2':
-                        // eventsController.whichSheet.value == '2' ? eventsController.whichSheet.value = '1':
+                          eventsController.whichSheet.value == '4' ? eventsController.whichSheet.value = '2':
+                          eventsController.whichSheet.value == '3' ? eventsController.whichSheet.value = '2':
+                          // eventsController.whichSheet.value == '2' ? eventsController.whichSheet.value = '1':
 
 
-                        eventsController.showBottomSheet.value = false;
-                        // eventsController.whichSheet.value = '1';
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.all(14),
-                        child: Align(
-                            alignment: Alignment.centerRight,
-                            child: SvgPicture.asset(
-                                CommonUi.setSvgImage('white_cross_sheet'))),
-                      ),
-                    ),
-                    eventsController.whichSheet.value == '1' ? BottomSheetSelectAge()
-                        : eventsController.whichSheet.value == '2' ? BottomSheetPaymentView()
-                        : eventsController.whichSheet.value == '3' ? BottomSheetAddCard()
-                        : eventsController.whichSheet.value == '4' ? BottomSheetAlreadyCards():const SizedBox()
-                  ],
+                          eventsController.showBottomSheet.value = false;
+
+                          eventsController.cardNumberController.value.text ='';
+                          eventsController.nameOnCardController.value.text ='';
+                          eventsController.expiryDateController.value.text ='';
+                          eventsController.cvvTxtController.value.text ='';
+                          // eventsController.whichSheet.value = '1';
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.all(14),
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child: SvgPicture.asset(
+                                  CommonUi.setSvgImage('white_cross_sheet'))),
+                        ),
+                      ), eventsController.whichSheet.value == '1' ? BottomSheetSelectAge()
+                            : eventsController.whichSheet.value == '2' ? BottomSheetPaymentView()
+                            : eventsController.whichSheet.value == '3' ? BottomSheetAddCard()
+                            : eventsController.whichSheet.value == '4' ? BottomSheetAlreadyCards():const SizedBox(),
+
+                    ],
                 ),
-              ),
+                 ),
+
             ),
           ],
         ),

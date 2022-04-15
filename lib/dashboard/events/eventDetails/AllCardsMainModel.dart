@@ -21,6 +21,7 @@ class AllCardsMainModel {
   bool? hasMore;
   String? url;
 
+
   factory AllCardsMainModel.fromJson(Map<String, dynamic> json) => AllCardsMainModel(
     object: json["object"],
     data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
@@ -61,6 +62,7 @@ class Datum {
     this.metadata,
     this.name,
     this.tokenizationMethod,
+    this.isSelected,
   });
 
   String? id;
@@ -86,6 +88,7 @@ class Datum {
   Metadata? metadata;
   dynamic name;
   dynamic tokenizationMethod;
+  bool? isSelected;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
@@ -111,6 +114,7 @@ class Datum {
     metadata: Metadata.fromJson(json["metadata"]),
     name: json["name"],
     tokenizationMethod: json["tokenization_method"],
+    isSelected: false,
   );
 
   Map<String, dynamic> toJson() => {
@@ -137,6 +141,7 @@ class Datum {
     "metadata": metadata!.toJson(),
     "name": name,
     "tokenization_method": tokenizationMethod,
+    "isSelected": isSelected,
   };
 }
 
