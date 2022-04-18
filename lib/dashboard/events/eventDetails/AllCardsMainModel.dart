@@ -88,7 +88,7 @@ class Datum {
   Metadata? metadata;
   dynamic name;
   dynamic tokenizationMethod;
-  bool? isSelected;
+  bool? isSelected=false;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
@@ -114,7 +114,6 @@ class Datum {
     metadata: Metadata.fromJson(json["metadata"]),
     name: json["name"],
     tokenizationMethod: json["tokenization_method"],
-    isSelected: false,
   );
 
   Map<String, dynamic> toJson() => {

@@ -33,7 +33,7 @@ class UpcomingEventsListItem extends StatelessWidget {
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   child: CachedNetworkImage(
-                    height: 230,
+                    height: 180,
                     fit: BoxFit.cover,
                     imageUrl: eventsController
                         .arrayUpcomingEvents[index].featuredImageUrl!,
@@ -50,7 +50,7 @@ class UpcomingEventsListItem extends StatelessWidget {
                 Positioned(
                     child: Container(
                   width: Get.width,
-                  height: 230,
+                  height: 180,
                   decoration: CommonUi.commonBoxDecorationAllOverlay(10.0),
                 )),
                 Positioned(

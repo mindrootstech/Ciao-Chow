@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
+import 'package:ciao_chow/constants/MyCarouselSlider.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventTicketsListItem.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventsController.dart';
@@ -42,11 +43,11 @@ class EventsView extends StatelessWidget {
                   height: 15,
                 ),
                 SizedBox(
-                  height: 190,
+                  height: 200,
                   child: Stack(
                     children: [
                       Container(
-                        height: 190 / 2 + 20,
+                        height: 200 / 2 + 20,
                         color: AppColors.AppColorGrad2,
                       ),
                       Positioned(
@@ -54,22 +55,22 @@ class EventsView extends StatelessWidget {
                         right: 0,
                         left: 0,
                         child: Container(
-                          height: 190 / 2,
+                          height: 200 / 2,
                           width: Get.width,
                           decoration:
                               CommonUi.commonBoxDecoration(24.0, AppColors.White),
                         ),
                       ),
                       SizedBox(
-                          height: 165,
+                          height: 175,
                           width: Get.width,
                           child: ClipRRect(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(10)),
                               child: Obx(
-                                () => CarouselSlider(
+                                () => MyCarouselSlider(
                                   options: CarouselOptions(
-                                    viewportFraction: 0.83,
+                                    viewportFraction: 0.9,
                                     initialPage: 0,
                                     enableInfiniteScroll: false,
                                     reverse: false,
@@ -152,7 +153,7 @@ class EventsView extends StatelessWidget {
                                       crossAxisCount: 2,
                                       crossAxisSpacing: 10,
                                       mainAxisSpacing: 12,
-                                      mainAxisExtent: 230),
+                                      mainAxisExtent: 180),
                               itemCount:
                                   eventsController.arrayUpcomingEvents.length,
                               itemBuilder: (BuildContext context, int index) {

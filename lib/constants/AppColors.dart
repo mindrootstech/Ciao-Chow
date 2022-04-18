@@ -15,7 +15,7 @@ class AppColors {
   static const Color buttonColor2 = Color.fromRGBO(243, 38, 35, 0.76);
   static const Color whiteBorder = Color.fromRGBO(255, 255, 255, 0.7);
   static const Color transparent = Color.fromRGBO(0, 0, 0, 0.0);
-  static const Color home_progress = Color.fromRGBO(185, 6, 6, 1);
+  static const Color home_progress = Color.fromRGBO(255, 179, 176, 1);
   static const Color grey_level = Color.fromRGBO(190, 190, 190, 1);
   static const Color dividerClr = Color.fromRGBO(235, 235, 235, 1);
   static const Color eventTicketsBackground = Color.fromRGBO(204, 54, 43, 0.2);
@@ -31,5 +31,6 @@ class AppColors {
   static const Color redPrice = Color.fromRGBO(216, 61, 53, 1);
   static const Color greyCheckBox = Color.fromRGBO(222, 222, 222, 1);
   static const Color txtHintCard = Color.fromRGBO(147, 147, 147, 1);
+  static const Color redLatest = Color.fromRGBO(185, 6, 6, 1);
 
 }

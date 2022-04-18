@@ -30,7 +30,7 @@ class BottomSheetGuestView extends StatelessWidget {
               left: 0,
               right: 0,
               child:
-                 Obx(()=> Column(
+            Column(
                     children: [
                       GestureDetector(
                         onTap: () {
@@ -55,14 +55,16 @@ class BottomSheetGuestView extends StatelessWidget {
                               child: SvgPicture.asset(
                                   CommonUi.setSvgImage('white_cross_sheet'))),
                         ),
-                      ), eventsController.whichSheet.value == '1' ? BottomSheetSelectAge()
-                            : eventsController.whichSheet.value == '2' ? BottomSheetPaymentView()
-                            : eventsController.whichSheet.value == '3' ? BottomSheetAddCard()
-                            : eventsController.whichSheet.value == '4' ? BottomSheetAlreadyCards():const SizedBox(),
+                      ),
+                      Obx(
+                        ()=> eventsController.whichSheet.value == '1' ? BottomSheetSelectAge()
+                              : eventsController.whichSheet.value == '2' ? BottomSheetPaymentView()
+                              : eventsController.whichSheet.value == '3' ? BottomSheetAddCard()
+                              : eventsController.whichSheet.value == '4' ? BottomSheetAlreadyCards():const SizedBox(),
+                      ),
 
                     ],
                 ),
-                 ),
 
             ),
           ],

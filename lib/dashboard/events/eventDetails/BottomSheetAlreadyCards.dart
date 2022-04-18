@@ -5,6 +5,7 @@ import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/AlreadyExistCardsItem.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsController.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class BottomSheetAlreadyCards extends StatelessWidget {
@@ -43,16 +44,8 @@ class BottomSheetAlreadyCards extends StatelessWidget {
           const SizedBox(height: 24,),
 
            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(0),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: eventsDetailsController.allCardsList.length,
-                itemBuilder:
-                    (BuildContext context, int index) {
-                  return AlreadyExistCardsItem(index, eventsDetailsController);
-                },
-              ),
+              child:  AlreadyExistCardsItem(),
+
             ),
 
 

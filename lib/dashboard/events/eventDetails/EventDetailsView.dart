@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
+import 'package:ciao_chow/constants/MyCarouselSlider.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/BottomSheetMainView.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsController.dart';
@@ -65,11 +66,11 @@ class EventDetailsView extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 180,
+                    height: 200,
                     child: Stack(
                       children: [
                         Container(
-                          height: 180 / 2 + 30,
+                          height: 200 / 2 + 30,
                           color: AppColors.AppColorGrad2,
                         ),
                         Positioned(
@@ -77,23 +78,22 @@ class EventDetailsView extends StatelessWidget {
                           right: 0,
                           left: 0,
                           child: Container(
-                            height: 180 / 2,
+                            height: 200 / 2,
                             width: Get.width,
                             decoration: CommonUi.commonBoxDecoration(
                                 24.0, AppColors.White),
                           ),
                         ),
-                        Container(
-                            height: 160,
-                            margin: const EdgeInsets.only(left: 20, right: 20),
+                        SizedBox(
+                            height:175,
                             width: Get.width,
                             child: ClipRRect(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
                                 child: Obx(
-                                  () => CarouselSlider(
+                                  () => MyCarouselSlider(
                                     options: CarouselOptions(
-                                      viewportFraction: 0.83,
+                                      viewportFraction: 0.9,
                                       initialPage: 0,
                                       enableInfiniteScroll: false,
                                       reverse: false,
@@ -500,7 +500,24 @@ class EventDetailsView extends StatelessWidget {
           ),
           Obx(() => eventDetailsController.showBottomSheet.value
               ? BottomSheetGuestView()
-              : Container())
+              : Container()),
+
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            child: Obx(() => eventDetailsController.eventLoaderShow.value
+                ? Container(
+                width: Get.width,
+                color: AppColors.White,
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.AppColorGrad2,
+                  ),
+                ))
+                : Container()),
+          ),
         ],
       ),
     );

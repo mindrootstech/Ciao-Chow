@@ -12,12 +12,8 @@ class LatestCheckInViewAllView extends StatelessWidget {
 
   var latestCheckInController = Get.put(LatestCheckInController());
 
-
   @override
   Widget build(BuildContext context) {
-
-    apiImplementation();
-
     return Stack(
       children: [
         Scaffold(
@@ -97,10 +93,5 @@ class LatestCheckInViewAllView extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void apiImplementation() {
-    latestCheckInController.loaderLatest.value = true;
-    latestCheckInController.getLatestCheckIns();
   }
 }

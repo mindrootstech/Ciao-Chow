@@ -24,7 +24,7 @@ class HomeMainModel {
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data?.toJson(),
+    "data": data!.toJson(),
   };
 }
 
@@ -34,25 +34,29 @@ class Data {
     this.banners,
     this.businessList,
     this.userCheckins,
+    this.levels,
   });
 
   Profile? profile;
   List<Banner>? banners;
   List<Business>? businessList;
   List<UserCheckin>? userCheckins;
+  List<Level>? levels;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     profile: Profile.fromJson(json["profile"]),
     banners: List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
     businessList: List<Business>.from(json["business_list"].map((x) => Business.fromJson(x))),
     userCheckins: List<UserCheckin>.from(json["user_checkins"].map((x) => UserCheckin.fromJson(x))),
+    levels: List<Level>.from(json["levels"].map((x) => Level.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "profile": profile?.toJson(),
+    "profile": profile!.toJson(),
     "banners": List<dynamic>.from(banners!.map((x) => x.toJson())),
     "business_list": List<dynamic>.from(businessList!.map((x) => x.toJson())),
     "user_checkins": List<dynamic>.from(userCheckins!.map((x) => x.toJson())),
+    "levels": List<dynamic>.from(levels!.map((x) => x.toJson())),
   };
 }
 
@@ -95,8 +99,8 @@ class Banner {
     "click_type": clickType,
     "click_value": clickValue,
     "status": status,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
   };
 }
 
@@ -119,8 +123,8 @@ class Business {
     this.createdAt,
     this.updatedAt,
     this.distance,
-    this.featuredImageUrl,
     this.images,
+    this.featuredImageUrl,
   });
 
   int? id;
@@ -140,8 +144,8 @@ class Business {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? distance;
+  List<dynamic>? images;
   String? featuredImageUrl;
-  List<String>? images;
 
   factory Business.fromJson(Map<String, dynamic> json) => Business(
     id: json["id"],
@@ -161,8 +165,8 @@ class Business {
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     distance: json["distance"] == null ? null : json["distance"],
+    images: List<dynamic>.from(json["images"].map((x) => x)),
     featuredImageUrl: json["featured_image_url"],
-    images: List<String>.from(json["images"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
@@ -180,11 +184,43 @@ class Business {
     "total_checkins": totalCheckins,
     "payout_details": payoutDetails,
     "is_featured": isFeatured,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
     "distance": distance == null ? null : distance,
-    "featured_image_url": featuredImageUrl,
     "images": List<dynamic>.from(images!.map((x) => x)),
+    "featured_image_url": featuredImageUrl,
+  };
+}
+
+class Level {
+  Level({
+    this.id,
+    this.name,
+    this.points,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  int? id;
+  String? name;
+  int? points;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  factory Level.fromJson(Map<String, dynamic> json) => Level(
+    id: json["id"],
+    name: json["name"],
+    points: json["points"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "points": points,
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
   };
 }
 
@@ -243,7 +279,7 @@ class Profile {
     "profile_image": profileImage,
     "email": email,
     "mobile_number": mobileNumber,
-    "dob": "${dob?.year.toString().padLeft(4, '0')}-${dob?.month.toString().padLeft(2, '0')}-${dob?.day.toString().padLeft(2, '0')}",
+    "dob": "${dob!.year.toString().padLeft(4, '0')}-${dob!.month.toString().padLeft(2, '0')}-${dob!.day.toString().padLeft(2, '0')}",
     "gender": gender,
     "register_device_type": registerDeviceType,
     "level": level,
@@ -251,8 +287,8 @@ class Profile {
     "reset_pass_token": resetPassToken,
     "stripe_id": stripeId,
     "status": status,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
   };
 }
 
@@ -294,8 +330,8 @@ class UserCheckin {
     "business_id": businessId,
     "user_lat": userLat,
     "user_long": userLong,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "business": business?.toJson(),
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
+    "business": business!.toJson(),
   };
 }

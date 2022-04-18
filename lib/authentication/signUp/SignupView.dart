@@ -152,6 +152,7 @@ class SignupView extends StatelessWidget {
                                   }
                                   return null;
                                 },
+                                textCapitalization: TextCapitalization.words,
                                 controller: signUpController.userName.value,
                                 cursorColor: AppColors.textFieldsHint,
                                 decoration: CommonUi.textFieldDecoration(
@@ -459,7 +460,7 @@ class SignupView extends StatelessWidget {
                                         TextDecoration.none,
                                       )),
                                   Positioned(
-                                    right: 16,
+                                    right: 0,
                                     top: 0,
                                     bottom: 0,
                                     child: GestureDetector(
@@ -474,15 +475,19 @@ class SignupView extends StatelessWidget {
                                                   .passwordVisibleLogin
                                                   .value = true;
                                         },
-                                        child: signUpController
-                                                    .passwordVisibleLogin.value ==
-                                                true
-                                            ? SvgPicture.asset(
-                                                CommonUi.setSvgImage(
-                                                    'password_hide'))
-                                            : SvgPicture.asset(
-                                                CommonUi.setSvgImage(
-                                                    'password_show'))),
+                                        child: Container(
+                                          color: AppColors.transparent,
+                                          padding: const EdgeInsets.all(20),
+                                          child: signUpController
+                                                      .passwordVisibleLogin.value ==
+                                                  true
+                                              ? SvgPicture.asset(
+                                                  CommonUi.setSvgImage(
+                                                      'password_hide'))
+                                              : SvgPicture.asset(
+                                                  CommonUi.setSvgImage(
+                                                      'password_show')),
+                                        )),
                                   )
                                 ],
                               ),
@@ -579,7 +584,7 @@ class SignupView extends StatelessWidget {
                               height: 50,
                               width: Get.width,
                               margin: const EdgeInsets.only(
-                                  left: 40, right: 40, top: 90, bottom: 24),
+                                  left: 40, right: 40, top: 50, bottom: 24),
                               decoration: CommonUi.shadowRoundedContainer,
                             ),
                           ),

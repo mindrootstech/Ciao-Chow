@@ -19,40 +19,46 @@ class DashBoardView extends StatelessWidget {
     return Obx(
       () => Scaffold(
         extendBody: true,
+
         bottomNavigationBar: SizedBox(
-          height: Platform.isAndroid?88:105,
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(45.0),
               topRight: Radius.circular(45.0),
             ),
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    AppColors.AppColorGrad2,
-                    AppColors.AppColorGrad2
-                  ],
+            child: BottomNavigationBar(
+              backgroundColor: AppColors.AppColorGrad2,
+              type: BottomNavigationBarType.fixed,
+              showUnselectedLabels: false,
+              showSelectedLabels: false,
+              currentIndex: dashboardController.selectedValue.value,
+              onTap: (value) {
+                dashboardController.selectedValue.value = value;
+              },
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Column(
+                    children: [
+                      SvgPicture.asset(CommonUi.setSvgImage('home')),
+                      const SizedBox(height: 10,),
+                      Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
+                    ],
+                  ),label: '',
+                  activeIcon: Column(
+                    children: [
+                      SvgPicture.asset(
+                        CommonUi.setSvgImage('home_active'),
+                        color: AppColors.White,
+                      ),
+                      const SizedBox(height: 10,),
+                      Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
+                    ],
+                  ),
                 ),
-              ),
-              child: BottomNavigationBar(
-                backgroundColor: Colors.transparent,
-                type: BottomNavigationBarType.fixed,
-                showUnselectedLabels: false,
-                showSelectedLabels: false,
-                currentIndex: dashboardController.selectedValue.value,
-                onTap: (value) {
-                  dashboardController.selectedValue.value = value;
-                },
-                items: <BottomNavigationBarItem>[
-
-
-                  BottomNavigationBarItem(
+                BottomNavigationBarItem(
                     icon: Column(
                       children: [
-                        SvgPicture.asset(CommonUi.setSvgImage('home')),
+                        SvgPicture.asset(CommonUi.setSvgImage('events')),
                         const SizedBox(height: 10,),
                         Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
                       ],
@@ -60,74 +66,54 @@ class DashBoardView extends StatelessWidget {
                     activeIcon: Column(
                       children: [
                         SvgPicture.asset(
-                          CommonUi.setSvgImage('home_active'),
+                          CommonUi.setSvgImage('events_active'),
                           color: AppColors.White,
                         ),
                         const SizedBox(height: 10,),
                         Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
                       ],
-                    ),
-                  ),
-                  BottomNavigationBarItem(
-                      icon: Column(
-                        children: [
-                          SvgPicture.asset(CommonUi.setSvgImage('events')),
-                          const SizedBox(height: 10,),
-                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
-                        ],
-                      ),label: '',
-                      activeIcon: Column(
-                        children: [
-                          SvgPicture.asset(
-                            CommonUi.setSvgImage('events_active'),
-                            color: AppColors.White,
-                          ),
-                          const SizedBox(height: 10,),
-                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
-                        ],
-                      )),
+                    )),
 
-                  BottomNavigationBarItem(
-                      icon: Column(
-                        children: [
-                          SvgPicture.asset(CommonUi.setSvgImage('notification')),
-                          const SizedBox(height: 10,),
-                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
-                        ],
-                      ),label: '',
-                      activeIcon: Column(
-                        children: [
-                          SvgPicture.asset(
-                            CommonUi.setSvgImage('notification_active'),
-                            color: AppColors.White,
-                          ),
-                          const SizedBox(height: 10,),
-                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
-                        ],
-                      )),
-
-                  BottomNavigationBarItem(
+                BottomNavigationBarItem(
                     icon: Column(
                       children: [
-                        SvgPicture.asset(CommonUi.setSvgImage('profile')),
+                        SvgPicture.asset(CommonUi.setSvgImage('notification')),
                         const SizedBox(height: 10,),
                         Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
                       ],
                     ),label: '',
                     activeIcon: Column(
                       children: [
-                        SvgPicture.asset(CommonUi.setSvgImage('profile_active'),
+                        SvgPicture.asset(
+                          CommonUi.setSvgImage('notification_active'),
                           color: AppColors.White,
                         ),
-
                         const SizedBox(height: 10,),
                         Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
                       ],
-                    ),
+                    )),
+
+                BottomNavigationBarItem(
+                  icon: Column(
+                    children: [
+                      SvgPicture.asset(CommonUi.setSvgImage('profile')),
+                      const SizedBox(height: 10,),
+                      Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
+                    ],
+                  ),label: '',
+                  activeIcon: Column(
+                    children: [
+                      SvgPicture.asset(CommonUi.setSvgImage('profile_active'),
+                        color: AppColors.White,
+                      ),
+
+                      const SizedBox(height: 10,),
+                      Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
+                    ],
                   ),
-                ],
-                selectedItemColor: Colors.amber[800],
-              ),
+                ),
+              ],
+              selectedItemColor: Colors.amber[800],
             ),
           ),
         ),

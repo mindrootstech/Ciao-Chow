@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/Language.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/ModelLevel.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -308,5 +310,55 @@ class CommonUi {
       default:
         return 'th';
     }
+  }
+
+  static ModelLevel getUserLevels(List<Level> levelsList) {
+
+    var cups = 0;
+    for (var i = 0; i < levelsList.length; i++) {
+      cups += levelsList[i].points!.toInt();
+    }
+    var levelName = '';
+    var levelMaxValue = 0;
+    var id = '';
+
+    for (var i = 0; i < levelsList.length; i++) {
+      if (i == 0) {
+        if (cups >= 0 && cups < int.parse('100')) {
+          id = levelsList[i].id.toString();
+          levelName = levelsList[i + 1].name!;
+          levelMaxValue = int.parse('100');
+          break;
+        }
+      } else if (i == levelsList.length - 1) {
+        if (int.parse('100') < cups) {
+          id = levelsList[i].id.toString();
+          levelName = levelsList[i].name!;
+          levelMaxValue = int.parse('100');
+          break;
+        } else if (cups >= int.parse('100') &&
+            cups < int.parse('100')) {
+          id = levelsList[i].id.toString();
+          levelName = levelsList[i].name!;
+          levelMaxValue = int.parse('100');
+          break;
+        }
+      } else {
+        if (cups >= int.parse('100') &&
+            cups < int.parse('100')) {
+          id = levelsList[i].id.toString();
+          levelName = levelsList[i + 1].name!;
+          levelMaxValue = int.parse('100');
+          break;
+        }
+      }
+    }
+
+    var modelMain = ModelLevel();
+    modelMain.id = id;
+    modelMain.levelName = levelName;
+    modelMain.levelLeft = (levelMaxValue - cups).toString();
+
+    return modelMain;
   }
 }

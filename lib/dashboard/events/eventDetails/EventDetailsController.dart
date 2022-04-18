@@ -22,10 +22,12 @@ class EventDetailsController extends GetxController {
   var cardNumberController = TextEditingController().obs;
   var expiryDateController = TextEditingController().obs;
   var cvvTxtController = TextEditingController().obs;
+  var eventLoaderShow = false.obs;
 
   @override
   void onInit() {
     super.onInit();
+    eventLoaderShow.value = true;
     getAllCards();
   }
 
@@ -37,6 +39,7 @@ class EventDetailsController extends GetxController {
       arrayImages.clear();
       arrayImages.addAll(response.data!.event!.business!.images!);
       addBannerList(arrayImages);
+      eventLoaderShow.value = false;
     });
   }
 

@@ -13,6 +13,7 @@ class SignInController extends GetxController{
   var loginLoaderShow = false.obs;
   final getStorage = GetStorage();
   late FirebaseMessaging messaging;
+  var passwordVisibleLogin = true.obs;
 
   // Login Api Implementation
   Future<SignInModel> logInImplementation(

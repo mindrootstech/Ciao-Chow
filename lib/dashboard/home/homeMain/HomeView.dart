@@ -16,6 +16,8 @@ import 'package:get/get.dart';
 import 'package:location/location.dart' as gt;
 import 'package:percent_indicator/percent_indicator.dart';
 
+import '../../../constants/MyCarouselSlider.dart';
+
 class HomeView extends StatelessWidget {
   var homeController = Get.put(HomeController());
   final gt.Location location = gt.Location();
@@ -50,7 +52,7 @@ class HomeView extends StatelessWidget {
                                 FontWeight.w600,
                                 AppColors.White,
                                 TextDecoration.none),
-                          ):SizedBox(),
+                          ):const SizedBox(),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -68,11 +70,11 @@ class HomeView extends StatelessWidget {
                 // edited by Abhijeet Sir(29 Mar 2021)
 
                 SizedBox(
-                  height: 190,
+                  height: 200,
                   child: Stack(
                     children: [
                       Container(
-                        height: 190 / 2 + 20,
+                        height: 200 / 2 + 20,
                         color: AppColors.AppColorGrad2,
                       ),
                       Positioned(
@@ -80,33 +82,31 @@ class HomeView extends StatelessWidget {
                         right: 0,
                         left: 0,
                         child: Container(
-                          height: 190 / 2,
+                          height: 200 / 2,
                           width: Get.width,
                           decoration: CommonUi.commonBoxDecoration(24.0, AppColors.White),
                         ),
                       ),
                       SizedBox(
-                          height: 165,
+                          height: 175,
                           width: Get.width,
-                          child: ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
-                              child: Obx(
-                                () => CarouselSlider(
-                                  options: CarouselOptions(
-                                    viewportFraction: 0.83,
-                                    initialPage: 0,
-                                    enableInfiniteScroll: false,
-                                    reverse: false,
-                                    enlargeCenterPage: true,
+                          child: Obx(
+                            () => MyCarouselSlider(
+                              options: CarouselOptions(
+                                // viewportFraction: 0.9,
+                                viewportFraction:0.9,
+                                initialPage: 0,
+                                enableInfiniteScroll: false,
+                                reverse: false,
+                                enlargeCenterPage: true,
 
-                                    // autoPlay: false,
-                                    // aspectRatio: 2.0,
-                                    // enlargeCenterPage: false,
-                                  ),
-                                  items: homeController.imageSliders.value,
-                                ),
-                              ))),
+                                // autoPlay: false,
+                                // aspectRatio: 2.0,
+                                // enlargeCenterPage: false,
+                              ),
+                              items: homeController.imageSliders.value,
+                            ),
+                          )),
                     ],
                   ),
                 ),
@@ -187,7 +187,7 @@ class HomeView extends StatelessWidget {
                         ],
                       ),
                       Container(
-                        height: 142,
+                        height: 180,
                         margin: const EdgeInsets.only(left: 20, top: 14),
                         child: Obx(
                           () => ListView.builder(
@@ -311,7 +311,7 @@ class HomeView extends StatelessWidget {
                                                         Fonts.interMedium,
                                                         12.0,
                                                         FontWeight.w500,
-                                                        AppColors.White,
+                                                        AppColors.Black,
                                                         TextDecoration.none),
                                               )),
                                         ),
@@ -325,14 +325,16 @@ class HomeView extends StatelessWidget {
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               right: 18.0),
-                                          child: Text('LEVEL 1',
-                                              // Utils.getString(context, 'partners_around_you'),
-                                              style: CommonUi.customTextStyle1(
-                                                  Fonts.interMedium,
-                                                  12.0,
-                                                  FontWeight.w500,
-                                                  AppColors.grey_level,
-                                                  TextDecoration.none)),
+                                          child: Obx(
+                                            ()=> Text(homeController.resLevel.value.levelName,
+                                                // Utils.getString(context, 'partners_around_you'),
+                                                style: CommonUi.customTextStyle1(
+                                                    Fonts.interMedium,
+                                                    12.0,
+                                                    FontWeight.w500,
+                                                    AppColors.Black,
+                                                    TextDecoration.none)),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -347,7 +349,7 @@ class HomeView extends StatelessWidget {
                         height: 25,
                       ),
                       Obx(
-                        () => homeController.arrayLatestCheckIns.length > 0 ? Row(
+                        () => homeController.arrayLatestCheckIns.isNotEmpty ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
@@ -358,7 +360,7 @@ class HomeView extends StatelessWidget {
                                     Fonts.interSemiBold,
                                     18.0,
                                     FontWeight.w600,
-                                    AppColors.home_progress,
+                                    AppColors.redLatest,
                                     TextDecoration.none),
                               ),
                             ),
@@ -383,7 +385,7 @@ class HomeView extends StatelessWidget {
                         ) : Container(),
                       ),
                       Obx(
-                        () => homeController.arrayLatestCheckIns.length > 0
+                        () => homeController.arrayLatestCheckIns.isNotEmpty
                             ? Container(
                                 color: AppColors.White,
                                 margin: const EdgeInsets.only(

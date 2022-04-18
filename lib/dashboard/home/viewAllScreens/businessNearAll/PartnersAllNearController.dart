@@ -17,6 +17,13 @@ class PartnersAllNearController extends GetxController{
   var pageLoader = false.obs;
   var totalBusinessItems = 0;
 
+  @override
+  void onInit() {
+    super.onInit();
+    parentAllLoaderShow.value = true;
+    getAllBusinessList();
+  }
+
   void getAllBusinessList() {
     _apiProvider.getAllBusiness(page.toString()).then((value)
     {

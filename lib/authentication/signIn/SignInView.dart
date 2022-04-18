@@ -7,6 +7,7 @@ import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/DashBoardView.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class SignInView extends StatelessWidget {
@@ -102,25 +103,62 @@ class SignInView extends StatelessWidget {
 
                             const SizedBox(height: 10),
 
-                            TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter password';
-                                  }
-                                  return null;
-                                },
-                                obscureText : true,
-                                controller: signInController.passwordController.value,
-                                cursorColor: AppColors.textFieldsHint,
-                                decoration: CommonUi.textFieldDecoration(
-                                    Utils.getString(context, 'enter_password')),
-                                style: CommonUi.customTextStyle1(
-                                  Fonts.interRegular,
-                                  12.0,
-                                  FontWeight.w400,
-                                  AppColors.Black,
-                                  TextDecoration.none,
-                                )),
+                            Obx(
+                              () => Stack(
+                                children: [
+                                  TextFormField(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter password';
+                                        }
+                                        return null;
+                                      },
+                                      obscureText : signInController
+                                          .passwordVisibleLogin.value,
+                                      controller: signInController.passwordController.value,
+                                      cursorColor: AppColors.textFieldsHint,
+                                      decoration: CommonUi.textFieldDecoration(
+                                          Utils.getString(context, 'enter_password')),
+                                      style: CommonUi.customTextStyle1(
+                                        Fonts.interRegular,
+                                        12.0,
+                                        FontWeight.w400,
+                                        AppColors.Black,
+                                        TextDecoration.none,
+                                      )),
+                                  Positioned(
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          signInController.passwordVisibleLogin
+                                              .value ==
+                                              true
+                                              ? signInController
+                                              .passwordVisibleLogin
+                                              .value = false
+                                              : signInController
+                                              .passwordVisibleLogin
+                                              .value = true;
+                                        },
+                                        child: Container(
+                                          color: AppColors.transparent,
+                                          padding: const EdgeInsets.all(20),
+                                          child: signInController
+                                              .passwordVisibleLogin.value ==
+                                              true
+                                              ? SvgPicture.asset(
+                                              CommonUi.setSvgImage(
+                                                  'password_hide'))
+                                              : SvgPicture.asset(
+                                              CommonUi.setSvgImage(
+                                                  'password_show')),
+                                        )),
+                                  )
+                                ],
+                              ),
+                            ),
                             const SizedBox(height: 10),
                             Align(
                               alignment: Alignment.centerRight,

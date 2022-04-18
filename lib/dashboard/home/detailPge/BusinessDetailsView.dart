@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
+import 'package:ciao_chow/constants/MyCarouselSlider.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/home/detailPge/BusinessDetailsController.dart';
 import 'package:expandable_text/expandable_text.dart';
@@ -51,11 +52,11 @@ class BusinessDetailsView extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: 250,
+                  height: 200,
                   child: Stack(
                     children: [
                       Container(
-                        height: 250 / 2 + 30,
+                        height: 200 / 2 + 30,
                         color: AppColors.AppColorGrad2,
                       ),
                       Positioned(
@@ -63,30 +64,27 @@ class BusinessDetailsView extends StatelessWidget {
                         right: 0,
                         left: 0,
                         child: Container(
-                          height: 250 / 2,
+                          height: 200 / 2,
                           width: Get.width,
                           decoration: CommonUi.commonBoxDecoration(
                               24.0, AppColors.White),
                         ),
                       ),
                       SizedBox(
-                          height: 240,
+                          height: 175,
                           // margin: const EdgeInsets.only(left: 20, right: 20),
                           width: Get.width,
                           child: ClipRRect(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(14)),
                               child: Obx(
-                                () => CarouselSlider(
+                                () => MyCarouselSlider(
                                   options: CarouselOptions(
-                                    viewportFraction: 0.83,
+                                    viewportFraction: 0.9,
                                     initialPage: 0,
                                     enableInfiniteScroll: false,
                                     reverse: false,
                                     enlargeCenterPage: true,
-                                    // autoPlay: false,
-                                    // aspectRatio: 2.0,
-                                    // enlargeCenterPage: false,
                                   ),
                                   items: businessDetailsController
                                       .imageSliders.value,

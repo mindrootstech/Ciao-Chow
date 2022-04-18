@@ -26,7 +26,7 @@ class PartnersAroundItemList extends StatelessWidget{
           ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             child: CachedNetworkImage(
-              height: 230,
+              height: 180,
               fit: BoxFit.cover,
               imageUrl: partnersAllNearController.arrayBusinessList[index].featuredImageUrl!,
               placeholder: (context, url) => Transform.scale(
@@ -41,7 +41,7 @@ class PartnersAroundItemList extends StatelessWidget{
 
 
           Positioned(child: Container(
-            height: 230,
+            height: 180,
             decoration: CommonUi.commonBoxDecorationAllOverlay(10.0),
 
           )),

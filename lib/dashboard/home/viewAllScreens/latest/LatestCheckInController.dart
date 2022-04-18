@@ -17,7 +17,10 @@ class LatestCheckInController extends GetxController{
   @override
   void onInit() {
     super.onInit();
+    loaderLatest.value = true;
+    getLatestCheckIns();
     scrollController.addListener(pagination);
+
   }
 
   getLatestCheckIns() {

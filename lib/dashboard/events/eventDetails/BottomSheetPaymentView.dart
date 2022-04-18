@@ -172,11 +172,12 @@ class BottomSheetPaymentView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            eventsController.whichSheet.value = '3';
-                          },
+                      GestureDetector(
+                        onTap: () {
+                          eventsController.whichSheet.value = '3';
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 10.0),
                           child: Row(
                             children: [
                               SvgPicture.asset(CommonUi.setSvgImage('add_card')),

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart' as gt;
+import 'package:ciao_chow/dashboard/home/homeMain/ModelLevel.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/scan/LatestCheckInModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 class HomeController extends GetxController {
   List<gt.Business> arrayPartners = <gt.Business>[].obs;
   List<gt.UserCheckin> arrayLatestCheckIns = <gt.UserCheckin>[].obs;
+  List<gt.Level> arrayLevels = <gt.Level>[].obs;
   var bannerList = <gt.Banner>[].obs;
   var imageSliders = <Widget>[].obs;
   var profileData = gt.Profile().obs;
@@ -25,7 +27,7 @@ class HomeController extends GetxController {
   var viewShowHide = ''.obs;
   var homeLoaderShow = false.obs;
   var checkInLoader = false.obs;
-
+  var resLevel = ModelLevel().obs;
 
   @override
   void onInit() {
@@ -41,8 +43,6 @@ class HomeController extends GetxController {
       controller.pauseCamera();
       getScannedData(result!.code.toString());
       checkInLoader.value = true;
-
-
     });
   }
 
@@ -56,9 +56,11 @@ class HomeController extends GetxController {
       addBannerList(bannerList);
       arrayPartners.addAll(response.data!.businessList!);
       arrayLatestCheckIns.addAll(response.data!.userCheckins!);
+      arrayLevels.addAll(response.data!.levels!);
       profileData.value = response.data!.profile!;
       viewShowHide.value = latitude;
       homeLoaderShow.value = false;
+      resLevel.value = CommonUi.getUserLevels(arrayLevels);
     });
   }
 
