@@ -11,9 +11,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class EventDetailsView extends StatelessWidget {
-
   String eventId;
   String fromWhere;
+
   EventDetailsView(this.fromWhere, this.eventId, {Key? key}) : super(key: key);
   var eventDetailsController = Get.put(EventDetailsController());
 
@@ -36,32 +36,26 @@ class EventDetailsView extends StatelessWidget {
           Scaffold(
             backgroundColor: AppColors.White,
             appBar: AppBar(
-              elevation: 0,
-              backgroundColor: AppColors.AppColorGrad2,
-              leading: Builder(
-                builder: (BuildContext context) {
-                  return IconButton(
-                    icon: const Icon(Icons.arrow_back_ios),
-                    onPressed: () {
-                      Get.back();
-                    },
-                    tooltip:
-                        MaterialLocalizations.of(context).openAppDrawerTooltip,
-                  );
-                },
-              ),
-              centerTitle: true,
-              title: Text(
-                  Utils.getString(context,
-                      'event_details'),
-                style: CommonUi.customTextStyle1(
-                    Fonts.interSemiBold,
-                    18.0,
-                    FontWeight.w600,
-                    AppColors.White,
-                    TextDecoration.none),
-              )
-            ),
+                elevation: 0,
+                backgroundColor: AppColors.AppColorGrad2,
+                leading: Builder(
+                  builder: (BuildContext context) {
+                    return IconButton(
+                      icon: const Icon(Icons.arrow_back_ios),
+                      onPressed: () {
+                        Get.back();
+                      },
+                      tooltip: MaterialLocalizations.of(context)
+                          .openAppDrawerTooltip,
+                    );
+                  },
+                ),
+                centerTitle: true,
+                title: Text(
+                  Utils.getString(context, 'event_details'),
+                  style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
+                      FontWeight.w600, AppColors.White, TextDecoration.none),
+                )),
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -85,7 +79,7 @@ class EventDetailsView extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                            height:175,
+                            height: 175,
                             width: Get.width,
                             child: ClipRRect(
                                 borderRadius:
@@ -159,18 +153,22 @@ class EventDetailsView extends StatelessWidget {
                                 CommonUi.setSvgImage('current_location')),
                             Padding(
                               padding: const EdgeInsets.only(left: 8.0),
-                              child: Obx(() =>
-                                  eventDetailsController.businessDetails
-                                      .value.address.toString() != 'null' ? Text(
-                                    eventDetailsController.businessDetails
-                                        .value.address!,
-                                  style: CommonUi.customTextStyle1(
-                                      Fonts.interRegular,
-                                      12.0,
-                                      FontWeight.w400,
-                                      AppColors.textFieldsHint,
-                                      TextDecoration.none),
-                                ) : const SizedBox(),
+                              child: Obx(
+                                () => eventDetailsController
+                                            .businessDetails.value.address
+                                            .toString() !=
+                                        'null'
+                                    ? Text(
+                                        eventDetailsController
+                                            .businessDetails.value.address!,
+                                        style: CommonUi.customTextStyle1(
+                                            Fonts.interRegular,
+                                            12.0,
+                                            FontWeight.w400,
+                                            AppColors.textFieldsHint,
+                                            TextDecoration.none),
+                                      )
+                                    : const SizedBox(),
                               ),
                             ),
                           ],
@@ -335,19 +333,25 @@ class EventDetailsView extends StatelessWidget {
                                     height: 6,
                                   ),
                                   Obx(
-                                    () => eventDetailsController.businessDetails.value.businessName.toString() !=
-                                        'null'
+                                    () => eventDetailsController.businessDetails
+                                                .value.businessName
+                                                .toString() !=
+                                            'null'
                                         ? Text(
-                                      eventDetailsController.businessDetails.value.businessName!,
-                                      style: CommonUi.customTextStyle1(
-                                          Fonts.interRegular,
-                                          12.0,
-                                          FontWeight.w400,
-                                          AppColors.textFieldsHint,
-                                          TextDecoration.none),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ): const SizedBox(),
+                                            eventDetailsController
+                                                .businessDetails
+                                                .value
+                                                .businessName!,
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interRegular,
+                                                12.0,
+                                                FontWeight.w400,
+                                                AppColors.textFieldsHint,
+                                                TextDecoration.none),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          )
+                                        : const SizedBox(),
                                   ),
                                 ],
                               ),
@@ -465,10 +469,16 @@ class EventDetailsView extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            // Get.to(BottomSheetGuestView());
-                            eventDetailsController.showBottomSheet.value = true;
                             eventDetailsController.whichSheet.value = '1';
-                            eventDetailsController.currentSliderValue.value = 0.0;
+                            eventDetailsController.currentSliderValue.value =
+                                0.0;
+                            int.parse(eventDetailsController
+                                        .eventDetails.value.availableTickets!) >
+                                    0
+                                ? eventDetailsController.showBottomSheet.value =
+                                    true
+                                : CommonUi.showToast(
+                                    'Tickets are not available.');
                           },
                           child: Container(
                             child: Center(
@@ -501,7 +511,6 @@ class EventDetailsView extends StatelessWidget {
           Obx(() => eventDetailsController.showBottomSheet.value
               ? BottomSheetGuestView()
               : Container()),
-
           Positioned(
             left: 0,
             right: 0,
@@ -509,13 +518,13 @@ class EventDetailsView extends StatelessWidget {
             bottom: 0,
             child: Obx(() => eventDetailsController.eventLoaderShow.value
                 ? Container(
-                width: Get.width,
-                color: AppColors.White,
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.AppColorGrad2,
-                  ),
-                ))
+                    width: Get.width,
+                    color: AppColors.White,
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.AppColorGrad2,
+                      ),
+                    ))
                 : Container()),
           ),
         ],

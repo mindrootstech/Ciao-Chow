@@ -8,8 +8,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
-class SignUpController extends GetxController{
-
+class SignUpController extends GetxController {
   var imagePath = ''.obs;
   var emailController = TextEditingController().obs;
   var passwordController = TextEditingController().obs;
@@ -26,28 +25,23 @@ class SignUpController extends GetxController{
   final getStorage = GetStorage();
   late FirebaseMessaging messaging;
 
-
-
   Future<void> getCameraImage() async {
-
     PickedFile image = (await ImagePicker.platform.pickImage(
-    source: ImageSource.camera,
-        imageQuality: 25,
+      source: ImageSource.camera,
+      imageQuality: 25,
     ))!;
     imageName = image.path.split('/').last;
     imagePath.value = image.path;
-    imagePathNew  = image.path;
+    imagePathNew = image.path;
     // getUploadImage(image.path, imageName);
-
-
   }
 
   Future<void> getGalleryImage() async {
     PickedFile? image = await ImagePicker.platform
         .pickImage(source: ImageSource.gallery, imageQuality: 25);
-     imageName = image!.path.split('/').last;
+    imageName = image!.path.split('/').last;
     imagePath.value = image.path;
-    imagePathNew  = image.path;
+    imagePathNew = image.path;
     // getUploadImage(image.path, imageName);
   }
 
@@ -60,7 +54,8 @@ class SignUpController extends GetxController{
     accountDetail[0] = modelText;
   }
 
-  void addAccountItems(String firstName, bool firstSelected, String secondName, bool secondSelected) {
+  void addAccountItems(String firstName, bool firstSelected, String secondName,
+      bool secondSelected) {
     accountDetail.clear();
     var model = ModelText();
     model.name = firstName;
@@ -72,8 +67,8 @@ class SignUpController extends GetxController{
     accountDetail.add(model);
   }
 
-  Future<SignUpModel> signUpImplementation(String userName, String phoneNumber, String email, String password) async {
-
+  Future<SignUpModel> signUpImplementation(String userName, String phoneNumber,
+      String email, String password) async {
     String gender;
     if (genderValue.value == 'Male') {
       gender = '1';
@@ -88,6 +83,15 @@ class SignUpController extends GetxController{
       getStorage.write('firebaseToken', token);
     });
 
-    return _apiProvider.getSignUp(userName,phoneNumber,email,password,gender,accountDetail[0].name,imagePathNew,imageName,getStorage.read('firebaseToken'));
+    return _apiProvider.getSignUp(
+        userName,
+        phoneNumber,
+        email,
+        password,
+        gender,
+        accountDetail[0].name,
+        imagePathNew,
+        imageName,
+        getStorage.read('firebaseToken'));
   }
 }

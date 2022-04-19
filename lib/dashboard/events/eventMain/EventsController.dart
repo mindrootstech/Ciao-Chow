@@ -9,6 +9,7 @@ class EventsController extends GetxController {
 
   var arrayEventTicket = <gt.MyEventsTicket>[].obs;
   var eventsMainLoader = false.obs;
+  var loaderEvents = false.obs;
   var arrayUpcomingEvents = <gt.Event>[].obs;
   var bannerList = <gt.Banner>[].obs;
   var isChecked = false.obs;

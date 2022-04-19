@@ -10,6 +10,7 @@ import 'package:ciao_chow/dashboard/events/eventMain/UpcomingEventsListItem.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'viewAll/AllMyEventsView.dart';
 
 class EventsView extends StatelessWidget {
   var eventsController = Get.put(EventsController());
@@ -21,9 +22,10 @@ class EventsView extends StatelessWidget {
     return Stack(
       children: [
         Scaffold(
+          backgroundColor: AppColors.White,
           extendBody: true,
           body: Obx(
-            () => eventsController.arrayEventTicket.isNotEmpty &&
+            () => eventsController.arrayEventTicket.isNotEmpty ||
                     eventsController.arrayUpcomingEvents.isNotEmpty
                 ? SingleChildScrollView(
                     child: Column(
@@ -95,93 +97,112 @@ class EventsView extends StatelessWidget {
                           color: AppColors.White,
                           child: Column(
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(left: 20),
-                                    child: Text(
-                                      Utils.getString(
-                                          context, 'my_event_tickets'),
-                                      style: CommonUi.customTextStyle1(
-                                          Fonts.interSemiBold,
-                                          18.0,
-                                          FontWeight.w600,
-                                          AppColors.Black,
-                                          TextDecoration.none),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(right: 20),
-                                    child: Text(
-                                      Utils.getString(context, 'view_all'),
-                                      style: CommonUi.customTextStyle1(
-                                          Fonts.interRegular,
-                                          12.0,
-                                          FontWeight.w400,
-                                          AppColors.textFieldsHint,
-                                          TextDecoration.none),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                height: 192,
-                                margin:
-                                    const EdgeInsets.only(left: 20, top: 14),
-                                child: Obx(
-                                  () => ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: eventsController
-                                        .arrayEventTicket.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return EventTicketsListItem(
-                                          index, eventsController);
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: Get.width,
-                                margin:
-                                    const EdgeInsets.only(left: 20, top: 20),
-                                child: Text(
-                                  Utils.getString(context, 'upcoming_events'),
-                                  style: CommonUi.customTextStyle1(
-                                      Fonts.interSemiBold,
-                                      18.0,
-                                      FontWeight.w600,
-                                      AppColors.Black,
-                                      TextDecoration.none),
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 16, right: 16, top: 15),
-                                child: Obx(
-                                  () => GridView.builder(
-                                      padding: const EdgeInsets.only(
-                                          top: 0, bottom: 120),
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              crossAxisSpacing: 10,
-                                              mainAxisSpacing: 12,
-                                              mainAxisExtent: 180),
-                                      itemCount: eventsController
-                                          .arrayUpcomingEvents.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return UpcomingEventsListItem(
-                                            index, eventsController);
-                                      }),
-                                ),
-                              ),
+                              eventsController.arrayEventTicket.isNotEmpty
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(left: 20),
+                                          child: Text(
+                                            Utils.getString(
+                                                context, 'my_event_tickets'),
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interSemiBold,
+                                                18.0,
+                                                FontWeight.w600,
+                                                AppColors.Black,
+                                                TextDecoration.none),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Get.to(AllMyEventsView());
+                                          },
+                                          child: Container(
+                                            margin: const EdgeInsets.only(
+                                                right: 20),
+                                            child: Text(
+                                              Utils.getString(
+                                                  context, 'view_all'),
+                                              style: CommonUi.customTextStyle1(
+                                                  Fonts.interRegular,
+                                                  12.0,
+                                                  FontWeight.w400,
+                                                  AppColors.textFieldsHint,
+                                                  TextDecoration.none),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                              eventsController.arrayEventTicket.isNotEmpty
+                                  ? Container(
+                                      height: 192,
+                                      margin: const EdgeInsets.only(
+                                          left: 20, top: 14),
+                                      child: Obx(
+                                        () => ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: eventsController
+                                              .arrayEventTicket.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return EventTicketsListItem(
+                                                index,
+                                                eventsController
+                                                    .arrayEventTicket[index]);
+                                          },
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                              eventsController.arrayUpcomingEvents.isNotEmpty
+                                  ? Container(
+                                      width: Get.width,
+                                      margin: const EdgeInsets.only(
+                                          left: 20, top: 20),
+                                      child: Text(
+                                        Utils.getString(
+                                            context, 'upcoming_events'),
+                                        style: CommonUi.customTextStyle1(
+                                            Fonts.interSemiBold,
+                                            18.0,
+                                            FontWeight.w600,
+                                            AppColors.Black,
+                                            TextDecoration.none),
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                              eventsController.arrayUpcomingEvents.isNotEmpty
+                                  ? Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 16, right: 16, top: 15),
+                                      child: Obx(
+                                        () => GridView.builder(
+                                            padding: const EdgeInsets.only(
+                                                top: 0, bottom: 120),
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 2,
+                                                    crossAxisSpacing: 10,
+                                                    mainAxisSpacing: 12,
+                                                    mainAxisExtent: 180),
+                                            itemCount: eventsController
+                                                .arrayUpcomingEvents.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return UpcomingEventsListItem(
+                                                  index, eventsController);
+                                            }),
+                                      ),
+                                    )
+                                  : const SizedBox(),
                               const SizedBox(
                                 height: 20,
                               )
@@ -260,7 +281,7 @@ class EventsView extends StatelessWidget {
                                 height: 14,
                               ),
                               Text(
-                                'Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum.',
+                                'Lorem lupsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum.',
                                 style: CommonUi.customTextStyle1(
                                     Fonts.interRegular,
                                     12.0,

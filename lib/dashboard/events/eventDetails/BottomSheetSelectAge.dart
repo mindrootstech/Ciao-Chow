@@ -54,7 +54,7 @@ class BottomSheetSelectAge extends StatelessWidget {
             Obx(
               () => Slider(
                 value: eventsController.currentSliderValue.value,
-                max: 100,
+                max: int.parse(eventsController.eventDetails.value.maxTicketsPerCustomer!).toDouble(),
                 divisions: 100,
                 label:eventsController.currentSliderValue.value.round().toString(),
                 activeColor: AppColors.seekBarColor,

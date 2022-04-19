@@ -5,21 +5,21 @@ import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsView.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventsController.dart';
+import 'package:ciao_chow/dashboard/events/eventMain/EventsMainModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EventTicketsListItem extends StatelessWidget {
   var index;
-  EventsController eventsController;
+  var arrayEventTicketItem;
 
-  EventTicketsListItem(this.index, this.eventsController, {Key? key})
-      : super(key: key);
+  EventTicketsListItem(this.index, this.arrayEventTicketItem, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(EventDetailsView('purchased',eventsController.arrayEventTicket[index].eventId!.toString()));
+        Get.to(EventDetailsView('purchased',arrayEventTicketItem.eventId!.toString()));
       },
       child: Container(
         width: 160,
@@ -41,8 +41,7 @@ class EventTicketsListItem extends StatelessWidget {
                         height: 142,
                         child: CachedNetworkImage(
                           fit: BoxFit.cover,
-                          imageUrl: eventsController
-                              .arrayEventTicket[index].event!.featuredImageUrl!,
+                          imageUrl: arrayEventTicketItem.event!.featuredImageUrl!,
                           placeholder: (context, url) => Transform.scale(
                               scale: 0.2,
                               child: const CircularProgressIndicator(
@@ -68,8 +67,7 @@ class EventTicketsListItem extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 6, bottom: 6),
                         child: Text(
-                          eventsController
-                              .arrayEventTicket[index].event!.eventName!,
+                          arrayEventTicketItem.event!.eventName!,
                           textAlign: TextAlign.start,
                           style: CommonUi.customTextStyle1(
                               Fonts.interMedium,
@@ -90,8 +88,7 @@ class EventTicketsListItem extends StatelessWidget {
               width: Get.width,
               margin: const EdgeInsets.only(left: 10, top: 8),
               child: Text(
-                CommonUi.dateFormat(eventsController
-                    .arrayEventTicket[index].event!.eventStartDate!),
+                CommonUi.dateFormat(arrayEventTicketItem.event!.eventStartDate!),
                 textAlign: TextAlign.start,
                 style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
                     FontWeight.w400, AppColors.Black, TextDecoration.none),
@@ -105,11 +102,11 @@ class EventTicketsListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    eventsController.arrayEventTicket[index].event!
+                    arrayEventTicketItem.event!
                                 .availableTickets! ==
                             '1'
-                        ?  eventsController.arrayEventTicket[index].event!.availableTickets! + ' Ticket'
-                        : eventsController.arrayEventTicket[index].event!.availableTickets! + ' Tickets',
+                        ?  arrayEventTicketItem.event!.availableTickets! + ' Ticket'
+                        : arrayEventTicketItem.event!.availableTickets! + ' Tickets',
                     textAlign: TextAlign.start,
                     style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
                         FontWeight.w400, AppColors.Black, TextDecoration.none),
@@ -117,7 +114,7 @@ class EventTicketsListItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '\$' + eventsController.arrayEventTicket[index].ticketPrice!,
+                    '\$' + arrayEventTicketItem.ticketPrice!,
                     textAlign: TextAlign.start,
                     style: CommonUi.customTextStyle1(Fonts.interSemiBold, 12.0,
                         FontWeight.w600, AppColors.Black, TextDecoration.none),

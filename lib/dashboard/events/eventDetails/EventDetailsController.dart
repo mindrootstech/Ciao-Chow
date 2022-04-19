@@ -2,7 +2,9 @@ import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/AddCardMainModel.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/AllCardsMainModel.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/BookingDoneView.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsMainModel.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/ModelMainSingleCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +14,7 @@ class EventDetailsController extends GetxController {
   var whichSheet = ''.obs;
   final _apiProvider = ApiProvider();
   var isChecked = false.obs;
-  var imageSliders =  <Widget>[].obs;
+  var imageSliders = <Widget>[].obs;
   List<String> arrayImages = <String>[].obs;
   var currentSliderValue = 0.0.obs;
   var eventDetails = Event().obs;
@@ -23,6 +25,8 @@ class EventDetailsController extends GetxController {
   var expiryDateController = TextEditingController().obs;
   var cvvTxtController = TextEditingController().obs;
   var eventLoaderShow = false.obs;
+  var eventIdd = '';
+  var modelCard = Datum().obs;
 
   @override
   void onInit() {
@@ -33,6 +37,7 @@ class EventDetailsController extends GetxController {
 
   void getEventDetails(String eventId) {
     _apiProvider.getEventDetailsData(eventId).then((value) {
+      eventIdd = eventId;
       var response = eventDetailsMainModelFromJson(value);
       eventDetails.value = response.data!.event!;
       businessDetails.value = response.data!.event!.business!;
@@ -73,6 +78,19 @@ class EventDetailsController extends GetxController {
       var response = addCardMainModelFromJson(value);
       if (response.id!.isNotEmpty) {
         _apiProvider.fetchCard(response.id!).then((value) {
+          var responseSingle = modelMainSingleCardFromJson(value);
+          for (int i = 0; i < allCardsList.length; i++) {
+            if (allCardsList[i].isSelected == true) {
+              allCardsList[i].isSelected = false;
+            }
+            modelCard.value.id = responseSingle.id;
+            modelCard.value.last4 = responseSingle.last4;
+            modelCard.value.name = responseSingle.name;
+            modelCard.value.expYear = responseSingle.expYear;
+            modelCard.value.expMonth = responseSingle.expMonth;
+            modelCard.value.expMonth = responseSingle.expMonth;
+            modelCard.value.isSelected = true;
+          }
           _apiProvider.getAllCards().then((value) {
             var responseAll = allCardsMainModelFromJson(value);
             whichSheet.value = '2';
@@ -85,6 +103,19 @@ class EventDetailsController extends GetxController {
   }
 
   void addBannerList(List<dynamic> bannerList) {
-    CommonUi.imageSlidersDetails(bannerList,imageSliders);
+    CommonUi.imageSlidersDetails(bannerList, imageSliders);
+  }
+
+  eventPurchaseApi() {
+    _apiProvider.getEventPurchase(currentSliderValue.value.round().toString(), eventIdd,
+            modelCard.value.id!).then((value) {
+
+      if (value == 'error') {
+        CommonUi.showToast('Tickets not available.');
+        return;
+      }else{
+        Get.to(BookingDoneView());
+      }
+    });
   }
 }

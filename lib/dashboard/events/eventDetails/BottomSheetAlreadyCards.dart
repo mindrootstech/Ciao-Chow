@@ -2,6 +2,7 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/AllCardsMainModel.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/AlreadyExistCardsItem.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsController.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:get/get.dart';
 class BottomSheetAlreadyCards extends StatelessWidget {
 
   EventDetailsController eventsDetailsController = Get.find();
+
   BottomSheetAlreadyCards({Key? key}) : super(key: key);
 
   @override
@@ -45,8 +47,36 @@ class BottomSheetAlreadyCards extends StatelessWidget {
 
            Expanded(
               child:  AlreadyExistCardsItem(),
-
             ),
+
+          GestureDetector(
+              onTap: () {
+              for (int i = 0; i < eventsDetailsController.allCardsList.length; i++) {
+                if(eventsDetailsController.allCardsList[i].isSelected == true){
+                  eventsDetailsController.modelCard.value = eventsDetailsController.allCardsList[i];
+                }
+              }
+
+              eventsDetailsController.whichSheet.value = '2';
+
+            },
+            child: Container(
+              child: Center(
+                child: Text(Utils.getString(context, 'done'),
+                    style: CommonUi.customTextStyle1(
+                        Fonts.interMedium,
+                        14.0,
+                        FontWeight.w500,
+                        AppColors.White,
+                        TextDecoration.none)),
+              ),
+              height: 50,
+              width: Get.width,
+              margin: const EdgeInsets.only(
+                  left: 20, right: 20, top: 20, bottom: 20),
+              decoration: CommonUi.shadowRoundedContainer,
+            ),
+          ),
 
 
           const SizedBox(height: 24,),

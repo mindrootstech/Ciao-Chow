@@ -129,8 +129,7 @@ class ApiProvider extends GetConnect {
       'page_no': page,
       'lat': getStorage.read('lat'),
       'long': getStorage.read('long'),
-      'business_keyword' : searchBusiness
-
+      'business_keyword': searchBusiness
     }, headers: {
       'Authorization': 'Bearer ${getStorage.read('token')}'
     });
@@ -247,15 +246,46 @@ class ApiProvider extends GetConnect {
   }
 
   Future<String> fetchCard(String id) async {
-    final response = await http
-        .post(Uri.parse(stripeUrl + getStorage.read('stripeCustomerId') + '/sources?' + 'source=' + id), headers: {
-      'Authorization': stripeKey,
-      'Content-Type': 'application/json'
-    });
+    final response = await http.post(
+        Uri.parse(stripeUrl +
+            getStorage.read('stripeCustomerId') +
+            '/sources?' +
+            'source=' +
+            id),
+        headers: {
+          'Authorization': stripeKey,
+          'Content-Type': 'application/json'
+        });
     if (response.statusCode != 200) {
       return 'error';
     } else {
       return (response.body).toString();
+    }
+  }
+
+  Future<String> getEventPurchase(
+      String numberOfTickets, String eventIdd, String cardId) async {
+    final response = await post('/event-perchance', {
+      'event_id': eventIdd,
+      'number_tickets': numberOfTickets,
+      'card_id': cardId,
+    }, headers: {
+      'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+  }
+
+  Future<String> getAllEventsData() async {
+    final response = await post('/my-all-events', {},
+        headers: {'Authorization': 'Bearer ${getStorage.read('token')}'});
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
     }
   }
 }
