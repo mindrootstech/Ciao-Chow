@@ -124,11 +124,13 @@ class ApiProvider extends GetConnect {
     }
   }
 
-  Future<String> getAllBusiness(String page) async {
+  Future<String> getAllBusiness(String page, String searchBusiness) async {
     final response = await post('/view-all-business', {
       'page_no': page,
       'lat': getStorage.read('lat'),
-      'long': getStorage.read('long')
+      'long': getStorage.read('long'),
+      'business_keyword' : searchBusiness
+
     }, headers: {
       'Authorization': 'Bearer ${getStorage.read('token')}'
     });

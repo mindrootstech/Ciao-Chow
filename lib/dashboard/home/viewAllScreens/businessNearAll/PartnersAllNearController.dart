@@ -13,6 +13,7 @@ class PartnersAllNearController extends GetxController{
   var bannerList = <gt.Banner>[].obs;
   var parentAllLoaderShow = false.obs;
   var scrollController = ScrollController();
+  var searchBusiness = TextEditingController().obs;
   var page = 1;
   var pageLoader = false.obs;
   var totalBusinessItems = 0;
@@ -25,7 +26,7 @@ class PartnersAllNearController extends GetxController{
   }
 
   void getAllBusinessList() {
-    _apiProvider.getAllBusiness(page.toString()).then((value)
+    _apiProvider.getAllBusiness(page.toString(),searchBusiness.value.text.toString().trim()).then((value)
     {
       var response = businessMainModelFromJson(value);
       arrayBusinessList.clear();

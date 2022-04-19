@@ -16,6 +16,7 @@ class PartnersViewAllView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    partnersAllNearController.searchBusiness.value.text = '';
     return Scaffold(
       backgroundColor: AppColors.White,
       appBar: AppBar(
@@ -58,22 +59,25 @@ class PartnersViewAllView extends StatelessWidget {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 15),
-                                child: TextFormField(
+                                child: TextField(
+                                  textInputAction: TextInputAction.search,
+                                  onSubmitted: (value) {
+                                   partnersAllNearController.getAllBusinessList();
+                                  },
+                                  controller: partnersAllNearController
+                                      .searchBusiness.value,
                                   decoration: InputDecoration(
                                     border: const UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: AppColors.transparent),
-                                      //  when the TextFormField in unfocused
                                     ),
                                     enabledBorder: const UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: AppColors.transparent),
-                                      //  when the TextFormField in unfocused
                                     ),
                                     focusedBorder: const UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: AppColors.transparent),
-                                      //  when the TextFormField in unfocused
                                     ),
                                     hintStyle: CommonUi.customTextStyle1(
                                         Fonts.interRegular,
@@ -90,67 +94,68 @@ class PartnersViewAllView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Container(
-                        width: Get.width,
-                        margin: const EdgeInsets.only(left: 20, top: 20),
-                        child: Text(
-                          Utils.getString(context, 'featured_partners'),
-                          style: CommonUi.customTextStyle1(
-                              Fonts.interSemiBold,
-                              18,
-                              FontWeight.w600,
-                              AppColors.White,
-                              TextDecoration.none),
+                       Container(
+                          width: Get.width,
+                          margin: const EdgeInsets.only(left: 20, top: 20),
+                          child: Text(
+                           Utils.getString(context, 'featured_partners'),
+                              style: CommonUi.customTextStyle1(
+                                  Fonts.interSemiBold,
+                                  18,
+                                  FontWeight.w600,
+                                  AppColors.White,
+                                  TextDecoration.none),
+                            ),
                         ),
-                      ),
                       const SizedBox(
-
                         height: 20,
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 200,
-                    child: Stack(
-                      children: [
-                        Container(
-                          height: 200 / 2 + 20,
-                          color: AppColors.AppColorGrad2,
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          left: 0,
-                          child: Container(
-                            height: 200 / 2,
-                            width: Get.width,
-                            decoration:
-                                CommonUi.commonBoxDecoration(24.0, AppColors.White),
+                  Obx(
+                    () => SizedBox(
+                      height: partnersAllNearController.searchBusiness.value.text != '' ? 25 : 200,
+                      child: Stack(
+                        children: [
+                          Container(
+                            height: partnersAllNearController.searchBusiness.value.text != '' ? 0 : 200 / 2 + 20,
+                            color: AppColors.AppColorGrad2,
                           ),
-                        ),
-                        SizedBox(
-                            height: 175,
-                            width: Get.width,
-                            child: Obx(
-                              () => ClipRRect(
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(10)),
-                                  child: MyCarouselSlider(
-                                    options: CarouselOptions(
-                                      viewportFraction: 0.9,
-                                      initialPage: 0,
-                                      enableInfiniteScroll: false,
-                                      reverse: false,
-                                      enlargeCenterPage: true,
-                                      // autoPlay: false,
-                                      // aspectRatio: 2.0,
-                                      // enlargeCenterPage: false,
-                                    ),
-                                    items:
-                                        partnersAllNearController.imageSliders.value,
-                                  )),
-                            )),
-                      ],
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            left: 0,
+                            child: Container(
+                              height: partnersAllNearController.searchBusiness.value.text != '' ?25 : 200 / 2,
+                              width: Get.width,
+                              decoration:
+                                  CommonUi.commonBoxDecoration(24.0, AppColors.White),
+                            ),
+                          ),
+                          SizedBox(
+                              height: partnersAllNearController.searchBusiness.value.text != '' ? 0 : 175,
+                              width: Get.width,
+                              child: ClipRRect(
+                                    borderRadius:
+                                        const BorderRadius.all(Radius.circular(10)),
+                                    child: MyCarouselSlider(
+                                      options: CarouselOptions(
+                                        viewportFraction: 0.9,
+                                        initialPage: 0,
+                                        enableInfiniteScroll: false,
+                                        reverse: false,
+                                        enlargeCenterPage: true,
+                                        // autoPlay: false,
+                                        // aspectRatio: 2.0,
+                                        // enlargeCenterPage: false,
+                                      ),
+                                      items:
+                                          partnersAllNearController.imageSliders.value,
+                                    )),
+
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Container(
