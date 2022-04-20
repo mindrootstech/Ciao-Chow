@@ -37,11 +37,12 @@ class UpcomingEventsListItem extends StatelessWidget {
                     fit: BoxFit.cover,
                     imageUrl: eventsController
                         .arrayUpcomingEvents[index].featuredImageUrl!,
-                    placeholder: (context, url) => Transform.scale(
-                        scale: 0.2,
-                        child: const CircularProgressIndicator(
-                          strokeWidth: 10.5,
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
+                    placeholder: (context, url) =>  Container(
+                        width: Get.width,
+                        child: const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.White,
+                          ),
                         )),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),

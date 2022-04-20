@@ -30,6 +30,7 @@
   "read_more": "READ MORE",
   "read_less": "READ LESS",
   "buy_tickets": "Buy tickets",
+  "scan_barcode": "Scan Barcode",
   "forgot_password_screen": "Forgot Password",
   "please_enter_email": "Please enter your email address",
   "done": "Done",
@@ -49,7 +50,7 @@
   "view_complete_profile": "View Complete profile",
   "current_badges": "Recent badges",
   "featured_partners": "Featured Partners",
-  "filtered_results": "Filtered Businesses",
+  "filtered_results": "Filtered Partners",
   "congratulations": "Congratulations!",
   "your_booking_was_successfully_done": "Your booking was successfully done",
   "back_to_home": "Back to home",
@@ -64,5 +65,6 @@
   "choose_other_cards": "Choose Other Cards",
   "event_details": "Event Details",
   "i_understand": "I understand and accept the deal's terms and\nconditions.",
+  "please_scan": "Please scan the QR code available at the business location to complete the check-in.",
   "please_fill_details": "Please fill in the details below to add a new card. You will be able to select this card during the checkout flow."
 }

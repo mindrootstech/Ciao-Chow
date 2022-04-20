@@ -1,6 +1,7 @@
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
+import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,7 +35,7 @@ class ScanCheckInView extends StatelessWidget {
               left: 0,
               right: 0,
               child: Container(
-                margin: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+                margin: const EdgeInsets.fromLTRB(20, 60, 20, 0),
                 child: Column(
                   children: [
                     GestureDetector(
@@ -49,14 +50,17 @@ class ScanCheckInView extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Text(
-                      'Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum.',
-                      style: CommonUi.customTextStyle1(
-                          Fonts.interMedium,
-                          14.0,
-                          FontWeight.w500,
-                          AppColors.White,
-                          TextDecoration.none),
+                    Container(
+                      margin: EdgeInsets.only(left: 20,right: 20,top: 20),
+                      child: Text(
+                        Utils.getString(context,'please_scan'),
+                        style: CommonUi.customTextStyle1(
+                            Fonts.interMedium,
+                            14.0,
+                            FontWeight.w500,
+                            AppColors.White,
+                            TextDecoration.none),textAlign: TextAlign.center,
+                      ),
                     ),
                   ],
                 ),

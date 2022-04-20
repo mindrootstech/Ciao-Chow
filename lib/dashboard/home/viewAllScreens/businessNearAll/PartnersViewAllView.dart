@@ -17,6 +17,7 @@ class PartnersViewAllView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     partnersAllNearController.searchBusiness.value.text = '';
+    partnersAllNearController.searchTxt.value = '';
     return Scaffold(
       backgroundColor: AppColors.White,
       appBar: AppBar(
@@ -52,32 +53,35 @@ class PartnersViewAllView extends StatelessWidget {
                         decoration: CommonUi.commonBoxDecorationAllSides(
                             50, AppColors.White),
                         padding: const EdgeInsets.only(left: 14, right: 14),
-                        margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                        margin:
+                            const EdgeInsets.only(left: 20, right: 20, top: 10),
                         child: Row(
                           children: [
-                            SvgPicture.asset(CommonUi.setSvgImage('search_icon')),
+                            SvgPicture.asset(
+                                CommonUi.setSvgImage('search_icon')),
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 15),
                                 child: TextField(
                                   textInputAction: TextInputAction.search,
                                   onSubmitted: (value) {
-                                   partnersAllNearController.getAllBusinessList();
+                                    partnersAllNearController
+                                        .getAllBusinessList();
                                   },
                                   controller: partnersAllNearController
                                       .searchBusiness.value,
                                   decoration: InputDecoration(
                                     border: const UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: AppColors.transparent),
+                                      borderSide: BorderSide(
+                                          color: AppColors.transparent),
                                     ),
                                     enabledBorder: const UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: AppColors.transparent),
+                                      borderSide: BorderSide(
+                                          color: AppColors.transparent),
                                     ),
                                     focusedBorder: const UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: AppColors.transparent),
+                                      borderSide: BorderSide(
+                                          color: AppColors.transparent),
                                     ),
                                     hintStyle: CommonUi.customTextStyle1(
                                         Fonts.interRegular,
@@ -85,8 +89,8 @@ class PartnersViewAllView extends StatelessWidget {
                                         FontWeight.w400,
                                         AppColors.textFieldsHint,
                                         TextDecoration.none),
-                                    hintText:
-                                        Utils.getString(context, 'search_by_name'),
+                                    hintText: Utils.getString(
+                                        context, 'search_by_name'),
                                   ),
                                 ),
                               ),
@@ -94,19 +98,25 @@ class PartnersViewAllView extends StatelessWidget {
                           ],
                         ),
                       ),
-                       Container(
-                          width: Get.width,
-                          margin: const EdgeInsets.only(left: 20, top: 20),
-                          child: Text(
-                           Utils.getString(context, 'featured_partners'),
-                              style: CommonUi.customTextStyle1(
-                                  Fonts.interSemiBold,
-                                  18,
-                                  FontWeight.w600,
-                                  AppColors.White,
-                                  TextDecoration.none),
-                            ),
-                        ),
+                      Obx(
+                        () => partnersAllNearController
+                                .searchTxt.value.isNotEmpty
+                            ? const SizedBox()
+                            : Container(
+                                width: Get.width,
+                                margin:
+                                    const EdgeInsets.only(left: 20, top: 20),
+                                child: Text(
+                                  Utils.getString(context, 'featured_partners'),
+                                  style: CommonUi.customTextStyle1(
+                                      Fonts.interSemiBold,
+                                      18,
+                                      FontWeight.w600,
+                                      AppColors.White,
+                                      TextDecoration.none),
+                                ),
+                              ),
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -114,11 +124,19 @@ class PartnersViewAllView extends StatelessWidget {
                   ),
                   Obx(
                     () => SizedBox(
-                      height: partnersAllNearController.searchBusiness.value.text != '' ? 25 : 200,
+                      height:
+                          partnersAllNearController.searchBusiness.value.text !=
+                                  ''
+                              ? 25
+                              : 200,
                       child: Stack(
                         children: [
                           Container(
-                            height: partnersAllNearController.searchBusiness.value.text != '' ? 0 : 200 / 2 + 20,
+                            height: partnersAllNearController
+                                        .searchBusiness.value.text !=
+                                    ''
+                                ? 0
+                                : 200 / 2 + 20,
                             color: AppColors.AppColorGrad2,
                           ),
                           Positioned(
@@ -126,33 +144,40 @@ class PartnersViewAllView extends StatelessWidget {
                             right: 0,
                             left: 0,
                             child: Container(
-                              height: partnersAllNearController.searchBusiness.value.text != '' ?25 : 200 / 2,
+                              height: partnersAllNearController
+                                          .searchBusiness.value.text !=
+                                      ''
+                                  ? 25
+                                  : 200 / 2,
                               width: Get.width,
-                              decoration:
-                                  CommonUi.commonBoxDecoration(24.0, AppColors.White),
+                              decoration: CommonUi.commonBoxDecoration(
+                                  24.0, AppColors.White),
                             ),
                           ),
                           SizedBox(
-                              height: partnersAllNearController.searchBusiness.value.text != '' ? 0 : 175,
-                              width: Get.width,
-                              child: ClipRRect(
-                                    borderRadius:
-                                        const BorderRadius.all(Radius.circular(10)),
-                                    child: MyCarouselSlider(
-                                      options: CarouselOptions(
-                                        viewportFraction: 0.9,
-                                        initialPage: 0,
-                                        enableInfiniteScroll: false,
-                                        reverse: false,
-                                        enlargeCenterPage: true,
-                                        // autoPlay: false,
-                                        // aspectRatio: 2.0,
-                                        // enlargeCenterPage: false,
-                                      ),
-                                      items:
-                                          partnersAllNearController.imageSliders.value,
-                                    )),
-
+                            height: partnersAllNearController
+                                        .searchBusiness.value.text !=
+                                    ''
+                                ? 0
+                                : 175,
+                            width: Get.width,
+                            child: ClipRRect(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                child: MyCarouselSlider(
+                                  options: CarouselOptions(
+                                    viewportFraction: 0.9,
+                                    initialPage: 0,
+                                    enableInfiniteScroll: false,
+                                    reverse: false,
+                                    enlargeCenterPage: true,
+                                    // autoPlay: false,
+                                    // aspectRatio: 2.0,
+                                    // enlargeCenterPage: false,
+                                  ),
+                                  items: partnersAllNearController
+                                      .imageSliders.value,
+                                )),
                           ),
                         ],
                       ),
@@ -165,14 +190,20 @@ class PartnersViewAllView extends StatelessWidget {
                       children: [
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
-                            Utils.getString(context, 'partners_around_you'),
-                            style: CommonUi.customTextStyle1(
-                                Fonts.interSemiBold,
-                                18,
-                                FontWeight.w600,
-                                AppColors.Black,
-                                TextDecoration.none),
+                          child: Obx(
+                            () => Text(
+                              partnersAllNearController
+                                      .searchTxt.value.isNotEmpty
+                                  ? Utils.getString(context, 'filtered_results')
+                                  : Utils.getString(
+                                      context, 'partners_around_you'),
+                              style: CommonUi.customTextStyle1(
+                                  Fonts.interSemiBold,
+                                  18,
+                                  FontWeight.w600,
+                                  AppColors.Black,
+                                  TextDecoration.none),
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -189,8 +220,8 @@ class PartnersViewAllView extends StatelessWidget {
                                 mainAxisExtent: 180,
                                 mainAxisSpacing: 12,
                               ),
-                              itemCount:
-                                  partnersAllNearController.arrayBusinessList.length,
+                              itemCount: partnersAllNearController
+                                  .arrayBusinessList.length,
                               itemBuilder: (BuildContext context, int index) {
                                 // return PartnersViewAllListItem(index, homeController);
                                 return PartnersAroundItemList(
@@ -211,14 +242,17 @@ class PartnersViewAllView extends StatelessWidget {
               right: 0,
               top: 0,
               bottom: 0,
-              child: Obx(() => partnersAllNearController.parentAllLoaderShow.value
-                  ? const Center(child: CircularProgressIndicator(color: AppColors.AppColorGrad2,))
-                  : Container()),
+              child:
+                  Obx(() => partnersAllNearController.parentAllLoaderShow.value
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                          color: AppColors.AppColorGrad2,
+                        ))
+                      : Container()),
             ),
           ],
         ),
       ),
     );
   }
-
 }

@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/Language.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsView.dart';
+import 'package:ciao_chow/dashboard/home/detailPge/BusinessDetailsView.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/ModelLevel.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
 
@@ -254,17 +257,25 @@ class CommonUi {
     imageSliders.value = bannerList
         .map((item) => ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(14.0)),
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                width: 1000.0,
-                imageUrl: item.image,
-                placeholder: (context, url) => Transform.scale(
-                    scale: 0.2,
-                    child: const CircularProgressIndicator(
-                      strokeWidth: 10.5,
-                      valueColor: AlwaysStoppedAnimation(Colors.white),
-                    )),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+              child: GestureDetector(
+                onTap: () {
+                  item.clickType == 1
+                      ? Get.to(BusinessDetailsView(item.clickValue!.toString()))
+                      :   Get.to(EventDetailsView('purchased',item.clickValue!.toString()));
+                },
+                child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  width: 1000.0,
+                  imageUrl: item.image,
+                  placeholder: (context, url) => SizedBox(
+                      width: Get.width,
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.White,
+                        ),
+                      )),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
               ),
             ))
         .toList();
@@ -279,11 +290,12 @@ class CommonUi {
                 fit: BoxFit.cover,
                 width: 1000.0,
                 imageUrl: item,
-                placeholder: (context, url) => Transform.scale(
-                    scale: 0.2,
-                    child: const CircularProgressIndicator(
-                      strokeWidth: 10.5,
-                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                placeholder: (context, url) => SizedBox(
+                    width: Get.width,
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.White,
+                      ),
                     )),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
@@ -313,7 +325,6 @@ class CommonUi {
   }
 
   static ModelLevel getUserLevels(List<Level> levelsList) {
-
     var cups = 0;
     for (var i = 0; i < levelsList.length; i++) {
       cups += levelsList[i].points!.toInt();
@@ -336,16 +347,14 @@ class CommonUi {
           levelName = levelsList[i].name!;
           levelMaxValue = int.parse('100');
           break;
-        } else if (cups >= int.parse('100') &&
-            cups < int.parse('100')) {
+        } else if (cups >= int.parse('100') && cups < int.parse('100')) {
           id = levelsList[i].id.toString();
           levelName = levelsList[i].name!;
           levelMaxValue = int.parse('100');
           break;
         }
       } else {
-        if (cups >= int.parse('100') &&
-            cups < int.parse('100')) {
+        if (cups >= int.parse('100') && cups < int.parse('100')) {
           id = levelsList[i].id.toString();
           levelName = levelsList[i + 1].name!;
           levelMaxValue = int.parse('100');

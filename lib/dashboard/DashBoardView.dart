@@ -11,6 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class DashBoardView extends StatelessWidget {
+
   DashBoardView({Key? key}) : super(key: key);
   var dashboardController = Get.put(DashBoardController());
 
@@ -19,12 +20,12 @@ class DashBoardView extends StatelessWidget {
     return Obx(
       () => Scaffold(
         extendBody: true,
-
         bottomNavigationBar: SizedBox(
+          height: Platform.isIOS?105:80,
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(45.0),
-              topRight: Radius.circular(45.0),
+              topLeft: Radius.circular(40.0),
+              topRight: Radius.circular(40.0),
             ),
             child: BottomNavigationBar(
               backgroundColor: AppColors.AppColorGrad2,

@@ -17,6 +17,7 @@ class PartnersAllNearController extends GetxController{
   var page = 1;
   var pageLoader = false.obs;
   var totalBusinessItems = 0;
+  var searchTxt = ''.obs;
 
   @override
   void onInit() {
@@ -35,6 +36,7 @@ class PartnersAllNearController extends GetxController{
       bannerList.addAll(response.data!.banners!);
       addBannerList(bannerList);
       totalBusinessItems = response.data!.businessCount!;
+      searchTxt.value = searchBusiness.value.text.toString().trim();
       parentAllLoaderShow.value = false;
 
     });

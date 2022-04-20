@@ -6,6 +6,7 @@ import 'package:ciao_chow/constants/MyCarouselSlider.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/BottomSheetMainView.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsController.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/sacnBarCode/ScanEventBarCodeView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,6 @@ import 'package:get/get.dart';
 class EventDetailsView extends StatelessWidget {
   String eventId;
   String fromWhere;
-
   EventDetailsView(this.fromWhere, this.eventId, {Key? key}) : super(key: key);
   var eventDetailsController = Get.put(EventDetailsController());
 
@@ -467,35 +467,43 @@ class EventDetailsView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            eventDetailsController.whichSheet.value = '1';
-                            eventDetailsController.currentSliderValue.value =
-                                0.0;
-                            int.parse(eventDetailsController
-                                        .eventDetails.value.availableTickets!) >
-                                    0
-                                ? eventDetailsController.showBottomSheet.value =
-                                    true
-                                : CommonUi.showToast(
-                                    'Tickets are not available.');
-                          },
-                          child: Container(
-                            child: Center(
-                              child: Text(
-                                  Utils.getString(context, 'buy_tickets'),
-                                  style: CommonUi.customTextStyle1(
-                                      Fonts.interMedium,
-                                      14.0,
-                                      FontWeight.w500,
-                                      AppColors.White,
-                                      TextDecoration.none)),
+                        Obx(
+                          ()=> GestureDetector(
+                            onTap: () {
+                              if (eventDetailsController.eventBuyOrNot.value == 'true') {
+                                Get.to(ScanEventBarCodeView());
+                              } else {
+                                eventDetailsController.whichSheet.value = '1';
+                                eventDetailsController.currentSliderValue.value =
+                                    0.0;
+                                int.parse(eventDetailsController.eventDetails
+                                            .value.availableTickets!) >
+                                        0
+                                    ? eventDetailsController
+                                        .showBottomSheet.value = true
+                                    : CommonUi.showToast(
+                                        'Tickets are not available.');
+                              }
+                            },
+                            child: Container(
+                              child: Center(
+                                child: Text(
+                                    eventDetailsController.eventBuyOrNot.value == 'false'
+                                        ? Utils.getString(context, 'scan_barcode')
+                                        : Utils.getString(context, 'buy_tickets'),
+                                    style: CommonUi.customTextStyle1(
+                                        Fonts.interMedium,
+                                        14.0,
+                                        FontWeight.w500,
+                                        AppColors.White,
+                                        TextDecoration.none)),
+                              ),
+                              height: 50,
+                              width: Get.width,
+                              margin: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 60, bottom: 24),
+                              decoration: CommonUi.shadowRoundedContainer,
                             ),
-                            height: 50,
-                            width: Get.width,
-                            margin: const EdgeInsets.only(
-                                left: 20, right: 20, top: 60, bottom: 24),
-                            decoration: CommonUi.shadowRoundedContainer,
                           ),
                         ),
                         const SizedBox(

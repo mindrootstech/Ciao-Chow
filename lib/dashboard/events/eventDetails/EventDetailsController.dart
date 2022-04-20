@@ -26,6 +26,8 @@ class EventDetailsController extends GetxController {
   var cvvTxtController = TextEditingController().obs;
   var eventLoaderShow = false.obs;
   var eventIdd = '';
+  var eventBuyOrNot = ''.obs;
+  var sliderValue = 0.0;
   var modelCard = Datum().obs;
 
   @override
@@ -38,12 +40,15 @@ class EventDetailsController extends GetxController {
   void getEventDetails(String eventId) {
     _apiProvider.getEventDetailsData(eventId).then((value) {
       eventIdd = eventId;
+      eventBuyOrNot.value = '';
       var response = eventDetailsMainModelFromJson(value);
       eventDetails.value = response.data!.event!;
+      eventBuyOrNot.value = response.data!.eventBuy!;
       businessDetails.value = response.data!.event!.business!;
       arrayImages.clear();
       arrayImages.addAll(response.data!.event!.business!.images!);
       addBannerList(arrayImages);
+      getSliderValue();
       eventLoaderShow.value = false;
     });
   }
@@ -117,5 +122,14 @@ class EventDetailsController extends GetxController {
         Get.to(BookingDoneView());
       }
     });
+  }
+
+  void getSliderValue() {
+
+    if(int.parse(eventDetails.value.availableTickets!) < int.parse(eventDetails.value.maxTicketsPerCustomer!)){
+      sliderValue = int.parse(eventDetails.value.availableTickets!).toDouble();
+    }else{
+      sliderValue = int.parse(eventDetails.value.maxTicketsPerCustomer!).toDouble();
+    }
   }
 }

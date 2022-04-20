@@ -4,6 +4,7 @@ import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LatestCheckInListItem extends StatelessWidget {
   var index;
@@ -30,11 +31,12 @@ class LatestCheckInListItem extends StatelessWidget {
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
                     imageUrl: homeController.arrayLatestCheckIns[index].business!.featuredImageUrl!,
-                    placeholder: (context, url) => Transform.scale(
-                        scale: 0.2,
-                        child: const CircularProgressIndicator(
-                          strokeWidth: 10.5,
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
+                    placeholder: (context, url) =>  Container(
+                        width: Get.width,
+                        child: const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.White,
+                          ),
                         )),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),

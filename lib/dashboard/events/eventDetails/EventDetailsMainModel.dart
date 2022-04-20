@@ -31,16 +31,20 @@ class EventDetailsMainModel {
 class Data {
   Data({
     this.event,
+    this.eventBuy,
   });
 
   Event? event;
+  String? eventBuy;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     event: Event.fromJson(json["event"]),
+    eventBuy: json["event_buy"],
   );
 
   Map<String, dynamic> toJson() => {
     "event": event!.toJson(),
+    "event_buy": eventBuy,
   };
 }
 

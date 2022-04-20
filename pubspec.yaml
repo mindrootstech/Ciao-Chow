@@ -57,6 +57,7 @@ dependencies:
   flutter_stripe: ^2.4.0
   flutter_multi_formatter: ^2.5.1
   flutter_blurhash: ^0.6.6
+  flutter_barcode_scanner: ^2.0.0
 
 
 

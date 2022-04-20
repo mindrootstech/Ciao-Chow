@@ -64,7 +64,6 @@ class HomeController extends GetxController {
     });
   }
 
-
   void addBannerList(List<dynamic> bannerList) {
     CommonUi.imageSliders(bannerList, imageSliders);
   }
