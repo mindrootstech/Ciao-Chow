@@ -16,7 +16,7 @@ class EventDetailsController extends GetxController {
   var isChecked = false.obs;
   var imageSliders = <Widget>[].obs;
   List<String> arrayImages = <String>[].obs;
-  var currentSliderValue = 0.obs;
+  var currentSliderValue = 0.0.obs;
   var eventDetails = Event().obs;
   var businessDetails = Business().obs;
   var allCardsList = <Datum>[].obs;
@@ -97,7 +97,6 @@ class EventDetailsController extends GetxController {
               modelCard.value.last4 = responseSingle.last4;
               modelCard.value.name = responseSingle.name;
               modelCard.value.expYear = responseSingle.expYear;
-              modelCard.value.expMonth = responseSingle.expMonth;
               modelCard.value.expMonth = responseSingle.expMonth;
               modelCard.value.isSelected = true;
             }

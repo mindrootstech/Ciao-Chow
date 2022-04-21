@@ -308,13 +308,8 @@ class BottomSheetPaymentView extends StatelessWidget {
                               'null'
                           ? Text(
                               '\$' +
-                                  (double.parse(eventsController
-                                              .eventDetails.value.ticketPrice
-                                              .toString()) *
-                                          eventsController
-                                              .currentSliderValue.value
-                                              .toInt())
-                                      .toStringAsFixed(2),
+                                  (double.parse(eventsController.eventDetails.value.ticketPrice.toString()) *
+                                      eventsController.currentSliderValue.value.round()).toStringAsFixed(2),
                               style: CommonUi.customTextStyle1(
                                   Fonts.interSemiBold,
                                   24.0,
@@ -354,12 +349,13 @@ class BottomSheetPaymentView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    eventsController.isChecked.value == false
-                        ? CommonUi.showToast(
-                            'Please agree to terms & conditions')
-                        : eventsController.eventPurchaseApi();
-
-                    // eventsController.whichSheet.value = '4';
+                    if(eventsController.modelCard.value.id != null || eventsController.modelCard.value.id != '' ){
+                      CommonUi.showToast('Please select payment card to continue.');
+                    }else if(eventsController.isChecked.value == false){
+                      CommonUi.showToast('Please agree to terms & conditions.');
+                    }else{
+                      eventsController.eventPurchaseApi();
+                    }
                   },
                   child: Container(
                     child: Center(

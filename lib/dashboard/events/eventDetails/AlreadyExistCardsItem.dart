@@ -11,8 +11,19 @@ class AlreadyExistCardsItem extends StatefulWidget {
   State<AlreadyExistCardsItem> createState() => _AlreadyExistCardsItemState();
 }
 
+
 class _AlreadyExistCardsItemState extends State<AlreadyExistCardsItem> {
   EventDetailsController eventsDetailsController = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    // for (int i = 0; i < eventsDetailsController.allCardsList.length; i++) {
+    //   if (eventsDetailsController.allCardsList[i].isSelected == eventsDetailsController.modelCard.value.isSelected) {
+    //     eventsDetailsController.allCardsList[i].isSelected = false;
+    //   }
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {

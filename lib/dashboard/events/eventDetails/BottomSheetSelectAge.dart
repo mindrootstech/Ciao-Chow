@@ -53,7 +53,7 @@ class BottomSheetSelectAge extends StatelessWidget {
             ),
             Obx(
               () => Slider(
-                value: eventsController.currentSliderValue.value.toDouble(),
+                value: eventsController.currentSliderValue.value,
                 // max: int.parse(eventsController.eventDetails.value.maxTicketsPerCustomer!).toDouble(),
                 max: eventsController.sliderValue,
                 divisions: 100,
@@ -62,13 +62,13 @@ class BottomSheetSelectAge extends StatelessWidget {
                 thumbColor: AppColors.seekBarColor,
                 inactiveColor: AppColors.seekBarColor,
                 onChanged: (double value) {
-                  eventsController.currentSliderValue.value = value.toInt();
+                  eventsController.currentSliderValue.value = value;
                 },
               ),
             ),
             GestureDetector(
               onTap: () {
-                eventsController.currentSliderValue.value > 0 ?
+                eventsController.currentSliderValue.value > 0.0 ?
                 eventsController.whichSheet.value = '2' : CommonUi.showToast('Please select seats to continue.');
                 // Get.to(BookingDoneView());
               },
