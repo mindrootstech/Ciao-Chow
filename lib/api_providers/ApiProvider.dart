@@ -288,4 +288,17 @@ class ApiProvider extends GetConnect {
       return json.encode(response.body);
     }
   }
+
+  Future<String> getScannedEvent(String result) async {
+    final response = await post('/event-redeem', {
+      'event_identifier': result,
+    }, headers: {
+      'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+  }
 }

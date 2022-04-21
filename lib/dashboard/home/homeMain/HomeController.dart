@@ -70,7 +70,6 @@ class HomeController extends GetxController {
 
   void getScannedData(String result) {
     _apiProvider.getScannedData(result).then((value) {
-
       if (value == 'error') {
         CommonUi.showToast('Already Checked In');
         return;
@@ -83,7 +82,6 @@ class HomeController extends GetxController {
           getHomeData(getStorage.read('lat'), getStorage.read('long'));
         }
       }
-
       checkInLoader.value = false;
 
     });

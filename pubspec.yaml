@@ -43,7 +43,6 @@ dependencies:
   carousel_slider: ^4.0.0
   cached_network_image: ^3.2.0
   percent_indicator: ^4.0.0
-#  flutter_seekbar: ^0.0.1
   qr_code_scanner: ^0.5.2
   image_picker: ^0.8.4+11
   expandable_text: ^2.2.0
@@ -56,10 +55,6 @@ dependencies:
   firebase_messaging: ^11.2.12
   flutter_stripe: ^2.4.0
   flutter_multi_formatter: ^2.5.1
-  flutter_blurhash: ^0.6.6
-  flutter_barcode_scanner: ^2.0.0
-
-
 
 dev_dependencies:
   flutter_test:

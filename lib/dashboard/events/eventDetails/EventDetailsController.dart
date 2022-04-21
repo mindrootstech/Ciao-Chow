@@ -16,7 +16,7 @@ class EventDetailsController extends GetxController {
   var isChecked = false.obs;
   var imageSliders = <Widget>[].obs;
   List<String> arrayImages = <String>[].obs;
-  var currentSliderValue = 0.0.obs;
+  var currentSliderValue = 0.obs;
   var eventDetails = Event().obs;
   var businessDetails = Business().obs;
   var allCardsList = <Datum>[].obs;
@@ -84,23 +84,23 @@ class EventDetailsController extends GetxController {
       if (response.id!.isNotEmpty) {
         _apiProvider.fetchCard(response.id!).then((value) {
           var responseSingle = modelMainSingleCardFromJson(value);
-          for (int i = 0; i < allCardsList.length; i++) {
-            if (allCardsList[i].isSelected == true) {
-              allCardsList[i].isSelected = false;
-            }
-            modelCard.value.id = responseSingle.id;
-            modelCard.value.last4 = responseSingle.last4;
-            modelCard.value.name = responseSingle.name;
-            modelCard.value.expYear = responseSingle.expYear;
-            modelCard.value.expMonth = responseSingle.expMonth;
-            modelCard.value.expMonth = responseSingle.expMonth;
-            modelCard.value.isSelected = true;
-          }
           _apiProvider.getAllCards().then((value) {
             var responseAll = allCardsMainModelFromJson(value);
             whichSheet.value = '2';
             allCardsList.clear();
             allCardsList.addAll(responseAll.data!);
+            for (int i = 0; i < allCardsList.length; i++) {
+              if (allCardsList[i].isSelected == true) {
+                allCardsList[i].isSelected = false;
+              }
+              modelCard.value.id = responseSingle.id;
+              modelCard.value.last4 = responseSingle.last4;
+              modelCard.value.name = responseSingle.name;
+              modelCard.value.expYear = responseSingle.expYear;
+              modelCard.value.expMonth = responseSingle.expMonth;
+              modelCard.value.expMonth = responseSingle.expMonth;
+              modelCard.value.isSelected = true;
+            }
           });
         });
       }
@@ -114,7 +114,6 @@ class EventDetailsController extends GetxController {
   eventPurchaseApi() {
     _apiProvider.getEventPurchase(currentSliderValue.value.round().toString(), eventIdd,
             modelCard.value.id!).then((value) {
-
       if (value == 'error') {
         CommonUi.showToast('Tickets not available.');
         return;

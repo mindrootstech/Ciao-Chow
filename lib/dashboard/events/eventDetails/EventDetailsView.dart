@@ -12,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class EventDetailsView extends StatelessWidget {
+
   String eventId;
   String fromWhere;
   EventDetailsView(this.fromWhere, this.eventId, {Key? key}) : super(key: key);
@@ -467,15 +468,14 @@ class EventDetailsView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Obx(
-                          ()=> GestureDetector(
+                       GestureDetector(
                             onTap: () {
-                              if (eventDetailsController.eventBuyOrNot.value == 'true') {
+                              if (fromWhere == 'purchased') {
                                 Get.to(ScanEventBarCodeView());
                               } else {
                                 eventDetailsController.whichSheet.value = '1';
                                 eventDetailsController.currentSliderValue.value =
-                                    0.0;
+                                    0;
                                 int.parse(eventDetailsController.eventDetails
                                             .value.availableTickets!) >
                                         0
@@ -488,7 +488,7 @@ class EventDetailsView extends StatelessWidget {
                             child: Container(
                               child: Center(
                                 child: Text(
-                                    eventDetailsController.eventBuyOrNot.value == 'false'
+                                    fromWhere == 'purchased'
                                         ? Utils.getString(context, 'scan_barcode')
                                         : Utils.getString(context, 'buy_tickets'),
                                     style: CommonUi.customTextStyle1(
@@ -505,7 +505,7 @@ class EventDetailsView extends StatelessWidget {
                               decoration: CommonUi.shadowRoundedContainer,
                             ),
                           ),
-                        ),
+
                         const SizedBox(
                           height: 20,
                         ),

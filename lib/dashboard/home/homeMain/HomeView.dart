@@ -56,7 +56,7 @@ class HomeView extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          const NotificationsView();
+                          Get.to(NotificationsView());
                         },
                         child: SvgPicture.asset(
                           CommonUi.setSvgImage('notification_home'),
