@@ -9,6 +9,7 @@ class BusinessDetailsController extends GetxController{
   final _apiProvider = ApiProvider();
   var imageSliders = <Widget>[].obs;
   List<String> arrayImages = <String>[].obs;
+  var openingHours = <OpeningHour>[].obs;
   var getBusiness = GetBusiness().obs;
   var userCheckIn = ''.obs;
   var businessDetailsLoaderShow = false.obs;
@@ -21,6 +22,7 @@ class BusinessDetailsController extends GetxController{
       arrayImages.addAll(response.data!.getBusiness!.images!);
       getBusiness.value = response.data!.getBusiness!;
       userCheckIn.value = response.data!.usersCheckins!;
+      openingHours.addAll(response.data!.getBusiness!.openingHours!);
       addBannerList(arrayImages);
       businessDetailsLoaderShow.value = false;
     });

@@ -136,7 +136,7 @@ class PartnersViewAllView extends StatelessWidget {
                                         .searchBusiness.value.text !=
                                     ''
                                 ? 0
-                                : 200 / 2 + 20,
+                                : 200 / 2 + 25,
                             color: AppColors.AppColorGrad2,
                           ),
                           Positioned(
@@ -147,7 +147,7 @@ class PartnersViewAllView extends StatelessWidget {
                               height: partnersAllNearController
                                           .searchBusiness.value.text !=
                                       ''
-                                  ? 25
+                                  ? 15
                                   : 200 / 2,
                               width: Get.width,
                               decoration: CommonUi.commonBoxDecoration(

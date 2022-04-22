@@ -25,6 +25,8 @@ class EventDetailsController extends GetxController {
   var expiryDateController = TextEditingController().obs;
   var cvvTxtController = TextEditingController().obs;
   var eventLoaderShow = false.obs;
+  var showPaymentDone = false.obs;
+  var showAddCardLoader = false.obs;
   var eventIdd = '';
   var eventBuyOrNot = ''.obs;
   var sliderValue = 0.0;
@@ -34,6 +36,7 @@ class EventDetailsController extends GetxController {
   void onInit() {
     super.onInit();
     eventLoaderShow.value = true;
+    showAddCardLoader.value = false;
     getAllCards();
   }
 
@@ -77,9 +80,7 @@ class EventDetailsController extends GetxController {
       }
     }
 
-    _apiProvider
-        .getAddCard(cardNumber, cvvNo, cardName, expMonth, expYear)
-        .then((value) {
+    _apiProvider.getAddCard(cardNumber, cvvNo, cardName, expMonth, expYear).then((value) {
       var response = addCardMainModelFromJson(value);
       if (response.id!.isNotEmpty) {
         _apiProvider.fetchCard(response.id!).then((value) {
@@ -100,6 +101,7 @@ class EventDetailsController extends GetxController {
               modelCard.value.expMonth = responseSingle.expMonth;
               modelCard.value.isSelected = true;
             }
+            showAddCardLoader.value = false;
           });
         });
       }
@@ -118,6 +120,7 @@ class EventDetailsController extends GetxController {
         return;
       }else{
         Get.to(BookingDoneView());
+        showPaymentDone.value = false;
       }
     });
   }

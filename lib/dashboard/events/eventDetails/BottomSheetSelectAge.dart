@@ -60,7 +60,7 @@ class BottomSheetSelectAge extends StatelessWidget {
                 label:eventsController.currentSliderValue.value.round().toString(),
                 activeColor: AppColors.seekBarColor,
                 thumbColor: AppColors.seekBarColor,
-                inactiveColor: AppColors.seekBarColor,
+                inactiveColor: AppColors.lightBlack,
                 onChanged: (double value) {
                   eventsController.currentSliderValue.value = value;
                 },

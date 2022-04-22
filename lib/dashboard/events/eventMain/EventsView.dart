@@ -50,7 +50,7 @@ class EventsView extends StatelessWidget {
                         ),
                         Container(
                           color: AppColors.AppColorGrad2,
-                          height: 15,
+                          height: 16,
                         ),
                         SizedBox(
                           height: 200,

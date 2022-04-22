@@ -47,7 +47,7 @@ class NotificationItemView extends StatelessWidget {
                 children: [
                   Container(
                     color: Colors.amber,
-                    width: Get.width -100,
+                    // width: Get.width -100,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -68,14 +68,14 @@ class NotificationItemView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Text(
-                  //     'Play boy has added new event that might you be interested.',
-                  //     style: CommonUi.customTextStyle1(
-                  //         Fonts.interRegular,
-                  //         12.0,
-                  //         FontWeight.w400,
-                  //         AppColors.textFieldsHint,
-                  //         TextDecoration.none)),
+                  Text(
+                      'Play boy has added new event that might you be interested.',
+                      style: CommonUi.customTextStyle1(
+                          Fonts.interRegular,
+                          12.0,
+                          FontWeight.w400,
+                          AppColors.textFieldsHint,
+                          TextDecoration.none)),
                 ],
               )
             ],

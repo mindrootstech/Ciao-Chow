@@ -18,11 +18,18 @@ class _AlreadyExistCardsItemState extends State<AlreadyExistCardsItem> {
   @override
   void initState() {
     super.initState();
-    // for (int i = 0; i < eventsDetailsController.allCardsList.length; i++) {
-    //   if (eventsDetailsController.allCardsList[i].isSelected == eventsDetailsController.modelCard.value.isSelected) {
-    //     eventsDetailsController.allCardsList[i].isSelected = false;
-    //   }
-    // }
+    for (int i = 0; i < eventsDetailsController.allCardsList.length; i++) {
+      if(eventsDetailsController.modelCard.value.id != '' &&
+          eventsDetailsController.modelCard.value.id !=
+              null) {
+        if (eventsDetailsController.allCardsList[i].id ==
+            eventsDetailsController.modelCard.value.id) {
+          eventsDetailsController.allCardsList[i].isSelected = true;
+        } else {
+          eventsDetailsController.allCardsList[i].isSelected = false;
+        }
+      }
+    }
   }
 
   @override

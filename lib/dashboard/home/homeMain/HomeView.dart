@@ -56,7 +56,7 @@ class HomeView extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.to(NotificationsView());
+                          Get.to(NotificationsView(1));
                         },
                         child: SvgPicture.asset(
                           CommonUi.setSvgImage('notification_home'),
@@ -99,10 +99,6 @@ class HomeView extends StatelessWidget {
                                 enableInfiniteScroll: false,
                                 reverse: false,
                                 enlargeCenterPage: true,
-
-                                // autoPlay: false,
-                                // aspectRatio: 2.0,
-                                // enlargeCenterPage: false,
                               ),
                               items: homeController.imageSliders.value,
                             ),

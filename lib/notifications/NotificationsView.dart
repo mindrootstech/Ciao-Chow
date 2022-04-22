@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NotificationsView extends StatelessWidget {
-  NotificationsView({Key? key}) : super(key: key);
+  var fromWhere;
+  NotificationsView(this.fromWhere, {Key? key}) : super(key: key);
 
   var notificationController = Get.put(NotificationController());
 
@@ -56,10 +57,6 @@ class NotificationsView extends StatelessWidget {
     notificationController.notificationsArray.add(notificationModel);
 
 
-
-
-
-
     return Stack(
       children: [
         Scaffold(
@@ -69,12 +66,13 @@ class NotificationsView extends StatelessWidget {
             backgroundColor: AppColors.AppColorGrad2,
             leading: Builder(
               builder: (BuildContext context) {
-                return IconButton(
+                return fromWhere == 1 ?
+                IconButton(
                   icon: const Icon(Icons.arrow_back_ios),
                   onPressed: () {
                     Get.back();
                   },
-                );
+                ) : const SizedBox();
               },
             ),
             centerTitle: true,

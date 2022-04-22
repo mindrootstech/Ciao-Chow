@@ -5,6 +5,7 @@ import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/MyCarouselSlider.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/home/detailPge/BusinessDetailsController.dart';
+import 'package:ciao_chow/dashboard/home/detailPge/OpeningHoursItem.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,11 +42,19 @@ class BusinessDetailsView extends StatelessWidget {
             ),
             centerTitle: true,
             title: Obx(
-              () => businessDetailsController.getBusiness.value.businessName.toString() != 'null' ? Text(
-                businessDetailsController.getBusiness.value.businessName!,
-                style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
-                    FontWeight.w600, AppColors.White, TextDecoration.none),
-              ) : const SizedBox(),
+              () => businessDetailsController.getBusiness.value.businessName
+                          .toString() !=
+                      'null'
+                  ? Text(
+                      businessDetailsController.getBusiness.value.businessName!,
+                      style: CommonUi.customTextStyle1(
+                          Fonts.interSemiBold,
+                          18.0,
+                          FontWeight.w600,
+                          AppColors.White,
+                          TextDecoration.none),
+                    )
+                  : const SizedBox(),
             ),
           ),
           body: SingleChildScrollView(
@@ -101,16 +110,20 @@ class BusinessDetailsView extends StatelessWidget {
                     children: [
                       Obx(
                         () => businessDetailsController
-                    .getBusiness.value.businessName.toString() != 'null' ? Text(
-                          businessDetailsController
-                              .getBusiness.value.businessName!,
-                          style: CommonUi.customTextStyle1(
-                              Fonts.interSemiBold,
-                              18.0,
-                              FontWeight.w600,
-                              AppColors.Black,
-                              TextDecoration.none),
-                        ): const SizedBox(),
+                                    .getBusiness.value.businessName
+                                    .toString() !=
+                                'null'
+                            ? Text(
+                                businessDetailsController
+                                    .getBusiness.value.businessName!,
+                                style: CommonUi.customTextStyle1(
+                                    Fonts.interSemiBold,
+                                    18.0,
+                                    FontWeight.w600,
+                                    AppColors.Black,
+                                    TextDecoration.none),
+                              )
+                            : const SizedBox(),
                       ),
                       const SizedBox(
                         height: 18,
@@ -123,7 +136,8 @@ class BusinessDetailsView extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Obx(
                               () => businessDetailsController
-                                          .getBusiness.value.address.toString() !=
+                                          .getBusiness.value.address
+                                          .toString() !=
                                       'null'
                                   ? Text(
                                       businessDetailsController
@@ -144,7 +158,8 @@ class BusinessDetailsView extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 24.0),
                         child: Obx(
                           () => businessDetailsController
-                                      .getBusiness.value.distance.toString() !=
+                                      .getBusiness.value.distance
+                                      .toString() !=
                                   'null'
                               ? Text(
                                   businessDetailsController
@@ -171,7 +186,8 @@ class BusinessDetailsView extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Obx(
                               () => businessDetailsController
-                                          .getBusiness.value.emailAddress.toString() !=
+                                          .getBusiness.value.emailAddress
+                                          .toString() !=
                                       'null'
                                   ? Text(
                                       businessDetailsController
@@ -199,7 +215,8 @@ class BusinessDetailsView extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Obx(
                               () => businessDetailsController
-                                          .getBusiness.value.contactNumber.toString() !=
+                                          .getBusiness.value.contactNumber
+                                          .toString() !=
                                       'null'
                                   ? Text(
                                       businessDetailsController
@@ -222,24 +239,24 @@ class BusinessDetailsView extends StatelessWidget {
                       Row(
                         children: [
                           SvgPicture.asset(CommonUi.setSvgImage('timings')),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Obx(
-                              () => businessDetailsController
-                                          .getBusiness.value.openingHours.toString() !=
-                                      'null'
-                                  ? Text(
-                                      businessDetailsController
-                                          .getBusiness.value.openingHours!,
-                                      style: CommonUi.customTextStyle1(
-                                          Fonts.interRegular,
-                                          12.0,
-                                          FontWeight.w400,
-                                          AppColors.textFieldsHint,
-                                          TextDecoration.none),
-                                    )
-                                  : const SizedBox(),
-                            ),
+                          Obx(
+                            () => businessDetailsController.openingHours.value.isNotEmpty
+                                ? Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: businessDetailsController
+                                            .getBusiness.value.openingHours!.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return OpeningHoursItem(index);
+                                        },
+                                      ),
+                                  ),
+                                )
+                                : const SizedBox(),
                           ),
                         ],
                       ),
@@ -250,7 +267,8 @@ class BusinessDetailsView extends StatelessWidget {
                       ),
                       Obx(
                         () => businessDetailsController
-                                    .getBusiness.value.description.toString() !=
+                                    .getBusiness.value.description
+                                    .toString() !=
                                 'null'
                             ? ExpandableText(
                                 businessDetailsController
@@ -296,8 +314,9 @@ class BusinessDetailsView extends StatelessWidget {
                                   height: 15,
                                 ),
                                 Obx(
-                                  () => businessDetailsController.getBusiness
-                                              .value.totalCheckins.toString() !=
+                                  () => businessDetailsController
+                                              .getBusiness.value.totalCheckins
+                                              .toString() !=
                                           'null'
                                       ? Text(
                                           businessDetailsController
@@ -335,8 +354,8 @@ class BusinessDetailsView extends StatelessWidget {
                                   height: 15,
                                 ),
                                 Obx(
-                                  () => businessDetailsController
-                                              .userCheckIn.toString() !=
+                                  () => businessDetailsController.userCheckIn
+                                              .toString() !=
                                           'null'
                                       ? Text(
                                           businessDetailsController

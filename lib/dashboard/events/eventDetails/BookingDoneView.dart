@@ -3,6 +3,7 @@ import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/DashBoardView.dart';
+import 'package:ciao_chow/dashboard/events/eventMain/EventsView.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,13 +18,13 @@ class BookingDoneView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 30,
+            Container(
+              margin: const EdgeInsets.only(right: 24,top: 46),
             ),
             IconButton(
               icon: const Icon(Icons.arrow_back_ios, color: AppColors.Black),
               onPressed: () {
-                Get.back();
+                Get.offAll(DashBoardView(1));
               },
             ),
             Expanded(
@@ -64,7 +65,7 @@ class BookingDoneView extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // Get.off(DashBoardView());
+                        Get.offAll(DashBoardView(0));
                       },
                       child: Text(
                         Utils.getString(context, 'back_to_home'),
@@ -82,7 +83,7 @@ class BookingDoneView extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Get.back();
+                Get.offAll(DashBoardView(1));
               },
               child: Container(
                 child: Center(

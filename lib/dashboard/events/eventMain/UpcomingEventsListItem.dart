@@ -99,6 +99,24 @@ class UpcomingEventsListItem extends StatelessWidget {
                                 TextDecoration.none),
                           ): const SizedBox(),
                         ),
+
+                         const SizedBox(
+                          height: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 3),
+                          child: eventsController.arrayUpcomingEvents[index]
+                              .business!.address != 'null' ? Text(
+                            eventsController.arrayUpcomingEvents[index]
+                                .business!.address!,
+                            style: CommonUi.customTextStyle1(
+                                Fonts.interRegular,
+                                12.0,
+                                FontWeight.w400,
+                                AppColors.White,
+                                TextDecoration.none),
+                          ): const SizedBox(),
+                        ),
                       ],
                     ),
                   ),

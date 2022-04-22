@@ -6,17 +6,23 @@ import 'package:ciao_chow/dashboard/DashBoardController.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventsView.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeView.dart';
 import 'package:ciao_chow/dashboard/settings/SettingsView.dart';
+import 'package:ciao_chow/notifications/NotificationsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class DashBoardView extends StatelessWidget {
-
-  DashBoardView({Key? key}) : super(key: key);
+  var screenOpen;
+  DashBoardView(this.screenOpen, {Key? key}) : super(key: key);
   var dashboardController = Get.put(DashBoardController());
 
   @override
   Widget build(BuildContext context) {
+    if(screenOpen == 1){
+      dashboardController.selectedValue.value = 1;
+    }else if(screenOpen == 0){
+      dashboardController.selectedValue.value = 0;
+    }
     return Obx(
       () => Scaffold(
         extendBody: true,
@@ -118,10 +124,9 @@ class DashBoardView extends StatelessWidget {
             ),
           ),
         ),
-        body: dashboardController.selectedValue.value == 0
-            ? HomeView()
-            : dashboardController.selectedValue.value == 1
-                ? EventsView()
+        body: dashboardController.selectedValue.value == 0 ? HomeView()
+            : dashboardController.selectedValue.value == 1 ? EventsView()
+            : dashboardController.selectedValue.value == 2 ? NotificationsView(0)
                 : const SettingsView(),
       ),
     );
