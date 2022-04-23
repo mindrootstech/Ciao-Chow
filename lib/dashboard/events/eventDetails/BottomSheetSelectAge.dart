@@ -46,10 +46,24 @@ class BottomSheetSelectAge extends StatelessWidget {
             Text(
               Utils.getString(context, 'how_many_seats'),
               style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
-                  FontWeight.w400, AppColors.lightBlack, TextDecoration.none),
+                  FontWeight.w400, AppColors.lightBlack50, TextDecoration.none),
             ),
             const SizedBox(
               height: 54,
+            ),
+            Obx(
+              () => Container(
+                width: Get.width,
+                margin: const EdgeInsets.only(right: 24),
+                child: Text(
+                  eventsController.currentSliderValue.value.round().toString(),
+                  style: CommonUi.customTextStyle1(Fonts.interRegular, 20.0,
+                      FontWeight.w400, AppColors.lightBlack, TextDecoration.none),textAlign: TextAlign.end,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 14,
             ),
             Obx(
               () => Slider(
@@ -57,10 +71,12 @@ class BottomSheetSelectAge extends StatelessWidget {
                 // max: int.parse(eventsController.eventDetails.value.maxTicketsPerCustomer!).toDouble(),
                 max: eventsController.sliderValue,
                 divisions: 100,
-                label:eventsController.currentSliderValue.value.round().toString(),
+                // label: eventsController.currentSliderValue.value
+                //     .round()
+                //     .toString(),
                 activeColor: AppColors.seekBarColor,
                 thumbColor: AppColors.seekBarColor,
-                inactiveColor: AppColors.lightBlack,
+                inactiveColor: AppColors.inactiveSlider,
                 onChanged: (double value) {
                   eventsController.currentSliderValue.value = value;
                 },
@@ -68,8 +84,9 @@ class BottomSheetSelectAge extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                eventsController.currentSliderValue.value > 0.0 ?
-                eventsController.whichSheet.value = '2' : CommonUi.showToast('Please select seats to continue.');
+                eventsController.currentSliderValue.value > 0.0
+                    ? eventsController.whichSheet.value = '2'
+                    : CommonUi.showToast('Please select seats to continue.');
                 // Get.to(BookingDoneView());
               },
               child: Container(

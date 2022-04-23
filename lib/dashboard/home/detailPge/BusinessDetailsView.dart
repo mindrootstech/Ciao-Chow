@@ -13,7 +13,6 @@ import 'package:get/get.dart';
 
 class BusinessDetailsView extends StatelessWidget {
   String id;
-
   BusinessDetailsView(this.id, {Key? key}) : super(key: key);
   var businessDetailsController = Get.put(BusinessDetailsController());
 

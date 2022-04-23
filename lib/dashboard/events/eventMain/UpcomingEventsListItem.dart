@@ -37,7 +37,7 @@ class UpcomingEventsListItem extends StatelessWidget {
                     fit: BoxFit.cover,
                     imageUrl: eventsController
                         .arrayUpcomingEvents[index].featuredImageUrl!,
-                    placeholder: (context, url) =>  Container(
+                    placeholder: (context, url) => Container(
                         width: Get.width,
                         child: const Center(
                           child: CircularProgressIndicator(
@@ -69,7 +69,8 @@ class UpcomingEventsListItem extends StatelessWidget {
                                       .business!.businessName !=
                                   'null'
                               ? Text(
-                            eventsController.arrayUpcomingEvents[index].business!.businessName!,
+                                  eventsController.arrayUpcomingEvents[index]
+                                      .business!.businessName!,
                                   textAlign: TextAlign.start,
                                   style: CommonUi.customTextStyle1(
                                       Fonts.interMedium,
@@ -88,34 +89,59 @@ class UpcomingEventsListItem extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.only(top: 3),
                           child: eventsController.arrayUpcomingEvents[index]
-                              .business!.address != 'null' ? Text(
-                            eventsController.arrayUpcomingEvents[index]
-                                .business!.address!,
-                            style: CommonUi.customTextStyle1(
-                                Fonts.interRegular,
-                                12.0,
-                                FontWeight.w400,
-                                AppColors.White,
-                                TextDecoration.none),
-                          ): const SizedBox(),
+                                      .business!.address !=
+                                  'null'
+                              ? Text(
+                                  eventsController.arrayUpcomingEvents[index]
+                                      .business!.address!,
+                                  style: CommonUi.customTextStyle1(
+                                      Fonts.interRegular,
+                                      12.0,
+                                      FontWeight.w400,
+                                      AppColors.White,
+                                      TextDecoration.none),
+                                )
+                              : const SizedBox(),
                         ),
-
-                         const SizedBox(
+                        const SizedBox(
                           height: 4,
                         ),
                         Container(
                           margin: const EdgeInsets.only(top: 3),
                           child: eventsController.arrayUpcomingEvents[index]
-                              .business!.address != 'null' ? Text(
-                            eventsController.arrayUpcomingEvents[index]
-                                .business!.address!,
-                            style: CommonUi.customTextStyle1(
-                                Fonts.interRegular,
-                                12.0,
-                                FontWeight.w400,
-                                AppColors.White,
-                                TextDecoration.none),
-                          ): const SizedBox(),
+                                      .business!.address !=
+                                  'null'
+                              ? Text(
+                                  eventsController.arrayUpcomingEvents[index]
+                                      .business!.address!,
+                                  style: CommonUi.customTextStyle1(
+                                      Fonts.interRegular,
+                                      12.0,
+                                      FontWeight.w400,
+                                      AppColors.White,
+                                      TextDecoration.none),
+                                )
+                              : const SizedBox(),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 7),
+                          child: Row(
+                            children: [
+                              Image.asset(CommonUi.setPngImage('location_miles')),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                eventsController.arrayUpcomingEvents[index].distance!+ ' miles away',
+                                style: CommonUi.customTextStyle1(
+                                    Fonts.interItalic,
+                                    8.0,
+                                    FontWeight.w400,
+                                    AppColors.White,
+                                    TextDecoration.none),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

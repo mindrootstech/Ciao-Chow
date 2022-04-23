@@ -182,8 +182,12 @@ class ApiProvider extends GetConnect {
   }
 
   Future<String> getEventsData() async {
-    final response = await post('/view-all-events', {},
-        headers: {'Authorization': 'Bearer ${getStorage.read('token')}'});
+    final response = await post('/view-all-events', {
+      'lat': getStorage.read('lat'),
+      'long': getStorage.read('long'),
+    }, headers: {
+      'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
     if (response.status.hasError) {
       return 'error';
     } else {

@@ -32,5 +32,8 @@ class AppColors {
   static const Color greyCheckBox = Color.fromRGBO(222, 222, 222, 1);
   static const Color txtHintCard = Color.fromRGBO(147, 147, 147, 1);
   static const Color redLatest = Color.fromRGBO(185, 6, 6, 1);
+  static const Color inactiveSlider = Color.fromRGBO(5, 3, 13, 0.10);
+  static const Color lightBlack50 = Color.fromRGBO(5, 3, 13, 0.5);
+
 
 }

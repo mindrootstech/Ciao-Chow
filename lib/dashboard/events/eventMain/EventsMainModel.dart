@@ -110,6 +110,7 @@ class MyEventsTicket {
     this.redeemedTickets,
     this.createdAt,
     this.updatedAt,
+    this.isRedeemed,
     this.event,
   });
 
@@ -125,6 +126,7 @@ class MyEventsTicket {
   String? redeemedTickets;
   DateTime? createdAt;
   DateTime? updatedAt;
+  int? isRedeemed;
   Event? event;
 
   factory MyEventsTicket.fromJson(Map<String, dynamic> json) => MyEventsTicket(
@@ -140,6 +142,7 @@ class MyEventsTicket {
     redeemedTickets: json["redeemed_tickets"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    isRedeemed: json["is_redeemed"],
     event: Event.fromJson(json["event"]),
   );
 
@@ -156,6 +159,7 @@ class MyEventsTicket {
     "redeemed_tickets": redeemedTickets,
     "created_at": createdAt!.toIso8601String(),
     "updated_at": updatedAt!.toIso8601String(),
+    "is_redeemed": isRedeemed,
     "event": event!.toJson(),
   };
 }
@@ -184,6 +188,7 @@ class Event {
     this.createdBy,
     this.featuredImageUrl,
     this.business,
+    this.distance,
   });
 
   int? id;
@@ -208,6 +213,7 @@ class Event {
   int? createdBy;
   String? featuredImageUrl;
   Business? business;
+  String? distance;
 
   factory Event.fromJson(Map<String, dynamic> json) => Event(
     id: json["id"],
@@ -232,6 +238,7 @@ class Event {
     createdBy: json["created_by"],
     featuredImageUrl: json["featured_image_url"],
     business: Business.fromJson(json["business"]),
+    distance: json["distance"] == null ? null : json["distance"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -257,6 +264,7 @@ class Event {
     "created_by": createdBy,
     "featured_image_url": featuredImageUrl,
     "business": business!.toJson(),
+    "distance": distance == null ? null : distance,
   };
 }
 
