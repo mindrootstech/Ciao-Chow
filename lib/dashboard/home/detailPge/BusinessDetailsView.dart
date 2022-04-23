@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 
 class BusinessDetailsView extends StatelessWidget {
   String id;
+
   BusinessDetailsView(this.id, {Key? key}) : super(key: key);
   var businessDetailsController = Get.put(BusinessDetailsController());
 
@@ -239,22 +240,29 @@ class BusinessDetailsView extends StatelessWidget {
                         children: [
                           SvgPicture.asset(CommonUi.setSvgImage('timings')),
                           Obx(
-                            () => businessDetailsController.openingHours.value.isNotEmpty
+                            () => businessDetailsController
+                                    .openingHours.value.isNotEmpty
                                 ? Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ListView.builder(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ListView.builder(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
+                                        padding: const EdgeInsets.all(0),
                                         scrollDirection: Axis.vertical,
                                         itemCount: businessDetailsController
-                                            .getBusiness.value.openingHours!.length,
+                                            .getBusiness
+                                            .value
+                                            .openingHours!
+                                            .length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return OpeningHoursItem(index);
                                         },
                                       ),
-                                  ),
-                                )
+                                    ),
+                                  )
                                 : const SizedBox(),
                           ),
                         ],

@@ -106,23 +106,23 @@ class UpcomingEventsListItem extends StatelessWidget {
                         const SizedBox(
                           height: 4,
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 3),
-                          child: eventsController.arrayUpcomingEvents[index]
-                                      .business!.address !=
-                                  'null'
-                              ? Text(
-                                  eventsController.arrayUpcomingEvents[index]
-                                      .business!.address!,
-                                  style: CommonUi.customTextStyle1(
-                                      Fonts.interRegular,
-                                      12.0,
-                                      FontWeight.w400,
-                                      AppColors.White,
-                                      TextDecoration.none),
-                                )
-                              : const SizedBox(),
-                        ),
+                        // Container(
+                        //   margin: const EdgeInsets.only(top: 3),
+                        //   child: eventsController.arrayUpcomingEvents[index]
+                        //               .business!.address !=
+                        //           'null'
+                        //       ? Text(
+                        //           eventsController.arrayUpcomingEvents[index]
+                        //               .business!.address!,
+                        //           style: CommonUi.customTextStyle1(
+                        //               Fonts.interRegular,
+                        //               12.0,
+                        //               FontWeight.w400,
+                        //               AppColors.White,
+                        //               TextDecoration.none),
+                        //         )
+                        //       : const SizedBox(),
+                        // ),
                         Container(
                           margin: const EdgeInsets.only(top: 7),
                           child: Row(
