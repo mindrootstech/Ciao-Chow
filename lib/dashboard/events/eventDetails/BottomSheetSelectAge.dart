@@ -91,7 +91,7 @@ class BottomSheetSelectAge extends StatelessWidget {
               },
               child: Container(
                 child: Center(
-                  child: Text(Utils.getString(context, 'buy_tickets'),
+                  child: Text(Utils.getString(context, 'done'),
                       style: CommonUi.customTextStyle1(
                           Fonts.interMedium,
                           14.0,

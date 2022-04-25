@@ -5,7 +5,7 @@ import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/DashBoardController.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventsView.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeView.dart';
-import 'package:ciao_chow/dashboard/settings/SettingsView.dart';
+import 'package:ciao_chow/dashboard/profile/ProfileView.dart';
 import 'package:ciao_chow/notifications/NotificationsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -127,7 +127,7 @@ class DashBoardView extends StatelessWidget {
         body: dashboardController.selectedValue.value == 0 ? HomeView()
             : dashboardController.selectedValue.value == 1 ? EventsView()
             : dashboardController.selectedValue.value == 2 ? NotificationsView(0)
-                : const SettingsView(),
+                : ProfileView(),
       ),
     );
   }

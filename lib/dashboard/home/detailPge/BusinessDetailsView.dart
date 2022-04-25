@@ -6,6 +6,7 @@ import 'package:ciao_chow/constants/MyCarouselSlider.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/home/detailPge/BusinessDetailsController.dart';
 import 'package:ciao_chow/dashboard/home/detailPge/OpeningHoursItem.dart';
+import 'package:ciao_chow/dashboard/home/detailPge/UpcomingEventBusinessItem.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -237,6 +238,8 @@ class BusinessDetailsView extends StatelessWidget {
                         height: 18,
                       ),
                       Row(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SvgPicture.asset(CommonUi.setSvgImage('timings')),
                           Obx(
@@ -244,7 +247,7 @@ class BusinessDetailsView extends StatelessWidget {
                                     .openingHours.value.isNotEmpty
                                 ? Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.only(left: 8),
                                       child: ListView.builder(
                                         physics:
                                             const NeverScrollableScrollPhysics(),
@@ -384,43 +387,53 @@ class BusinessDetailsView extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Text(
-                      //       Utils.getString(context, 'upcoming_events'),
-                      //       style: CommonUi.customTextStyle1(
-                      //           Fonts.interSemiBold,
-                      //           18.0,
-                      //           FontWeight.w600,
-                      //           AppColors.Black,
-                      //           TextDecoration.none),
-                      //     ),
-                      //     Text(
-                      //       Utils.getString(context, 'view_all'),
-                      //       style: CommonUi.customTextStyle1(
-                      //           Fonts.interRegular,
-                      //           12.0,
-                      //           FontWeight.w400,
-                      //           AppColors.textFieldsHint,
-                      //           TextDecoration.none),
-                      //     ),
-                      //   ],
-                      // ),
+                      Obx(
+                        () => businessDetailsController.upcomingEvents.isNotEmpty
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    Utils.getString(context, 'upcoming_events'),
+                                    style: CommonUi.customTextStyle1(
+                                        Fonts.interSemiBold,
+                                        18.0,
+                                        FontWeight.w600,
+                                        AppColors.Black,
+                                        TextDecoration.none),
+                                  ),
+                                  Text(
+                                    Utils.getString(context, 'view_all'),
+                                    style: CommonUi.customTextStyle1(
+                                        Fonts.interRegular,
+                                        12.0,
+                                        FontWeight.w400,
+                                        AppColors.textFieldsHint,
+                                        TextDecoration.none),
+                                  ),
+                                ],
+                              )
+                            : const SizedBox(),
+                      ),
                     ],
                   ),
                 ),
-                // Container(
-                //   height: 140,
-                //   margin: const EdgeInsets.only(left: 20, top: 14),
-                //   child: ListView.builder(
-                //     scrollDirection: Axis.horizontal,
-                //     itemCount: homeController.arrayPartners.length,
-                //     itemBuilder: (BuildContext context, int index) {
-                //       return PartnersHomeListItem(index, homeController);
-                //     },
-                //   ),
-                // ),
+                Obx(
+                  () => businessDetailsController.upcomingEvents.isNotEmpty
+                      ? Container(
+                          height: 140,
+                          margin: const EdgeInsets.only(left: 20, top: 14),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount:
+                                businessDetailsController.upcomingEvents.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return UpcomingEventBusinessItem(index);
+                            },
+                          ),
+                        )
+                      : const SizedBox(),
+                ),
                 const SizedBox(
                   height: 20,
                 ),

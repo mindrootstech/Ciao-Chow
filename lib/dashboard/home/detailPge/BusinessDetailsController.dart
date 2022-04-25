@@ -11,6 +11,7 @@ class BusinessDetailsController extends GetxController{
   List<String> arrayImages = <String>[].obs;
   var openingHours = <OpeningHour>[].obs;
   var getBusiness = GetBusiness().obs;
+  var upcomingEvents = <UpcomingEvent>[].obs;
   var userCheckIn = ''.obs;
   var businessDetailsLoaderShow = false.obs;
 
@@ -19,10 +20,12 @@ class BusinessDetailsController extends GetxController{
     {
       var response = businessDetailsMainModelFromJson(value);
       arrayImages.clear();
+      upcomingEvents.clear();
       arrayImages.addAll(response.data!.getBusiness!.images!);
       getBusiness.value = response.data!.getBusiness!;
       userCheckIn.value = response.data!.usersCheckins!;
       openingHours.addAll(response.data!.getBusiness!.openingHours!);
+      upcomingEvents.addAll(response.data!.upcomingEvents!);
       addBannerList(arrayImages);
       businessDetailsLoaderShow.value = false;
     });

@@ -60,6 +60,7 @@
   "add_new_card": "Add New Card",
   "expiry_date": "Expiry Date (MM / YY)",
   "cvv": "CVV",
+  "profile": "Profile",
   "card_number": "Card Number",
   "name_on_card": "Name on card",
   "choose_other_cards": "Choose Other Cards",

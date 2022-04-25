@@ -6,6 +6,7 @@ import 'package:ciao_chow/dashboard/home/homeMain/ModelLevel.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/scan/LatestCheckInModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:location/location.dart' as gt;
@@ -73,7 +74,7 @@ class HomeController extends GetxController {
       if (value == 'error') {
         CommonUi.showToast('Already Checked In');
         return;
-      }else {
+      } else {
         var response = latestCheckInModelFromJson(value);
         if (response.status == false) {
           CommonUi.showToast(response.message!);
@@ -83,24 +84,33 @@ class HomeController extends GetxController {
         }
       }
       checkInLoader.value = false;
-
     });
   }
 
-  Future<void> request_permission1() async{
+  Future<void> request_permission1() async {
+    getLocation1();
+    Timer.periodic(const Duration(seconds: 1), (timer) async {
+      Permission location_permission = Permission.location;
+      bool location_status = false;
+      bool ispermanetelydenied = await location_permission.isPermanentlyDenied;
+      var status = await Permission.locationWhenInUse.status;
+      // bool serviceEnabled;
+      // LocationPermission permission;
+      //
+      // // Test if location services are enabled.
+      // serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      // if (!serviceEnabled) {
+      //   return Future.error('Location services are disabled.');
+      // }else {
+      //   timer.cancel();
+      //   getLocation1();
+      // }
 
-         getLocation1();
-         Timer.periodic(const Duration(seconds: 1), (timer) async {
-           Permission location_permission= Permission.location;
-           bool location_status=false;
-           bool ispermanetelydenied= await location_permission.isPermanentlyDenied;
-           var status = await Permission.locationWhenInUse.status;
-
-           if(status.isGranted) {
-             timer.cancel();
-             getLocation1();
-           }
-         });
+      if (status.isGranted) {
+        timer.cancel();
+        getLocation1();
+      }
+    });
   }
 
   Future<void> getLocation() async {
@@ -121,10 +131,11 @@ class HomeController extends GetxController {
 
       locationData = await location.getLocation();
 
-
-      _permissionGranted = (await location.hasPermission()) as gt.PermissionStatus;
+      _permissionGranted =
+          (await location.hasPermission()) as gt.PermissionStatus;
       if (_permissionGranted == gt.PermissionStatus.denied ||
-          _permissionGranted == gt.PermissionStatus.deniedForever || _permissionGranted == gt.PermissionStatus.grantedLimited) {
+          _permissionGranted == gt.PermissionStatus.deniedForever ||
+          _permissionGranted == gt.PermissionStatus.grantedLimited) {
         _permissionGranted = await location.requestPermission();
         if (_permissionGranted != gt.PermissionStatus.granted) {
           getHomeData('', '');
@@ -136,10 +147,8 @@ class HomeController extends GetxController {
         getHomeData(locationData.latitude!.toString(),
             locationData.longitude!.toString());
 
-        getStorage
-            .write('lat', locationData.latitude!.toString());
-        getStorage
-            .write('long', locationData.longitude!.toString());
+        getStorage.write('lat', locationData.latitude!.toString());
+        getStorage.write('long', locationData.longitude!.toString());
         homeLoaderShow.value = true;
       }
     } catch (e) {
@@ -151,16 +160,16 @@ class HomeController extends GetxController {
   }
 
   Future<void> getLocation1() async {
-    Permission location_permission= Permission.location;
-    bool location_status=false;
-    bool ispermanetelydenied= await location_permission.isPermanentlyDenied;
+    Permission location_permission = Permission.location;
+    bool location_status = false;
+    bool ispermanetelydenied = await location_permission.isPermanentlyDenied;
     var status = await Permission.locationWhenInUse.status;
 
-    if(ispermanetelydenied||!status.isGranted) {
-      await  openAppSettings();
-    }else{
+    if (ispermanetelydenied || !status.isGranted) {
+      await openAppSettings();
+    } else {
       var location_statu = await location_permission.request();
-      location_status=location_statu.isGranted;
+      location_status = location_statu.isGranted;
       getLocation();
     }
   }

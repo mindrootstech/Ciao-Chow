@@ -81,29 +81,35 @@ class EventDetailsController extends GetxController {
     }
 
     _apiProvider.getAddCard(cardNumber, cvvNo, cardName, expMonth, expYear).then((value) {
-      var response = addCardMainModelFromJson(value);
-      if (response.id!.isNotEmpty) {
-        _apiProvider.fetchCard(response.id!).then((value) {
-          var responseSingle = modelMainSingleCardFromJson(value);
-          _apiProvider.getAllCards().then((value) {
-            var responseAll = allCardsMainModelFromJson(value);
-            whichSheet.value = '2';
-            allCardsList.clear();
-            allCardsList.addAll(responseAll.data!);
-            for (int i = 0; i < allCardsList.length; i++) {
-              if (allCardsList[i].isSelected == true) {
-                allCardsList[i].isSelected = false;
+      if (value == 'error') {
+        CommonUi.showToast('Please enter correct card details to continue.');
+        showAddCardLoader.value = false;
+        return;
+      }else {
+        var response = addCardMainModelFromJson(value);
+        if (response.id!.isNotEmpty) {
+          _apiProvider.fetchCard(response.id!).then((value) {
+            var responseSingle = modelMainSingleCardFromJson(value);
+            _apiProvider.getAllCards().then((value) {
+              var responseAll = allCardsMainModelFromJson(value);
+              whichSheet.value = '2';
+              allCardsList.clear();
+              allCardsList.addAll(responseAll.data!);
+              for (int i = 0; i < allCardsList.length; i++) {
+                if (allCardsList[i].isSelected == true) {
+                  allCardsList[i].isSelected = false;
+                }
+                modelCard.value.id = responseSingle.id;
+                modelCard.value.last4 = responseSingle.last4;
+                modelCard.value.name = responseSingle.name;
+                modelCard.value.expYear = responseSingle.expYear;
+                modelCard.value.expMonth = responseSingle.expMonth;
+                modelCard.value.isSelected = true;
               }
-              modelCard.value.id = responseSingle.id;
-              modelCard.value.last4 = responseSingle.last4;
-              modelCard.value.name = responseSingle.name;
-              modelCard.value.expYear = responseSingle.expYear;
-              modelCard.value.expMonth = responseSingle.expMonth;
-              modelCard.value.isSelected = true;
-            }
-            showAddCardLoader.value = false;
+              showAddCardLoader.value = false;
+            });
           });
-        });
+        }
       }
     });
   }

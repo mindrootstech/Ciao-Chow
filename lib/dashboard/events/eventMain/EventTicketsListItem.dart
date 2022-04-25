@@ -56,7 +56,7 @@ class EventTicketsListItem extends StatelessWidget {
                     ),
 
                     Positioned(child: Container(
-                      width: 140,
+                      width: 160,
                       margin: const EdgeInsets.only(right: 10),
                       decoration: CommonUi.commonBoxDecorationAllOverlay(10.0),
 

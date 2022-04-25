@@ -182,43 +182,45 @@ class EventDetailsView extends StatelessWidget {
                         Row(
                           children: [
                             SvgPicture.asset(CommonUi.setSvgImage('overview')),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    Utils.getString(context, 'overview'),
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interMedium,
-                                        14.0,
-                                        FontWeight.w500,
-                                        AppColors.Black,
-                                        TextDecoration.none),
-                                  ),
-                                  const SizedBox(
-                                    height: 6,
-                                  ),
-                                  Obx(
-                                    () => eventDetailsController
-                                                .eventDetails.value.description
-                                                .toString() !=
-                                            "null"
-                                        ? Text(
-                                            eventDetailsController.eventDetails
-                                                .value.description!,
-                                            style: CommonUi.customTextStyle1(
-                                                Fonts.interRegular,
-                                                12.0,
-                                                FontWeight.w400,
-                                                AppColors.textFieldsHint,
-                                                TextDecoration.none),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          )
-                                        : const SizedBox(),
-                                  ),
-                                ],
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      Utils.getString(context, 'overview'),
+                                      style: CommonUi.customTextStyle1(
+                                          Fonts.interMedium,
+                                          14.0,
+                                          FontWeight.w500,
+                                          AppColors.Black,
+                                          TextDecoration.none),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    Obx(
+                                      () => eventDetailsController
+                                                  .eventDetails.value.description
+                                                  .toString() !=
+                                              "null"
+                                          ? Text(
+                                              eventDetailsController.eventDetails
+                                                  .value.description!,
+                                              style: CommonUi.customTextStyle1(
+                                                  Fonts.interRegular,
+                                                  12.0,
+                                                  FontWeight.w400,
+                                                  AppColors.textFieldsHint,
+                                                  TextDecoration.none),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            )
+                                          : const SizedBox(),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -426,44 +428,46 @@ class EventDetailsView extends StatelessWidget {
                           children: [
                             Image.asset(
                                 CommonUi.setPngImage('terms_conditions')),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    Utils.getString(
-                                        context, 'terms_and_conditions'),
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interMedium,
-                                        14.0,
-                                        FontWeight.w500,
-                                        AppColors.Black,
-                                        TextDecoration.none),
-                                  ),
-                                  const SizedBox(
-                                    height: 6,
-                                  ),
-                                  Obx(
-                                    () => eventDetailsController.eventDetails
-                                                .value.termsConditions
-                                                .toString() !=
-                                            "null"
-                                        ? Text(
-                                            eventDetailsController.eventDetails
-                                                .value.termsConditions!,
-                                            style: CommonUi.customTextStyle1(
-                                                Fonts.interRegular,
-                                                12.0,
-                                                FontWeight.w400,
-                                                AppColors.textFieldsHint,
-                                                TextDecoration.none),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          )
-                                        : const SizedBox(),
-                                  ),
-                                ],
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      Utils.getString(
+                                          context, 'terms_and_conditions'),
+                                      style: CommonUi.customTextStyle1(
+                                          Fonts.interMedium,
+                                          14.0,
+                                          FontWeight.w500,
+                                          AppColors.Black,
+                                          TextDecoration.none),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    Obx(
+                                      () => eventDetailsController.eventDetails
+                                                  .value.termsConditions
+                                                  .toString() !=
+                                              "null"
+                                          ? Text(
+                                              eventDetailsController.eventDetails
+                                                  .value.termsConditions!,
+                                              style: CommonUi.customTextStyle1(
+                                                  Fonts.interRegular,
+                                                  12.0,
+                                                  FontWeight.w400,
+                                                  AppColors.textFieldsHint,
+                                                  TextDecoration.none),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            )
+                                          : const SizedBox(),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
