@@ -56,8 +56,8 @@ class EventTicketsListItem extends StatelessWidget {
                     ),
 
                     Positioned(child: Container(
-                      width: 160,
-                      margin: const EdgeInsets.only(right: 10),
+                      // width: 160,
+                      // margin: const EdgeInsets.only(right: 10),
                       decoration: CommonUi.commonBoxDecorationAllOverlay(10.0),
 
                     )),
@@ -103,11 +103,9 @@ class EventTicketsListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    arrayEventTicketItem.event!
-                                .availableTickets! ==
-                            '1'
-                        ?  arrayEventTicketItem.event!.availableTickets! + ' Ticket'
-                        : arrayEventTicketItem.event!.availableTickets! + ' Tickets',
+                    arrayEventTicketItem.numberTickets! == 1
+                        ?  arrayEventTicketItem.numberTickets!.toString() + ' Ticket'
+                        : arrayEventTicketItem.numberTickets!.toString() + ' Tickets',
                     textAlign: TextAlign.start,
                     style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
                         FontWeight.w400, AppColors.Black, TextDecoration.none),
@@ -115,7 +113,7 @@ class EventTicketsListItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '\$' + arrayEventTicketItem.ticketPrice!,
+                    '\$' + arrayEventTicketItem.totalAmount!,
                     textAlign: TextAlign.start,
                     style: CommonUi.customTextStyle1(Fonts.interSemiBold, 12.0,
                         FontWeight.w600, AppColors.Black, TextDecoration.none),

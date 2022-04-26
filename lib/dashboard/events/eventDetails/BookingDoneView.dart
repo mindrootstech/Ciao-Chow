@@ -3,8 +3,6 @@ import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/DashBoardView.dart';
-import 'package:ciao_chow/dashboard/events/eventMain/EventsView.dart';
-import 'package:ciao_chow/dashboard/home/homeMain/HomeView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';

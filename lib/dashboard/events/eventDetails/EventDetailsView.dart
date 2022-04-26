@@ -58,8 +58,13 @@ class EventDetailsView extends StatelessWidget {
                       FontWeight.w600, AppColors.White, TextDecoration.none),
                 )),
             body: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
               child: Column(
                 children: [
+                  Container(
+                    color: AppColors.AppColorGrad2,
+                    height: 16,
+                  ),
                   SizedBox(
                     height: 200,
                     child: Stack(

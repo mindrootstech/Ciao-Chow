@@ -59,6 +59,7 @@ class BusinessDetailsView extends StatelessWidget {
             ),
           ),
           body: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
             child: Column(
               children: [
                 SizedBox(
