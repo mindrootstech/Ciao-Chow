@@ -30,6 +30,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    homeController.registerNotification();
+
     return Stack(
       children: [
         Scaffold(

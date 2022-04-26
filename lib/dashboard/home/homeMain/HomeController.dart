@@ -4,8 +4,11 @@ import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart' as gt;
 import 'package:ciao_chow/dashboard/home/homeMain/ModelLevel.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/scan/LatestCheckInModel.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:location/location.dart' as gt;
@@ -27,6 +30,9 @@ class HomeController extends GetxController {
   var viewShowHide = ''.obs;
   var homeLoaderShow = false.obs;
   var checkInLoader = false.obs;
+  late AndroidNotificationChannel channel;
+  late FirebaseMessaging messaging;
+
   var resLevel = ModelLevel().obs;
 
   @override
@@ -170,6 +176,91 @@ class HomeController extends GetxController {
       var location_statu = await location_permission.request();
       location_status = location_statu.isGranted;
       getLocation();
+    }
+  }
+
+  Future<void> registerNotification() async {
+    channel = const AndroidNotificationChannel(
+      'high_importance_channel', // id
+      'High Importance Notifications', // title
+      description: 'This channel is used for important notifications.',
+      // description
+      importance: Importance.high,
+    );
+
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    // 1. Initialize the Firebase app
+    await Firebase.initializeApp();
+    FirebaseMessaging.instance.subscribeToTopic("ciaochow");
+
+    // 2. Instantiate Firebase Messaging
+    messaging = FirebaseMessaging.instance;
+    // messaging.getToken().then((token) {
+    //   // print('firebase token dddd ${token}');
+    //   storage.write('firebaseToken', token);
+    // });
+    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+      // print("message recieved");
+      // print(event.notification!.body);
+
+      var platform = NotificationDetails(
+          android: AndroidNotificationDetails(
+            channel.id,
+            channel.name,
+            channelDescription: channel.description,
+          ),
+          iOS: const IOSNotificationDetails(
+            presentAlert: true,
+            presentBadge: true,
+            presentSound: true,
+          ),
+          macOS: null);
+
+      FlutterLocalNotificationsPlugin().show(
+          event.hashCode,
+          event.notification!.title,
+          event.notification!.body,
+          NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channelDescription: channel.description,
+                icon: initializationSettingsAndroid.defaultIcon,
+              ),
+              iOS: const IOSNotificationDetails(
+                presentAlert: true,
+                presentBadge: true,
+                presentSound: true,
+              )));
+    });
+
+    // 3. On iOS, this helps to take the user permissions
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      provisional: false,
+      sound: true,
+    );
+
+    await Firebase.initializeApp();
+    var messagingg = FirebaseMessaging.instance;
+    NotificationSettings settingss = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    if (settingss.authorizationStatus == AuthorizationStatus.authorized) {
+      // print('User granted permission------');
+    } else if (settingss.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      // print('User granted provisional permission');
+    } else if (settingss.authorizationStatus == AuthorizationStatus.denied) {
+      // print('User declined or has not accepted permission------');
     }
   }
 }

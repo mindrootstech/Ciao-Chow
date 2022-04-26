@@ -52,10 +52,13 @@ dependencies:
   http: ^0.13.4
   location: ^4.3.0
   permission_handler: ^9.2.0
-  firebase_messaging: ^11.2.12
   flutter_stripe: ^2.4.0
   flutter_multi_formatter: ^2.5.1
   geolocator: ^8.2.0
+  firebase_messaging: ^11.2.14
+  flutter_local_notifications: ^9.4.1
+  notification_permissions: ^0.6.1
+  firebase_core: ^1.15.0
 
 dev_dependencies:
   flutter_test:
