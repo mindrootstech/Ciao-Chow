@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import 'settings/SettingsMainView.dart';
+
 class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
 
@@ -19,11 +21,19 @@ class ProfileView extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: AppColors.AppColorGrad2,
             elevation: 0,
-            title: Text (Utils.getString(context, 'profile')),
+            title: Text(Utils.getString(context, 'profile')),
             centerTitle: true,
             actions: [
-              SvgPicture.asset(
-                CommonUi.setSvgImage('settings_icon'),
+              GestureDetector(
+                onTap: () {
+                  Get.to(SettingsMainView());
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(right: 10, top: 10),
+                  child: SvgPicture.asset(
+                    CommonUi.setSvgImage('settings_icon'),
+                  ),
+                ),
               )
             ],
           ),

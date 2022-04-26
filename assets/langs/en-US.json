@@ -61,6 +61,7 @@
   "expiry_date": "Expiry Date (MM / YY)",
   "cvv": "CVV",
   "profile": "Profile",
+  "settings": "Settings",
   "card_number": "Card Number",
   "name_on_card": "Name on card",
   "choose_other_cards": "Choose Other Cards",

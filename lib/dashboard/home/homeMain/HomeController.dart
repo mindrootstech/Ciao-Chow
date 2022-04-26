@@ -204,18 +204,18 @@ class HomeController extends GetxController {
       // print("message recieved");
       // print(event.notification!.body);
 
-      var platform = NotificationDetails(
-          android: AndroidNotificationDetails(
-            channel.id,
-            channel.name,
-            channelDescription: channel.description,
-          ),
-          iOS: const IOSNotificationDetails(
-            presentAlert: true,
-            presentBadge: true,
-            presentSound: true,
-          ),
-          macOS: null);
+      // var platform = NotificationDetails(
+      //     android: AndroidNotificationDetails(
+      //       channel.id,
+      //       channel.name,
+      //       channelDescription: channel.description,
+      //     ),
+      //     iOS: const IOSNotificationDetails(
+      //       presentAlert: true,
+      //       presentBadge: true,
+      //       presentSound: true,
+      //     ),
+      //     macOS: null);
 
       FlutterLocalNotificationsPlugin().show(
           event.hashCode,
