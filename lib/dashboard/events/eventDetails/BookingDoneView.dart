@@ -2,12 +2,15 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
+import 'package:ciao_chow/dashboard/DashBoardController.dart';
 import 'package:ciao_chow/dashboard/DashBoardView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class BookingDoneView extends StatelessWidget {
+  DashBoardController dashboardController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -17,12 +20,17 @@ class BookingDoneView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: const EdgeInsets.only(right: 24,top: 46),
+              margin: const EdgeInsets.only(right: 24,top: 36),
             ),
             IconButton(
               icon: const Icon(Icons.arrow_back_ios, color: AppColors.Black),
               onPressed: () {
-                Get.offAll(DashBoardView(1));
+                try {
+                  dashboardController.selectedValue.value = 0;
+                }catch(Exception){
+                  var a = 0;
+                }
+                Get.offAll(DashBoardView());
               },
             ),
             Expanded(
@@ -63,7 +71,13 @@ class BookingDoneView extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.offAll(DashBoardView(0));
+                        try {
+                          dashboardController.selectedValue.value = 0;
+                        }catch(Exception){
+                          var a = 0;
+                        }
+                        Get.offAll(DashBoardView());
+
                       },
                       child: Text(
                         Utils.getString(context, 'back_to_home'),
@@ -81,7 +95,13 @@ class BookingDoneView extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Get.offAll(DashBoardView(1));
+               // edited by Abhijeet Sir 27 April
+                try {
+                  dashboardController.selectedValue.value = 1;
+                }catch(Exception){
+                  var a = 0;
+                }
+                Get.offAll(DashBoardView());
               },
               child: Container(
                 child: Center(

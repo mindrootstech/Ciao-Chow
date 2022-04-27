@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/Language.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsView.dart';
-import 'package:ciao_chow/dashboard/home/detailPge/BusinessDetailsView.dart';
+import 'package:ciao_chow/dashboard/home/detailPage/BusinessDetailsView.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/ModelLevel.dart';
 import 'package:flutter/material.dart';
@@ -137,6 +137,13 @@ class CommonUi {
       color: AppColors.White,
       border: Border.all(color: Colors.transparent),
       borderRadius: const BorderRadius.all(Radius.circular(10)));
+static var shadowWhiteContainerRounded = BoxDecoration(
+      boxShadow: [
+        CommonUi.shadowDecoration,
+      ],
+      color: AppColors.White,
+      border: Border.all(color: Colors.transparent),
+      borderRadius: const BorderRadius.all(Radius.circular(36)));
 
   static var shadowDecoration = const BoxShadow(
     color: AppColors.shadowColor,

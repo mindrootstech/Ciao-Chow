@@ -2,9 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
-import 'package:ciao_chow/constants/Utils.dart';
+import 'package:ciao_chow/dashboard/home/detailPage/BusinessDetailsView.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
-import 'package:ciao_chow/dashboard/home/detailPge/BusinessDetailsView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

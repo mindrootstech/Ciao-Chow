@@ -1,9 +1,13 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/LatestCheckInListItem.dart';
+import 'package:ciao_chow/dashboard/home/viewAllScreens/latest/LatestCheckInViewAllView.dart';
 import 'package:ciao_chow/dashboard/profile/ProfileController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,6 +20,7 @@ class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
 
   var profileController = Get.put(ProfileController());
+  HomeController homeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +74,7 @@ class ProfileView extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 20,right: 20),
+                  margin: const EdgeInsets.only(left: 20, right: 20),
                   child: Column(
                     children: [
                       Row(
@@ -107,21 +112,30 @@ class ProfileView extends StatelessWidget {
                                       ),
                                       borderRadius: BorderRadius.circular(100),
                                     ),
-                                    // child: Obx(
-                                    //       () => ClipRRect(
-                                    //     borderRadius: const BorderRadius.all(
-                                    //         Radius.circular(100)),
-                                    //     child: signUpController.imagePath.value == ''
-                                    //         ? SvgPicture.asset(
-                                    //       CommonUi.setSvgImage('default_image'),
-                                    //       // fit: BoxFit.cover,
-                                    //     )
-                                    //         : Image.file(
-                                    //       File(signUpController.imagePath.value),
-                                    //       fit: BoxFit.cover,
-                                    //     ),
-                                    //   ),
-                                    // ),
+                                    child: Obx(
+                                          () => ClipRRect(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(100)),
+                                        child: homeController.profileData.value.profileImage == ''
+                                            ? SvgPicture.asset(
+                                          CommonUi.setSvgImage('default_image'),
+                                          // fit: BoxFit.cover,
+                                        )
+                                            :  CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          width: 1000.0,
+                                          imageUrl: homeController.profileData.value.profileImage!,
+                                          placeholder: (context, url) => SizedBox(
+                                              width: Get.width,
+                                              child: const Center(
+                                                child: CircularProgressIndicator(
+                                                  color: AppColors.White,
+                                                ),
+                                              )),
+                                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -144,21 +158,29 @@ class ProfileView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               // mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
-                                  'David William',
-                                  style: CommonUi.customTextStyle1(
-                                      Fonts.interSemiBold,
-                                      18.0,
-                                      FontWeight.w600,
-                                      AppColors.Black,
-                                      TextDecoration.none),
-                                  textAlign: TextAlign.start,
+                                Obx(
+                                  () => homeController.profileData.value.name
+                                              .toString() !=
+                                          'null'
+                                      ? Text(
+                                    homeController.profileData.value.name!,
+                                          style: CommonUi.customTextStyle1(
+                                              Fonts.interSemiBold,
+                                              18.0,
+                                              FontWeight.w600,
+                                              AppColors.Black,
+                                              TextDecoration.none),
+                                          textAlign: TextAlign.start,
+                                        )
+                                      : const SizedBox(),
                                 ),
                                 const SizedBox(
                                   height: 6,
                                 ),
                                 Text(
-                                  'Current Level: LEVEL 1',
+                                  'Current Level: LEVEL ' +
+                                      homeController.profileData.value.level
+                                          .toString(),
                                   style: CommonUi.customTextStyle1(
                                       Fonts.interMedium,
                                       14.0,
@@ -171,16 +193,28 @@ class ProfileView extends StatelessWidget {
                                 ),
                                 Stack(
                                   children: [
-                                    LinearPercentIndicator(
-                                      padding: const EdgeInsets.all(0),
-                                      width: 200,
-                                      animation: true,
-                                      lineHeight: 32.0,
-                                      animationDuration: 2500,
-                                      percent: 0.5,
-                                      barRadius: const Radius.circular(30),
-                                      progressColor: AppColors.home_progress,
-                                      backgroundColor: AppColors.blackLight,
+                                    Obx(
+                                      () => Container(
+                                        decoration: CommonUi.shadowWhiteContainerRounded,
+                                        child: LinearPercentIndicator(
+                                          padding: const EdgeInsets.all(0),
+                                          width: 150,
+                                          animation: true,
+                                          lineHeight: 32.0,
+                                          animationDuration: 2500,
+                                          percent: homeController.profileData
+                                                      .value.totalPoints !=
+                                                  null
+                                              ? homeController.profileData.value
+                                                      .totalPoints!
+                                                      .toDouble() /
+                                                  10
+                                              : 0.0,
+                                          barRadius: const Radius.circular(30),
+                                          progressColor: AppColors.home_progress,
+                                          backgroundColor: AppColors.White,
+                                        ),
+                                      ),
                                     ),
                                     Positioned(
                                       left: 0,
@@ -188,10 +222,12 @@ class ProfileView extends StatelessWidget {
                                       bottom: 0,
                                       child: Center(
                                         child: Padding(
-                                            padding:
-                                            const EdgeInsets.only(left: 18.0),
+                                            padding: const EdgeInsets.only(
+                                                left: 18.0),
                                             child: Text(
-                                              '50' + '/100',
+                                              homeController.profileData.value
+                                                  .totalPoints
+                                                  .toString() + '/100',
                                               style: CommonUi.customTextStyle1(
                                                   Fonts.interMedium,
                                                   12.0,
@@ -207,7 +243,8 @@ class ProfileView extends StatelessWidget {
                                       bottom: 0,
                                       child: Center(
                                         child: Padding(
-                                          padding: const EdgeInsets.only(right: 18.0),
+                                          padding: const EdgeInsets.only(
+                                              right: 18.0),
                                           child: Text('Level2',
                                               // Utils.getString(context, 'partners_around_you'),
                                               style: CommonUi.customTextStyle1(
@@ -225,7 +262,6 @@ class ProfileView extends StatelessWidget {
                                   height: 6,
                                 ),
                                 Container(
-                                  color: Colors.amber,
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
@@ -247,45 +283,84 @@ class ProfileView extends StatelessWidget {
                           )
                         ],
                       ),
-                      const SizedBox(height: 24,),
+                      const SizedBox(
+                        height: 24,
+                      ),
                       SizedBox(
                         width: Get.width,
                         child: Text(
                           'Your badges',
-                          style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
-                              FontWeight.w600, AppColors.Black, TextDecoration.none),
+                          style: CommonUi.customTextStyle1(
+                              Fonts.interSemiBold,
+                              18.0,
+                              FontWeight.w600,
+                              AppColors.Black,
+                              TextDecoration.none),
                         ),
                       ),
-                      const SizedBox(height: 16,),
+                      const SizedBox(
+                        height: 16,
+                      ),
                       Row(
                         children: [
-                          SvgPicture.asset(CommonUi.setSvgImage('bronze_medal')),
-                          SvgPicture.asset(CommonUi.setSvgImage('bronze_medal')),
-                          SvgPicture.asset(CommonUi.setSvgImage('bronze_medal')),
-                          SvgPicture.asset(CommonUi.setSvgImage('bronze_medal')),
+                          SvgPicture.asset(
+                              CommonUi.setSvgImage('bronze_medal')),
+                          SvgPicture.asset(
+                              CommonUi.setSvgImage('bronze_medal')),
+                          SvgPicture.asset(
+                              CommonUi.setSvgImage('bronze_medal')),
+                          SvgPicture.asset(
+                              CommonUi.setSvgImage('bronze_medal')),
                         ],
                       ),
-                      const SizedBox(height: 24,),
+                      const SizedBox(
+                        height: 24,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Latest Check-ins',
-                            style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
-                                FontWeight.w600, AppColors.Black, TextDecoration.none),
+                            style: CommonUi.customTextStyle1(
+                                Fonts.interSemiBold,
+                                18.0,
+                                FontWeight.w600,
+                                AppColors.Black,
+                                TextDecoration.none),
                           ),
-                          Text(
-                            'View All',
-                            style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
-                                FontWeight.w400, AppColors.Black, TextDecoration.none),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(LatestCheckInViewAllView());
+                            },
+                            child: Text(
+                              'View All',
+                              style: CommonUi.customTextStyle1(
+                                  Fonts.interRegular,
+                                  12.0,
+                                  FontWeight.w400,
+                                  AppColors.Black,
+                                  TextDecoration.none),
+                            ),
                           ),
                         ],
                       ),
+                      Container(
+                        color: AppColors.White,
+                        margin: const EdgeInsets.only(top: 16, bottom: 100),
+                        child: ListView.builder(
+                          padding: const EdgeInsets.all(0),
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: homeController.arrayLatestCheckIns.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return LatestCheckInListItem(index, homeController);
+                          },
+                        ),
+                      )
                     ],
                   ),
                 )
-
-
               ],
             ),
           ),

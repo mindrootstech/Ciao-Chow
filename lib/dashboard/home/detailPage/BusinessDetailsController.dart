@@ -1,8 +1,9 @@
 import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
-import 'package:ciao_chow/dashboard/home/detailPge/BusinessDetailsMainModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'BusinessDetailsMainModel.dart';
 
 class BusinessDetailsController extends GetxController{
 

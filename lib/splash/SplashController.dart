@@ -11,7 +11,7 @@ class SplashController extends GetxController {
     Future.delayed(const Duration(milliseconds: 5000), () {
 
       getStorage.read('token') != '' && getStorage.read('token') != null
-          ? Get.off(DashBoardView(0))
+          ? Get.off(DashBoardView())
           : Get.off(SignInView());
     });
   }

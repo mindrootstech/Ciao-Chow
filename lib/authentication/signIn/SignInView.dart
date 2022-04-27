@@ -196,7 +196,7 @@ class SignInView extends StatelessWidget {
                                       signInController.getStorage.write("stripeCustomerId", value.data!.stripeId);
                                       signInController.loginLoaderShow.value = false;
                                       signInController.getStorage.write('isRegisterOrLoggedIn', true);
-                                      Get.off(DashBoardView(0));
+                                      Get.off(DashBoardView());
                                       // showToast(value.message);
                                     } else {
                                       CommonUi.showToast(value.message!);

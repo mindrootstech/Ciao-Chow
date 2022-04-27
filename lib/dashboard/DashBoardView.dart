@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/DashBoardController.dart';
@@ -12,19 +11,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class DashBoardView extends StatelessWidget {
-  var screenOpen;
-  DashBoardView(this.screenOpen, {Key? key}) : super(key: key);
+  DashBoardView({Key? key}) : super(key: key);
   var dashboardController = Get.put(DashBoardController());
 
   @override
   Widget build(BuildContext context) {
-    if(screenOpen == 1){
-      dashboardController.selectedValue.value = 1;
-    }else if(screenOpen == 0){
-      dashboardController.selectedValue.value = 0;
-    }
-    return Obx(
-      () => Scaffold(
+
+    return  Scaffold(
         extendBody: true,
         bottomNavigationBar: SizedBox(
           height: Platform.isIOS?105:80,
@@ -33,39 +26,21 @@ class DashBoardView extends StatelessWidget {
               topLeft: Radius.circular(40.0),
               topRight: Radius.circular(40.0),
             ),
-            child: BottomNavigationBar(
-              backgroundColor: AppColors.AppColorGrad2,
-              type: BottomNavigationBarType.fixed,
-              showUnselectedLabels: false,
-              showSelectedLabels: false,
-              currentIndex: dashboardController.selectedValue.value,
-              onTap: (value) {
-                dashboardController.selectedValue.value = value;
-              },
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Column(
-                    children: [
-                      SvgPicture.asset(CommonUi.setSvgImage('home')),
-                      const SizedBox(height: 10,),
-                      Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
-                    ],
-                  ),label: '',
-                  activeIcon: Column(
-                    children: [
-                      SvgPicture.asset(
-                        CommonUi.setSvgImage('home_active'),
-                        color: AppColors.White,
-                      ),
-                      const SizedBox(height: 10,),
-                      Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
-                    ],
-                  ),
-                ),
-                BottomNavigationBarItem(
+            child: Obx(
+              ()=> BottomNavigationBar(
+                backgroundColor: AppColors.AppColorGrad2,
+                type: BottomNavigationBarType.fixed,
+                showUnselectedLabels: false,
+                showSelectedLabels: false,
+                currentIndex: dashboardController.selectedValue.value,
+                onTap: (value) {
+                  dashboardController.selectedValue.value = value;
+                },
+                items: <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
                     icon: Column(
                       children: [
-                        SvgPicture.asset(CommonUi.setSvgImage('events')),
+                        SvgPicture.asset(CommonUi.setSvgImage('home')),
                         const SizedBox(height: 10,),
                         Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
                       ],
@@ -73,62 +48,83 @@ class DashBoardView extends StatelessWidget {
                     activeIcon: Column(
                       children: [
                         SvgPicture.asset(
-                          CommonUi.setSvgImage('events_active'),
+                          CommonUi.setSvgImage('home_active'),
                           color: AppColors.White,
                         ),
                         const SizedBox(height: 10,),
                         Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
                       ],
-                    )),
+                    ),
+                  ),
+                  BottomNavigationBarItem(
+                      icon: Column(
+                        children: [
+                          SvgPicture.asset(CommonUi.setSvgImage('events')),
+                          const SizedBox(height: 10,),
+                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
+                        ],
+                      ),label: '',
+                      activeIcon: Column(
+                        children: [
+                          SvgPicture.asset(
+                            CommonUi.setSvgImage('events_active'),
+                            color: AppColors.White,
+                          ),
+                          const SizedBox(height: 10,),
+                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
+                        ],
+                      )),
 
-                BottomNavigationBarItem(
+                  BottomNavigationBarItem(
+                      icon: Column(
+                        children: [
+                          SvgPicture.asset(CommonUi.setSvgImage('notification')),
+                          const SizedBox(height: 10,),
+                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
+                        ],
+                      ),label: '',
+                      activeIcon: Column(
+                        children: [
+                          SvgPicture.asset(
+                            CommonUi.setSvgImage('notification_active'),
+                            color: AppColors.White,
+                          ),
+                          const SizedBox(height: 10,),
+                          Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
+                        ],
+                      )),
+
+                  BottomNavigationBarItem(
                     icon: Column(
                       children: [
-                        SvgPicture.asset(CommonUi.setSvgImage('notification')),
+                        SvgPicture.asset(CommonUi.setSvgImage('profile')),
                         const SizedBox(height: 10,),
                         Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
                       ],
                     ),label: '',
                     activeIcon: Column(
                       children: [
-                        SvgPicture.asset(
-                          CommonUi.setSvgImage('notification_active'),
+                        SvgPicture.asset(CommonUi.setSvgImage('profile_active'),
                           color: AppColors.White,
                         ),
+
                         const SizedBox(height: 10,),
                         Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
                       ],
-                    )),
-
-                BottomNavigationBarItem(
-                  icon: Column(
-                    children: [
-                      SvgPicture.asset(CommonUi.setSvgImage('profile')),
-                      const SizedBox(height: 10,),
-                      Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.transparent),)
-                    ],
-                  ),label: '',
-                  activeIcon: Column(
-                    children: [
-                      SvgPicture.asset(CommonUi.setSvgImage('profile_active'),
-                        color: AppColors.White,
-                      ),
-
-                      const SizedBox(height: 10,),
-                      Container(height: 3,width: 30,decoration: CommonUi.commonBoxDecorationAllSides(5.0,AppColors.White),)
-                    ],
+                    ),
                   ),
-                ),
-              ],
-              selectedItemColor: Colors.amber[800],
+                ],
+                selectedItemColor: Colors.amber[800],
+              ),
             ),
           ),
         ),
-        body: dashboardController.selectedValue.value == 0 ? HomeView()
-            : dashboardController.selectedValue.value == 1 ? EventsView()
-            : dashboardController.selectedValue.value == 2 ? NotificationsView(0)
-                : ProfileView(),
-      ),
-    );
+        body: Obx(
+          () => dashboardController.selectedValue.value == 0 ? HomeView()
+              : dashboardController.selectedValue.value == 1 ? EventsView()
+              : dashboardController.selectedValue.value == 2 ? NotificationsView(0)
+                  : ProfileView(),
+        ),
+      );
   }
 }

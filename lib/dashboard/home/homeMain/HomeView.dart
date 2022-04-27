@@ -389,7 +389,7 @@ class HomeView extends StatelessWidget {
                               ? Container(
                                   color: AppColors.White,
                                   margin: const EdgeInsets.only(
-                                      left: 16, right: 16, top: 16, bottom: 100),
+                                      left: 16, right: 16, top: 16, bottom: 20),
                                   child: ListView.builder(
                                     padding: const EdgeInsets.all(0),
                                     scrollDirection: Axis.vertical,

@@ -559,7 +559,7 @@ class SignupView extends StatelessWidget {
                                         false;
                                     signUpController.getStorage
                                         .write('isRegisterOrLoggedIn', true);
-                                    Get.off(DashBoardView(0));
+                                    Get.off(DashBoardView());
                                     // showToast(value.message);
                                   } else {
                                     CommonUi.showToast(value.message!);

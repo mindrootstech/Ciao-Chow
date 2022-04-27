@@ -4,13 +4,15 @@ import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/MyCarouselSlider.dart';
 import 'package:ciao_chow/constants/Utils.dart';
-import 'package:ciao_chow/dashboard/home/detailPge/BusinessDetailsController.dart';
-import 'package:ciao_chow/dashboard/home/detailPge/OpeningHoursItem.dart';
-import 'package:ciao_chow/dashboard/home/detailPge/UpcomingEventBusinessItem.dart';
+import 'package:ciao_chow/dashboard/home/detailPage/BusinessDetailsController.dart';
+import 'package:ciao_chow/dashboard/home/detailPage/OpeningHoursItem.dart';
+import 'package:ciao_chow/dashboard/home/detailPage/UpcomingEventBusinessItem.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+
+import 'viewAll/BusinessUpcomingViewAll.dart';
 
 class BusinessDetailsView extends StatelessWidget {
   String id;
@@ -403,14 +405,19 @@ class BusinessDetailsView extends StatelessWidget {
                                         AppColors.Black,
                                         TextDecoration.none),
                                   ),
-                                  Text(
-                                    Utils.getString(context, 'view_all'),
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interRegular,
-                                        12.0,
-                                        FontWeight.w400,
-                                        AppColors.textFieldsHint,
-                                        TextDecoration.none),
+                                  GestureDetector(
+                                    onTap: (){
+                                      Get.to(BusinessUpcomingViewAll());
+                                    },
+                                    child: Text(
+                                      Utils.getString(context, 'view_all'),
+                                      style: CommonUi.customTextStyle1(
+                                          Fonts.interRegular,
+                                          12.0,
+                                          FontWeight.w400,
+                                          AppColors.textFieldsHint,
+                                          TextDecoration.none),
+                                    ),
                                   ),
                                 ],
                               )
@@ -422,7 +429,7 @@ class BusinessDetailsView extends StatelessWidget {
                 Obx(
                   () => businessDetailsController.upcomingEvents.isNotEmpty
                       ? Container(
-                          height: 140,
+                          height: 180,
                           margin: const EdgeInsets.only(left: 20, top: 14),
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
