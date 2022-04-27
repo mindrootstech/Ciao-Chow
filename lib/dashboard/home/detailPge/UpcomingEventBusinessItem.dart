@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsView.dart';
+import 'package:ciao_chow/dashboard/events/eventMain/EventsView.dart';
 import 'package:ciao_chow/dashboard/home/detailPge/BusinessDetailsController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +18,7 @@ class UpcomingEventBusinessItem extends StatelessWidget {
     var listItem = businessDetailsController.upcomingEvents[index];
     return GestureDetector(
       onTap: () {
-        // Get.to(BusinessDetailsView(homeController.arrayPartners[index].id!.toString()));
+        Get.to(EventDetailsView('notPurchased',listItem.id!.toString()));
       },
       child: Stack(
         children: [

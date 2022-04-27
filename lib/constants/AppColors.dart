@@ -34,6 +34,9 @@ class AppColors {
   static const Color redLatest = Color.fromRGBO(185, 6, 6, 1);
   static const Color inactiveSlider = Color.fromRGBO(5, 3, 13, 0.10);
   static const Color lightBlack50 = Color.fromRGBO(5, 3, 13, 0.5);
+  static const Color redBorder1 = Color.fromRGBO(211, 57, 48, 0.7);
+  static const Color redBorder2 = Color.fromRGBO(211, 57, 48, 0.3);
+  static const Color redEdit = Color.fromRGBO(211, 57, 48, 1);
 
 
 }
