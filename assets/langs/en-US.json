@@ -62,6 +62,7 @@
   "cvv": "CVV",
   "profile": "Profile",
   "settings": "Settings",
+  "no_notifications": "No Notifications",
   "card_number": "Card Number",
   "name_on_card": "Name on card",
   "choose_other_cards": "Choose Other Cards",

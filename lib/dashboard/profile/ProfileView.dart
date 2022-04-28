@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
@@ -9,6 +7,7 @@ import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/LatestCheckInListItem.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/latest/LatestCheckInViewAllView.dart';
 import 'package:ciao_chow/dashboard/profile/ProfileController.dart';
+import 'package:ciao_chow/dashboard/profile/editProfile/EditProfileView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -151,134 +150,144 @@ class ProfileView extends StatelessWidget {
                               //     ))
                             ],
                           ),
-                          Container(
-                            // width: Get.width,
-                            margin: const EdgeInsets.only(left: 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              // mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Obx(
-                                  () => homeController.profileData.value.name
-                                              .toString() !=
-                                          'null'
-                                      ? Text(
-                                    homeController.profileData.value.name!,
-                                          style: CommonUi.customTextStyle1(
-                                              Fonts.interSemiBold,
-                                              18.0,
-                                              FontWeight.w600,
-                                              AppColors.Black,
-                                              TextDecoration.none),
-                                          textAlign: TextAlign.start,
-                                        )
-                                      : const SizedBox(),
-                                ),
-                                const SizedBox(
-                                  height: 6,
-                                ),
-                                Text(
-                                  'Current Level: LEVEL ' +
-                                      homeController.profileData.value.level
-                                          .toString(),
-                                  style: CommonUi.customTextStyle1(
-                                      Fonts.interMedium,
-                                      14.0,
-                                      FontWeight.w500,
-                                      AppColors.Black,
-                                      TextDecoration.none),
-                                ),
-                                const SizedBox(
-                                  height: 6,
-                                ),
-                                Stack(
-                                  children: [
-                                    Obx(
-                                      () => Container(
-                                        decoration: CommonUi.shadowWhiteContainerRounded,
-                                        child: LinearPercentIndicator(
-                                          padding: const EdgeInsets.all(0),
-                                          width: 150,
-                                          animation: true,
-                                          lineHeight: 32.0,
-                                          animationDuration: 2500,
-                                          percent: homeController.profileData
-                                                      .value.totalPoints !=
-                                                  null
-                                              ? homeController.profileData.value
-                                                      .totalPoints!
-                                                      .toDouble() /
-                                                  10
-                                              : 0.0,
-                                          barRadius: const Radius.circular(30),
-                                          progressColor: AppColors.home_progress,
-                                          backgroundColor: AppColors.White,
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 0,
-                                      top: 0,
-                                      bottom: 0,
-                                      child: Center(
-                                        child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 18.0),
-                                            child: Text(
-                                              homeController.profileData.value
-                                                  .totalPoints
-                                                  .toString() + '/100',
-                                              style: CommonUi.customTextStyle1(
-                                                  Fonts.interMedium,
-                                                  12.0,
-                                                  FontWeight.w500,
-                                                  AppColors.Black,
-                                                  TextDecoration.none),
-                                            )),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      right: 0,
-                                      top: 0,
-                                      bottom: 0,
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 18.0),
-                                          child: Text('Level2',
-                                              // Utils.getString(context, 'partners_around_you'),
-                                              style: CommonUi.customTextStyle1(
-                                                  Fonts.interMedium,
-                                                  12.0,
-                                                  FontWeight.w500,
-                                                  AppColors.Black,
-                                                  TextDecoration.none)),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 6,
-                                ),
-                                Container(
-                                  child: Row(
+                          Expanded(
+                            child: Container(
+                              // width: Get.width,
+                              margin: const EdgeInsets.only(left: 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Obx(
+                                    () => homeController.profileData.value.name
+                                                .toString() !=
+                                            'null'
+                                        ? Text(
+                                      homeController.profileData.value.name!,
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interSemiBold,
+                                                18.0,
+                                                FontWeight.w600,
+                                                AppColors.Black,
+                                                TextDecoration.none),
+                                            textAlign: TextAlign.start,
+                                          )
+                                        : const SizedBox(),
+                                  ),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  Text(
+                                    'Current Level: LEVEL ' +
+                                        homeController.profileData.value.level
+                                            .toString(),
+                                    style: CommonUi.customTextStyle1(
+                                        Fonts.interMedium,
+                                        14.0,
+                                        FontWeight.w500,
+                                        AppColors.Black,
+                                        TextDecoration.none),
+                                  ),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  Stack(
                                     children: [
-                                      SvgPicture.asset(
-                                          CommonUi.setSvgImage('edit_profile')),
-                                      Text(
-                                        'Edit',
-                                        style: CommonUi.customTextStyle1(
-                                            Fonts.interRegular,
-                                            12.0,
-                                            FontWeight.w400,
-                                            AppColors.redEdit,
-                                            TextDecoration.none),
+                                      Obx(
+                                        () => Container(
+                                          decoration: CommonUi.shadowWhiteContainerRounded,
+                                          child: LinearPercentIndicator(
+                                            padding: const EdgeInsets.all(0),
+                                            animation: true,
+                                            lineHeight: 32.0,
+                                            animationDuration: 2500,
+                                            percent: homeController.profileData
+                                                        .value.totalPoints !=
+                                                    null
+                                                ? homeController.profileData.value
+                                                        .totalPoints!
+                                                        .toDouble() /
+                                                    10
+                                                : 0.0,
+                                            barRadius: const Radius.circular(30),
+                                            progressColor: AppColors.home_progress,
+                                            backgroundColor: AppColors.White,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 0,
+                                        top: 0,
+                                        bottom: 0,
+                                        child: Center(
+                                          child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 18.0),
+                                              child: Text(
+                                                homeController.profileData.value
+                                                    .totalPoints
+                                                    .toString() + '/100',
+                                                style: CommonUi.customTextStyle1(
+                                                    Fonts.interMedium,
+                                                    12.0,
+                                                    FontWeight.w500,
+                                                    AppColors.Black,
+                                                    TextDecoration.none),
+                                              )),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        right: 0,
+                                        top: 0,
+                                        bottom: 0,
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 18.0),
+                                            child: Text('Level2',
+                                                // Utils.getString(context, 'partners_around_you'),
+                                                style: CommonUi.customTextStyle1(
+                                                    Fonts.interMedium,
+                                                    12.0,
+                                                    FontWeight.w500,
+                                                    AppColors.Black,
+                                                    TextDecoration.none)),
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                )
-                              ],
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(EditProfileView());
+                                    },
+                                    child: Container(
+                                      width: Get.width,
+                                      margin: const EdgeInsets.only(right: 4),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          SvgPicture.asset(
+                                              CommonUi.setSvgImage('edit_profile')),
+                                          const SizedBox(width: 4,),
+                                          Text(
+                                            'Edit',
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interRegular,
+                                                12.0,
+                                                FontWeight.w400,
+                                                AppColors.redEdit,
+                                                TextDecoration.none)
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],

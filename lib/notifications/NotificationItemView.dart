@@ -3,20 +3,22 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/notifications/NotificationController.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NotificationItemView extends StatelessWidget {
   var index;
+
   NotificationItemView(this.index, {Key? key}) : super(key: key);
   NotificationController notificationController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    var model = notificationController.notificationsArray[index];
+
     return Container(
       width: Get.width,
-      margin: const EdgeInsets.only(left: 20,right: 20,bottom: 20),
+      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
       child: Column(
         children: [
           Row(
@@ -43,41 +45,59 @@ class NotificationItemView extends StatelessWidget {
                       ),
                     )),
               ),
-              Column(
-                children: [
-                  Container(
-                    color: Colors.amber,
-                    // width: Get.width -100,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              const SizedBox(
+                width:10,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Playboy',
-                            style: CommonUi.customTextStyle1(
-                                Fonts.interMedium,
-                                14.0,
-                                FontWeight.w600,
-                                AppColors.Black,
-                                TextDecoration.none)),
-                        Text('1m ago.',
-                            style: CommonUi.customTextStyle1(
-                                Fonts.interRegular,
-                                12.0,
-                                FontWeight.w400,
-                                AppColors.textFieldsHint,
-                                TextDecoration.none)),
+                        Text(
+                          model.title,
+                          textAlign: TextAlign.start,
+                          style: CommonUi.customTextStyle1(
+                              Fonts.interMedium,
+                              14.0,
+                              FontWeight.w500,
+                              AppColors.Black,
+                              TextDecoration.none),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          model.notificationTime,
+                          textAlign: TextAlign.start,
+                          style: CommonUi.customTextStyle1(
+                              Fonts.interRegular,
+                              12.0,
+                              FontWeight.w600,
+                              AppColors.Black,
+                              TextDecoration.none),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ],
                     ),
-                  ),
-                  Text(
-                      'Play boy has added new event that might you be interested.',
-                      style: CommonUi.customTextStyle1(
-                          Fonts.interRegular,
-                          12.0,
-                          FontWeight.w400,
-                          AppColors.textFieldsHint,
-                          TextDecoration.none)),
-                ],
-              )
+
+                    const SizedBox(
+                      height: 4,
+                    ),
+
+                    Text(model.description,
+                        style: CommonUi.customTextStyle1(
+                            Fonts.interRegular,
+                            12.0,
+                            FontWeight.w400,
+                            AppColors.textFieldsHint,
+                            TextDecoration.none)),
+
+
+                  ],
+                ),
+              ),
             ],
           ),
           Container(

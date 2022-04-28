@@ -18,7 +18,8 @@ class PartnersHomeListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(BusinessDetailsView(homeController.arrayPartners[index].id!.toString()));
+        Get.to(BusinessDetailsView(
+            homeController.arrayPartners[index].id!.toString()));
       },
       child: Stack(
         children: [
@@ -31,8 +32,9 @@ class PartnersHomeListItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: 200,
                   fit: BoxFit.cover,
-                  imageUrl: homeController.arrayPartners[index].featuredImageUrl!,
-                  placeholder: (context, url) =>  Container(
+                  imageUrl:
+                      homeController.arrayPartners[index].featuredImageUrl!,
+                  placeholder: (context, url) => Container(
                       width: Get.width,
                       child: const Center(
                         child: CircularProgressIndicator(
@@ -43,11 +45,11 @@ class PartnersHomeListItem extends StatelessWidget {
                 ),
               )),
 
-          Positioned(child: Container(
+          Positioned(
+              child: Container(
             width: 150,
             margin: const EdgeInsets.only(right: 10),
             decoration: CommonUi.commonBoxDecorationAllOverlay(10.0),
-
           )),
 
           // Image.network(homeController.arrayPartners[index].image,fit: BoxFit.cover,))),
@@ -88,27 +90,30 @@ class PartnersHomeListItem extends StatelessWidget {
                           TextDecoration.none),
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 7),
-                    child: Row(
-                      children: [
-                        Image.asset(CommonUi.setPngImage('location_miles')),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          homeController
-                              .arrayPartners[index].distance! + ' miles away',
-                          style: CommonUi.customTextStyle1(
-                              Fonts.interItalic,
-                              8.0,
-                              FontWeight.w400,
-                              AppColors.White,
-                              TextDecoration.none),
-                        ),
-                      ],
-                    ),
-                  ),
+                  homeController.arrayPartners[index].distance.toString() != ''
+                      ? Container(
+                          margin: const EdgeInsets.only(top: 7),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                  CommonUi.setPngImage('location_miles')),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                homeController.arrayPartners[index].distance! +
+                                    ' miles away',
+                                style: CommonUi.customTextStyle1(
+                                    Fonts.interItalic,
+                                    8.0,
+                                    FontWeight.w400,
+                                    AppColors.White,
+                                    TextDecoration.none),
+                              ),
+                            ],
+                          ),
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ),

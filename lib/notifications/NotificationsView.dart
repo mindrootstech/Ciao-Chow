@@ -4,8 +4,8 @@ import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/notifications/NotificationController.dart';
 import 'package:ciao_chow/notifications/NotificationItemView.dart';
-import 'package:ciao_chow/notifications/NotificationsMainModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class NotificationsView extends StatelessWidget {
@@ -16,45 +16,45 @@ class NotificationsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    notificationController.notificationsArray.value = [];
-
-    var notificationModel = NotificationsMainModel();
-    notificationModel.imageUrl =
-        'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
-    notificationModel.title = 'PlayBoy';
-    notificationModel.notificationTime = '1m ago.';
-    notificationModel.description =
-        'Play boy has added new event that might you be intersted.';
-    notificationController.notificationsArray.add(notificationModel);
-
-    notificationModel = NotificationsMainModel();
-    notificationModel.imageUrl =
-        'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
-    notificationModel.title = 'PlayBoy';
-    notificationModel.notificationTime = '1m ago.';
-    notificationModel.description =
-        'Play boy has added new event that might you be intersted.';
-    notificationController.notificationsArray.add(notificationModel);
-
-
-    notificationModel = NotificationsMainModel();
-    notificationModel.imageUrl =
-        'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
-    notificationModel.title = 'PlayBoy';
-    notificationModel.notificationTime = '1m ago.';
-    notificationModel.description =
-        'Play boy has added new event that might you be intersted.';
-    notificationController.notificationsArray.add(notificationModel);
-
-
-    notificationModel = NotificationsMainModel();
-    notificationModel.imageUrl =
-        'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
-    notificationModel.title = 'PlayBoy';
-    notificationModel.notificationTime = '1m ago.';
-    notificationModel.description =
-        'Play boy has added new event that might you be intersted.';
-    notificationController.notificationsArray.add(notificationModel);
+    // notificationController.notificationsArray.value = [];
+    //
+    // var notificationModel = NotificationsMainModel();
+    // notificationModel.imageUrl =
+    //     'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
+    // notificationModel.title = 'PlayBoy';
+    // notificationModel.notificationTime = '1m ago.';
+    // notificationModel.description =
+    //     'Play boy has added new event that might you be intersted.';
+    // notificationController.notificationsArray.add(notificationModel);
+    //
+    // notificationModel = NotificationsMainModel();
+    // notificationModel.imageUrl =
+    //     'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
+    // notificationModel.title = 'PlayBoy';
+    // notificationModel.notificationTime = '1m ago.';
+    // notificationModel.description =
+    //     'Play boy has added new event that might you be intersted.';
+    // notificationController.notificationsArray.add(notificationModel);
+    //
+    //
+    // notificationModel = NotificationsMainModel();
+    // notificationModel.imageUrl =
+    //     'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
+    // notificationModel.title = 'PlayBoy';
+    // notificationModel.notificationTime = '1m ago.';
+    // notificationModel.description =
+    //     'Play boy has added new event that might you be intersted.';
+    // notificationController.notificationsArray.add(notificationModel);
+    //
+    //
+    // notificationModel = NotificationsMainModel();
+    // notificationModel.imageUrl =
+    //     'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
+    // notificationModel.title = 'PlayBoy';
+    // notificationModel.notificationTime = '1m ago.';
+    // notificationModel.description =
+    //     'Play boy has added new event that might you be intersted.';
+    // notificationController.notificationsArray.add(notificationModel);
 
 
     return Stack(
@@ -108,20 +108,31 @@ class NotificationsView extends StatelessWidget {
                   ),
                 ),
                 Obx(
-                  () => Container(
-                    margin: const EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                    ),
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount:
-                          notificationController.notificationsArray.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return NotificationItemView(index);
-                      },
+                  () =>
+                  notificationController.notificationsArray.isNotEmpty ?
+                      ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount:
+                        notificationController.notificationsArray.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return NotificationItemView(index);
+                    },
+                  ) : SizedBox(
+                    width: Get.width,
+                    height: Get.height/2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(CommonUi.setSvgImage('no_notification')),
+                        const SizedBox(height: 25,),
+                        Text(
+                          Utils.getString(context, 'no_notifications'),
+                          style: CommonUi.customTextStyle1(Fonts.interSemiBold, 18.0,
+                              FontWeight.w600, AppColors.Black, TextDecoration.none),
+                        ),
+                      ],
                     ),
                   ),
                 ),

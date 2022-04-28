@@ -6,4 +6,6 @@ class ProfileController extends GetxController{
   var loaderProfile = false.obs;
   var arraySettingList = <SettingsModel>[].obs;
 
+  var imagePath = ''.obs;
+
 }

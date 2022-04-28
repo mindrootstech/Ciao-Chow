@@ -123,6 +123,8 @@ class UpcomingEventsListItem extends StatelessWidget {
                         //         )
                         //       : const SizedBox(),
                         // ),
+
+                        eventsController.arrayUpcomingEvents[index].distance.toString() != '' ?
                         Container(
                           margin: const EdgeInsets.only(top: 7),
                           child: Row(
@@ -142,7 +144,7 @@ class UpcomingEventsListItem extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ),
+                        ) : const SizedBox(),
                       ],
                     ),
                   ),

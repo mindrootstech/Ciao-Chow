@@ -6,4 +6,10 @@ class NotificationController extends GetxController{
   var loaderNotification = false.obs;
   var notificationsArray = <NotificationsMainModel>[].obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    notificationsArray.value = [];
+  }
+
 }

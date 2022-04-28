@@ -158,7 +158,8 @@ class BusinessDetailsView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Padding(
+                      businessDetailsController
+                          .getBusiness.value.distance.toString() != '' ? Padding(
                         padding: const EdgeInsets.only(left: 24.0),
                         child: Obx(
                           () => businessDetailsController
@@ -178,7 +179,7 @@ class BusinessDetailsView extends StatelessWidget {
                                 )
                               : const SizedBox(),
                         ),
-                      ),
+                      ) : const SizedBox(),
                       const SizedBox(
                         height: 18,
                       ),

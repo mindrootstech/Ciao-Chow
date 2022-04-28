@@ -83,6 +83,8 @@ class PartnersAroundItemList extends StatelessWidget{
                           TextDecoration.none),
                     ),
                   ),
+
+                  partnersAllNearController.arrayBusinessList[index].distance.toString() != '' ?
                   Container(
                     margin: const EdgeInsets.only(top: 7),
                     child: Row(
@@ -102,7 +104,7 @@ class PartnersAroundItemList extends StatelessWidget{
                         ),
                       ],
                     ),
-                  ),
+                  ) : const SizedBox(),
                 ],
               ),
             ),
