@@ -308,7 +308,7 @@ class ApiProvider extends GetConnect {
 
   Future<String> updateProfile(String name, String phone, String email, String gender,
       String dateOfBirth, String imagePath, String imageName) async {
-    var request = http.MultipartRequest('POST', Uri.parse("/register"));
+    var request = http.MultipartRequest('POST', Uri.parse("/update-profile"));
     var response;
 
     if (imagePath.isNotEmpty) {
@@ -320,6 +320,8 @@ class ApiProvider extends GetConnect {
         'email': email,
         'gender': gender,
         'dob': dateOfBirth,
+      },headers: {
+        'Authorization': 'Bearer ${getStorage.read('token')}'
       });
     } else {
       response = await post("/update-profile", {
@@ -328,6 +330,8 @@ class ApiProvider extends GetConnect {
         'email': email,
         'gender': gender,
         'dob': dateOfBirth,
+      },headers: {
+        'Authorization': 'Bearer ${getStorage.read('token')}'
       });
     }
     if (response.status.hasError) {
