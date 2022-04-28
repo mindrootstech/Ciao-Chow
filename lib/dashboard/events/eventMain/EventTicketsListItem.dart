@@ -42,7 +42,7 @@ class EventTicketsListItem extends StatelessWidget {
                         child: CachedNetworkImage(
                           fit: BoxFit.cover,
                           imageUrl: arrayEventTicketItem.event!.featuredImageUrl!,
-                          placeholder: (context, url) =>  Container(
+                          placeholder: (context, url) =>  SizedBox(
                               width: Get.width,
                               child: const Center(
                                 child: CircularProgressIndicator(

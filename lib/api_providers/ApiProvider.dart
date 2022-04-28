@@ -305,4 +305,35 @@ class ApiProvider extends GetConnect {
       return json.encode(response.body);
     }
   }
+
+  Future<String> updateProfile(String name, String phone, String email, String gender,
+      String dateOfBirth, String imagePath, String imageName) async {
+    var request = http.MultipartRequest('POST', Uri.parse("/register"));
+    var response;
+
+    if (imagePath.isNotEmpty) {
+      request.files
+          .add(await http.MultipartFile.fromPath('profile_image', imagePath));
+      response = await post("/update-profile", {
+        'name': name,
+        'mobile_number': phone,
+        'email': email,
+        'gender': gender,
+        'dob': dateOfBirth,
+      });
+    } else {
+      response = await post("/update-profile", {
+        'name': name,
+        'mobile_number': phone,
+        'email': email,
+        'gender': gender,
+        'dob': dateOfBirth,
+      });
+    }
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+  }
 }

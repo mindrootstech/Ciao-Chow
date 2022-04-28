@@ -68,6 +68,8 @@
   "choose_other_cards": "Choose Other Cards",
   "event_details": "Event Details",
   "notifications": "Notifications",
+  "update_profile": "Update Profile",
+  "change_password": "Change Password",
   "i_understand": "I understand and accept the deal's terms and\nconditions.",
   "please_scan": "Please scan the QR code available at the business location to complete the check-in.",
   "please_fill_details": "Please fill in the details below to add a new card. You will be able to select this card during the checkout flow."

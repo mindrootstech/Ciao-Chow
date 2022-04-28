@@ -38,5 +38,4 @@ class AppColors {
   static const Color redBorder2 = Color.fromRGBO(211, 57, 48, 0.3);
   static const Color redEdit = Color.fromRGBO(211, 57, 48, 1);
 
-
 }
