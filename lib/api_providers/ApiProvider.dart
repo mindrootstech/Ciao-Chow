@@ -340,4 +340,27 @@ class ApiProvider extends GetConnect {
       return json.encode(response.body);
     }
   }
+
+  Future<String> getLogoutApi() async {
+    final response = await post('/logout', {}, headers: {
+      'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+
+  }
+
+  Future<String> getAccountDelete() async {
+    final response = await get('/delete-account', headers: {
+      'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+  }
 }

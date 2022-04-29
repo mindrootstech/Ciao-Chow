@@ -15,6 +15,7 @@ class ScanCheckInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    homeController.checkInLoader.value = false;
     return Container(
       color: AppColors.White,
       child: Stack(
@@ -51,7 +52,7 @@ class ScanCheckInView extends StatelessWidget {
                       height: 16,
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 20,right: 20,top: 20),
+                      margin: const EdgeInsets.only(left: 20,right: 20,top: 20),
                       child: Text(
                         Utils.getString(context,'please_scan'),
                         style: CommonUi.customTextStyle1(

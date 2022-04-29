@@ -15,20 +15,33 @@ class SettingsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var model = profileController.arraySettingList[index];
-    return Container(
-      padding: const EdgeInsets.all(14),
-      margin: const EdgeInsets.only(top: 15),
-      decoration: CommonUi.shadowWhiteContainer,
-      child: Row(
-        children: [
-          SvgPicture.asset(CommonUi.setSvgImage(model.iconSetting)),
-          const SizedBox(width: 10,),
-          Text(
-            model.titleSetting,
-            style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
-                FontWeight.w500, AppColors.Black, TextDecoration.none),
-          )
-        ],
+    return GestureDetector(
+      onTap: () {
+        if (index == 5) {
+          profileController.loaderLogout.value = true;
+          profileController.getAccountDelete();
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        margin: const EdgeInsets.only(top: 15),
+        decoration: CommonUi.shadowWhiteContainer,
+        child: Row(
+          children: [
+            SizedBox(
+                width: 16,
+                child:
+                    SvgPicture.asset(CommonUi.setSvgImage(model.iconSetting))),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              model.titleSetting,
+              style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
+                  FontWeight.w500, AppColors.Black, TextDecoration.none),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -83,6 +83,7 @@ class HomeController extends GetxController {
         var response = latestCheckInModelFromJson(value);
         if (response.status == false) {
           CommonUi.showToast(response.message!);
+          controller!.resumeCamera();
         } else {
           Get.back();
           getHomeData(getStorage.read('lat'), getStorage.read('long'));

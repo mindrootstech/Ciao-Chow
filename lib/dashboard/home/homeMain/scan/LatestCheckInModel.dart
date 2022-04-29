@@ -40,7 +40,7 @@ class Data {
   UserCheckin? userCheckin;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    userCheckin: UserCheckin.fromJson(json["user_checkin"]),
+    userCheckin: json["user_checkin"] == null ? null : UserCheckin.fromJson(json["user_checkin"]),
   );
 
   Map<String, dynamic> toJson() => {
