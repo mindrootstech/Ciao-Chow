@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ciao_chow/authentication/signUp/DOBText.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
-import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
 import 'package:ciao_chow/dashboard/profile/ProfileController.dart';
 import 'package:ciao_chow/dashboard/profile/editProfile/BottomSheetChangePassword.dart';
 import 'package:ciao_chow/dashboard/profile/editProfile/ImageOptionChooserProfile.dart';
@@ -17,7 +17,7 @@ import 'package:get/get.dart';
 
 class EditProfileView extends StatelessWidget {
   EditProfileView({Key? key}) : super(key: key);
-  HomeController homeController = Get.find();
+  // HomeController homeController = Get.find();
   ProfileController profileController = Get.find();
   DateTime selectedDate = DateTime.now();
   final _formKey = GlobalKey<FormState>();
@@ -31,27 +31,29 @@ class EditProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String gender;
-    if (homeController.profileData.value.gender == 1) {
+    if (profileController.profileData.value.gender == 1) {
       gender = 'Male';
-    } else if (homeController.profileData.value.gender == 2) {
+    } else if (profileController.profileData.value.gender == 2) {
       gender = 'Female';
     } else {
       gender = 'Other';
     }
 
     profileController.addAccountItems(
-        CommonUi.dateFormat(homeController.profileData.value.dob!),
+        CommonUi.dateFormat(profileController.profileData.value.dob!),
         true,
         gender,
         true);
     profileController.emailController.value =
-        homeController.profileData.value.email!;
-    profileController.userName.value = homeController.profileData.value.name!;
+    profileController.profileData.value.email!;
+    profileController.userName.value = profileController.profileData.value.name!;
     profileController.phoneController.value =
-        homeController.profileData.value.mobileNumber!;
+    profileController.profileData.value.mobileNumber!;
     profileController.genderValue.value = gender;
     profileController.dobText.value =
-        CommonUi.dateFormat(homeController.profileData.value.dob!);
+        CommonUi.dateFormat(profileController.profileData.value.dob!);
+    profileController
+        .isCameraOrGallery.value = '';
 
     return WillPopScope(
       onWillPop: _onWillPop,
@@ -152,19 +154,43 @@ class EditProfileView extends StatelessWidget {
                                         () => ClipRRect(
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(100)),
-                                          child: profileController
-                                                      .imagePath.value ==
+                                          child:  profileController.profileData.value.profileImage.toString() ==
                                                   ''
                                               ? SvgPicture.asset(
                                                   CommonUi.setSvgImage(
                                                       'default_image'),
                                                   // fit: BoxFit.cover,
                                                 )
-                                              : Image.file(
-                                                  File(profileController
-                                                      .imagePath.value),
-                                                  fit: BoxFit.cover,
-                                                ),
+                                              : profileController
+                                                          .isCameraOrGallery.value ==
+                                                      '1'
+                                                  ? Image.file(
+                                                      File(profileController
+                                                          .imagePath.value),
+                                                      fit: BoxFit.cover,
+                                                    )
+                                                  : CachedNetworkImage(
+                                                      fit: BoxFit.cover,
+                                                      width: 1000.0,
+                                                      imageUrl: profileController.profileData.value.profileImage!,
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          SizedBox(
+                                                              width: Get.width,
+                                                              child:
+                                                                  const Center(
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  color:
+                                                                      AppColors
+                                                                          .White,
+                                                                ),
+                                                              )),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          const Icon(
+                                                              Icons.error),
+                                                    ),
                                         ),
                                       ),
                                     ),
@@ -208,7 +234,7 @@ class EditProfileView extends StatelessWidget {
                                 textCapitalization: TextCapitalization.words,
                                 controller: TextEditingController()
                                   ..text =
-                                      homeController.profileData.value.name!,
+                                  profileController.profileData.value.name!,
                                 onChanged: (text) =>
                                     {profileController.userName.value = text},
                                 cursorColor: AppColors.textFieldsHint,
@@ -254,7 +280,7 @@ class EditProfileView extends StatelessWidget {
                                 },
                                 controller: TextEditingController()
                                   ..text =
-                                      homeController.profileData.value.email!,
+                                  profileController.profileData.value.email!,
                                 onChanged: (text) => {
                                       profileController.emailController.value =
                                           text
@@ -309,7 +335,7 @@ class EditProfileView extends StatelessWidget {
                                   LengthLimitingTextInputFormatter(12),
                                 ],
                                 controller: TextEditingController()
-                                  ..text = homeController
+                                  ..text = profileController
                                       .profileData.value.mobileNumber!,
                                 onChanged: (text) => {
                                       profileController.phoneController.value =

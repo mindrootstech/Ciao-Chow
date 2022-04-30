@@ -12,12 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-
 import 'settings/SettingsMainView.dart';
 
 class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
-
   var profileController = Get.put(ProfileController());
   HomeController homeController = Get.find();
 
@@ -112,10 +110,11 @@ class ProfileView extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(100),
                                     ),
                                     child: Obx(
-                                      () => ClipRRect(
+                                      () => profileController.profileData.value
+                                          .profileImage.toString() != 'null' ? ClipRRect(
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(100)),
-                                        child: homeController.profileData.value
+                                        child: profileController.profileData.value
                                                     .profileImage ==
                                                 ''
                                             ? SvgPicture.asset(
@@ -126,7 +125,7 @@ class ProfileView extends StatelessWidget {
                                             : CachedNetworkImage(
                                                 fit: BoxFit.cover,
                                                 width: 1000.0,
-                                                imageUrl: homeController
+                                                imageUrl: profileController
                                                     .profileData
                                                     .value
                                                     .profileImage!,
@@ -144,6 +143,14 @@ class ProfileView extends StatelessWidget {
                                                     (context, url, error) =>
                                                         const Icon(Icons.error),
                                               ),
+                                      ) : ClipRRect(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(100)),
+                                        child:  SvgPicture.asset(
+                                          CommonUi.setSvgImage(
+                                              'default_image'),
+                                          // fit: BoxFit.cover,
+                                        )
                                       ),
                                     ),
                                   ),
@@ -170,11 +177,11 @@ class ProfileView extends StatelessWidget {
                                 // mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Obx(
-                                    () => homeController.profileData.value.name
+                                    () => profileController.profileData.value.name
                                                 .toString() !=
                                             'null'
                                         ? Text(
-                                            homeController
+                                      profileController
                                                 .profileData.value.name!,
                                             style: CommonUi.customTextStyle1(
                                                 Fonts.interSemiBold,
@@ -189,16 +196,20 @@ class ProfileView extends StatelessWidget {
                                   const SizedBox(
                                     height: 6,
                                   ),
-                                  Text(
-                                    'Current Level: LEVEL ' +
-                                        homeController.profileData.value.level
-                                            .toString(),
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interMedium,
-                                        14.0,
-                                        FontWeight.w500,
-                                        AppColors.Black,
-                                        TextDecoration.none),
+
+                                  Obx(
+                                    ()=> profileController.profileData.value.level != null ?
+                                    Text(
+                                      'Current Level: LEVEL ' +
+                                          profileController.profileData.value.level
+                                              .toString(),
+                                      style: CommonUi.customTextStyle1(
+                                          Fonts.interMedium,
+                                          14.0,
+                                          FontWeight.w500,
+                                          AppColors.Black,
+                                          TextDecoration.none),
+                                    ) : const SizedBox(),
                                   ),
                                   const SizedBox(
                                     height: 6,
@@ -214,10 +225,10 @@ class ProfileView extends StatelessWidget {
                                             animation: true,
                                             lineHeight: 32.0,
                                             animationDuration: 2500,
-                                            percent: homeController.profileData
+                                            percent: profileController.profileData
                                                         .value.totalPoints !=
                                                     null
-                                                ? homeController.profileData
+                                                ? profileController.profileData
                                                         .value.totalPoints!
                                                         .toDouble() /
                                                     10
@@ -237,18 +248,20 @@ class ProfileView extends StatelessWidget {
                                           child: Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 18.0),
-                                              child: Text(
-                                                homeController.profileData.value
-                                                        .totalPoints
-                                                        .toString() +
-                                                    '/100',
-                                                style:
-                                                    CommonUi.customTextStyle1(
-                                                        Fonts.interMedium,
-                                                        12.0,
-                                                        FontWeight.w500,
-                                                        AppColors.Black,
-                                                        TextDecoration.none),
+                                              child: Obx(
+                                                () => Text(
+                                                  profileController.profileData.value
+                                                          .totalPoints
+                                                          .toString() +
+                                                      '/100',
+                                                  style:
+                                                      CommonUi.customTextStyle1(
+                                                          Fonts.interMedium,
+                                                          12.0,
+                                                          FontWeight.w500,
+                                                          AppColors.Black,
+                                                          TextDecoration.none),
+                                                ),
                                               )),
                                         ),
                                       ),

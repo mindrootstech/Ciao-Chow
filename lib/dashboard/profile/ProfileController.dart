@@ -2,6 +2,7 @@ import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/authentication/signIn/SignInView.dart';
 import 'package:ciao_chow/authentication/signUp/ModelText.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
+import 'package:ciao_chow/dashboard/profile/settings/ProfileMainModel.dart' as gt;
 import 'package:ciao_chow/dashboard/profile/settings/SettingsModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,7 +14,7 @@ import 'package:image_picker/image_picker.dart';
 class ProfileController extends GetxController {
   var loaderProfile = false.obs;
   var loaderLogout = false.obs;
-  var arraySettingList = <SettingsModel>[].obs;
+  var arraySettingList = <SettingsModel>[];
   var imagePath = ''.obs;
   var userName = ''.obs;
   var emailController = ''.obs;
@@ -23,6 +24,7 @@ class ProfileController extends GetxController {
   var dobText = "Date of Birth".obs;
   var imageName = '';
   var imagePathNew = '';
+  var isCameraOrGallery = ''.obs;
   var updateProfileLoaderShow = false.obs;
   final _apiProvider = ApiProvider();
   final getStorage = GetStorage();
@@ -33,6 +35,8 @@ class ProfileController extends GetxController {
   var oldPasswordController = TextEditingController().obs;
   var newPasswordController = TextEditingController().obs;
   var newPasswordConfirmController = TextEditingController().obs;
+
+  var profileData = gt.Data().obs;
 
   void addAccountItems(String firstName, bool firstSelected, String secondName,
       bool secondSelected) {
@@ -64,6 +68,7 @@ class ProfileController extends GetxController {
     imageName = image.path.split('/').last;
     imagePath.value = image.path;
     imagePathNew = image.path;
+    isCameraOrGallery.value = '1';
   }
 
   Future<void> getGalleryImage() async {
@@ -72,6 +77,7 @@ class ProfileController extends GetxController {
     imageName = image!.path.split('/').last;
     imagePath.value = image.path;
     imagePathNew = image.path;
+    isCameraOrGallery.value ='1';
   }
 
   void updateProfile() {
@@ -96,7 +102,7 @@ class ProfileController extends GetxController {
     )
         .then((value) {
       if (value != 'error') {
-        Get.back();
+        getProfileData();
       } else {
         CommonUi.showToast('Error');
         return;
@@ -146,6 +152,27 @@ class ProfileController extends GetxController {
     });
 
 
+  }
+
+
+  @override
+  void onInit() {
+    super.onInit();
+    getProfileData();
+  }
+
+  void getProfileData() {
+    _apiProvider.getProfileData().then((value) {
+      if (value != 'error') {
+        var response = gt.profileMainModelFromJson(value);
+        profileData.value = response.data!;
+
+      } else {
+        CommonUi.showToast('Something went wrong!');
+        return;
+      }
+      loaderLogout.value = false;
+    });
   }
 
 }
