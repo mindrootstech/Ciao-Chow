@@ -66,7 +66,7 @@ class ApiProvider extends GetConnect {
 
     if (imagePath.isNotEmpty) {
       request.files
-          .add(await http.MultipartFile.fromPath('profile_image', imagePath));
+          .add(await http.MultipartFile.fromPath('profile_image', imagePath,filename: imageName));
       response = await post("/register", {
         'name': userName,
         'mobile_number': phoneNumber,
@@ -308,32 +308,16 @@ class ApiProvider extends GetConnect {
 
   Future<String> updateProfile(String name, String phone, String email, String gender,
       String dateOfBirth, String imagePath, String imageName) async {
-    var request = http.MultipartRequest('POST', Uri.parse("/update-profile"));
-    var response;
-
-    if (imagePath.isNotEmpty) {
-      request.files
-          .add(await http.MultipartFile.fromPath('profile_image', imagePath));
-      response = await post("/update-profile", {
-        'name': name,
-        'mobile_number': phone,
-        'email': email,
-        'gender': gender,
-        'dob': dateOfBirth,
-      },headers: {
-        'Authorization': 'Bearer ${getStorage.read('token')}'
-      });
-    } else {
-      response = await post("/update-profile", {
-        'name': name,
-        'mobile_number': phone,
-        'email': email,
-        'gender': gender,
-        'dob': dateOfBirth,
-      },headers: {
-        'Authorization': 'Bearer ${getStorage.read('token')}'
-      });
-    }
+    final form = FormData({'profile_image': MultipartFile(imagePath, filename: imageName),
+          'name': name,
+          'mobile_number': phone,
+          'email': email,
+          'gender': gender,
+          'dob': dateOfBirth,
+    });
+    final response = await post('/update-profile', form,headers: {
+      'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
     if (response.status.hasError) {
       return 'error';
     } else {
@@ -366,6 +350,21 @@ class ApiProvider extends GetConnect {
 
   Future<String> getProfileData() async {
     final response = await get('/user-profile', headers: {
+      'Authorization': 'Bearer ${getStorage.read('token')}'
+    });
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+  }
+
+  Future<String> getPasswordChanged(String oldPassword, String newPassword, String confirmPassword) async {
+    final response = await post('/change-password', {
+      'old_password' :oldPassword,
+      'new_password' :newPassword,
+      'confirm_password' :confirmPassword,
+    },headers: {
       'Authorization': 'Bearer ${getStorage.read('token')}'
     });
     if (response.status.hasError) {

@@ -26,11 +26,11 @@ class BookingDoneView extends StatelessWidget {
               icon: const Icon(Icons.arrow_back_ios, color: AppColors.Black),
               onPressed: () {
                 try {
-                  dashboardController.selectedValue.value = 0;
+                  dashboardController.selectedValue.value = 1;
                 }catch(Exception){
                   var a = 0;
                 }
-                Get.offAll(DashBoardView());
+                Get.offAll(DashBoardView(dashboardController.selectedValue.value));
               },
             ),
             Expanded(
@@ -76,7 +76,7 @@ class BookingDoneView extends StatelessWidget {
                         }catch(Exception){
                           var a = 0;
                         }
-                        Get.offAll(DashBoardView());
+                        Get.offAll(DashBoardView(dashboardController.selectedValue.value));
 
                       },
                       child: Text(
@@ -101,7 +101,7 @@ class BookingDoneView extends StatelessWidget {
                 }catch(Exception){
                   var a = 0;
                 }
-                Get.offAll(DashBoardView());
+                Get.offAll(DashBoardView(dashboardController.selectedValue.value));
               },
               child: Container(
                 child: Center(

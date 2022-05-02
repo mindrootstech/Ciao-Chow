@@ -484,11 +484,6 @@ class EventDetailsView extends StatelessWidget {
                               } else {
                                 eventDetailsController.whichSheet.value = '1';
                                 eventDetailsController.currentSliderValue.value = 0.0;
-                                // eventDetailsController.modelCard.value.id = '';
-                                // eventDetailsController.modelCard.value.last4 = '';
-                                // eventDetailsController.modelCard.value.name = '';
-                                // eventDetailsController.modelCard.value.expYear = 0;
-                                // eventDetailsController.modelCard.value.expMonth = 0;
                                 eventDetailsController.modelCard.value.isSelected = false;
                                 int.parse(eventDetailsController.eventDetails
                                             .value.availableTickets!) >

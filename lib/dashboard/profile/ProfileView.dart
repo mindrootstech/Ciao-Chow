@@ -111,47 +111,58 @@ class ProfileView extends StatelessWidget {
                                     ),
                                     child: Obx(
                                       () => profileController.profileData.value
-                                          .profileImage.toString() != 'null' ? ClipRRect(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(100)),
-                                        child: profileController.profileData.value
-                                                    .profileImage ==
-                                                ''
-                                            ? SvgPicture.asset(
+                                                  .profileImage
+                                                  .toString() !=
+                                              'null'
+                                          ? ClipRRect(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(100)),
+                                              child: profileController
+                                                          .profileData
+                                                          .value
+                                                          .profileImage ==
+                                                      ''
+                                                  ? SvgPicture.asset(
+                                                      CommonUi.setSvgImage(
+                                                          'default_image'),
+                                                      // fit: BoxFit.cover,
+                                                    )
+                                                  : CachedNetworkImage(
+                                                      fit: BoxFit.cover,
+                                                      width: 1000.0,
+                                                      imageUrl:
+                                                          profileController
+                                                              .profileData
+                                                              .value
+                                                              .profileImage!,
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          SizedBox(
+                                                              width: Get.width,
+                                                              child:
+                                                                  const Center(
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  color: AppColors
+                                                                      .AppColorGrad2,
+                                                                ),
+                                                              )),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          const Icon(
+                                                              Icons.error),
+                                                    ),
+                                            )
+                                          : ClipRRect(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(100)),
+                                              child: SvgPicture.asset(
                                                 CommonUi.setSvgImage(
                                                     'default_image'),
                                                 // fit: BoxFit.cover,
-                                              )
-                                            : CachedNetworkImage(
-                                                fit: BoxFit.cover,
-                                                width: 1000.0,
-                                                imageUrl: profileController
-                                                    .profileData
-                                                    .value
-                                                    .profileImage!,
-                                                placeholder: (context, url) =>
-                                                    SizedBox(
-                                                        width: Get.width,
-                                                        child: const Center(
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            color: AppColors
-                                                                .AppColorGrad2,
-                                                          ),
-                                                        )),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(Icons.error),
-                                              ),
-                                      ) : ClipRRect(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(100)),
-                                        child:  SvgPicture.asset(
-                                          CommonUi.setSvgImage(
-                                              'default_image'),
-                                          // fit: BoxFit.cover,
-                                        )
-                                      ),
+                                              )),
                                     ),
                                   ),
                                 ),
@@ -177,11 +188,12 @@ class ProfileView extends StatelessWidget {
                                 // mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Obx(
-                                    () => profileController.profileData.value.name
+                                    () => profileController
+                                                .profileData.value.name
                                                 .toString() !=
                                             'null'
                                         ? Text(
-                                      profileController
+                                            profileController
                                                 .profileData.value.name!,
                                             style: CommonUi.customTextStyle1(
                                                 Fonts.interSemiBold,
@@ -196,20 +208,23 @@ class ProfileView extends StatelessWidget {
                                   const SizedBox(
                                     height: 6,
                                   ),
-
                                   Obx(
-                                    ()=> profileController.profileData.value.level != null ?
-                                    Text(
-                                      'Current Level: LEVEL ' +
-                                          profileController.profileData.value.level
-                                              .toString(),
-                                      style: CommonUi.customTextStyle1(
-                                          Fonts.interMedium,
-                                          14.0,
-                                          FontWeight.w500,
-                                          AppColors.Black,
-                                          TextDecoration.none),
-                                    ) : const SizedBox(),
+                                    () => profileController
+                                                .profileData.value.level !=
+                                            null
+                                        ? Text(
+                                            'Current Level: LEVEL ' +
+                                                profileController
+                                                    .profileData.value.level
+                                                    .toString(),
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interMedium,
+                                                14.0,
+                                                FontWeight.w500,
+                                                AppColors.Black,
+                                                TextDecoration.none),
+                                          )
+                                        : const SizedBox(),
                                   ),
                                   const SizedBox(
                                     height: 6,
@@ -225,8 +240,10 @@ class ProfileView extends StatelessWidget {
                                             animation: true,
                                             lineHeight: 32.0,
                                             animationDuration: 2500,
-                                            percent: profileController.profileData
-                                                        .value.totalPoints !=
+                                            percent: profileController
+                                                        .profileData
+                                                        .value
+                                                        .totalPoints !=
                                                     null
                                                 ? profileController.profileData
                                                         .value.totalPoints!
@@ -250,8 +267,8 @@ class ProfileView extends StatelessWidget {
                                                   left: 18.0),
                                               child: Obx(
                                                 () => Text(
-                                                  profileController.profileData.value
-                                                          .totalPoints
+                                                  profileController.profileData
+                                                          .value.totalPoints
                                                           .toString() +
                                                       '/100',
                                                   style:
@@ -411,10 +428,14 @@ class ProfileView extends StatelessWidget {
           top: 0,
           bottom: 0,
           child: Obx(() => profileController.loaderProfile.value
-              ? const Center(
-                  child: CircularProgressIndicator(
-                  color: AppColors.AppColorGrad2,
-                ))
+              ? Container(
+                  width: Get.width,
+                  color: AppColors.White,
+                  child: const Center(
+                      child: CircularProgressIndicator(
+                    color: AppColors.AppColorGrad2,
+                  )),
+                )
               : Container()),
         ),
       ],

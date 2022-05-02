@@ -10,13 +10,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import 'home/homeMain/HomeController.dart';
+
 class DashBoardView extends StatelessWidget {
-  DashBoardView({Key? key}) : super(key: key);
+  var index;
+  DashBoardView(this.index, {Key? key}) : super(key: key);
+  var homeController = Get.put(HomeController());
+
   var dashboardController = Get.put(DashBoardController());
+
 
   @override
   Widget build(BuildContext context) {
-
+    dashboardController.selectedValue.value = index;
     return  Scaffold(
         extendBody: true,
         bottomNavigationBar: SizedBox(

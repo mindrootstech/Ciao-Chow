@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 
 class EditProfileView extends StatelessWidget {
   EditProfileView({Key? key}) : super(key: key);
+
   // HomeController homeController = Get.find();
   ProfileController profileController = Get.find();
   DateTime selectedDate = DateTime.now();
@@ -30,31 +31,6 @@ class EditProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String gender;
-    if (profileController.profileData.value.gender == 1) {
-      gender = 'Male';
-    } else if (profileController.profileData.value.gender == 2) {
-      gender = 'Female';
-    } else {
-      gender = 'Other';
-    }
-
-    profileController.addAccountItems(
-        CommonUi.dateFormat(profileController.profileData.value.dob!),
-        true,
-        gender,
-        true);
-    profileController.emailController.value =
-    profileController.profileData.value.email!;
-    profileController.userName.value = profileController.profileData.value.name!;
-    profileController.phoneController.value =
-    profileController.profileData.value.mobileNumber!;
-    profileController.genderValue.value = gender;
-    profileController.dobText.value =
-        CommonUi.dateFormat(profileController.profileData.value.dob!);
-    profileController
-        .isCameraOrGallery.value = '';
-
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Stack(
@@ -154,7 +130,9 @@ class EditProfileView extends StatelessWidget {
                                         () => ClipRRect(
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(100)),
-                                          child:  profileController.profileData.value.profileImage.toString() ==
+                                          child: profileController.profileData
+                                                      .value.profileImage
+                                                      .toString() ==
                                                   ''
                                               ? SvgPicture.asset(
                                                   CommonUi.setSvgImage(
@@ -162,7 +140,8 @@ class EditProfileView extends StatelessWidget {
                                                   // fit: BoxFit.cover,
                                                 )
                                               : profileController
-                                                          .isCameraOrGallery.value ==
+                                                          .isCameraOrGallery
+                                                          .value ==
                                                       '1'
                                                   ? Image.file(
                                                       File(profileController
@@ -172,7 +151,11 @@ class EditProfileView extends StatelessWidget {
                                                   : CachedNetworkImage(
                                                       fit: BoxFit.cover,
                                                       width: 1000.0,
-                                                      imageUrl: profileController.profileData.value.profileImage!,
+                                                      imageUrl:
+                                                          profileController
+                                                              .profileData
+                                                              .value
+                                                              .profileImage!,
                                                       placeholder: (context,
                                                               url) =>
                                                           SizedBox(
@@ -234,7 +217,7 @@ class EditProfileView extends StatelessWidget {
                                 textCapitalization: TextCapitalization.words,
                                 controller: TextEditingController()
                                   ..text =
-                                  profileController.profileData.value.name!,
+                                      profileController.profileData.value.name!,
                                 onChanged: (text) =>
                                     {profileController.userName.value = text},
                                 cursorColor: AppColors.textFieldsHint,
@@ -279,8 +262,8 @@ class EditProfileView extends StatelessWidget {
                                   // return null;
                                 },
                                 controller: TextEditingController()
-                                  ..text =
-                                  profileController.profileData.value.email!,
+                                  ..text = profileController
+                                      .profileData.value.email!,
                                 onChanged: (text) => {
                                       profileController.emailController.value =
                                           text
@@ -424,8 +407,7 @@ class EditProfileView extends StatelessWidget {
                                   },
                                   child: Obx(
                                     () => DOBText(
-                                        textValue:
-                                            profileController.accountDetail[0]),
+                                        textValue: profileController.accountDetail[0]),
                                   ),
                                 ),
                               ),

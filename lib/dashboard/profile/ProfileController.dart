@@ -2,7 +2,9 @@ import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/authentication/signIn/SignInView.dart';
 import 'package:ciao_chow/authentication/signUp/ModelText.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
-import 'package:ciao_chow/dashboard/profile/settings/ProfileMainModel.dart' as gt;
+import 'package:ciao_chow/dashboard/profile/editProfile/ChangePasswordMainModel.dart';
+import 'package:ciao_chow/dashboard/profile/settings/ProfileMainModel.dart'
+    as gt;
 import 'package:ciao_chow/dashboard/profile/settings/SettingsModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,6 +15,7 @@ import 'package:image_picker/image_picker.dart';
 
 class ProfileController extends GetxController {
   var loaderProfile = false.obs;
+  var loaderChangePassword = false.obs;
   var loaderLogout = false.obs;
   var arraySettingList = <SettingsModel>[];
   var imagePath = ''.obs;
@@ -29,9 +32,9 @@ class ProfileController extends GetxController {
   final _apiProvider = ApiProvider();
   final getStorage = GetStorage();
   var showBottomSheet = false.obs;
-  var passwordVisibleLogin = false.obs;
-  var newPasswordVisibleLogin = false.obs;
-  var newConfirmPasswordVisibleLogin = false.obs;
+  var passwordVisibleLogin = true.obs;
+  var newPasswordVisibleLogin = true.obs;
+  var newConfirmPasswordVisibleLogin = true.obs;
   var oldPasswordController = TextEditingController().obs;
   var newPasswordController = TextEditingController().obs;
   var newPasswordConfirmController = TextEditingController().obs;
@@ -77,7 +80,7 @@ class ProfileController extends GetxController {
     imageName = image!.path.split('/').last;
     imagePath.value = image.path;
     imagePathNew = image.path;
-    isCameraOrGallery.value ='1';
+    isCameraOrGallery.value = '1';
   }
 
   void updateProfile() {
@@ -103,6 +106,7 @@ class ProfileController extends GetxController {
         .then((value) {
       if (value != 'error') {
         getProfileData();
+        Get.back();
       } else {
         CommonUi.showToast('Error');
         return;
@@ -110,7 +114,6 @@ class ProfileController extends GetxController {
     });
     updateProfileLoaderShow.value = false;
   }
-
 
   void getLogout() {
     _apiProvider.getLogoutApi().then((value) {
@@ -150,15 +153,14 @@ class ProfileController extends GetxController {
       }
       loaderLogout.value = false;
     });
-
-
   }
-
 
   @override
   void onInit() {
     super.onInit();
+    loaderProfile.value = true;
     getProfileData();
+
   }
 
   void getProfileData() {
@@ -166,13 +168,64 @@ class ProfileController extends GetxController {
       if (value != 'error') {
         var response = gt.profileMainModelFromJson(value);
         profileData.value = response.data!;
+        String gender;
 
+        if(profileData.value.gender.toString() != '') {
+          if (profileData.value.gender == 1) {
+            gender = 'Male';
+          } else if (profileData.value.gender == 2) {
+            gender = 'Female';
+          } else {
+            gender = 'Other';
+          }
+
+          profileData.value.dob != null
+              ? addAccountItems(
+              CommonUi.dateFormat(profileData.value.dob ??DateTime.now()),
+              true,
+              gender,
+              false)
+              : '';
+          genderValue.value = gender;
+
+        }
+        profileData.value.email.toString() != '' ? emailController.value = profileData.value.email??"" : '';
+        profileData.value.name.toString() != '' ? userName.value =
+            profileData.value.name?? "" : '';
+        profileData.value.mobileNumber.toString() != '' ?phoneController.value =
+            profileData.value.mobileNumber?? "" : '';
+        profileData.value.dob.toString() != '' ? dobText.value = CommonUi.dateFormat(profileData.value.dob??DateTime.now()) : '';
+        isCameraOrGallery.value = '';
+        showBottomSheet.value = false;
       } else {
         CommonUi.showToast('Something went wrong!');
         return;
       }
+      loaderProfile.value = false;
       loaderLogout.value = false;
     });
   }
 
+  void getPasswordChanged() {
+    _apiProvider
+        .getPasswordChanged(
+            oldPasswordController.value.text,
+            newPasswordController.value.text,
+            newPasswordConfirmController.value.text)
+        .then((value) {
+      if (value != 'error') {
+        var response = changePasswordMainModelFromJson(value);
+        if (response.status == false) {
+          CommonUi.showToast(response.message!);
+        } else {
+          Get.back();
+          CommonUi.showToast(response.message!);
+        }
+      } else {
+        CommonUi.showToast('Something went wrong!');
+        return;
+      }
+      loaderChangePassword.value = false;
+    });
+  }
 }
