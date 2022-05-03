@@ -17,7 +17,6 @@ import 'settings/SettingsMainView.dart';
 class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
   var profileController = Get.put(ProfileController());
-  HomeController homeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -373,47 +372,62 @@ class ProfileView extends StatelessWidget {
                       const SizedBox(
                         height: 24,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Latest Check-ins',
-                            style: CommonUi.customTextStyle1(
-                                Fonts.interSemiBold,
-                                18.0,
-                                FontWeight.w600,
-                                AppColors.Black,
-                                TextDecoration.none),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(LatestCheckInViewAllView());
-                            },
-                            child: Text(
-                              'View All',
-                              style: CommonUi.customTextStyle1(
-                                  Fonts.interRegular,
-                                  12.0,
-                                  FontWeight.w400,
-                                  AppColors.Black,
-                                  TextDecoration.none),
-                            ),
-                          ),
-                        ],
+                      Obx(
+                        () => profileController.arrayLatestCheckIns.isNotEmpty
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Latest Check-ins',
+                                    style: CommonUi.customTextStyle1(
+                                        Fonts.interSemiBold,
+                                        18.0,
+                                        FontWeight.w600,
+                                        AppColors.Black,
+                                        TextDecoration.none),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(LatestCheckInViewAllView());
+                                    },
+                                    child: Text(
+                                      'View All',
+                                      style: CommonUi.customTextStyle1(
+                                          Fonts.interRegular,
+                                          12.0,
+                                          FontWeight.w400,
+                                          AppColors.Black,
+                                          TextDecoration.none),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : const SizedBox(),
                       ),
-                      Container(
-                        color: AppColors.White,
-                        margin: const EdgeInsets.only(top: 16, bottom: 100),
-                        child: ListView.builder(
-                          padding: const EdgeInsets.all(0),
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: homeController.arrayLatestCheckIns.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return LatestCheckInListItem(index, homeController);
-                          },
-                        ),
+                      Obx(
+                        () => profileController.arrayLatestCheckIns.isNotEmpty
+                            ? Container(
+                                color: AppColors.White,
+                                margin:
+                                    const EdgeInsets.only(top: 16, bottom: 100),
+                                child: ListView.builder(
+                                  padding: const EdgeInsets.all(0),
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: profileController
+                                      .arrayLatestCheckIns.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return LatestCheckInListItem(
+                                        index,
+                                        profileController
+                                            .arrayLatestCheckIns[index]);
+                                  },
+                                ),
+                              )
+                            : const SizedBox(),
                       )
                     ],
                   ),

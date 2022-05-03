@@ -1,13 +1,9 @@
 import 'package:ciao_chow/api_providers/ApiProvider.dart';
-import 'package:ciao_chow/authentication/signIn/SignInView.dart';
 import 'package:ciao_chow/authentication/signUp/ModelText.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/profile/editProfile/ChangePasswordMainModel.dart';
-import 'package:ciao_chow/dashboard/profile/settings/ProfileMainModel.dart'
-    as gt;
-import 'package:ciao_chow/dashboard/profile/settings/SettingsModel.dart';
+import 'package:ciao_chow/dashboard/profile/ProfileMainModel.dart' as gt;
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,8 +12,6 @@ import 'package:image_picker/image_picker.dart';
 class ProfileController extends GetxController {
   var loaderProfile = false.obs;
   var loaderChangePassword = false.obs;
-  var loaderLogout = false.obs;
-  var arraySettingList = <SettingsModel>[];
   var imagePath = ''.obs;
   var userName = ''.obs;
   var emailController = ''.obs;
@@ -38,7 +32,7 @@ class ProfileController extends GetxController {
   var oldPasswordController = TextEditingController().obs;
   var newPasswordController = TextEditingController().obs;
   var newPasswordConfirmController = TextEditingController().obs;
-
+  var arrayLatestCheckIns = <gt.UserCheckin>[].obs;
   var profileData = gt.Data().obs;
 
   void addAccountItems(String firstName, bool firstSelected, String secondName,
@@ -115,45 +109,6 @@ class ProfileController extends GetxController {
     updateProfileLoaderShow.value = false;
   }
 
-  void getLogout() {
-    _apiProvider.getLogoutApi().then((value) {
-      if (value != 'error') {
-        getStorage.remove('lat');
-        getStorage.remove('long');
-        getStorage.remove('firebaseToken');
-        getStorage.remove('stripeCustomerId');
-        getStorage.remove('isRegisterOrLoggedIn');
-        getStorage.remove('token');
-        FirebaseMessaging.instance.unsubscribeFromTopic("ciaochow");
-        Get.offAll(SignInView());
-        Get.delete<ProfileController>();
-      } else {
-        CommonUi.showToast('Something went wrong!');
-        return;
-      }
-      loaderLogout.value = false;
-    });
-  }
-
-  void getAccountDelete() {
-    _apiProvider.getAccountDelete().then((value) {
-      if (value != 'error') {
-        getStorage.remove('lat');
-        getStorage.remove('long');
-        getStorage.remove('firebaseToken');
-        getStorage.remove('stripeCustomerId');
-        getStorage.remove('isRegisterOrLoggedIn');
-        getStorage.remove('token');
-        FirebaseMessaging.instance.unsubscribeFromTopic("ciaochow");
-        Get.offAll(SignInView());
-        Get.delete<ProfileController>();
-      } else {
-        CommonUi.showToast('Something went wrong!');
-        return;
-      }
-      loaderLogout.value = false;
-    });
-  }
 
   @override
   void onInit() {
@@ -168,6 +123,7 @@ class ProfileController extends GetxController {
       if (value != 'error') {
         var response = gt.profileMainModelFromJson(value);
         profileData.value = response.data!;
+        arrayLatestCheckIns.value = response.userCheckins!;
         String gender;
 
         if(profileData.value.gender.toString() != '') {
@@ -202,7 +158,6 @@ class ProfileController extends GetxController {
         return;
       }
       loaderProfile.value = false;
-      loaderLogout.value = false;
     });
   }
 

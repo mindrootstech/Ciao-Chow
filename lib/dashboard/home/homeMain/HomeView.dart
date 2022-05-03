@@ -17,13 +17,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart' as gt;
 import 'package:percent_indicator/percent_indicator.dart';
-
 import '../../../constants/MyCarouselSlider.dart';
 
 class HomeView extends StatelessWidget {
-  // var homeController = Get.put(HomeController());
-  final HomeController homeController = Get.isRegistered<HomeController>()?
-  Get.find<HomeController>() : Get.put(HomeController());
+  var homeController = Get.put(HomeController());
+  // final HomeController homeController = Get.isRegistered<HomeController>()?
+  // Get.find<HomeController>() : Get.put(HomeController());
   final gt.Location location = gt.Location();
 
   // gt.LocationData? locationData;
@@ -402,7 +401,7 @@ class HomeView extends StatelessWidget {
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return LatestCheckInListItem(
-                                          index, homeController);
+                                          index, homeController.arrayLatestCheckIns![index]);
                                     },
                                   ),
                                 )

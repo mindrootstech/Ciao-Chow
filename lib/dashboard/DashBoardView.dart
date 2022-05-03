@@ -15,8 +15,6 @@ import 'home/homeMain/HomeController.dart';
 class DashBoardView extends StatelessWidget {
   var index;
   DashBoardView(this.index, {Key? key}) : super(key: key);
-  var homeController = Get.put(HomeController());
-
   var dashboardController = Get.put(DashBoardController());
 
 

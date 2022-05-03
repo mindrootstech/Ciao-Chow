@@ -3,14 +3,15 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LatestCheckInListItem extends StatelessWidget {
   var index;
-  HomeController homeController;
+  var userCheckin;
 
-  LatestCheckInListItem(this.index, this.homeController, {Key? key})
+  LatestCheckInListItem(this.index, this.userCheckin, {Key? key})
       : super(key: key);
 
   @override
@@ -30,7 +31,7 @@ class LatestCheckInListItem extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: homeController.arrayLatestCheckIns[index].business!.featuredImageUrl!,
+                    imageUrl: userCheckin.business!.featuredImageUrl!,
                     placeholder: (context, url) =>  Container(
                         width: Get.width,
                         child: const Center(
@@ -46,14 +47,14 @@ class LatestCheckInListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  homeController.arrayLatestCheckIns[index].business!.businessName! , style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
+                  userCheckin.business!.businessName! , style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
                   FontWeight.w500, AppColors.Black, TextDecoration.none),overflow: TextOverflow.ellipsis,maxLines: 1,
                 ),
 
                 const SizedBox(height: 4,),
 
                 Text(
-                  homeController.arrayLatestCheckIns[index].business!.address!,
+                  userCheckin.business!.address!,
                   style: CommonUi.customTextStyle1(
                       Fonts.interRegular,
                       12.0,
@@ -63,7 +64,7 @@ class LatestCheckInListItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 4,),
                 Text(
-                  CommonUi.dateFormat(homeController.arrayLatestCheckIns[index].createdAt!),
+                  CommonUi.dateFormat(userCheckin.createdAt!),
                   style: CommonUi.customTextStyle1(
                       Fonts.interRegular,
                       12.0,
@@ -73,7 +74,7 @@ class LatestCheckInListItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 4,),
                 Text(
-                  CommonUi.timeFormat(homeController.arrayLatestCheckIns[index].createdAt!),
+                  CommonUi.timeFormat(userCheckin.createdAt!),
                   style: CommonUi.customTextStyle1(
                       Fonts.interRegular,
                       12.0,

@@ -2,6 +2,7 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/dashboard/profile/ProfileController.dart';
+import 'package:ciao_chow/dashboard/profile/settings/SettingController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,7 @@ class SettingsListItem extends StatelessWidget {
   var index;
 
   SettingsListItem(this.index, {Key? key}) : super(key: key);
-  ProfileController profileController = Get.find();
+  SettingController profileController = Get.find();
 
   @override
   Widget build(BuildContext context) {

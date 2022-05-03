@@ -30,7 +30,6 @@ class EventsController extends GetxController {
       bannerList.clear();
       arrayEventTicket.clear();
       arrayUpcomingEvents.clear();
-
       arrayEventTicket.addAll(response.data!.myEventsTickets!);
       arrayUpcomingEvents.addAll(response.data!.upcomingEvents!);
       bannerList.addAll(response.data!.banners!);

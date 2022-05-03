@@ -2,50 +2,50 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
-import 'package:ciao_chow/dashboard/profile/ProfileController.dart';
+import 'package:ciao_chow/dashboard/profile/settings/SettingController.dart';
 import 'package:ciao_chow/dashboard/profile/settings/SettingsListItem.dart';
 import 'package:ciao_chow/dashboard/profile/settings/SettingsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SettingsMainView extends StatelessWidget {
-  ProfileController profileController = Get.find();
+  var settingsController = Get.put(SettingController());
   SettingsMainView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    profileController.loaderLogout.value = false;
-    profileController.arraySettingList = <SettingsModel>[].obs;
+    settingsController.loaderLogout.value = false;
+    settingsController.arraySettingList = <SettingsModel>[].obs;
 
     var modelSettings = SettingsModel();
     modelSettings.iconSetting = 'contact_support';
     modelSettings.titleSetting = 'Contact Support';
-    profileController.arraySettingList.add(modelSettings);
+    settingsController.arraySettingList.add(modelSettings);
 
     modelSettings = SettingsModel();
     modelSettings.iconSetting = 'share_app';
     modelSettings.titleSetting = 'Share the app';
-    profileController.arraySettingList.add(modelSettings);
+    settingsController.arraySettingList.add(modelSettings);
 
     modelSettings = SettingsModel();
     modelSettings.iconSetting = 'rate_app';
     modelSettings.titleSetting = 'Rate the app';
-    profileController.arraySettingList.add(modelSettings);
+    settingsController.arraySettingList.add(modelSettings);
 
     modelSettings = SettingsModel();
     modelSettings.iconSetting = 'privacy_policy';
     modelSettings.titleSetting = 'Privacy policy';
-    profileController.arraySettingList.add(modelSettings);
+    settingsController.arraySettingList.add(modelSettings);
 
     modelSettings = SettingsModel();
     modelSettings.iconSetting = 'terms_of_use';
     modelSettings.titleSetting = 'Terms of use';
-    profileController.arraySettingList.add(modelSettings);
+    settingsController.arraySettingList.add(modelSettings);
 
     modelSettings = SettingsModel();
     modelSettings.iconSetting = 'delete';
     modelSettings.titleSetting = 'Delete account';
-    profileController.arraySettingList.add(modelSettings);
+    settingsController.arraySettingList.add(modelSettings);
 
 
     return Stack(
@@ -106,7 +106,7 @@ class SettingsMainView extends StatelessWidget {
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: profileController.arraySettingList.length,
+                          itemCount: settingsController.arraySettingList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return SettingsListItem(index);
                           },
@@ -118,8 +118,8 @@ class SettingsMainView extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: (){
-                  profileController.loaderLogout.value = true;
-                  profileController.getLogout();
+                  settingsController.loaderLogout.value = true;
+                  settingsController.getLogout();
                 },
                 child: Container(
                   child: Center(
@@ -142,7 +142,7 @@ class SettingsMainView extends StatelessWidget {
           right: 0,
           top: 0,
           bottom: 0,
-          child: Obx(() => profileController.loaderLogout.value
+          child: Obx(() => settingsController.loaderLogout.value
               ? const Center(
               child: CircularProgressIndicator(
                 color: AppColors.AppColorGrad2,
