@@ -106,7 +106,6 @@ class ProfileController extends GetxController {
         return;
       }
     });
-    updateProfileLoaderShow.value = false;
   }
 
 
@@ -175,6 +174,7 @@ class ProfileController extends GetxController {
         } else {
           Get.back();
           CommonUi.showToast(response.message!);
+          showBottomSheet.value = false;
         }
       } else {
         CommonUi.showToast('Something went wrong!');

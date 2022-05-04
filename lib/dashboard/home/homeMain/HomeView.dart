@@ -5,12 +5,15 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
+import 'package:ciao_chow/dashboard/DashBoardController.dart';
+import 'package:ciao_chow/dashboard/DashBoardView.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/LatestCheckInListItem.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/PartnersHomeListItem.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/scan/ScanCheckInView.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/latest/LatestCheckInViewAllView.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/businessNearAll/PartnersViewAllView.dart';
+import 'package:ciao_chow/dashboard/profile/ProfileView.dart';
 import 'package:ciao_chow/notifications/NotificationsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,6 +24,7 @@ import '../../../constants/MyCarouselSlider.dart';
 
 class HomeView extends StatelessWidget {
   var homeController = Get.put(HomeController());
+
   // final HomeController homeController = Get.isRegistered<HomeController>()?
   // Get.find<HomeController>() : Get.put(HomeController());
   final gt.Location location = gt.Location();
@@ -31,7 +35,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     homeController.registerNotification();
 
     return Stack(
@@ -41,7 +44,7 @@ class HomeView extends StatelessWidget {
           extendBody: true,
           body: SingleChildScrollView(
             child: Container(
-              margin: EdgeInsets.only(bottom: Platform.isIOS?105:80),
+              margin: EdgeInsets.only(bottom: Platform.isIOS ? 105 : 80),
               child: Column(
                 children: [
                   Container(
@@ -52,15 +55,21 @@ class HomeView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Obx(
-                          () =>homeController.profileData.value.name.toString()!="null"? Text(
-                              'Hi '  +  homeController.profileData.value.name.toString(),
-                              style: CommonUi.customTextStyle1(
-                                  Fonts.interSemiBold,
-                                  24.0,
-                                  FontWeight.w600,
-                                  AppColors.White,
-                                  TextDecoration.none),
-                            ):const SizedBox(),
+                          () => homeController.profileData.value.name
+                                      .toString() !=
+                                  "null"
+                              ? Text(
+                                  'Hi ' +
+                                      homeController.profileData.value.name
+                                          .toString(),
+                                  style: CommonUi.customTextStyle1(
+                                      Fonts.interSemiBold,
+                                      24.0,
+                                      FontWeight.w600,
+                                      AppColors.White,
+                                      TextDecoration.none),
+                                )
+                              : const SizedBox(),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -89,7 +98,8 @@ class HomeView extends StatelessWidget {
                           child: Container(
                             height: 200 / 2,
                             width: Get.width,
-                            decoration: CommonUi.commonBoxDecoration(24.0, AppColors.White),
+                            decoration: CommonUi.commonBoxDecoration(
+                                24.0, AppColors.White),
                           ),
                         ),
                         SizedBox(
@@ -99,7 +109,7 @@ class HomeView extends StatelessWidget {
                               () => MyCarouselSlider(
                                 options: CarouselOptions(
                                   // viewportFraction: 0.9,
-                                  viewportFraction:0.9,
+                                  viewportFraction: 0.9,
                                   initialPage: 0,
                                   enableInfiniteScroll: false,
                                   reverse: false,
@@ -133,8 +143,9 @@ class HomeView extends StatelessWidget {
                                                 34.0, AppColors.AppColorGrad2),
                                         child: Row(
                                           children: [
-                                            SvgPicture.asset(CommonUi.setSvgImage(
-                                                'current_location')),
+                                            SvgPicture.asset(
+                                                CommonUi.setSvgImage(
+                                                    'current_location')),
                                             const SizedBox(
                                               width: 15,
                                             ),
@@ -173,7 +184,8 @@ class HomeView extends StatelessWidget {
                                 Get.to(PartnersViewAllView());
                               },
                               child: Container(
-                                margin: const EdgeInsets.only(right: 20, top: 0),
+                                margin:
+                                    const EdgeInsets.only(right: 20, top: 0),
                                 child: Text(
                                   Utils.getString(context, 'view_all'),
                                   style: CommonUi.customTextStyle1(
@@ -205,185 +217,216 @@ class HomeView extends StatelessWidget {
                           padding: const EdgeInsets.all(15),
                           decoration: CommonUi.commonBoxDecorationAllSides(
                               10.0, AppColors.buttonColor1),
-                          margin:
-                              const EdgeInsets.only(left: 20, right: 20, top: 25),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    Utils.getString(context, 'profile_overview'),
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interSemiBold,
-                                        18.0,
-                                        FontWeight.w600,
-                                        AppColors.White,
-                                        TextDecoration.none),
-                                  ),
-                                  Text(
-                                    Utils.getString(
-                                        context, 'view_complete_profile'),
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interRegular,
-                                        12.0,
-                                        FontWeight.w400,
-                                        AppColors.White,
-                                        TextDecoration.none),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    Utils.getString(context, 'current_badges'),
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interSemiBold,
-                                        14.0,
-                                        FontWeight.w600,
-                                        AppColors.White,
-                                        TextDecoration.none),
-                                  ),
-                                  Obx(
-                                    () => Text(
-                                      'Current Level: LEVEL ' +
-                                          homeController.profileData.value.level
-                                              .toString(),
-                                      // Utils.getString(context, 'partners_around_you'),
+                          margin: const EdgeInsets.only(
+                              left: 20, right: 20, top: 25),
+                          child: GestureDetector(
+                            onTap: () {
+                              DashBoardController dashboardController = Get.find();
+                              try {
+                                dashboardController.selectedValue.value = 3;
+                              }catch(Exception){
+                                var a = 0;
+                              }
+                              Get.to(DashBoardView(dashboardController.selectedValue.value));
+                            },
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      Utils.getString(
+                                          context, 'profile_overview'),
                                       style: CommonUi.customTextStyle1(
-                                          Fonts.interMedium,
-                                          12.0,
-                                          FontWeight.w500,
+                                          Fonts.interSemiBold,
+                                          18.0,
+                                          FontWeight.w600,
                                           AppColors.White,
                                           TextDecoration.none),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SvgPicture.asset(
-                                      CommonUi.setSvgImage('bronze_medal')),
-                                  Stack(
-                                    children: [
-                                      Obx(
-                                        () => LinearPercentIndicator(
-                                          padding: const EdgeInsets.all(0),
-                                          width: 200,
-                                          animation: true,
-                                          lineHeight: 32.0,
-                                          animationDuration: 2500,
-                                          percent: homeController.profileData
-                                                      .value.totalPoints !=
-                                                  null
-                                              ? homeController
-                                                  .profileData.value.totalPoints!
-                                                  .toDouble() / 10
-                                              : 0.0,
-                                          barRadius: const Radius.circular(30),
-                                          progressColor: AppColors.home_progress,
-                                          backgroundColor: AppColors.White,
-                                        ),
+                                    Text(
+                                      Utils.getString(
+                                          context, 'view_complete_profile'),
+                                      style: CommonUi.customTextStyle1(
+                                          Fonts.interRegular,
+                                          12.0,
+                                          FontWeight.w400,
+                                          AppColors.White,
+                                          TextDecoration.none),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      Utils.getString(
+                                          context, 'current_badges'),
+                                      style: CommonUi.customTextStyle1(
+                                          Fonts.interSemiBold,
+                                          14.0,
+                                          FontWeight.w600,
+                                          AppColors.White,
+                                          TextDecoration.none),
+                                    ),
+                                    Obx(
+                                      () => Text(
+                                        'Current Level: LEVEL ' +
+                                            homeController
+                                                .profileData.value.level
+                                                .toString(),
+                                        // Utils.getString(context, 'partners_around_you'),
+                                        style: CommonUi.customTextStyle1(
+                                            Fonts.interMedium,
+                                            12.0,
+                                            FontWeight.w500,
+                                            AppColors.White,
+                                            TextDecoration.none),
                                       ),
-                                      Positioned(
-                                        left: 0,
-                                        top: 0,
-                                        bottom: 0,
-                                        child: Obx(
-                                          () => Center(
-                                            child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 18.0),
-                                                child: Text(
-                                                  homeController.profileData.value
-                                                          .totalPoints
-                                                          .toString() +
-                                                      '/100',
-                                                  style:
-                                                      CommonUi.customTextStyle1(
-                                                          Fonts.interMedium,
-                                                          12.0,
-                                                          FontWeight.w500,
-                                                          AppColors.Black,
-                                                          TextDecoration.none),
-                                                )),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SvgPicture.asset(
+                                        CommonUi.setSvgImage('bronze_medal')),
+                                    Stack(
+                                      children: [
+                                        Obx(
+                                          () => LinearPercentIndicator(
+                                            padding: const EdgeInsets.all(0),
+                                            width: 200,
+                                            animation: true,
+                                            lineHeight: 32.0,
+                                            animationDuration: 2500,
+                                            percent: homeController.profileData
+                                                        .value.totalPoints !=
+                                                    null
+                                                ? homeController.profileData
+                                                        .value.totalPoints!
+                                                        .toDouble() /
+                                                    10
+                                                : 0.0,
+                                            barRadius:
+                                                const Radius.circular(30),
+                                            progressColor:
+                                                AppColors.home_progress,
+                                            backgroundColor: AppColors.White,
                                           ),
                                         ),
-                                      ),
-                                      Positioned(
-                                        right: 0,
-                                        top: 0,
-                                        bottom: 0,
-                                        child: Center(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 18.0),
-                                            child: Obx(
-                                              ()=> Text(homeController.resLevel.value.levelName,
-                                                  // Utils.getString(context, 'partners_around_you'),
-                                                  style: CommonUi.customTextStyle1(
-                                                      Fonts.interMedium,
-                                                      12.0,
-                                                      FontWeight.w500,
-                                                      AppColors.Black,
-                                                      TextDecoration.none)),
+                                        Positioned(
+                                          left: 0,
+                                          top: 0,
+                                          bottom: 0,
+                                          child: Obx(
+                                            () => Center(
+                                              child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 18.0),
+                                                  child: Text(
+                                                    homeController.profileData
+                                                            .value.totalPoints
+                                                            .toString() +
+                                                        '/100',
+                                                    style: CommonUi
+                                                        .customTextStyle1(
+                                                            Fonts.interMedium,
+                                                            12.0,
+                                                            FontWeight.w500,
+                                                            AppColors.Black,
+                                                            TextDecoration
+                                                                .none),
+                                                  )),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
+                                        Positioned(
+                                          right: 0,
+                                          top: 0,
+                                          bottom: 0,
+                                          child: Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 18.0),
+                                              child: Obx(
+                                                () => Text(
+                                                    homeController.resLevel
+                                                        .value.levelName,
+                                                    // Utils.getString(context, 'partners_around_you'),
+                                                    style: CommonUi
+                                                        .customTextStyle1(
+                                                            Fonts.interMedium,
+                                                            12.0,
+                                                            FontWeight.w500,
+                                                            AppColors.Black,
+                                                            TextDecoration
+                                                                .none)),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         const SizedBox(
                           height: 25,
                         ),
                         Obx(
-                          () => homeController.arrayLatestCheckIns.isNotEmpty ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(left: 20),
-                                child: Text(
-                                  Utils.getString(context, 'latest_check_ins'),
-                                  style: CommonUi.customTextStyle1(
-                                      Fonts.interSemiBold,
-                                      18.0,
-                                      FontWeight.w600,
-                                      AppColors.redLatest,
-                                      TextDecoration.none),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(LatestCheckInViewAllView());
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(right: 20),
-                                  child: Text(
-                                    Utils.getString(context, 'view_all'),
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interRegular,
-                                        12.0,
-                                        FontWeight.w400,
-                                        AppColors.textFieldsHint,
-                                        TextDecoration.none),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ) : Container(),
+                          () => homeController.arrayLatestCheckIns.isNotEmpty
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 20),
+                                      child: Text(
+                                        Utils.getString(
+                                            context, 'latest_check_ins'),
+                                        style: CommonUi.customTextStyle1(
+                                            Fonts.interSemiBold,
+                                            18.0,
+                                            FontWeight.w600,
+                                            AppColors.redLatest,
+                                            TextDecoration.none),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.to(LatestCheckInViewAllView());
+                                      },
+                                      child: Container(
+                                        margin:
+                                            const EdgeInsets.only(right: 20),
+                                        child: Text(
+                                          Utils.getString(context, 'view_all'),
+                                          style: CommonUi.customTextStyle1(
+                                              Fonts.interRegular,
+                                              12.0,
+                                              FontWeight.w400,
+                                              AppColors.textFieldsHint,
+                                              TextDecoration.none),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Container(),
                         ),
                         Obx(
                           () => homeController.arrayLatestCheckIns.isNotEmpty
@@ -395,13 +438,16 @@ class HomeView extends StatelessWidget {
                                     padding: const EdgeInsets.all(0),
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemCount:
-                                        homeController.arrayLatestCheckIns.length,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: homeController
+                                        .arrayLatestCheckIns.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return LatestCheckInListItem(
-                                          index, homeController.arrayLatestCheckIns![index]);
+                                          index,
+                                          homeController
+                                              .arrayLatestCheckIns[index]);
                                     },
                                   ),
                                 )
@@ -421,8 +467,9 @@ class HomeView extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 child: SvgPicture.asset(CommonUi.setSvgImage('scan_home')),
                 onPressed: () {
-                  homeController.getStorage.read('lat') == '' ? _showMyDialog(context) :
-                  Get.to(ScanCheckInView());
+                  homeController.getStorage.read('lat') == ''
+                      ? _showMyDialog(context)
+                      : Get.to(ScanCheckInView());
                 }),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -455,11 +502,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-
-
-
-  Future<void> goToSettings() async {
-  }
+  Future<void> goToSettings() async {}
 
   _showMyDialog(BuildContext context) {
     return showDialog<void>(
@@ -471,13 +514,25 @@ class HomeView extends StatelessWidget {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('You haven\'t allow your location permissions yet. Please allow your location permission to Check-In.',style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0, FontWeight.w400, AppColors.Black, TextDecoration.none),),
+                Text(
+                  'You haven\'t allow your location permissions yet. Please allow your location permission to Check-In.',
+                  style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
+                      FontWeight.w400, AppColors.Black, TextDecoration.none),
+                ),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Ok',style: CommonUi.customTextStyle1(Fonts.interSemiBold, 14.0, FontWeight.w500, AppColors.AppColorGrad2, TextDecoration.none),),
+              child: Text(
+                'Ok',
+                style: CommonUi.customTextStyle1(
+                    Fonts.interSemiBold,
+                    14.0,
+                    FontWeight.w500,
+                    AppColors.AppColorGrad2,
+                    TextDecoration.none),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },

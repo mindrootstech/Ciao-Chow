@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import 'home/homeMain/HomeController.dart';
-
 class DashBoardView extends StatelessWidget {
   var index;
   DashBoardView(this.index, {Key? key}) : super(key: key);

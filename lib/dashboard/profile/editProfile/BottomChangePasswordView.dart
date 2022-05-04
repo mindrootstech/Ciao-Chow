@@ -18,6 +18,7 @@ class BottomChangePasswordView extends StatelessWidget {
     profileController.newPasswordConfirmController.value.text ='';
     profileController.newPasswordController.value.text ='';
     profileController.oldPasswordController.value.text ='';
+    profileController.loaderChangePassword.value = false;
 
     return Form(
       key: _formKey,

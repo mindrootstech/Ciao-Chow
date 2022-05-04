@@ -5,6 +5,7 @@ import 'package:ciao_chow/dashboard/events/eventDetails/AllCardsMainModel.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/BookingDoneView.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsMainModel.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/ModelMainSingleCard.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/PurchaseMainModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -122,12 +123,18 @@ class EventDetailsController extends GetxController {
     _apiProvider.getEventPurchase(currentSliderValue.value.round().toString(), eventIdd,
             modelCard.value.id!).then((value) {
       if (value == 'error') {
-        CommonUi.showToast('Tickets not available.');
+        CommonUi.showToast('Something went wrong!');
         return;
       }else{
-        Get.to(BookingDoneView());
-        showPaymentDone.value = false;
+        var response = purchaseMainModelFromJson(value);
+        if(response.status == false){
+          CommonUi.showToast('Something went wrong!');
+          return;
+        }else{
+          Get.to(BookingDoneView());
+        }
       }
+      showPaymentDone.value = false;
     });
   }
 

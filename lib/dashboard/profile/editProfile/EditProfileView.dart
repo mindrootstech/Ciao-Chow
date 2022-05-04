@@ -31,11 +31,14 @@ class EditProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Stack(
         children: [
           Scaffold(
+            resizeToAvoidBottomInset:false ,
             appBar: AppBar(
               leading: Builder(
                 builder: (BuildContext context) {
@@ -503,7 +506,9 @@ class EditProfileView extends StatelessWidget {
                         // );
                         // Get.off(DashBoardView());
 
+                        profileController.updateProfileLoaderShow.value = true;
                         profileController.updateProfile();
+
                       }
                     },
                     child: Container(
@@ -546,7 +551,24 @@ class EditProfileView extends StatelessWidget {
           ),
           Obx(() => profileController.showBottomSheet.value
               ? BottomSheetChangePassword()
-              : Container())
+              : Container()),
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            child: Obx(() => profileController.updateProfileLoaderShow.value
+                ? SizedBox(
+              width: Get.width,
+                  height: Get.height,
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.AppColorGrad2,
+                    ),
+                  ),
+                )
+                : Container()),
+          ),
         ],
       ),
     );
