@@ -3,6 +3,7 @@ import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/ModelCards.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventsMainModel.dart' as gt;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EventsController extends GetxController {

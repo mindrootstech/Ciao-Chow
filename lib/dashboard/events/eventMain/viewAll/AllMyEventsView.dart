@@ -38,6 +38,7 @@ class AllMyEventsView extends StatelessWidget {
             ),
           ),
           body: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
             child: Column(
               children: [
                 SizedBox(
@@ -60,6 +61,35 @@ class AllMyEventsView extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 20,right: 20,bottom: 20),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                        Radius.circular(20)),
+                    child: Container(
+                      color: AppColors.home_progress,
+                      height: 40,
+                      child: DefaultTabController(
+                        length: 2,
+                        child: TabBar(
+                          indicator: BoxDecoration(
+                              color: AppColors.redEdit,
+                              borderRadius: BorderRadius.circular(25.0)),
+                          labelColor: Colors.white,
+                          unselectedLabelColor: Colors.black,
+                          tabs: const [
+                            Tab(
+                              text: 'Upcoming events',
+                            ),
+                            Tab(
+                              text: 'Redeemed events',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Obx(
