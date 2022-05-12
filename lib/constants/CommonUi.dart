@@ -137,7 +137,9 @@ class CommonUi {
       color: AppColors.White,
       border: Border.all(color: Colors.transparent),
       borderRadius: const BorderRadius.all(Radius.circular(10)));
-static var shadowWhiteContainerRounded = BoxDecoration(
+
+
+  static var shadowWhiteContainerRounded = BoxDecoration(
       boxShadow: [
         CommonUi.shadowDecoration,
       ],
@@ -268,7 +270,8 @@ static var shadowWhiteContainerRounded = BoxDecoration(
                 onTap: () {
                   item.clickType == 1
                       ? Get.to(BusinessDetailsView(item.clickValue!.toString()))
-                      :   Get.to(EventDetailsView('notPurchased',item.clickValue!.toString()));
+                      : Get.to(EventDetailsView(
+                          'notPurchased', item.clickValue!.toString()));
                 },
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,

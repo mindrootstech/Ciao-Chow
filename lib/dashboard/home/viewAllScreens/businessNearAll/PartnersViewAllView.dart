@@ -41,6 +41,7 @@ class PartnersViewAllView extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
         child: Stack(
           children: [
             Container(

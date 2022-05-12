@@ -7,6 +7,7 @@ class AllMyEventsController extends GetxController{
   final _apiProvider = ApiProvider();
   var allMyEventsList = <MyEventTicket>[].obs;
   var loaderEvents = false.obs;
+  var type = '1'.obs;
 
   @override
   void onInit() {
@@ -17,7 +18,7 @@ class AllMyEventsController extends GetxController{
   }
 
   void getAllEventsData() {
-    _apiProvider.getAllEventsData().then((value) {
+    _apiProvider.getAllEventsData(type.toString()).then((value) {
       var response = modelMainAllEventsFromJson(value);
       allMyEventsList.clear();
       allMyEventsList.addAll(response.data!.myEventTickets!);
