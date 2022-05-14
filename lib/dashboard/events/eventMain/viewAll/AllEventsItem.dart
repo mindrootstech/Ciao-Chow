@@ -18,7 +18,7 @@ class AllEventsItem extends StatelessWidget {
     var model = allEventsController.allMyEventsList[index];
     return GestureDetector(
       onTap: (){
-        Get.to(EventDetailsView('purchased',model.eventId.toString()));
+        Get.to(EventDetailsView('purchased',model.eventId.toString(),allEventsController.type.toString()));
       },
       child: Container(
         width: 160,

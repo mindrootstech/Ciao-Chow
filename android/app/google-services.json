@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:824741832969:android:60c09d81b102799d210bd8",
+        "mobilesdk_app_id": "1:824741832969:android:ab357807e7c62a47210bd8",
         "android_client_info": {
-          "package_name": "com.example.ciao_chow"
+          "package_name": "com.app.ciaochow"
         }
       },
       "oauth_client": [
         {
-          "client_id": "824741832969-ivnu1jrnb96m24qdabomvua31di5taap.apps.googleusercontent.com",
+          "client_id": "824741832969-pqakkj2iqn18pf267rt6f4dhd8nmrj0t.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.ciao_chow",
+            "package_name": "com.app.ciaochow",
             "certificate_hash": "1cc9b5d0dddf0b05280471375f19d0ab9ffec8bc"
           }
         },
@@ -37,6 +37,13 @@
             {
               "client_id": "824741832969-psi975cj6aa0di7k42lni3u29dpsq5cm.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "824741832969-avq53fhet46ivg5555v7qujnenj46jh1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ios.ciao-chow"
+              }
             }
           ]
         }

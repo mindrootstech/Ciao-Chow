@@ -17,7 +17,7 @@ class UpcomingEventBusinessItem extends StatelessWidget {
     var listItem = businessDetailsController.upcomingEvents[index];
     return GestureDetector(
       onTap: () {
-        Get.to(EventDetailsView('notPurchased',listItem.id!.toString()));
+        Get.to(EventDetailsView('notPurchased',listItem.id!.toString(),'1'));
       },
       child: Stack(
         children: [

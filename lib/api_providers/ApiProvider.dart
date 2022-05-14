@@ -341,7 +341,7 @@ class ApiProvider extends GetConnect {
   }
 
   Future<String> getLogoutApi() async {
-    final response = await post('/logout', {},
+    final response = await post('/logout', {'firebase_id' : getStorage.read('firebaseToken')},
         headers: {'Authorization': 'Bearer ${getStorage.read('token')}'});
     if (response.status.hasError) {
       return 'error';

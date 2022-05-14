@@ -15,7 +15,9 @@ class EventDetailsView extends StatelessWidget {
 
   String eventId;
   String fromWhere;
-  EventDetailsView(this.fromWhere, this.eventId, {Key? key}) : super(key: key);
+
+  String type;
+  EventDetailsView(this.fromWhere, this.eventId, this.type, {Key? key}) : super(key: key);
   var eventDetailsController = Get.put(EventDetailsController());
 
   @override
@@ -477,7 +479,7 @@ class EventDetailsView extends StatelessWidget {
                             ),
                           ],
                         ),
-                       GestureDetector(
+                        type != '2' ? GestureDetector(
                             onTap: () {
                               if (fromWhere == 'purchased') {
                                 Get.to(ScanEventBarCodeView());
@@ -513,7 +515,7 @@ class EventDetailsView extends StatelessWidget {
                                   left: 20, right: 20, top: 60, bottom: 24),
                               decoration: CommonUi.shadowRoundedContainer,
                             ),
-                          ),
+                          ) : const SizedBox(),
 
                         const SizedBox(
                           height: 20,

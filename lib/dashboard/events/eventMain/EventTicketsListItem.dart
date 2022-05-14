@@ -19,7 +19,7 @@ class EventTicketsListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(EventDetailsView('purchased',arrayEventTicketItem.eventId!.toString()));
+        Get.to(EventDetailsView('purchased',arrayEventTicketItem.eventId!.toString(),'1'));
       },
       child: Container(
         width: 160,

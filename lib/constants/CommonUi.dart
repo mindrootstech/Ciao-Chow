@@ -271,7 +271,7 @@ class CommonUi {
                   item.clickType == 1
                       ? Get.to(BusinessDetailsView(item.clickValue!.toString()))
                       : Get.to(EventDetailsView(
-                          'notPurchased', item.clickValue!.toString()));
+                          'notPurchased', item.clickValue!.toString(),'1'));
                 },
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
