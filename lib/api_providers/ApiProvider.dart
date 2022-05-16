@@ -385,4 +385,15 @@ class ApiProvider extends GetConnect {
       return json.encode(response.body);
     }
   }
+
+  Future<String> getNotification() async {
+    final response = await post('/get-notifications',{},
+        headers: {'Authorization': 'Bearer ${getStorage.read('token')}'});
+    if (response.status.hasError) {
+      return 'error';
+    } else {
+      return json.encode(response.body);
+    }
+  }
+
 }

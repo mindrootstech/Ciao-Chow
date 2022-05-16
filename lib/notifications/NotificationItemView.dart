@@ -5,6 +5,7 @@ import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/notifications/NotificationController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';
 
 class NotificationItemView extends StatelessWidget {
   var index;
@@ -16,6 +17,8 @@ class NotificationItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     var model = notificationController.notificationsArray[index];
 
+    var jiffy2 = Jiffy(model.createdAt).fromNow(); // 7 years ago
+
     return Container(
       width: Get.width,
       margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -26,24 +29,28 @@ class NotificationItemView extends StatelessWidget {
               SizedBox(
                 width: 52,
                 height: 52,
-                child: Obx(() => ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(100)),
-                      child: CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        width: 500.0,
-                        imageUrl: notificationController
-                            .notificationsArray[index].imageUrl,
-                        placeholder: (context, url) => SizedBox(
-                            width: Get.width,
-                            child: const Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.White,
-                              ),
-                            )),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
-                    )),
+                child: SizedBox()
+                // Obx(() => ClipRRect(
+                //       borderRadius: const BorderRadius.all(Radius.circular(100)),
+                //       child: CachedNetworkImage(
+                //         fit: BoxFit.cover,
+                //         width: 500.0,
+                //         imageUrl: notificationController
+                //             .notificationsArray[index].imageUrl,
+                //         placeholder: (context, url) => SizedBox(
+                //             width: Get.width,
+                //             child: const Center(
+                //               child: CircularProgressIndicator(
+                //                 color: AppColors.White,
+                //               ),
+                //             )),
+                //         errorWidget: (context, url, error) =>
+                //             const Icon(Icons.error),
+                //       ),
+                //     )
+                //
+                //
+                // ),
               ),
               const SizedBox(
                 width:10,
@@ -56,7 +63,7 @@ class NotificationItemView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          model.title,
+                          model.title!,
                           textAlign: TextAlign.start,
                           style: CommonUi.customTextStyle1(
                               Fonts.interMedium,
@@ -68,7 +75,7 @@ class NotificationItemView extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          model.notificationTime,
+                          jiffy2,
                           textAlign: TextAlign.start,
                           style: CommonUi.customTextStyle1(
                               Fonts.interRegular,
@@ -86,7 +93,7 @@ class NotificationItemView extends StatelessWidget {
                       height: 4,
                     ),
 
-                    Text(model.description,
+                    Text(model.description!,
                         style: CommonUi.customTextStyle1(
                             Fonts.interRegular,
                             12.0,
