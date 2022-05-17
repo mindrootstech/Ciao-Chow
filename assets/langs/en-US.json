@@ -75,6 +75,7 @@
   "old_password": "Old Password",
   "new_password": "New Password",
   "confirm_password": "Confirm Password",
+  "no_badges": "No Badges\nearned",
   "i_understand": "I understand and accept the deal's terms and\nconditions.",
   "please_scan": "Please scan the QR code available at the business location to complete the check-in.",
   "please_fill_details": "Please fill in the details below to add a new card. You will be able to select this card during the checkout flow."

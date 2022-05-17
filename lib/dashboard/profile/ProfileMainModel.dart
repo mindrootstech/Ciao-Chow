@@ -13,22 +13,50 @@ class ProfileMainModel {
     this.status,
     this.data,
     this.userCheckins,
+    this.badges,
+    this.levels,
   });
 
   bool? status;
   Data? data;
   List<UserCheckin>? userCheckins;
+  List<Badge>? badges;
+  List<Level>? levels;
 
   factory ProfileMainModel.fromJson(Map<String, dynamic> json) => ProfileMainModel(
     status: json["status"],
     data: Data.fromJson(json["data"]),
     userCheckins: List<UserCheckin>.from(json["user_checkins"].map((x) => UserCheckin.fromJson(x))),
+    badges: List<Badge>.from(json["badges"].map((x) => Badge.fromJson(x))),
+    levels: List<Level>.from(json["levels"].map((x) => Level.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "data": data!.toJson(),
     "user_checkins": List<dynamic>.from(userCheckins!.map((x) => x.toJson())),
+    "badges": List<dynamic>.from(badges!.map((x) => x.toJson())),
+    "levels": List<dynamic>.from(levels!.map((x) => x.toJson())),
+  };
+}
+
+class Badge {
+  Badge({
+    this.badgeName,
+    this.badgeImage,
+  });
+
+  String? badgeName;
+  String? badgeImage;
+
+  factory Badge.fromJson(Map<String, dynamic> json) => Badge(
+    badgeName: json["badge_name"],
+    badgeImage: json["badge_image"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "badge_name": badgeName,
+    "badge_image": badgeImage,
   };
 }
 
@@ -95,6 +123,38 @@ class Data {
     "reset_pass_token": resetPassToken,
     "stripe_id": stripeId,
     "status": status,
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
+  };
+}
+
+class Level {
+  Level({
+    this.id,
+    this.name,
+    this.points,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  int? id;
+  String? name;
+  int? points;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  factory Level.fromJson(Map<String, dynamic> json) => Level(
+    id: json["id"],
+    name: json["name"],
+    points: json["points"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "points": points,
     "created_at": createdAt!.toIso8601String(),
     "updated_at": updatedAt!.toIso8601String(),
   };

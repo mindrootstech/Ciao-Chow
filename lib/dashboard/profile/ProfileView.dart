@@ -3,7 +3,7 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
-import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/BadgesListItem.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/LatestCheckInListItem.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/latest/LatestCheckInViewAllView.dart';
 import 'package:ciao_chow/dashboard/profile/ProfileController.dart';
@@ -244,10 +244,19 @@ class ProfileView extends StatelessWidget {
                                                         .value
                                                         .totalPoints !=
                                                     null
-                                                ? profileController.profileData
-                                                        .value.totalPoints!
-                                                        .toDouble() /
-                                                    10
+                                                ? (profileController.profileData
+                                                            .value.totalPoints!
+                                                            .toInt() /
+                                                        10) /
+                                                    (profileController
+                                                            .arrayLevels[
+                                                                profileController
+                                                                        .arrayLevels
+                                                                        .length -
+                                                                    1]
+                                                            .points!
+                                                            .toInt() /
+                                                        10)
                                                 : 0.0,
                                             barRadius:
                                                 const Radius.circular(30),
@@ -269,7 +278,15 @@ class ProfileView extends StatelessWidget {
                                                   profileController.profileData
                                                           .value.totalPoints
                                                           .toString() +
-                                                      '/100',
+                                                      "/" +
+                                                      profileController
+                                                          .arrayLevels[
+                                                              profileController
+                                                                      .arrayLevels
+                                                                      .length -
+                                                                  1]
+                                                          .points
+                                                          .toString(),
                                                   style:
                                                       CommonUi.customTextStyle1(
                                                           Fonts.interMedium,
@@ -357,17 +374,31 @@ class ProfileView extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                              CommonUi.setSvgImage('bronze_medal')),
-                          SvgPicture.asset(
-                              CommonUi.setSvgImage('bronze_medal')),
-                          SvgPicture.asset(
-                              CommonUi.setSvgImage('bronze_medal')),
-                          SvgPicture.asset(
-                              CommonUi.setSvgImage('bronze_medal')),
-                        ],
+                      SizedBox(
+                        width: Get.width,
+                        height: 30,
+                        child: Obx(
+                          () => profileController.arrayBadges.isNotEmpty
+                              ? ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount:
+                                      profileController.arrayBadges.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return BadgesListItem(index,
+                                        profileController.arrayBadges[index]);
+                                  },
+                                )
+                              : Text(
+                                  Utils.getString(context, 'no_badges'),
+                                  style: CommonUi.customTextStyle1(
+                                      Fonts.interRegular,
+                                      12.0,
+                                      FontWeight.w500,
+                                      AppColors.Black,
+                                      TextDecoration.none),
+                                ),
+                        ),
                       ),
                       const SizedBox(
                         height: 24,

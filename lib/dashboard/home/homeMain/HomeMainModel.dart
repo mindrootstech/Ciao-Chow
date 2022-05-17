@@ -35,6 +35,7 @@ class Data {
     this.businessList,
     this.userCheckins,
     this.levels,
+    this.badges,
   });
 
   Profile? profile;
@@ -42,6 +43,7 @@ class Data {
   List<Business>? businessList;
   List<UserCheckin>? userCheckins;
   List<Level>? levels;
+  List<Badge>? badges;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     profile: Profile.fromJson(json["profile"]),
@@ -49,6 +51,7 @@ class Data {
     businessList: List<Business>.from(json["business_list"].map((x) => Business.fromJson(x))),
     userCheckins: List<UserCheckin>.from(json["user_checkins"].map((x) => UserCheckin.fromJson(x))),
     levels: List<Level>.from(json["levels"].map((x) => Level.fromJson(x))),
+    badges: List<Badge>.from(json["badges"].map((x) => Badge.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -57,6 +60,27 @@ class Data {
     "business_list": List<dynamic>.from(businessList!.map((x) => x.toJson())),
     "user_checkins": List<dynamic>.from(userCheckins!.map((x) => x.toJson())),
     "levels": List<dynamic>.from(levels!.map((x) => x.toJson())),
+    "badges": List<dynamic>.from(badges!.map((x) => x.toJson())),
+  };
+}
+
+class Badge {
+  Badge({
+    this.badgeName,
+    this.badgeImage,
+  });
+
+  String? badgeName;
+  String? badgeImage;
+
+  factory Badge.fromJson(Map<String, dynamic> json) => Badge(
+    badgeName: json["badge_name"],
+    badgeImage: json["badge_image"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "badge_name": badgeName,
+    "badge_image": badgeImage,
   };
 }
 

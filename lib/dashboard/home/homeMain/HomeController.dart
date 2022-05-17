@@ -18,6 +18,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class HomeController extends GetxController {
   List<gt.Business> arrayPartners = <gt.Business>[].obs;
+  List<gt.Badge> arrayBadges = <gt.Badge>[].obs;
   List<gt.UserCheckin> arrayLatestCheckIns = <gt.UserCheckin>[].obs;
   List<gt.Level> arrayLevels = <gt.Level>[].obs;
   var bannerList = <gt.Banner>[].obs;
@@ -55,6 +56,7 @@ class HomeController extends GetxController {
   getHomeData(String latitude, String longitude) {
     _apiProvider.getHomeData(latitude, longitude).then((value) {
       var response = gt.homeMainModelFromJson(value);
+      arrayBadges.clear();
       bannerList.clear();
       arrayPartners.clear();
       arrayLatestCheckIns.clear();
@@ -63,10 +65,11 @@ class HomeController extends GetxController {
       arrayPartners.addAll(response.data!.businessList!);
       arrayLatestCheckIns.addAll(response.data!.userCheckins!);
       arrayLevels.addAll(response.data!.levels!);
+      arrayBadges.addAll(response.data!.badges!);
       profileData.value = response.data!.profile!;
       viewShowHide.value = latitude;
       homeLoaderShow.value = false;
-      resLevel.value = CommonUi.getUserLevels(arrayLevels);
+      resLevel.value = CommonUi.getUserLevels(arrayLevels,profileData.value.level!);
     });
   }
 

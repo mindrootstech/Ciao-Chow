@@ -14,7 +14,6 @@ class AllMyEventsController extends GetxController{
     super.onInit();
     loaderEvents.value = true;
     getAllEventsData();
-
   }
 
   void getAllEventsData() {
@@ -24,8 +23,5 @@ class AllMyEventsController extends GetxController{
       allMyEventsList.addAll(response.data!.myEventTickets!);
       loaderEvents.value = false;
     });
-
-
   }
-
 }

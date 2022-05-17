@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
@@ -7,13 +8,13 @@ import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/DashBoardController.dart';
 import 'package:ciao_chow/dashboard/DashBoardView.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/BadgesListItem.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/LatestCheckInListItem.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/PartnersHomeListItem.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/scan/ScanCheckInView.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/latest/LatestCheckInViewAllView.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/businessNearAll/PartnersViewAllView.dart';
-import 'package:ciao_chow/dashboard/profile/ProfileView.dart';
 import 'package:ciao_chow/notifications/NotificationsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -221,13 +222,15 @@ class HomeView extends StatelessWidget {
                               left: 20, right: 20, top: 25),
                           child: GestureDetector(
                             onTap: () {
-                              DashBoardController dashboardController = Get.find();
+                              DashBoardController dashboardController =
+                                  Get.find();
                               try {
                                 dashboardController.selectedValue.value = 3;
-                              }catch(Exception){
+                              } catch (Exception) {
                                 var a = 0;
                               }
-                              Get.to(DashBoardView(dashboardController.selectedValue.value));
+                              Get.to(DashBoardView(
+                                  dashboardController.selectedValue.value));
                             },
                             child: Column(
                               children: [
@@ -292,14 +295,56 @@ class HomeView extends StatelessWidget {
                                   ],
                                 ),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 12,
                                 ),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    SvgPicture.asset(
-                                        CommonUi.setSvgImage('bronze_medal')),
+                                    Expanded(
+                                      flex: 1,
+                                      child: SizedBox(
+                                        width: 30,
+                                        height: 30,
+                                        child: Obx(
+                                          () => homeController
+                                                  .arrayBadges.isNotEmpty
+                                              ? Align(
+                                            alignment: Alignment.centerLeft,
+                                                child: CachedNetworkImage(
+                                                    imageUrl: homeController
+                                                        .arrayBadges[
+                                                            homeController
+                                                                    .arrayBadges
+                                                                    .length -
+                                                                1]
+                                                        .badgeImage!,
+                                                    placeholder: (context, url) =>
+                                                        const Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: AppColors.White,
+                                                      ),
+                                                    ),
+                                                    errorWidget: (context, url,
+                                                            error) =>
+                                                        const Icon(Icons.error),
+                                                  ),
+                                              )
+                                              : Text(
+                                                  Utils.getString(
+                                                      context, 'no_badges'),
+                                                  style:
+                                                      CommonUi.customTextStyle1(
+                                                          Fonts.interRegular,
+                                                          12.0,
+                                                          FontWeight.w500,
+                                                          AppColors.White,
+                                                          TextDecoration.none),
+                                                ),
+                                        ),
+                                      ),
+                                    ),
                                     Stack(
                                       children: [
                                         Obx(
@@ -312,10 +357,19 @@ class HomeView extends StatelessWidget {
                                             percent: homeController.profileData
                                                         .value.totalPoints !=
                                                     null
-                                                ? homeController.profileData
-                                                        .value.totalPoints!
-                                                        .toDouble() /
-                                                    10
+                                                ? (homeController.profileData
+                                                            .value.totalPoints!
+                                                            .toInt() /
+                                                        10) /
+                                                    (homeController
+                                                            .arrayLevels[
+                                                                homeController
+                                                                        .arrayLevels
+                                                                        .length -
+                                                                    1]
+                                                            .points!
+                                                            .toInt() /
+                                                        10)
                                                 : 0.0,
                                             barRadius:
                                                 const Radius.circular(30),
@@ -338,7 +392,15 @@ class HomeView extends StatelessWidget {
                                                     homeController.profileData
                                                             .value.totalPoints
                                                             .toString() +
-                                                        '/100',
+                                                        "/" +
+                                                        homeController
+                                                            .arrayLevels[
+                                                                homeController
+                                                                        .arrayLevels
+                                                                        .length -
+                                                                    1]
+                                                            .points
+                                                            .toString(),
                                                     style: CommonUi
                                                         .customTextStyle1(
                                                             Fonts.interMedium,

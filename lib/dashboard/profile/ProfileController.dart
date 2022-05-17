@@ -33,6 +33,8 @@ class ProfileController extends GetxController {
   var newPasswordController = TextEditingController().obs;
   var newPasswordConfirmController = TextEditingController().obs;
   var arrayLatestCheckIns = <gt.UserCheckin>[].obs;
+  var arrayBadges = <gt.Badge>[].obs;
+  var arrayLevels = <gt.Level>[].obs;
   var profileData = gt.Data().obs;
 
   void addAccountItems(String firstName, bool firstSelected, String secondName,
@@ -121,8 +123,13 @@ class ProfileController extends GetxController {
     _apiProvider.getProfileData().then((value) {
       if (value != 'error') {
         var response = gt.profileMainModelFromJson(value);
+        arrayLatestCheckIns.clear();
+        arrayLevels.clear();
+        arrayBadges.clear();
         profileData.value = response.data!;
         arrayLatestCheckIns.value = response.userCheckins!;
+        arrayLevels.value = response.levels!;
+        arrayBadges.value = response.badges!;
         String gender;
 
         if(profileData.value.gender.toString() != '') {

@@ -16,7 +16,6 @@ class NotificationItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var model = notificationController.notificationsArray[index];
-
     var jiffy2 = Jiffy(model.createdAt).fromNow(); // 7 years ago
 
     return Container(
@@ -26,10 +25,10 @@ class NotificationItemView extends StatelessWidget {
         children: [
           Row(
             children: [
-              SizedBox(
-                width: 52,
-                height: 52,
-                child: SizedBox()
+              // const SizedBox(
+              //   width: 52,
+              //   height: 52,
+              //   child: const SizedBox()
                 // Obx(() => ClipRRect(
                 //       borderRadius: const BorderRadius.all(Radius.circular(100)),
                 //       child: CachedNetworkImage(
@@ -51,7 +50,7 @@ class NotificationItemView extends StatelessWidget {
                 //
                 //
                 // ),
-              ),
+              // ),
               const SizedBox(
                 width:10,
               ),

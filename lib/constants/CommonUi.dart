@@ -334,8 +334,8 @@ class CommonUi {
     }
   }
 
-  static ModelLevel getUserLevels(List<Level> levelsList) {
-    var cups = 0;
+  static ModelLevel getUserLevels(List<Level> levelsList, int level) {
+    var cups = level;
     for (var i = 0; i < levelsList.length; i++) {
       cups += levelsList[i].points!.toInt();
     }
@@ -345,7 +345,7 @@ class CommonUi {
 
     for (var i = 0; i < levelsList.length; i++) {
       if (i == 0) {
-        if (cups >= 0 && cups < int.parse('100')) {
+        if (cups >= 0) {
           id = levelsList[i].id.toString();
           levelName = levelsList[i + 1].name!;
           levelMaxValue = int.parse('100');

@@ -140,8 +140,8 @@ class EventDetailsController extends GetxController {
 
   void getSliderValue() {
 
-    if(int.parse(eventDetails.value.availableTickets!) < int.parse(eventDetails.value.maxTicketsPerCustomer!)){
-      sliderValue = int.parse(eventDetails.value.availableTickets!).toDouble();
+    if(eventDetails.value.availableTickets! < int.parse(eventDetails.value.maxTicketsPerCustomer!)){
+      sliderValue = eventDetails.value.availableTickets!.toDouble();
     }else{
       sliderValue = int.parse(eventDetails.value.maxTicketsPerCustomer!).toDouble();
     }

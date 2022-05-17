@@ -239,6 +239,9 @@ class EventDetailsView extends StatelessWidget {
                         ),
                         Row(
                           children: [
+
+                            // eventDetailsController.eventDetails.value.is_redeemed == 0
+
                             SvgPicture.asset(
                                 CommonUi.setSvgImage('start_end_date')),
                             Padding(
@@ -487,8 +490,8 @@ class EventDetailsView extends StatelessWidget {
                                 eventDetailsController.whichSheet.value = '1';
                                 eventDetailsController.currentSliderValue.value = 0.0;
                                 eventDetailsController.modelCard.value.isSelected = false;
-                                int.parse(eventDetailsController.eventDetails
-                                            .value.availableTickets!) >
+                                eventDetailsController.eventDetails
+                                            .value.availableTickets! >
                                         0
                                     ? eventDetailsController
                                         .showBottomSheet.value = true

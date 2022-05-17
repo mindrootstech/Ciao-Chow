@@ -207,7 +207,7 @@ class UpcomingEvent {
   String? scanNumber;
   String? termsConditions;
   String? totalTickets;
-  String? availableTickets;
+  int? availableTickets;
   String? ticketPrice;
   String? description;
   int? status;
