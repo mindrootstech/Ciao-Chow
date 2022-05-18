@@ -8,7 +8,6 @@ import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/DashBoardController.dart';
 import 'package:ciao_chow/dashboard/DashBoardView.dart';
-import 'package:ciao_chow/dashboard/home/homeMain/BadgesListItem.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeController.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/LatestCheckInListItem.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/PartnersHomeListItem.dart';
@@ -383,7 +382,8 @@ class HomeView extends StatelessWidget {
                                           top: 0,
                                           bottom: 0,
                                           child: Obx(
-                                            () => Center(
+                                            () => homeController
+                                                .arrayLevels.length > 0 ? Center(
                                               child: Padding(
                                                   padding:
                                                       const EdgeInsets.only(
@@ -410,7 +410,7 @@ class HomeView extends StatelessWidget {
                                                             TextDecoration
                                                                 .none),
                                                   )),
-                                            ),
+                                            ): SizedBox(),
                                           ),
                                         ),
                                         Positioned(

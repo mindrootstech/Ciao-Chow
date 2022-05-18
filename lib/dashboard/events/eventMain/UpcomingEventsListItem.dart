@@ -20,7 +20,7 @@ class UpcomingEventsListItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(EventDetailsView('notPurchased',
-            eventsController.arrayUpcomingEvents[index].id!.toString(),'1'));
+            eventsController.arrayUpcomingEvents[index].id!.toString(),'1','0'));
       },
       child: Container(
         width: Get.width,

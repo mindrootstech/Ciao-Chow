@@ -46,6 +46,7 @@ class Data {
 
 class MyEventTicket {
   MyEventTicket({
+    this.saleId,
     this.numberTickets,
     this.totalAmount,
     this.eventName,
@@ -57,6 +58,7 @@ class MyEventTicket {
     this.image,
   });
 
+  int? saleId;
   int? numberTickets;
   String? totalAmount;
   String? eventName;
@@ -68,6 +70,7 @@ class MyEventTicket {
   String? image;
 
   factory MyEventTicket.fromJson(Map<String, dynamic> json) => MyEventTicket(
+    saleId: json["sale_id"],
     numberTickets: json["number_tickets"],
     totalAmount: json["total_amount"],
     eventName: json["event_name"],
@@ -80,6 +83,7 @@ class MyEventTicket {
   );
 
   Map<String, dynamic> toJson() => {
+    "sale_id": saleId,
     "number_tickets": numberTickets,
     "total_amount": totalAmount,
     "event_name": eventName,

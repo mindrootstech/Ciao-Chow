@@ -1,5 +1,6 @@
 import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
+import 'package:ciao_chow/dashboard/events/eventDetails/sacnBarCode/EventScanConfirmationView.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/sacnBarCode/ScanEventMainModel.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -9,6 +10,7 @@ class ScanEventController extends GetxController{
   Barcode? result;
   QRViewController? controller;
   var scanEventLoader = false.obs;
+  var eventname = ''.obs;
   final _apiProvider = ApiProvider();
 
 
@@ -25,14 +27,13 @@ class ScanEventController extends GetxController{
   void getScannedData(String result) {
     _apiProvider.getScannedEvent(result).then((value) {
       if (value == 'error') {
-        CommonUi.showToast('Already Checked In');
-        return;
+        CommonUi.showErrorDialog(controller!);
       }else {
         var response = scanEventMainModelFromJson(value);
         if (response.status == false) {
-          CommonUi.showToast(response.message!);
+          CommonUi.showErrorDialog(controller!);
         } else {
-          Get.back();
+          Get.to(EventScanConfirmationView(eventname.toString()));
           // getHomeData(getStorage.read('lat'), getStorage.read('long'));
         }
       }

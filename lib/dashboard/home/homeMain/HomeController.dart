@@ -1,20 +1,26 @@
 import 'dart:async';
 import 'package:ciao_chow/api_providers/ApiProvider.dart';
+import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
+import 'package:ciao_chow/constants/Fonts.dart';
+import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart' as gt;
 import 'package:ciao_chow/dashboard/home/homeMain/ModelLevel.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/scan/LatestCheckInModel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:location/location.dart' as gt;
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+import 'scan/CheckInConfirmationView.dart';
+import 'scan/CheckInMainModel.dart';
 
 class HomeController extends GetxController {
   List<gt.Business> arrayPartners = <gt.Business>[].obs;
@@ -33,8 +39,8 @@ class HomeController extends GetxController {
   var checkInLoader = false.obs;
   late AndroidNotificationChannel channel;
   late FirebaseMessaging messaging;
-
   var resLevel = ModelLevel().obs;
+  var isError = false.obs;
 
   @override
   void onInit() {
@@ -69,7 +75,8 @@ class HomeController extends GetxController {
       profileData.value = response.data!.profile!;
       viewShowHide.value = latitude;
       homeLoaderShow.value = false;
-      resLevel.value = CommonUi.getUserLevels(arrayLevels,profileData.value.level!);
+      resLevel.value =
+          CommonUi.getUserLevels(arrayLevels, profileData.value.level!);
     });
   }
 
@@ -80,15 +87,14 @@ class HomeController extends GetxController {
   void getScannedData(String result) {
     _apiProvider.getScannedData(result).then((value) {
       if (value == 'error') {
-        CommonUi.showToast('Already Checked In');
-        return;
+        CommonUi.showErrorDialog(controller!);
       } else {
         var response = latestCheckInModelFromJson(value);
         if (response.status == false) {
-          CommonUi.showToast(response.message!);
-          controller!.resumeCamera();
+          CommonUi.showErrorDialog(controller!);
         } else {
-          Get.back();
+          var model = checkInMainModelFromJson(value);
+          Get.to(CheckInConfirmationView(model.businessName));
           getHomeData(getStorage.read('lat'), getStorage.read('long'));
         }
       }
@@ -99,22 +105,7 @@ class HomeController extends GetxController {
   Future<void> request_permission1() async {
     getLocation1();
     Timer.periodic(const Duration(seconds: 1), (timer) async {
-      Permission location_permission = Permission.location;
-      bool location_status = false;
-      bool ispermanetelydenied = await location_permission.isPermanentlyDenied;
       var status = await Permission.locationWhenInUse.status;
-      // bool serviceEnabled;
-      // LocationPermission permission;
-      //
-      // // Test if location services are enabled.
-      // serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      // if (!serviceEnabled) {
-      //   return Future.error('Location services are disabled.');
-      // }else {
-      //   timer.cancel();
-      //   getLocation1();
-      // }
-
       if (status.isGranted) {
         timer.cancel();
         getLocation1();
@@ -125,19 +116,8 @@ class HomeController extends GetxController {
   Future<void> getLocation() async {
     try {
       Location location = Location();
-
-      bool _serviceEnabled;
       gt.PermissionStatus _permissionGranted;
       LocationData locationData;
-
-      // _serviceEnabled = await location.serviceEnabled();
-      // if (!_serviceEnabled) {
-      //   _serviceEnabled = await location.requestService();
-      //   if (!_serviceEnabled) {
-      //     return;
-      //   }
-      // }
-
       locationData = await location.getLocation();
 
       _permissionGranted =
@@ -194,33 +174,10 @@ class HomeController extends GetxController {
 
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    // 1. Initialize the Firebase app
     await Firebase.initializeApp();
     FirebaseMessaging.instance.subscribeToTopic("ciaochow");
-
-    // 2. Instantiate Firebase Messaging
     messaging = FirebaseMessaging.instance;
-    // messaging.getToken().then((token) {
-    //   // print('firebase token dddd ${token}');
-    //   storage.write('firebaseToken', token);
-    // });
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {
-      // print("message recieved");
-      // print(event.notification!.body);
-
-      // var platform = NotificationDetails(
-      //     android: AndroidNotificationDetails(
-      //       channel.id,
-      //       channel.name,
-      //       channelDescription: channel.description,
-      //     ),
-      //     iOS: const IOSNotificationDetails(
-      //       presentAlert: true,
-      //       presentBadge: true,
-      //       presentSound: true,
-      //     ),
-      //     macOS: null);
-
       FlutterLocalNotificationsPlugin().show(
           event.hashCode,
           event.notification!.title,
@@ -248,7 +205,6 @@ class HomeController extends GetxController {
     );
 
     await Firebase.initializeApp();
-    var messagingg = FirebaseMessaging.instance;
     NotificationSettings settingss = await messaging.requestPermission(
       alert: true,
       announcement: false,
@@ -267,4 +223,6 @@ class HomeController extends GetxController {
       // print('User declined or has not accepted permission------');
     }
   }
+
+
 }

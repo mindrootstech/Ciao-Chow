@@ -11,12 +11,14 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 class ScanEventBarCodeView extends StatelessWidget {
 
   var scanBarEventController = Get.put(ScanEventController());
-  ScanEventBarCodeView({Key? key}) : super(key: key);
+  var eventName;
+  ScanEventBarCodeView(this.eventName, {Key? key}) : super(key: key);
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
 
   @override
   Widget build(BuildContext context) {
+    scanBarEventController.eventname.value = eventName;
     return Container(
       color: AppColors.White,
       child: Stack(

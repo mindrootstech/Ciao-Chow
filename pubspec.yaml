@@ -60,6 +60,7 @@ dependencies:
   notification_permissions: ^0.6.1
   firebase_core: ^1.15.0
   jiffy: ^5.0.0
+  rflutter_alert: ^2.0.4
 
 dev_dependencies:
   flutter_test:

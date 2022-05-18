@@ -6,6 +6,7 @@ import 'package:ciao_chow/dashboard/events/eventDetails/BookingDoneView.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsMainModel.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/ModelMainSingleCard.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/PurchaseMainModel.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +20,7 @@ class EventDetailsController extends GetxController {
   List<String> arrayImages = <String>[].obs;
   var currentSliderValue = 0.0.obs;
   var eventDetails = Event().obs;
+  var eventSale = EventSale().obs;
   var businessDetails = Business().obs;
   var allCardsList = <Datum>[].obs;
   var nameOnCardController = TextEditingController().obs;
@@ -29,9 +31,10 @@ class EventDetailsController extends GetxController {
   var showPaymentDone = false.obs;
   var showAddCardLoader = false.obs;
   var eventIdd = '';
-  var eventBuyOrNot = ''.obs;
   var sliderValue = 0.0;
   var modelCard = Datum().obs;
+
+  var redemeedDate = DateTime(2022).obs;
 
   @override
   void onInit() {
@@ -41,18 +44,23 @@ class EventDetailsController extends GetxController {
     getAllCards();
   }
 
-  void getEventDetails(String eventId) {
-    _apiProvider.getEventDetailsData(eventId).then((value) {
+  void getEventDetails(String eventId, String saleId) {
+    _apiProvider.getEventDetailsData(eventId,saleId).then((value) {
       eventIdd = eventId;
-      eventBuyOrNot.value = '';
       var response = eventDetailsMainModelFromJson(value);
       eventDetails.value = response.data!.event!;
-      eventBuyOrNot.value = response.data!.eventBuy!;
+      eventSale.value = response.data!.eventSale!;
       businessDetails.value = response.data!.event!.business!;
       arrayImages.clear();
       arrayImages.addAll(response.data!.event!.business!.images!);
       addBannerList(arrayImages);
       getSliderValue();
+
+      if(eventSale.value.redeemDate!.isNotEmpty) {
+        redemeedDate.value = DateFormat("yyyy-MM-dd hh:mm:ss").parse(
+            eventSale.value.redeemDate!);
+      }
+
       eventLoaderShow.value = false;
     });
   }

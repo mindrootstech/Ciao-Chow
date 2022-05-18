@@ -111,6 +111,8 @@ class MyEventsTicket {
     this.createdAt,
     this.updatedAt,
     this.isRedeemed,
+    this.redeemDate,
+    this.saleId,
     this.event,
   });
 
@@ -127,6 +129,8 @@ class MyEventsTicket {
   DateTime? createdAt;
   DateTime? updatedAt;
   int? isRedeemed;
+  dynamic? redeemDate;
+  int? saleId;
   Event? event;
 
   factory MyEventsTicket.fromJson(Map<String, dynamic> json) => MyEventsTicket(
@@ -143,6 +147,8 @@ class MyEventsTicket {
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     isRedeemed: json["is_redeemed"],
+    redeemDate: json["redeem_date"],
+    saleId: json["sale_id"],
     event: Event.fromJson(json["event"]),
   );
 
@@ -160,6 +166,8 @@ class MyEventsTicket {
     "created_at": createdAt!.toIso8601String(),
     "updated_at": updatedAt!.toIso8601String(),
     "is_redeemed": isRedeemed,
+    "redeem_date": redeemDate,
+    "sale_id": saleId,
     "event": event!.toJson(),
   };
 }
@@ -186,6 +194,7 @@ class Event {
     this.createdAt,
     this.updatedAt,
     this.createdBy,
+    this.featuredImage,
     this.featuredImageUrl,
     this.business,
     this.distance,
@@ -211,6 +220,7 @@ class Event {
   DateTime? createdAt;
   DateTime? updatedAt;
   int? createdBy;
+  String? featuredImage;
   String? featuredImageUrl;
   Business? business;
   String? distance;
@@ -236,6 +246,7 @@ class Event {
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     createdBy: json["created_by"],
+    featuredImage: json["featured_image"],
     featuredImageUrl: json["featured_image_url"],
     business: Business.fromJson(json["business"]),
     distance: json["distance"] == null ? null : json["distance"],
@@ -262,6 +273,7 @@ class Event {
     "created_at": createdAt!.toIso8601String(),
     "updated_at": updatedAt!.toIso8601String(),
     "created_by": createdBy,
+    "featured_image": featuredImage,
     "featured_image_url": featuredImageUrl,
     "business": business!.toJson(),
     "distance": distance == null ? null : distance,

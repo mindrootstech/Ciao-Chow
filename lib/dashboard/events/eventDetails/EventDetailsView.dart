@@ -15,14 +15,15 @@ class EventDetailsView extends StatelessWidget {
 
   String eventId;
   String fromWhere;
-
   String type;
-  EventDetailsView(this.fromWhere, this.eventId, this.type, {Key? key}) : super(key: key);
+  String saleId;
+
+  EventDetailsView(this.fromWhere, this.eventId, this.type, this.saleId, {Key? key}) : super(key: key);
   var eventDetailsController = Get.put(EventDetailsController());
 
   @override
   Widget build(BuildContext context) {
-    eventDetailsController.getEventDetails(eventId);
+    eventDetailsController.getEventDetails(eventId,saleId);
     eventDetailsController.showBottomSheet.value = false;
     eventDetailsController.whichSheet.value = '1';
 
@@ -244,13 +245,14 @@ class EventDetailsView extends StatelessWidget {
 
                             SvgPicture.asset(
                                 CommonUi.setSvgImage('start_end_date')),
+
                             Padding(
                               padding: const EdgeInsets.only(left: 8.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    Utils.getString(context, 'start_end_date'),
+                                    type == '2' ? Utils.getString(context, 'redeemed_date') :Utils.getString(context, 'start_end_date'),
                                     style: CommonUi.customTextStyle1(
                                         Fonts.interMedium,
                                         14.0,
@@ -267,6 +269,12 @@ class EventDetailsView extends StatelessWidget {
                                                 .toString() !=
                                             "null"
                                         ? Text(
+                                      type == '2' ?
+                                      CommonUi.dateFormatEvents(
+                                          eventDetailsController
+                                              .redemeedDate
+                                              .value
+                                              ) :
                                             CommonUi.dateFormatEvents(
                                                     eventDetailsController
                                                         .eventDetails
@@ -485,7 +493,7 @@ class EventDetailsView extends StatelessWidget {
                         type != '2' ? GestureDetector(
                             onTap: () {
                               if (fromWhere == 'purchased') {
-                                Get.to(ScanEventBarCodeView());
+                                Get.to(ScanEventBarCodeView(eventDetailsController.eventDetails.value.eventName));
                               } else {
                                 eventDetailsController.whichSheet.value = '1';
                                 eventDetailsController.currentSliderValue.value = 0.0;

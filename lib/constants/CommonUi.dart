@@ -1,15 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ciao_chow/constants/AppColors.dart';
+import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Language.dart';
+import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsView.dart';
 import 'package:ciao_chow/dashboard/home/detailPage/BusinessDetailsView.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/ModelLevel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
+import 'package:qr_code_scanner/src/qr_code_scanner.dart';
 
 class CommonUi {
   static var dropDownButtonDecoration =
@@ -271,7 +275,7 @@ class CommonUi {
                   item.clickType == 1
                       ? Get.to(BusinessDetailsView(item.clickValue!.toString()))
                       : Get.to(EventDetailsView(
-                          'notPurchased', item.clickValue!.toString(),'1'));
+                          'notPurchased', item.clickValue!.toString(),'1','0'));
                 },
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
@@ -379,5 +383,72 @@ class CommonUi {
     modelMain.levelLeft = (levelMaxValue - cups).toString();
 
     return modelMain;
+  }
+
+  static void showErrorDialog(QRViewController controller) {
+    showDialog(
+        context: Get.context!,
+        builder: (context) => AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(24.0))),
+          content: Container(
+            decoration: CommonUi.commonBoxDecorationAllSides(
+                24.0, AppColors.White),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(CommonUi.setSvgImage('error_img')),
+                const SizedBox(
+                  height: 45,
+                ),
+                Text(
+                  'Sorry',
+                  style: CommonUi.customTextStyle1(
+                      Fonts.interSemiBold,
+                      18.0,
+                      FontWeight.w600,
+                      AppColors.Black,
+                      TextDecoration.none),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'we are unable to process your check in at this moment please try again .',
+                  style: CommonUi.customTextStyle1(
+                      Fonts.interMedium,
+                      14.0,
+                      FontWeight.w600,
+                      AppColors.Black,
+                      TextDecoration.none),
+                  textAlign: TextAlign.center,
+                ),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                    controller.resumeCamera();
+                  },
+                  child: Container(
+                    child: Center(
+                      child: Text(Utils.getString(context, 'ok'),
+                          style: CommonUi.customTextStyle1(
+                              Fonts.interMedium,
+                              14.0,
+                              FontWeight.w500,
+                              AppColors.White,
+                              TextDecoration.none)),
+                    ),
+                    height: 50,
+                    width: Get.width,
+                    margin: const EdgeInsets.only(
+                        left: 20, right: 20, top: 60, bottom: 24),
+                    decoration: CommonUi.shadowRoundedContainer,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

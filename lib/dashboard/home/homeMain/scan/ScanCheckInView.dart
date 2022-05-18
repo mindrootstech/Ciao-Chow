@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ScanCheckInView extends StatelessWidget {
   ScanCheckInView({Key? key}) : super(key: key);
@@ -16,6 +17,9 @@ class ScanCheckInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     homeController.checkInLoader.value = false;
+    // Obx(() => homeController.isError.value
+    //     ? alertDialog(context)
+    //     : const SizedBox());
     return Container(
       color: AppColors.White,
       child: Stack(
@@ -52,15 +56,17 @@ class ScanCheckInView extends StatelessWidget {
                       height: 16,
                     ),
                     Container(
-                      margin: const EdgeInsets.only(left: 20,right: 20,top: 20),
+                      margin:
+                          const EdgeInsets.only(left: 20, right: 20, top: 20),
                       child: Text(
-                        Utils.getString(context,'please_scan'),
+                        Utils.getString(context, 'please_scan'),
                         style: CommonUi.customTextStyle1(
                             Fonts.interMedium,
                             14.0,
                             FontWeight.w500,
                             AppColors.White,
-                            TextDecoration.none),textAlign: TextAlign.center,
+                            TextDecoration.none),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],
@@ -79,8 +85,13 @@ class ScanCheckInView extends StatelessWidget {
                   )
                 : Container()),
           ),
+
         ],
       ),
     );
+
+
   }
+
+
 }

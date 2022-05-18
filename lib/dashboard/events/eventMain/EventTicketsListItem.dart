@@ -11,15 +11,15 @@ import 'package:get/get.dart';
 
 class EventTicketsListItem extends StatelessWidget {
   var index;
-  var arrayEventTicketItem;
-
-  EventTicketsListItem(this.index, this.arrayEventTicketItem, {Key? key}) : super(key: key);
+  EventsController eventsController = Get.find();
+  EventTicketsListItem(this.index, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var model = eventsController.arrayEventTicket[index];
     return GestureDetector(
       onTap: (){
-        Get.to(EventDetailsView('purchased',arrayEventTicketItem.eventId!.toString(),'1'));
+        Get.to(EventDetailsView('purchased',model.eventId!.toString(),'1',model.saleId!.toString()));
       },
       child: Container(
         width: 160,
@@ -41,7 +41,7 @@ class EventTicketsListItem extends StatelessWidget {
                         height: 142,
                         child: CachedNetworkImage(
                           fit: BoxFit.cover,
-                          imageUrl: arrayEventTicketItem.event!.featuredImageUrl!,
+                          imageUrl: model.event!.featuredImageUrl!,
                           placeholder: (context, url) =>  SizedBox(
                               width: Get.width,
                               child: const Center(
@@ -68,7 +68,7 @@ class EventTicketsListItem extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 6, bottom: 6),
                         child: Text(
-                          arrayEventTicketItem.event!.eventName!,
+                          model.event!.eventName!,
                           textAlign: TextAlign.start,
                           style: CommonUi.customTextStyle1(
                               Fonts.interMedium,
@@ -89,7 +89,7 @@ class EventTicketsListItem extends StatelessWidget {
               width: Get.width,
               margin: const EdgeInsets.only(left: 10, top: 8),
               child: Text(
-                CommonUi.dateFormat(arrayEventTicketItem.event!.eventStartDate!),
+                CommonUi.dateFormat(model.event!.eventStartDate!),
                 textAlign: TextAlign.start,
                 style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
                     FontWeight.w400, AppColors.Black, TextDecoration.none),
@@ -103,9 +103,9 @@ class EventTicketsListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    arrayEventTicketItem.numberTickets! == 1
-                        ?  arrayEventTicketItem.numberTickets!.toString() + ' Ticket'
-                        : arrayEventTicketItem.numberTickets!.toString() + ' Tickets',
+                    model.numberTickets! == 1
+                        ?  model.numberTickets!.toString() + ' Ticket'
+                        : model.numberTickets!.toString() + ' Tickets',
                     textAlign: TextAlign.start,
                     style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
                         FontWeight.w400, AppColors.Black, TextDecoration.none),
@@ -113,7 +113,7 @@ class EventTicketsListItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '\$' + arrayEventTicketItem.totalAmount!,
+                    '\$' + model.totalAmount!,
                     textAlign: TextAlign.start,
                     style: CommonUi.customTextStyle1(Fonts.interSemiBold, 12.0,
                         FontWeight.w600, AppColors.Black, TextDecoration.none),

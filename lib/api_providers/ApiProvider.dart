@@ -193,9 +193,10 @@ class ApiProvider extends GetConnect {
     }
   }
 
-  Future<String> getEventDetailsData(eventId) async {
+  Future<String> getEventDetailsData(eventId, String saleId) async {
     final response = await post('/event-details', {
       'event_id': eventId,
+      'sale_id': saleId,
     }, headers: {
       'Authorization': 'Bearer ${getStorage.read('token')}'
     });
