@@ -39,6 +39,7 @@ class LatestCheckInViewAllView extends StatelessWidget {
             ),
           ),
           body: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
             child: Column(
               children: [
                 SizedBox(

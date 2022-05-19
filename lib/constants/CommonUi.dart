@@ -142,7 +142,6 @@ class CommonUi {
       border: Border.all(color: Colors.transparent),
       borderRadius: const BorderRadius.all(Radius.circular(10)));
 
-
   static var shadowWhiteContainerRounded = BoxDecoration(
       boxShadow: [
         CommonUi.shadowDecoration,
@@ -274,8 +273,8 @@ class CommonUi {
                 onTap: () {
                   item.clickType == 1
                       ? Get.to(BusinessDetailsView(item.clickValue!.toString()))
-                      : Get.to(EventDetailsView(
-                          'notPurchased', item.clickValue!.toString(),'1','0'));
+                      : Get.to(EventDetailsView('notPurchased',
+                          item.clickValue!.toString(), '1', '0'));
                 },
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
@@ -338,117 +337,113 @@ class CommonUi {
     }
   }
 
-  static ModelLevel getUserLevels(List<Level> levelsList, int level) {
-    var cups = level;
-    for (var i = 0; i < levelsList.length; i++) {
-      cups += levelsList[i].points!.toInt();
-    }
+  static ModelLevel getUserLevels(
+      List<Level> levelsList,  int totalpoints) {
     var levelName = '';
     var levelMaxValue = 0;
+    var levelNumber = 0;
+    var points = 0;
     var id = '';
 
     for (var i = 0; i < levelsList.length; i++) {
-      if (i == 0) {
-        if (cups >= 0) {
-          id = levelsList[i].id.toString();
-          levelName = levelsList[i + 1].name!;
-          levelMaxValue = int.parse('100');
-          break;
-        }
-      } else if (i == levelsList.length - 1) {
-        if (int.parse('100') < cups) {
-          id = levelsList[i].id.toString();
-          levelName = levelsList[i].name!;
-          levelMaxValue = int.parse('100');
-          break;
-        } else if (cups >= int.parse('100') && cups < int.parse('100')) {
-          id = levelsList[i].id.toString();
-          levelName = levelsList[i].name!;
-          levelMaxValue = int.parse('100');
-          break;
-        }
+      if (totalpoints >= levelsList[i].points!) {
+        levelNumber = levelNumber + 1;
       } else {
-        if (cups >= int.parse('100') && cups < int.parse('100')) {
-          id = levelsList[i].id.toString();
-          levelName = levelsList[i + 1].name!;
-          levelMaxValue = int.parse('100');
-          break;
-        }
+        break;
+      }
+    }
+
+    if (levelNumber == 0 && totalpoints > 0) {
+      levelNumber = 1;
+      points = levelsList[levelNumber - 1].points!;
+    }else if (totalpoints == 0) {
+      levelNumber = 1;
+      points = levelsList[0].points!;
+    }else {
+      levelNumber = levelNumber + 1;
+      if(levelsList.length - 1  >= levelNumber) {
+        points = levelsList[levelNumber].points!;
+      }else {
+        points = levelsList[levelsList.length - 1 ].points!;
       }
     }
 
     var modelMain = ModelLevel();
     modelMain.id = id;
     modelMain.levelName = levelName;
-    modelMain.levelLeft = (levelMaxValue - cups).toString();
+    modelMain.points = points;
+    modelMain.levelNumber = levelNumber.toString();
+    modelMain.levelLeft = (levelMaxValue - 0).toString();
 
     return modelMain;
   }
+
+
 
   static void showErrorDialog(QRViewController controller) {
     showDialog(
         context: Get.context!,
         builder: (context) => AlertDialog(
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(24.0))),
-          content: Container(
-            decoration: CommonUi.commonBoxDecorationAllSides(
-                24.0, AppColors.White),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(CommonUi.setSvgImage('error_img')),
-                const SizedBox(
-                  height: 45,
-                ),
-                Text(
-                  'Sorry',
-                  style: CommonUi.customTextStyle1(
-                      Fonts.interSemiBold,
-                      18.0,
-                      FontWeight.w600,
-                      AppColors.Black,
-                      TextDecoration.none),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'we are unable to process your check in at this moment please try again .',
-                  style: CommonUi.customTextStyle1(
-                      Fonts.interMedium,
-                      14.0,
-                      FontWeight.w600,
-                      AppColors.Black,
-                      TextDecoration.none),
-                  textAlign: TextAlign.center,
-                ),
-                GestureDetector(
-                  onTap: (){
-                    Navigator.pop(context);
-                    controller.resumeCamera();
-                  },
-                  child: Container(
-                    child: Center(
-                      child: Text(Utils.getString(context, 'ok'),
-                          style: CommonUi.customTextStyle1(
-                              Fonts.interMedium,
-                              14.0,
-                              FontWeight.w500,
-                              AppColors.White,
-                              TextDecoration.none)),
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(24.0))),
+              content: Container(
+                decoration:
+                    CommonUi.commonBoxDecorationAllSides(24.0, AppColors.White),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(CommonUi.setSvgImage('error_img')),
+                    const SizedBox(
+                      height: 45,
                     ),
-                    height: 50,
-                    width: Get.width,
-                    margin: const EdgeInsets.only(
-                        left: 20, right: 20, top: 60, bottom: 24),
-                    decoration: CommonUi.shadowRoundedContainer,
-                  ),
+                    Text(
+                      'Sorry',
+                      style: CommonUi.customTextStyle1(
+                          Fonts.interSemiBold,
+                          18.0,
+                          FontWeight.w600,
+                          AppColors.Black,
+                          TextDecoration.none),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'we are unable to process your check in at this moment please try again .',
+                      style: CommonUi.customTextStyle1(
+                          Fonts.interMedium,
+                          14.0,
+                          FontWeight.w600,
+                          AppColors.Black,
+                          TextDecoration.none),
+                      textAlign: TextAlign.center,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        controller.resumeCamera();
+                      },
+                      child: Container(
+                        child: Center(
+                          child: Text(Utils.getString(context, 'ok'),
+                              style: CommonUi.customTextStyle1(
+                                  Fonts.interMedium,
+                                  14.0,
+                                  FontWeight.w500,
+                                  AppColors.White,
+                                  TextDecoration.none)),
+                        ),
+                        height: 50,
+                        width: Get.width,
+                        margin: const EdgeInsets.only(
+                            left: 20, right: 20, top: 60, bottom: 24),
+                        decoration: CommonUi.shadowRoundedContainer,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ));
+              ),
+            ));
   }
 }

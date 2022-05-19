@@ -18,6 +18,7 @@ class PartnersViewAllView extends StatelessWidget {
   Widget build(BuildContext context) {
     partnersAllNearController.searchBusiness.value.text = '';
     partnersAllNearController.searchTxt.value = '';
+    partnersAllNearController.getAllBusinessList();
     return Scaffold(
       backgroundColor: AppColors.White,
       appBar: AppBar(

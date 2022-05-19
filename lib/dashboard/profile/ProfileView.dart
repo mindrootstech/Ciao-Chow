@@ -213,8 +213,11 @@ class ProfileView extends StatelessWidget {
                                             null
                                         ? Text(
                                             'Current Level: LEVEL ' +
-                                                profileController
-                                                    .profileData.value.level
+                                                (int.parse(profileController
+                                                            .resLevel
+                                                            .value
+                                                            .levelNumber) -
+                                                        1)
                                                     .toString(),
                                             style: CommonUi.customTextStyle1(
                                                 Fonts.interMedium,
@@ -248,14 +251,8 @@ class ProfileView extends StatelessWidget {
                                                             .value.totalPoints!
                                                             .toInt() /
                                                         10) /
-                                                    (profileController
-                                                            .arrayLevels[
-                                                                profileController
-                                                                        .arrayLevels
-                                                                        .length -
-                                                                    1]
-                                                            .points!
-                                                            .toInt() /
+                                                    (profileController.resLevel
+                                                            .value.points /
                                                         10)
                                                 : 0.0,
                                             barRadius:
@@ -274,27 +271,34 @@ class ProfileView extends StatelessWidget {
                                               padding: const EdgeInsets.only(
                                                   left: 18.0),
                                               child: Obx(
-                                                () => Text(
-                                                  profileController.profileData
-                                                          .value.totalPoints
-                                                          .toString() +
-                                                      "/" +
-                                                      profileController
-                                                          .arrayLevels[
-                                                              profileController
-                                                                      .arrayLevels
-                                                                      .length -
-                                                                  1]
-                                                          .points
-                                                          .toString(),
-                                                  style:
-                                                      CommonUi.customTextStyle1(
-                                                          Fonts.interMedium,
-                                                          12.0,
-                                                          FontWeight.w500,
-                                                          AppColors.Black,
-                                                          TextDecoration.none),
-                                                ),
+                                                () => profileController
+                                                            .profileData
+                                                            .value
+                                                            .totalPoints !=
+                                                        null
+                                                    ? Text(
+                                                        profileController
+                                                                .profileData
+                                                                .value
+                                                                .totalPoints
+                                                                .toString() +
+                                                            "/" +
+                                                            profileController
+                                                                .resLevel
+                                                                .value
+                                                                .points
+                                                                .toString(),
+                                                        style: CommonUi
+                                                            .customTextStyle1(
+                                                                Fonts
+                                                                    .interMedium,
+                                                                12.0,
+                                                                FontWeight.w500,
+                                                                AppColors.Black,
+                                                                TextDecoration
+                                                                    .none),
+                                                      )
+                                                    : const SizedBox(),
                                               )),
                                         ),
                                       ),
@@ -306,15 +310,29 @@ class ProfileView extends StatelessWidget {
                                           child: Padding(
                                             padding: const EdgeInsets.only(
                                                 right: 18.0),
-                                            child: Text('Level2',
-                                                // Utils.getString(context, 'partners_around_you'),
-                                                style:
-                                                    CommonUi.customTextStyle1(
-                                                        Fonts.interMedium,
-                                                        12.0,
-                                                        FontWeight.w500,
-                                                        AppColors.grey_level,
-                                                        TextDecoration.none)),
+                                            child: Obx(
+                                              () => profileController
+                                                      .resLevel
+                                                      .value
+                                                      .levelNumber
+                                                      .isNotEmpty
+                                                  ? Text(
+                                                      "Level " +
+                                                          profileController
+                                                              .resLevel
+                                                              .value
+                                                              .levelNumber,
+                                                      style: CommonUi
+                                                          .customTextStyle1(
+                                                              Fonts.interMedium,
+                                                              12.0,
+                                                              FontWeight.w500,
+                                                              AppColors
+                                                                  .grey_level,
+                                                              TextDecoration
+                                                                  .none))
+                                                  : const SizedBox(),
+                                            ),
                                           ),
                                         ),
                                       ),

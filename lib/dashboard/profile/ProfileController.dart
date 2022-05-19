@@ -1,6 +1,7 @@
 import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/authentication/signUp/ModelText.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
+import 'package:ciao_chow/dashboard/home/homeMain/ModelLevel.dart';
 import 'package:ciao_chow/dashboard/profile/editProfile/ChangePasswordMainModel.dart';
 import 'package:ciao_chow/dashboard/profile/ProfileMainModel.dart' as gt;
 import 'package:easy_localization/easy_localization.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'ProfileMainModel.dart';
 
 class ProfileController extends GetxController {
   var loaderProfile = false.obs;
@@ -34,8 +37,10 @@ class ProfileController extends GetxController {
   var newPasswordConfirmController = TextEditingController().obs;
   var arrayLatestCheckIns = <gt.UserCheckin>[].obs;
   var arrayBadges = <gt.Badge>[].obs;
-  var arrayLevels = <gt.Level>[].obs;
+  List<gt.Level> arrayLevels = <gt.Level>[].obs;
   var profileData = gt.Data().obs;
+  var resLevel = ModelLevel().obs;
+
 
   void addAccountItems(String firstName, bool firstSelected, String secondName,
       bool secondSelected) {
@@ -128,7 +133,7 @@ class ProfileController extends GetxController {
         arrayBadges.clear();
         profileData.value = response.data!;
         arrayLatestCheckIns.value = response.userCheckins!;
-        arrayLevels.value = response.levels!;
+        arrayLevels.addAll(response.levels!);
         arrayBadges.value = response.badges!;
         String gender;
 
@@ -159,6 +164,7 @@ class ProfileController extends GetxController {
         profileData.value.dob.toString() != '' ? dobText.value = CommonUi.dateFormat(profileData.value.dob??DateTime.now()) : '';
         isCameraOrGallery.value = '';
         showBottomSheet.value = false;
+        resLevel.value = getUserLevelsProfile(arrayLevels, profileData.value.totalPoints!);
       } else {
         CommonUi.showToast('Something went wrong!');
         return;
@@ -189,5 +195,46 @@ class ProfileController extends GetxController {
       }
       loaderChangePassword.value = false;
     });
+  }
+
+  ModelLevel getUserLevelsProfile(List<Level> levelsList,int totalpoints) {
+    var levelName = '';
+    var levelMaxValue = 0;
+    var levelNumber = 0;
+    var points = 0;
+    var id = '';
+
+    for (var i = 0; i < levelsList.length; i++) {
+      if (totalpoints >= levelsList[i].points!) {
+        levelNumber = levelNumber + 1;
+      } else {
+        break;
+      }
+    }
+
+    if (levelNumber == 0 && totalpoints > 0) {
+      levelNumber = 1;
+      points = levelsList[levelNumber - 1].points!;
+    }else if (totalpoints == 0) {
+      levelNumber = 1;
+      points = levelsList[0].points!;
+    }else {
+      levelNumber = levelNumber + 1;
+      if(levelsList.length - 1  >= levelNumber) {
+        points = levelsList[levelNumber].points!;
+      }else {
+        points = levelsList[levelsList.length - 1 ].points!;
+      }
+    }
+
+    var modelMain = ModelLevel();
+    modelMain.id = id;
+    modelMain.levelName = levelName;
+    modelMain.points = points;
+    modelMain.levelNumber = levelNumber.toString();
+    modelMain.levelLeft = (levelMaxValue - 0).toString();
+
+    return modelMain;
+
   }
 }

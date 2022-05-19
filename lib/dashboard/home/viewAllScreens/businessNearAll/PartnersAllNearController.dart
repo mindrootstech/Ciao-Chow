@@ -23,7 +23,6 @@ class PartnersAllNearController extends GetxController{
   void onInit() {
     super.onInit();
     parentAllLoaderShow.value = true;
-    getAllBusinessList();
   }
 
   void getAllBusinessList() {

@@ -32,12 +32,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   }
 }
 
-// final AndroidInitializationSettings initializationSettingsAndroid =
-//     AndroidInitializationSettings('@mipmap/ic_launcher');
-//
-// const CHANNEL = "com.example.ciao_chow";
-// const KEY_NATIVE = "showNativeView";
-
 List<Locale> getSupportedLanguages() {
   final List<Locale> localeList = <Locale>[];
   for (final Language lang in CommonUi.psSupportedLanguageList) {
@@ -72,12 +66,4 @@ class MyApp extends StatelessWidget {
       home: SplashView(),
     );
   }
-
-  // Future<dynamic> _handleMethod(MethodCall call) async {
-  //   switch (call.method) {
-  //     case "message":
-  //       debugPrint(call.arguments);
-  //       return Future.value("");
-  //   }
-  // }
 }

@@ -66,6 +66,7 @@ class HomeController extends GetxController {
       bannerList.clear();
       arrayPartners.clear();
       arrayLatestCheckIns.clear();
+      arrayLevels.clear();
       bannerList.addAll(response.data!.banners!);
       addBannerList(bannerList);
       arrayPartners.addAll(response.data!.businessList!);
@@ -75,8 +76,7 @@ class HomeController extends GetxController {
       profileData.value = response.data!.profile!;
       viewShowHide.value = latitude;
       homeLoaderShow.value = false;
-      resLevel.value =
-          CommonUi.getUserLevels(arrayLevels, profileData.value.level!);
+      resLevel.value = CommonUi.getUserLevels(arrayLevels, profileData.value.totalPoints!);
     });
   }
 

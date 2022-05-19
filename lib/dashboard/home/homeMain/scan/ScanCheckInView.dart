@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ScanCheckInView extends StatelessWidget {
   ScanCheckInView({Key? key}) : super(key: key);

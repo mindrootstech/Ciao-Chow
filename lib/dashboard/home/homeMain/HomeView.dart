@@ -277,19 +277,25 @@ class HomeView extends StatelessWidget {
                                           TextDecoration.none),
                                     ),
                                     Obx(
-                                      () => Text(
-                                        'Current Level: LEVEL ' +
-                                            homeController
-                                                .profileData.value.level
-                                                .toString(),
-                                        // Utils.getString(context, 'partners_around_you'),
-                                        style: CommonUi.customTextStyle1(
-                                            Fonts.interMedium,
-                                            12.0,
-                                            FontWeight.w500,
-                                            AppColors.White,
-                                            TextDecoration.none),
-                                      ),
+                                      () => homeController.resLevel.value
+                                              .levelNumber.isNotEmpty
+                                          ? Text(
+                                              'Current Level: LEVEL ' +
+                                                  (int.parse(homeController
+                                                              .resLevel
+                                                              .value
+                                                              .levelNumber) -
+                                                          1)
+                                                      .toString(),
+                                              // Utils.getString(context, 'partners_around_you'),
+                                              style: CommonUi.customTextStyle1(
+                                                  Fonts.interMedium,
+                                                  12.0,
+                                                  FontWeight.w500,
+                                                  AppColors.White,
+                                                  TextDecoration.none),
+                                            )
+                                          : SizedBox(),
                                     ),
                                   ],
                                 ),
@@ -309,8 +315,9 @@ class HomeView extends StatelessWidget {
                                           () => homeController
                                                   .arrayBadges.isNotEmpty
                                               ? Align(
-                                            alignment: Alignment.centerLeft,
-                                                child: CachedNetworkImage(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: CachedNetworkImage(
                                                     imageUrl: homeController
                                                         .arrayBadges[
                                                             homeController
@@ -318,8 +325,9 @@ class HomeView extends StatelessWidget {
                                                                     .length -
                                                                 1]
                                                         .badgeImage!,
-                                                    placeholder: (context, url) =>
-                                                        const Center(
+                                                    placeholder:
+                                                        (context, url) =>
+                                                            const Center(
                                                       child:
                                                           CircularProgressIndicator(
                                                         color: AppColors.White,
@@ -329,7 +337,7 @@ class HomeView extends StatelessWidget {
                                                             error) =>
                                                         const Icon(Icons.error),
                                                   ),
-                                              )
+                                                )
                                               : Text(
                                                   Utils.getString(
                                                       context, 'no_badges'),
@@ -360,14 +368,8 @@ class HomeView extends StatelessWidget {
                                                             .value.totalPoints!
                                                             .toInt() /
                                                         10) /
-                                                    (homeController
-                                                            .arrayLevels[
-                                                                homeController
-                                                                        .arrayLevels
-                                                                        .length -
-                                                                    1]
-                                                            .points!
-                                                            .toInt() /
+                                                    (homeController.resLevel
+                                                            .value.points /
                                                         10)
                                                 : 0.0,
                                             barRadius:
@@ -383,34 +385,38 @@ class HomeView extends StatelessWidget {
                                           bottom: 0,
                                           child: Obx(
                                             () => homeController
-                                                .arrayLevels.length > 0 ? Center(
-                                              child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 18.0),
-                                                  child: Text(
-                                                    homeController.profileData
-                                                            .value.totalPoints
-                                                            .toString() +
-                                                        "/" +
-                                                        homeController
-                                                            .arrayLevels[
-                                                                homeController
-                                                                        .arrayLevels
-                                                                        .length -
-                                                                    1]
-                                                            .points
-                                                            .toString(),
-                                                    style: CommonUi
-                                                        .customTextStyle1(
-                                                            Fonts.interMedium,
-                                                            12.0,
-                                                            FontWeight.w500,
-                                                            AppColors.Black,
-                                                            TextDecoration
-                                                                .none),
-                                                  )),
-                                            ): SizedBox(),
+                                                        .arrayLevels.isNotEmpty
+                                                ? Center(
+                                                    child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 18.0),
+                                                        child: Text(
+                                                          homeController
+                                                                  .profileData
+                                                                  .value
+                                                                  .totalPoints
+                                                                  .toString() +
+                                                              "/" +
+                                                              homeController
+                                                                  .resLevel
+                                                                  .value
+                                                                  .points.toString(),
+                                                          style: CommonUi
+                                                              .customTextStyle1(
+                                                                  Fonts
+                                                                      .interMedium,
+                                                                  12.0,
+                                                                  FontWeight
+                                                                      .w500,
+                                                                  AppColors
+                                                                      .Black,
+                                                                  TextDecoration
+                                                                      .none),
+                                                        )),
+                                                  )
+                                                : SizedBox(),
                                           ),
                                         ),
                                         Positioned(
@@ -423,9 +429,9 @@ class HomeView extends StatelessWidget {
                                                   right: 18.0),
                                               child: Obx(
                                                 () => Text(
-                                                    homeController.resLevel
-                                                        .value.levelName,
-                                                    // Utils.getString(context, 'partners_around_you'),
+                                                    "Level " +
+                                                        homeController.resLevel
+                                                            .value.levelNumber,
                                                     style: CommonUi
                                                         .customTextStyle1(
                                                             Fonts.interMedium,
