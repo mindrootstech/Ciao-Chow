@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EventDetailsController extends GetxController {
-
   var showBottomSheet = false.obs;
   var whichSheet = ''.obs;
   final _apiProvider = ApiProvider();
@@ -33,7 +32,6 @@ class EventDetailsController extends GetxController {
   var eventIdd = '';
   var sliderValue = 0.0;
   var modelCard = Datum().obs;
-
   var redemeedDate = DateTime(2022).obs;
 
   @override
@@ -45,20 +43,28 @@ class EventDetailsController extends GetxController {
   }
 
   void getEventDetails(String eventId, String saleId) {
-    _apiProvider.getEventDetailsData(eventId,saleId).then((value) {
+    _apiProvider.getEventDetailsData(eventId, saleId).then((value) {
       eventIdd = eventId;
       var response = eventDetailsMainModelFromJson(value);
-      eventDetails.value = response.data!.event!;
-      eventSale.value = response.data!.eventSale!;
-      businessDetails.value = response.data!.event!.business!;
-      arrayImages.clear();
-      arrayImages.addAll(response.data!.event!.business!.images!);
-      addBannerList(arrayImages);
-      getSliderValue();
+      if (response.status == true) {
+        eventDetails.value = response.data!.event!;
+        eventSale.value = response.data!.eventSale!;
+        businessDetails.value = response.data!.event!.business!;
+        arrayImages.clear();
+        arrayImages.addAll(response.data!.event!.business!.images!);
+        addBannerList(arrayImages);
+        getSliderValue();
 
-      if(eventSale.value.redeemDate!.isNotEmpty) {
-        redemeedDate.value = DateFormat("yyyy-MM-dd hh:mm:ss").parse(
-            eventSale.value.redeemDate!);
+        if (eventSale.value.redeemDate!.isNotEmpty) {
+          redemeedDate.value = DateFormat("yyyy-MM-dd hh:mm:ss")
+              .parse(eventSale.value.redeemDate!);
+        }
+      } else {
+        if (response.message! == "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {
+          CommonUi.alertLogout(Get.context!,response.message!);
+        } else {
+          CommonUi.showToast(response.message!);
+        }
       }
 
       eventLoaderShow.value = false;
@@ -89,12 +95,14 @@ class EventDetailsController extends GetxController {
       }
     }
 
-    _apiProvider.getAddCard(cardNumber, cvvNo, cardName, expMonth, expYear).then((value) {
+    _apiProvider
+        .getAddCard(cardNumber, cvvNo, cardName, expMonth, expYear)
+        .then((value) {
       if (value == 'error') {
         CommonUi.showToast('Please enter correct card details to continue.');
         showAddCardLoader.value = false;
         return;
-      }else {
+      } else {
         var response = addCardMainModelFromJson(value);
         if (response.id!.isNotEmpty) {
           _apiProvider.fetchCard(response.id!).then((value) {
@@ -128,17 +136,19 @@ class EventDetailsController extends GetxController {
   }
 
   eventPurchaseApi() {
-    _apiProvider.getEventPurchase(currentSliderValue.value.round().toString(), eventIdd,
-            modelCard.value.id!).then((value) {
+    _apiProvider
+        .getEventPurchase(currentSliderValue.value.round().toString(), eventIdd,
+            modelCard.value.id!)
+        .then((value) {
       if (value == 'error') {
         CommonUi.showToast('Something went wrong!');
         return;
-      }else{
+      } else {
         var response = purchaseMainModelFromJson(value);
-        if(response.status == false){
+        if (response.status == false) {
           CommonUi.showToast('Something went wrong!');
           return;
-        }else{
+        } else {
           Get.to(BookingDoneView());
         }
       }
@@ -147,11 +157,12 @@ class EventDetailsController extends GetxController {
   }
 
   void getSliderValue() {
-
-    if(eventDetails.value.availableTickets! < int.parse(eventDetails.value.maxTicketsPerCustomer!)){
+    if (eventDetails.value.availableTickets! <
+        int.parse(eventDetails.value.maxTicketsPerCustomer!)) {
       sliderValue = eventDetails.value.availableTickets!.toDouble();
-    }else{
-      sliderValue = int.parse(eventDetails.value.maxTicketsPerCustomer!).toDouble();
+    } else {
+      sliderValue =
+          int.parse(eventDetails.value.maxTicketsPerCustomer!).toDouble();
     }
   }
 }

@@ -62,21 +62,31 @@ class HomeController extends GetxController {
   getHomeData(String latitude, String longitude) {
     _apiProvider.getHomeData(latitude, longitude).then((value) {
       var response = gt.homeMainModelFromJson(value);
-      arrayBadges.clear();
-      bannerList.clear();
-      arrayPartners.clear();
-      arrayLatestCheckIns.clear();
-      arrayLevels.clear();
-      bannerList.addAll(response.data!.banners!);
-      addBannerList(bannerList);
-      arrayPartners.addAll(response.data!.businessList!);
-      arrayLatestCheckIns.addAll(response.data!.userCheckins!);
-      arrayLevels.addAll(response.data!.levels!);
-      arrayBadges.addAll(response.data!.badges!);
-      profileData.value = response.data!.profile!;
-      viewShowHide.value = latitude;
+      if(response.status == true) {
+        arrayBadges.clear();
+        bannerList.clear();
+        arrayPartners.clear();
+        arrayLatestCheckIns.clear();
+        arrayLevels.clear();
+        bannerList.addAll(response.data!.banners!);
+        addBannerList(bannerList);
+        arrayPartners.addAll(response.data!.businessList!);
+        arrayLatestCheckIns.addAll(response.data!.userCheckins!);
+        arrayLevels.addAll(response.data!.levels!);
+        arrayBadges.addAll(response.data!.badges!);
+        profileData.value = response.data!.profile!;
+        viewShowHide.value = latitude;
+
+        resLevel.value =
+            CommonUi.getUserLevels(arrayLevels, profileData.value.totalPoints!);
+      }else{
+        if(response.message! == "Your account has been deactivated. Please email us at info@ciaochow.com for further information."){
+          CommonUi.alertLogout(Get.context!,response.message!);
+        }else{
+          CommonUi.showToast(response.message!);
+        }
+      }
       homeLoaderShow.value = false;
-      resLevel.value = CommonUi.getUserLevels(arrayLevels, profileData.value.totalPoints!);
     });
   }
 

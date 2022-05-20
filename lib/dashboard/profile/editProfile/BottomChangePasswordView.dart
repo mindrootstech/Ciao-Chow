@@ -254,6 +254,25 @@ class BottomChangePasswordView extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
+                        if (profileController
+                            .oldPasswordController.value.text.length <
+                            6) {
+                          CommonUi.showToast("password is too short.");
+                          return;
+                        }
+                        if (profileController
+                            .newPasswordController.value.text.length <
+                            6) {
+                          CommonUi.showToast("password is too short.");
+                          return;
+                        }
+
+                        if (profileController.newPasswordConfirmController.value
+                            .text.length <
+                            6) {
+                          CommonUi.showToast("password is too short.");
+                          return;
+                        }
                         profileController.loaderChangePassword.value = true;
                         profileController.getPasswordChanged();
                       }

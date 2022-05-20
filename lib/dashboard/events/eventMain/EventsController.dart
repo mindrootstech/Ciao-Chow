@@ -1,13 +1,13 @@
 import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/ModelCards.dart';
-import 'package:ciao_chow/dashboard/events/eventMain/EventsMainModel.dart' as gt;
+import 'package:ciao_chow/dashboard/events/eventMain/EventsMainModel.dart'
+    as gt;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EventsController extends GetxController {
-
   var arrayEventTicket = <gt.MyEventsTicket>[].obs;
   var eventsMainLoader = false.obs;
   var loaderEvents = false.obs;
@@ -28,14 +28,22 @@ class EventsController extends GetxController {
   void getAllEventsData() {
     _apiProvider.getEventsData().then((value) {
       var response = gt.eventsMainModelFromJson(value);
-      bannerList.clear();
-      arrayEventTicket.clear();
-      arrayUpcomingEvents.clear();
-      arrayEventTicket.addAll(response.data!.myEventsTickets!);
-      arrayUpcomingEvents.addAll(response.data!.upcomingEvents!);
-      bannerList.addAll(response.data!.banners!);
-      addBannerList(bannerList);
-      eventsMainLoader.value = false;
+      if (response.status == true) {
+        bannerList.clear();
+        arrayEventTicket.clear();
+        arrayUpcomingEvents.clear();
+        arrayEventTicket.addAll(response.data!.myEventsTickets!);
+        arrayUpcomingEvents.addAll(response.data!.upcomingEvents!);
+        bannerList.addAll(response.data!.banners!);
+        addBannerList(bannerList);
+        eventsMainLoader.value = false;
+      } else {
+        if (response.message! == "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {
+          CommonUi.alertLogout(Get.context!,response.message!);
+        } else {
+          CommonUi.showToast(response.message!);
+        }
+      }
     });
   }
 

@@ -1,4 +1,5 @@
 import 'package:ciao_chow/api_providers/ApiProvider.dart';
+import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/notifications/NotificationsMainModel.dart';
 import 'package:get/get.dart';
 
@@ -20,9 +21,17 @@ class NotificationController extends GetxController{
     _apiProvider.getNotification().then((value)
     {
       var response = notificationsMainModelFromJson(value);
-      notificationsArray.clear();
-      notificationsArray.addAll(response.data!.notifications!);
-      loaderNotification.value = false;
+      if(response.status == true) {
+        notificationsArray.clear();
+        notificationsArray.addAll(response.data!.notifications!);
+        loaderNotification.value = false;
+      }else {
+        if (response.message! == "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {
+          CommonUi.alertLogout(Get.context!,response.message!);
+        } else {
+          CommonUi.showToast(response.message!);
+        }
+      }
 
     });
 

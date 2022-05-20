@@ -11,19 +11,23 @@ String homeMainModelToJson(HomeMainModel data) => json.encode(data.toJson());
 class HomeMainModel {
   HomeMainModel({
     this.status,
+    this.message,
     this.data,
   });
 
   bool? status;
+  String? message;
   Data? data;
 
   factory HomeMainModel.fromJson(Map<String, dynamic> json) => HomeMainModel(
     status: json["status"],
-    data: Data.fromJson(json["data"]),
+    message: json["message"] == null ? null : json["message"],
+    data: json["data"] == null ? null : Data.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
+    "message": message,
     "data": data!.toJson(),
   };
 }

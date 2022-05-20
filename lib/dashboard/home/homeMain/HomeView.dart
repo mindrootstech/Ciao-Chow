@@ -221,15 +221,21 @@ class HomeView extends StatelessWidget {
                               left: 20, right: 20, top: 25),
                           child: GestureDetector(
                             onTap: () {
-                              DashBoardController dashboardController =
-                                  Get.find();
+                              // final DashBoardController dashboardController =
+                              //     Get.isRegistered<DashBoardController>()
+                              //         ? Get.find<DashBoardController>()
+                              //         : Get.put(DashBoardController());
+
                               try {
+                                DashBoardController dashboardController =
+                                Get.find();
                                 dashboardController.selectedValue.value = 3;
+                                Get.to(DashBoardView(
+                                    dashboardController.selectedValue.value));
                               } catch (Exception) {
                                 var a = 0;
                               }
-                              Get.to(DashBoardView(
-                                  dashboardController.selectedValue.value));
+
                             },
                             child: Column(
                               children: [
@@ -385,7 +391,7 @@ class HomeView extends StatelessWidget {
                                           bottom: 0,
                                           child: Obx(
                                             () => homeController
-                                                        .arrayLevels.isNotEmpty
+                                                    .arrayLevels.isNotEmpty
                                                 ? Center(
                                                     child: Padding(
                                                         padding:
@@ -402,7 +408,8 @@ class HomeView extends StatelessWidget {
                                                               homeController
                                                                   .resLevel
                                                                   .value
-                                                                  .points.toString(),
+                                                                  .points
+                                                                  .toString(),
                                                           style: CommonUi
                                                               .customTextStyle1(
                                                                   Fonts

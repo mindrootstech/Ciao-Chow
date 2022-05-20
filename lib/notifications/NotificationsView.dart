@@ -16,46 +16,6 @@ class NotificationsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // notificationController.notificationsArray.value = [];
-    //
-    // var notificationModel = NotificationsMainModel();
-    // notificationModel.imageUrl =
-    //     'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
-    // notificationModel.title = 'PlayBoy';
-    // notificationModel.notificationTime = '1m ago.';
-    // notificationModel.description =
-    //     'Play boy has added new event that might you be intersted.';
-    // notificationController.notificationsArray.add(notificationModel);
-    //
-    // notificationModel = NotificationsMainModel();
-    // notificationModel.imageUrl =
-    //     'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
-    // notificationModel.title = 'PlayBoy';
-    // notificationModel.notificationTime = '1m ago.';
-    // notificationModel.description =
-    //     'Play boy has added new event that might you be intersted.';
-    // notificationController.notificationsArray.add(notificationModel);
-    //
-    //
-    // notificationModel = NotificationsMainModel();
-    // notificationModel.imageUrl =
-    //     'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
-    // notificationModel.title = 'PlayBoy';
-    // notificationModel.notificationTime = '1m ago.';
-    // notificationModel.description =
-    //     'Play boy has added new event that might you be intersted.';
-    // notificationController.notificationsArray.add(notificationModel);
-    //
-    //
-    // notificationModel = NotificationsMainModel();
-    // notificationModel.imageUrl =
-    //     'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVzaW5lc3N8ZW58MHx8MHx8&w=1000&q=80';
-    // notificationModel.title = 'PlayBoy';
-    // notificationModel.notificationTime = '1m ago.';
-    // notificationModel.description =
-    //     'Play boy has added new event that might you be intersted.';
-    // notificationController.notificationsArray.add(notificationModel);
-
 
     return Stack(
       children: [

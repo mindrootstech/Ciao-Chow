@@ -15,7 +15,6 @@ class DashBoardView extends StatelessWidget {
   DashBoardView(this.index, {Key? key}) : super(key: key);
   var dashboardController = Get.put(DashBoardController());
 
-
   @override
   Widget build(BuildContext context) {
     dashboardController.selectedValue.value = index;

@@ -31,14 +31,13 @@ class EditProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
+    profileController.updateProfileLoaderShow.value = false;
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Stack(
         children: [
           Scaffold(
-            resizeToAvoidBottomInset:false ,
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               leading: Builder(
                 builder: (BuildContext context) {
@@ -134,9 +133,13 @@ class EditProfileView extends StatelessWidget {
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(100)),
                                           child: profileController.profileData
-                                                      .value.profileImage
-                                                      .toString() ==
-                                                  ''
+                                                          .value.profileImage
+                                                          .toString() ==
+                                                      '' &&
+                                                  profileController
+                                                          .isCameraOrGallery
+                                                          .value !=
+                                                      '1'
                                               ? SvgPicture.asset(
                                                   CommonUi.setSvgImage(
                                                       'default_image'),
@@ -410,7 +413,8 @@ class EditProfileView extends StatelessWidget {
                                   },
                                   child: Obx(
                                     () => DOBText(
-                                        textValue: profileController.accountDetail[0]),
+                                        textValue:
+                                            profileController.accountDetail[0]),
                                   ),
                                 ),
                               ),
@@ -501,14 +505,8 @@ class EditProfileView extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   const SnackBar(content: Text('Processing Data')),
-                        // );
-                        // Get.off(DashBoardView());
-
                         profileController.updateProfileLoaderShow.value = true;
                         profileController.updateProfile();
-
                       }
                     },
                     child: Container(
@@ -559,14 +557,14 @@ class EditProfileView extends StatelessWidget {
             bottom: 0,
             child: Obx(() => profileController.updateProfileLoaderShow.value
                 ? SizedBox(
-              width: Get.width,
-                  height: Get.height,
-                  child: const Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.AppColorGrad2,
+                    width: Get.width,
+                    height: Get.height,
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.AppColorGrad2,
+                      ),
                     ),
-                  ),
-                )
+                  )
                 : Container()),
           ),
         ],

@@ -75,13 +75,14 @@ class ProfileController extends GetxController {
     isCameraOrGallery.value = '1';
   }
 
-  Future<void> getGalleryImage() async {
+  Future<String> getGalleryImage() async {
     PickedFile? image = await ImagePicker.platform
         .pickImage(source: ImageSource.gallery, imageQuality: 25);
     imageName = image!.path.split('/').last;
     imagePath.value = image.path;
     imagePathNew = image.path;
     isCameraOrGallery.value = '1';
+    return imagePathNew;
   }
 
   void updateProfile() {
@@ -128,47 +129,58 @@ class ProfileController extends GetxController {
     _apiProvider.getProfileData().then((value) {
       if (value != 'error') {
         var response = gt.profileMainModelFromJson(value);
-        arrayLatestCheckIns.clear();
-        arrayLevels.clear();
-        arrayBadges.clear();
-        profileData.value = response.data!;
-        arrayLatestCheckIns.value = response.userCheckins!;
-        arrayLevels.addAll(response.levels!);
-        arrayBadges.value = response.badges!;
-        String gender;
+        if (response.status == true) {
+          arrayLatestCheckIns.clear();
+          arrayLevels.clear();
+          arrayBadges.clear();
+          profileData.value = response.data!;
+          arrayLatestCheckIns.value = response.userCheckins!;
+          arrayLevels.addAll(response.levels!);
+          arrayBadges.value = response.badges!;
+          String gender;
 
-        if(profileData.value.gender.toString() != '') {
-          if (profileData.value.gender == 1) {
-            gender = 'Male';
-          } else if (profileData.value.gender == 2) {
-            gender = 'Female';
-          } else {
-            gender = 'Other';
+          if (profileData.value.gender.toString() != '') {
+            if (profileData.value.gender == 1) {
+              gender = 'Male';
+            } else if (profileData.value.gender == 2) {
+              gender = 'Female';
+            } else {
+              gender = 'Other';
+            }
+
+            profileData.value.dob != null
+                ? addAccountItems(
+                CommonUi.dateFormat(profileData.value.dob ?? DateTime.now()),
+                true,
+                gender,
+                false)
+                : '';
+            genderValue.value = gender;
           }
-
-          profileData.value.dob != null
-              ? addAccountItems(
-              CommonUi.dateFormat(profileData.value.dob ??DateTime.now()),
-              true,
-              gender,
-              false)
-              : '';
-          genderValue.value = gender;
-
+          profileData.value.email.toString() != '' ?
+          emailController.value = profileData.value.email ?? "" : '';
+          profileData.value.name.toString() != '' ? userName.value =
+              profileData.value.name ?? "" : '';
+          profileData.value.mobileNumber.toString() != '' ?
+          phoneController.value =
+              profileData.value.mobileNumber ?? "" : '';
+          profileData.value.dob.toString() != '' ? dobText.value =
+              CommonUi.dateFormat(profileData.value.dob ?? DateTime.now()) : '';
+          isCameraOrGallery.value = '';
+          showBottomSheet.value = false;
+          resLevel.value =
+              getUserLevelsProfile(arrayLevels, profileData.value.totalPoints!);
+        } else {
+          if (response.message! == "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {
+            CommonUi.alertLogout(Get.context!,response.message!);
+          } else {
+            CommonUi.showToast(response.message!);
+          }
         }
-        profileData.value.email.toString() != '' ? emailController.value = profileData.value.email??"" : '';
-        profileData.value.name.toString() != '' ? userName.value =
-            profileData.value.name?? "" : '';
-        profileData.value.mobileNumber.toString() != '' ?phoneController.value =
-            profileData.value.mobileNumber?? "" : '';
-        profileData.value.dob.toString() != '' ? dobText.value = CommonUi.dateFormat(profileData.value.dob??DateTime.now()) : '';
-        isCameraOrGallery.value = '';
-        showBottomSheet.value = false;
-        resLevel.value = getUserLevelsProfile(arrayLevels, profileData.value.totalPoints!);
-      } else {
+      }else{
         CommonUi.showToast('Something went wrong!');
-        return;
       }
+
       loaderProfile.value = false;
     });
   }

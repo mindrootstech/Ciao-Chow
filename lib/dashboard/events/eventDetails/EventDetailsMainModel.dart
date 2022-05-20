@@ -13,20 +13,24 @@ String eventDetailsMainModelToJson(EventDetailsMainModel data) =>
 class EventDetailsMainModel {
   EventDetailsMainModel({
     this.status,
+    this.message,
     this.data,
   });
 
   bool? status;
+  String? message;
   Data? data;
 
   factory EventDetailsMainModel.fromJson(Map<String, dynamic> json) =>
       EventDetailsMainModel(
         status: json["status"],
-        data: Data.fromJson(json["data"]),
+        message: json["message"] == null ? null : json["message"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
+        "message": message,
         "data": data!.toJson(),
       };
 }
@@ -254,8 +258,8 @@ class EventSale {
     this.redeemDate,
   });
 
-  int? saleId;
-  int? isRedeemed;
+  String? saleId;
+  String? isRedeemed;
   String? redeemDate;
 
   factory EventSale.fromJson(Map<String, dynamic> json) => EventSale(

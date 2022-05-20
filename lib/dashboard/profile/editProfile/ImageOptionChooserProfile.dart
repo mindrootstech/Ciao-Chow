@@ -6,8 +6,8 @@ class ImageOptionChooserProfile {
 
   ProfileController profileController = Get.find();
 
-  void showChooser(context) {
-    Get.bottomSheet(
+  void  showChooser(context) {
+      Get.bottomSheet(
         Wrap(
           children: [
             ListTile(
@@ -28,8 +28,13 @@ class ImageOptionChooserProfile {
                 // style: CommonUi.customTextStyle1(Fonts.PoppinsRegular, 18, FontWeight.w500, ColorRes.textBlack),
               ),
               onTap: () {
-                profileController.getGalleryImage();
-                Get.back();
+                profileController.getGalleryImage().then((value){
+                  profileController.imagePathNew = value;
+                  profileController.isCameraOrGallery.value = '1';
+                  Get.back();
+                  return profileController.imagePathNew;
+                });
+             //
               },
             )
           ],

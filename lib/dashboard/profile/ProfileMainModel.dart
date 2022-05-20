@@ -15,6 +15,7 @@ class ProfileMainModel {
     this.userCheckins,
     this.badges,
     this.levels,
+    this.message,
   });
 
   bool? status;
@@ -22,13 +23,15 @@ class ProfileMainModel {
   List<UserCheckin>? userCheckins;
   List<Badge>? badges;
   List<Level>? levels;
+  String? message;
 
   factory ProfileMainModel.fromJson(Map<String, dynamic> json) => ProfileMainModel(
     status: json["status"],
-    data: Data.fromJson(json["data"]),
-    userCheckins: List<UserCheckin>.from(json["user_checkins"].map((x) => UserCheckin.fromJson(x))),
-    badges: List<Badge>.from(json["badges"].map((x) => Badge.fromJson(x))),
-    levels: List<Level>.from(json["levels"].map((x) => Level.fromJson(x))),
+    data: json["data"] == null ? null : Data.fromJson(json["data"]),
+    userCheckins:json["user_checkins"] == null ? null : List<UserCheckin>.from(json["user_checkins"].map((x) => UserCheckin.fromJson(x))),
+    badges: json["badges"] == null ? null : List<Badge>.from(json["badges"].map((x) => Badge.fromJson(x))),
+    levels: json["levels"] == null ? null : List<Level>.from(json["levels"].map((x) => Level.fromJson(x))),
+    message: json["message"] == null ? null : json["message"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -37,6 +40,7 @@ class ProfileMainModel {
     "user_checkins": List<dynamic>.from(userCheckins!.map((x) => x.toJson())),
     "badges": List<dynamic>.from(badges!.map((x) => x.toJson())),
     "levels": List<dynamic>.from(levels!.map((x) => x.toJson())),
+    "message": message,
   };
 }
 

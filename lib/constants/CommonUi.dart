@@ -3,6 +3,7 @@ import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
 import 'package:ciao_chow/constants/Language.dart';
 import 'package:ciao_chow/constants/Utils.dart';
+import 'package:ciao_chow/dashboard/DashBoardController.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsView.dart';
 import 'package:ciao_chow/dashboard/home/detailPage/BusinessDetailsView.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart';
@@ -337,8 +338,7 @@ class CommonUi {
     }
   }
 
-  static ModelLevel getUserLevels(
-      List<Level> levelsList,  int totalpoints) {
+  static ModelLevel getUserLevels(List<Level> levelsList, int totalpoints) {
     var levelName = '';
     var levelMaxValue = 0;
     var levelNumber = 0;
@@ -356,15 +356,15 @@ class CommonUi {
     if (levelNumber == 0 && totalpoints > 0) {
       levelNumber = 1;
       points = levelsList[levelNumber - 1].points!;
-    }else if (totalpoints == 0) {
+    } else if (totalpoints == 0) {
       levelNumber = 1;
       points = levelsList[0].points!;
-    }else {
+    } else {
       levelNumber = levelNumber + 1;
-      if(levelsList.length - 1  >= levelNumber) {
+      if (levelsList.length - 1 >= levelNumber) {
         points = levelsList[levelNumber].points!;
-      }else {
-        points = levelsList[levelsList.length - 1 ].points!;
+      } else {
+        points = levelsList[levelsList.length - 1].points!;
       }
     }
 
@@ -377,8 +377,6 @@ class CommonUi {
 
     return modelMain;
   }
-
-
 
   static void showErrorDialog(QRViewController controller) {
     showDialog(
@@ -445,5 +443,55 @@ class CommonUi {
                 ),
               ),
             ));
+  }
+
+  static Future<void> alertLogout(BuildContext context, String message) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content:
+          // Linkify(
+          //   onOpen: (link) async{
+          //     if (await canLaunch(link.url)) {
+          //     await launch(link.url);
+          //     } else {
+          //     throw 'Could not launch $link';
+          //     }
+          //   },
+          //   text: message,
+          // ),
+
+          Text(
+            message,
+            style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
+                FontWeight.w400, AppColors.Black, TextDecoration.none),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'Ok',
+                style: CommonUi.customTextStyle1(
+                    Fonts.interSemiBold,
+                    14.0,
+                    FontWeight.w500,
+                    AppColors.AppColorGrad2,
+                    TextDecoration.none),
+              ),
+              onPressed: () {
+                try {
+                  DashBoardController dashboardController = Get.find();
+                  dashboardController.getLogout();
+                } catch (Exception) {
+                  var a = 0;
+                }
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

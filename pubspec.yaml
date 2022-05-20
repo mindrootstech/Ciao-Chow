@@ -43,7 +43,7 @@ dependencies:
   carousel_slider: ^4.0.0
   cached_network_image: ^3.2.0
   percent_indicator: ^4.0.0
-  qr_code_scanner: ^0.5.2
+  qr_code_scanner: ^0.7.0
   image_picker: ^0.8.4+11
   expandable_text: ^2.2.0
   get_storage: ^2.0.3
@@ -52,7 +52,7 @@ dependencies:
   http: ^0.13.4
   location: ^4.3.0
   permission_handler: ^9.2.0
-  flutter_stripe: ^2.4.0
+  flutter_stripe: ^3.0.0
   flutter_multi_formatter: ^2.5.1
   geolocator: ^8.2.0
   firebase_messaging: ^11.2.14

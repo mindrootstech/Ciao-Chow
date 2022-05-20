@@ -239,24 +239,22 @@ class BottomSheetPaymentView extends StatelessWidget {
                           ),
                           Obx(
                             () => eventsController
-                                        .eventDetails.value.business!.createdAt
+                                        .eventDetails.value.createdAt
                                         .toString() !=
                                     'null'
                                 ? Text(
                                     CommonUi.dateFormatOnlyDate(eventsController
                                             .eventDetails
                                             .value
-                                            .business!
                                             .createdAt!) +
                                         CommonUi.getDayOfMonthSuffix(int.parse(
                                             CommonUi.dateFormatOnlyDate(
                                                 eventsController.eventDetails.value
-                                                    .business!.createdAt!))) +
+                                                    .createdAt!))) +
                                         " " +
                                         CommonUi.dateFormatWithTime(eventsController
                                             .eventDetails
                                             .value
-                                            .business!
                                             .createdAt!),
                                     style: CommonUi.customTextStyle1(
                                         Fonts.interMedium,
