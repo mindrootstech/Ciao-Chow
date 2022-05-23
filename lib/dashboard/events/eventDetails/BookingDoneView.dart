@@ -30,7 +30,7 @@ class BookingDoneView extends StatelessWidget {
                 }catch(Exception){
                   var a = 0;
                 }
-                Get.offAll(DashBoardView(dashboardController.selectedValue.value));
+                Get.offAll(() => DashBoardView(dashboardController.selectedValue.value));
               },
             ),
             Expanded(
@@ -76,7 +76,7 @@ class BookingDoneView extends StatelessWidget {
                         }catch(Exception){
                           var a = 0;
                         }
-                        Get.offAll(DashBoardView(dashboardController.selectedValue.value));
+                        Get.offAll(() => DashBoardView(dashboardController.selectedValue.value));
 
                       },
                       child: Text(
@@ -101,7 +101,7 @@ class BookingDoneView extends StatelessWidget {
                 }catch(Exception){
                   var a = 0;
                 }
-                Get.offAll(DashBoardView(dashboardController.selectedValue.value));
+                Get.offAll(() => DashBoardView(dashboardController.selectedValue.value));
               },
               child: Container(
                 child: Center(

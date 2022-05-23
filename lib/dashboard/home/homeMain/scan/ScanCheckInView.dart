@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/constants/Fonts.dart';
@@ -16,9 +18,6 @@ class ScanCheckInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     homeController.checkInLoader.value = false;
-    // Obx(() => homeController.isError.value
-    //     ? alertDialog(context)
-    //     : const SizedBox());
     return Container(
       color: AppColors.White,
       child: Stack(
@@ -84,13 +83,8 @@ class ScanCheckInView extends StatelessWidget {
                   )
                 : Container()),
           ),
-
         ],
       ),
     );
-
-
   }
-
-
 }

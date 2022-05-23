@@ -16,6 +16,7 @@ class ScanEventController extends GetxController{
 
   void onQRViewCreated(QRViewController controller) {
     this.controller = controller;
+    controller.resumeCamera();
     controller.scannedDataStream.listen((scanData) {
       result = scanData;
       controller.pauseCamera();

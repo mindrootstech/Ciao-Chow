@@ -91,27 +91,27 @@ PODS:
   - sqflite (0.0.2):
     - Flutter
     - FMDB (>= 2.7.5)
-  - Stripe (22.0.0):
-    - Stripe/Stripe3DS2 (= 22.0.0)
-    - StripeApplePay (= 22.0.0)
-    - StripeCore (= 22.0.0)
-    - StripeUICore (= 22.0.0)
-  - Stripe/Stripe3DS2 (22.0.0):
-    - StripeApplePay (= 22.0.0)
-    - StripeCore (= 22.0.0)
-    - StripeUICore (= 22.0.0)
+  - Stripe (22.3.2):
+    - Stripe/Stripe3DS2 (= 22.3.2)
+    - StripeApplePay (= 22.3.2)
+    - StripeCore (= 22.3.2)
+    - StripeUICore (= 22.3.2)
+  - Stripe/Stripe3DS2 (22.3.2):
+    - StripeApplePay (= 22.3.2)
+    - StripeCore (= 22.3.2)
+    - StripeUICore (= 22.3.2)
   - stripe_ios (0.0.1):
     - Flutter
-    - Stripe (~> 22.0.0)
-    - StripeConnections (~> 22.0.0)
-  - StripeApplePay (22.0.0):
-    - StripeCore (= 22.0.0)
-  - StripeConnections (22.0.0):
-    - StripeCore (= 22.0.0)
-    - StripeUICore (= 22.0.0)
-  - StripeCore (22.0.0)
-  - StripeUICore (22.0.0):
-    - StripeCore (= 22.0.0)
+    - Stripe (~> 22.3.0)
+    - StripeFinancialConnections (~> 22.3.0)
+  - StripeApplePay (22.3.2):
+    - StripeCore (= 22.3.2)
+  - StripeCore (22.3.2)
+  - StripeFinancialConnections (22.3.2):
+    - StripeCore (= 22.3.2)
+    - StripeUICore (= 22.3.2)
+  - StripeUICore (22.3.2):
+    - StripeCore (= 22.3.2)
   - Toast (4.0.0)
 
 DEPENDENCIES:
@@ -146,8 +146,8 @@ SPEC REPOS:
     - PromisesObjC
     - Stripe
     - StripeApplePay
-    - StripeConnections
     - StripeCore
+    - StripeFinancialConnections
     - StripeUICore
     - Toast
 
@@ -209,12 +209,12 @@ SPEC CHECKSUMS:
   qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
-  Stripe: ee32e594fa4dee4bdf2a8a3039f7fb07a21075dc
-  stripe_ios: 4ae5942d4f2f383c2be5c187e6e4e4f31e29c0a5
-  StripeApplePay: e09964f3e2c6b318e53a05c12f3cb7efc592484d
-  StripeConnections: d3068bf688679a51932abb94d956d8a73c213bd7
-  StripeCore: 689b9605ccb78e507f59ddc5e677615e0af16583
-  StripeUICore: f5fe5ad283e132b40077b5eb85b625ebf7de034a
+  Stripe: 17d25f91e6332898ba92585cd84be1a8b5594239
+  stripe_ios: a0a5c4e07e65afc7370a5d7432af6292c68482c5
+  StripeApplePay: 90b4c66db77cb49273eb8f5d58385b5dc3923cff
+  StripeCore: 7d8cf9e15ed8c3b25782693195cbf8757c7c3c4d
+  StripeFinancialConnections: 01deacb97a300f001b5b1ecfbed548d22b6a77de
+  StripeUICore: e90f3a6d4244fbda668fbc44cb657281574a7bd8
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
 PODFILE CHECKSUM: ce13d36744da294d67f8e460dbb7aed7c09bd7f4
