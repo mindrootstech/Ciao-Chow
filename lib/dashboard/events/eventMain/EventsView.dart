@@ -41,7 +41,7 @@ class EventsView extends StatelessWidget {
                             Utils.getString(context, 'events'),
                             style: CommonUi.customTextStyle1(
                                 Fonts.interSemiBold,
-                                20.0,
+                                22.0,
                                 FontWeight.w600,
                                 AppColors.White,
                                 TextDecoration.none),
@@ -50,7 +50,7 @@ class EventsView extends StatelessWidget {
                         ),
                         Container(
                           color: AppColors.AppColorGrad2,
-                          height: 16,
+                          height: 29,
                         ),
                         SizedBox(
                           height: 200,

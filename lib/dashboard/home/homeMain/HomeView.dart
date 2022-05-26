@@ -36,7 +36,6 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     homeController.registerNotification();
-
     return Stack(
       children: [
         Scaffold(
@@ -213,30 +212,31 @@ class HomeView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          decoration: CommonUi.commonBoxDecorationAllSides(
-                              10.0, AppColors.buttonColor1),
-                          margin: const EdgeInsets.only(
-                              left: 20, right: 20, top: 25),
-                          child: GestureDetector(
-                            onTap: () {
-                              // final DashBoardController dashboardController =
-                              //     Get.isRegistered<DashBoardController>()
-                              //         ? Get.find<DashBoardController>()
-                              //         : Get.put(DashBoardController());
+                        GestureDetector(
+                          onTap: () {
+                            // final DashBoardController dashboardController =
+                            //     Get.isRegistered<DashBoardController>()
+                            //         ? Get.find<DashBoardController>()
+                            //         : Get.put(DashBoardController());
 
-                              try {
-                                DashBoardController dashboardController =
-                                Get.find();
-                                dashboardController.selectedValue.value = 3;
-                                Get.to(DashBoardView(
-                                    dashboardController.selectedValue.value));
-                              } catch (Exception) {
-                                var a = 0;
-                              }
+                            try {
+                              DashBoardController dashboardController =
+                              Get.find();
+                              dashboardController.selectedValue.value = 3;
+                              Get.to(DashBoardView(
+                                  dashboardController.selectedValue.value));
+                            } catch (Exception) {
+                              var a = 0;
+                            }
 
-                            },
+                          },
+                          child: Container(
+                            // color: Colors.transparent,
+                            padding: const EdgeInsets.all(15),
+                            decoration: CommonUi.commonBoxDecorationAllSides(
+                                10.0, AppColors.buttonColor1),
+                            margin: const EdgeInsets.only(
+                                left: 20, right: 20, top: 25),
                             child: Column(
                               children: [
                                 Row(
@@ -312,50 +312,47 @@ class HomeView extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: SizedBox(
-                                        width: 30,
-                                        height: 30,
-                                        child: Obx(
-                                          () => homeController
-                                                  .arrayBadges.isNotEmpty
-                                              ? Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: homeController
-                                                        .arrayBadges[
-                                                            homeController
-                                                                    .arrayBadges
-                                                                    .length -
-                                                                1]
-                                                        .badgeImage!,
-                                                    placeholder:
-                                                        (context, url) =>
-                                                            const Center(
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        color: AppColors.White,
-                                                      ),
+                                    SizedBox(
+                                      width: 30,
+                                      height: 30,
+                                      child: Obx(
+                                        () => homeController
+                                                .arrayBadges.isNotEmpty
+                                            ? Align(
+                                                alignment:
+                                                    Alignment.centerLeft,
+                                                child: CachedNetworkImage(
+                                                  imageUrl: homeController
+                                                      .arrayBadges[
+                                                          homeController
+                                                                  .arrayBadges
+                                                                  .length -
+                                                              1]
+                                                      .badgeImage!,
+                                                  placeholder:
+                                                      (context, url) =>
+                                                          const Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color: AppColors.White,
                                                     ),
-                                                    errorWidget: (context, url,
-                                                            error) =>
-                                                        const Icon(Icons.error),
                                                   ),
-                                                )
-                                              : Text(
-                                                  Utils.getString(
-                                                      context, 'no_badges'),
-                                                  style:
-                                                      CommonUi.customTextStyle1(
-                                                          Fonts.interRegular,
-                                                          12.0,
-                                                          FontWeight.w500,
-                                                          AppColors.White,
-                                                          TextDecoration.none),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
                                                 ),
-                                        ),
+                                              )
+                                            : Text(
+                                                Utils.getString(
+                                                    context, 'no_badges'),
+                                                style:
+                                                    CommonUi.customTextStyle1(
+                                                        Fonts.interRegular,
+                                                        12.0,
+                                                        FontWeight.w500,
+                                                        AppColors.White,
+                                                        TextDecoration.none),
+                                              ),
                                       ),
                                     ),
                                     Stack(

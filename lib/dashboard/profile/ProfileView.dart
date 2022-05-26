@@ -48,11 +48,11 @@ class ProfileView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 40,
+                  height: 50,
                   child: Stack(
                     children: [
                       Container(
-                        height: 38,
+                        height: 48,
                         color: AppColors.AppColorGrad2,
                       ),
                       Positioned(
@@ -60,7 +60,7 @@ class ProfileView extends StatelessWidget {
                         right: 0,
                         left: 0,
                         child: Container(
-                          height: 15,
+                          height: 25,
                           width: Get.width,
                           decoration: CommonUi.commonBoxDecoration(
                               24.0, AppColors.White),
@@ -408,7 +408,7 @@ class ProfileView extends StatelessWidget {
                                   },
                                 )
                               : Text(
-                                  Utils.getString(context, 'no_badges'),
+                                  Utils.getString(context, 'no_badges_profile'),
                                   style: CommonUi.customTextStyle1(
                                       Fonts.interRegular,
                                       12.0,
