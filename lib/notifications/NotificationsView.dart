@@ -68,7 +68,7 @@ class NotificationsView extends StatelessWidget {
             ),
             Obx(
               () => notificationController.loaderNotification.value
-                  ? Container(
+                  ? SizedBox(
                       height: 500,
                       width: Get.width,
                       child: const Center(

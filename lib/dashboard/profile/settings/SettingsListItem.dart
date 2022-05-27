@@ -19,8 +19,11 @@ class SettingsListItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (index == 5) {
-          profileController.loaderLogout.value = true;
-          profileController.getAccountDelete();
+
+          CommonUi.alertCommon("deleteAccount",context,profileController);
+
+          // profileController.loaderLogout.value = true;
+          // profileController.getAccountDelete();
         }
       },
       child: Container(

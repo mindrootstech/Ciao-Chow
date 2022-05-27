@@ -8,6 +8,7 @@ import 'package:ciao_chow/dashboard/events/eventDetails/EventDetailsView.dart';
 import 'package:ciao_chow/dashboard/home/detailPage/BusinessDetailsView.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/ModelLevel.dart';
+import 'package:ciao_chow/dashboard/profile/settings/SettingController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -451,19 +452,7 @@ class CommonUi {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          content:
-          // Linkify(
-          //   onOpen: (link) async{
-          //     if (await canLaunch(link.url)) {
-          //     await launch(link.url);
-          //     } else {
-          //     throw 'Could not launch $link';
-          //     }
-          //   },
-          //   text: message,
-          // ),
-
-          Text(
+          content: Text(
             message,
             style: CommonUi.customTextStyle1(Fonts.interRegular, 12.0,
                 FontWeight.w400, AppColors.Black, TextDecoration.none),
@@ -488,6 +477,64 @@ class CommonUi {
                 }
                 Navigator.of(context).pop();
               },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static Future<void> alertCommon(String fromWhere, BuildContext context,
+      SettingController settingsController) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(
+            fromWhere == "deleteAccount"
+                ? "Are you sure you want to delete your account? Your data will be cleared and non recoverable. Any pending event bookings will also be lost."
+                : "Are you sure you want to logout your account?",
+            style: CommonUi.customTextStyle1(Fonts.interMedium, 14.0,
+                FontWeight.w400, AppColors.Black, TextDecoration.none),
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  child: Text(
+                    'Yes',
+                    style: CommonUi.customTextStyle1(
+                        Fonts.interSemiBold,
+                        14.0,
+                        FontWeight.w500,
+                        AppColors.AppColorGrad2,
+                        TextDecoration.none),
+                  ),
+                  onPressed: () {
+                    settingsController.loaderLogout.value = true;
+                    Navigator.of(context).pop();
+                    fromWhere == "deleteAccount"
+                        ? settingsController.getAccountDelete()
+                        : settingsController.getLogout();
+                  },
+                ),
+                TextButton(
+                  child: Text(
+                    'No',
+                    style: CommonUi.customTextStyle1(
+                        Fonts.interSemiBold,
+                        14.0,
+                        FontWeight.w500,
+                        AppColors.AppColorGrad2,
+                        TextDecoration.none),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
             ),
           ],
         );

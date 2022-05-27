@@ -31,9 +31,9 @@ class ImageOptionChooserProfile {
                 profileController.getGalleryImage().then((value){
                   profileController.imagePathNew = value;
                   profileController.isCameraOrGallery.value = '1';
-                  Get.back();
                   return profileController.imagePathNew;
                 });
+                Get.back();
              //
               },
             )

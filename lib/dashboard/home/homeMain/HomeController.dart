@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:ciao_chow/api_providers/ApiProvider.dart';
-import 'package:ciao_chow/constants/AppColors.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
-import 'package:ciao_chow/constants/Fonts.dart';
-import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/HomeMainModel.dart' as gt;
 import 'package:ciao_chow/dashboard/home/homeMain/ModelLevel.dart';
 import 'package:ciao_chow/dashboard/home/homeMain/scan/LatestCheckInModel.dart';
@@ -14,6 +11,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:location/location.dart' as gt;
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -42,11 +40,19 @@ class HomeController extends GetxController {
   var resLevel = ModelLevel().obs;
   var isError = false.obs;
 
+  static const _insets = 16.0;
+  AdManagerBannerAd? inlineAdaptiveAd;
+  var isLoaded = false.obs;
+  AdSize? adSize;
+
+  double get adWidth => MediaQuery.of(Get.context!).size.width - (2 * _insets);
+
   @override
   void onInit() {
     super.onInit();
     homeLoaderShow.value = true;
     getLocation();
+    loadAd();
   }
 
   void onQRViewCreated(QRViewController controller) {
@@ -233,6 +239,50 @@ class HomeController extends GetxController {
     } else if (settingss.authorizationStatus == AuthorizationStatus.denied) {
       // print('User declined or has not accepted permission------');
     }
+  }
+
+  void loadAd() async {
+    await inlineAdaptiveAd?.dispose();
+    // setState(() {
+    //   inlineAdaptiveAd = null;
+    //   _isLoaded = false;
+    // });
+
+    // Get an inline adaptive size for the current orientation.
+    AdSize size = AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(
+        adWidth.truncate());
+
+    inlineAdaptiveAd = AdManagerBannerAd(
+      adUnitId: 'ca-app-pub-3940256099942544/9214589741',
+      sizes: [size],
+      request: AdManagerAdRequest(),
+      listener: AdManagerBannerAdListener(
+        onAdLoaded: (Ad ad) async {
+          print('Inline adaptive banner loaded: ${ad.responseInfo}');
+
+          // After the ad is loaded, get the platform ad size and use it to
+          // update the height of the container. This is necessary because the
+          // height can change after the ad is loaded.
+          AdManagerBannerAd bannerAd = (ad as AdManagerBannerAd);
+          final AdSize? size = await bannerAd.getPlatformAdSize();
+          if (size == null) {
+            print('Error: getPlatformAdSize() returned null for $bannerAd');
+            return;
+          }
+
+          // setState(() {
+            inlineAdaptiveAd = bannerAd;
+            isLoaded.value = true;
+            adSize = size;
+          // });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('Inline adaptive banner failedToLoad: $error');
+          ad.dispose();
+        },
+      ),
+    );
+    await inlineAdaptiveAd!.load();
   }
 
 

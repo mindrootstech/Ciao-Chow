@@ -37,12 +37,12 @@ class EventDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    eventLoaderShow.value = true;
     showAddCardLoader.value = false;
     getAllCards();
   }
 
   void getEventDetails(String eventId, String saleId) {
+    eventLoaderShow.value = true;
     _apiProvider.getEventDetailsData(eventId, saleId).then((value) {
       eventIdd = eventId;
       var response = eventDetailsMainModelFromJson(value);

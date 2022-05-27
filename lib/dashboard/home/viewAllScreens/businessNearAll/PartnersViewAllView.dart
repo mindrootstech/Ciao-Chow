@@ -9,6 +9,7 @@ import 'package:ciao_chow/dashboard/home/viewAllScreens/businessNearAll/Partners
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class PartnersViewAllView extends StatelessWidget {
   PartnersViewAllView({Key? key}) : super(key: key);
@@ -194,11 +195,12 @@ class PartnersViewAllView extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Obx(
                             () => Text(
+                              partnersAllNearController.arrayBusinessList.isNotEmpty ?
                               partnersAllNearController
                                       .searchTxt.value.isNotEmpty
                                   ? Utils.getString(context, 'filtered_results')
                                   : Utils.getString(
-                                      context, 'partners_around_you'),
+                                      context, 'partners_around_you') : "",
                               style: CommonUi.customTextStyle1(
                                   Fonts.interSemiBold,
                                   18,
@@ -248,8 +250,8 @@ class PartnersViewAllView extends StatelessWidget {
                   Obx(() => partnersAllNearController.parentAllLoaderShow.value
                       ? const Center(
                           child: CircularProgressIndicator(
-                          color: AppColors.AppColorGrad2,
-                        ))
+                        color: AppColors.AppColorGrad2,
+                      ))
                       : Container()),
             ),
           ],

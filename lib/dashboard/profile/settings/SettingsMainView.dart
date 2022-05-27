@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SettingsMainView extends StatelessWidget {
+
   var settingsController = Get.put(SettingController());
   SettingsMainView({Key? key}) : super(key: key);
 
@@ -118,8 +119,9 @@ class SettingsMainView extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: (){
-                  settingsController.loaderLogout.value = true;
-                  settingsController.getLogout();
+                  CommonUi.alertCommon("logout",context,settingsController);
+                  // settingsController.loaderLogout.value = true;
+                  // settingsController.getLogout();
                 },
                 child: Container(
                   child: Center(

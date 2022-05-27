@@ -18,6 +18,7 @@ import 'package:ciao_chow/notifications/NotificationsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:location/location.dart' as gt;
 import 'package:percent_indicator/percent_indicator.dart';
 import '../../../constants/MyCarouselSlider.dart';
@@ -221,14 +222,13 @@ class HomeView extends StatelessWidget {
 
                             try {
                               DashBoardController dashboardController =
-                              Get.find();
+                                  Get.find();
                               dashboardController.selectedValue.value = 3;
                               Get.to(DashBoardView(
                                   dashboardController.selectedValue.value));
                             } catch (Exception) {
                               var a = 0;
                             }
-
                           },
                           child: Container(
                             // color: Colors.transparent,
@@ -301,7 +301,7 @@ class HomeView extends StatelessWidget {
                                                   AppColors.White,
                                                   TextDecoration.none),
                                             )
-                                          : SizedBox(),
+                                          : const SizedBox(),
                                     ),
                                   ],
                                 ),
@@ -319,8 +319,7 @@ class HomeView extends StatelessWidget {
                                         () => homeController
                                                 .arrayBadges.isNotEmpty
                                             ? Align(
-                                                alignment:
-                                                    Alignment.centerLeft,
+                                                alignment: Alignment.centerLeft,
                                                 child: CachedNetworkImage(
                                                   imageUrl: homeController
                                                       .arrayBadges[
@@ -329,9 +328,8 @@ class HomeView extends StatelessWidget {
                                                                   .length -
                                                               1]
                                                       .badgeImage!,
-                                                  placeholder:
-                                                      (context, url) =>
-                                                          const Center(
+                                                  placeholder: (context, url) =>
+                                                      const Center(
                                                     child:
                                                         CircularProgressIndicator(
                                                       color: AppColors.White,
@@ -420,7 +418,7 @@ class HomeView extends StatelessWidget {
                                                                       .none),
                                                         )),
                                                   )
-                                                : SizedBox(),
+                                                : const SizedBox(),
                                           ),
                                         ),
                                         Positioned(
@@ -456,6 +454,20 @@ class HomeView extends StatelessWidget {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        homeController.inlineAdaptiveAd != null &&
+                                homeController.isLoaded.value &&
+                                homeController.adSize != null
+                            ? SizedBox(
+                                width: homeController.adWidth,
+                                height: 150,
+                                child: AdWidget(
+                                  ad: homeController.inlineAdaptiveAd!,
+                                ),
+                              )
+                            : const SizedBox(),
                         const SizedBox(
                           height: 25,
                         ),

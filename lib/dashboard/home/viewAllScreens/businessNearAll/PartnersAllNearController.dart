@@ -22,10 +22,10 @@ class PartnersAllNearController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    parentAllLoaderShow.value = true;
   }
 
   void getAllBusinessList() {
+    parentAllLoaderShow.value = true;
     _apiProvider.getAllBusiness(page.toString(),searchBusiness.value.text.toString().trim()).then((value)
     {
       var response = businessMainModelFromJson(value);

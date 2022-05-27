@@ -32,6 +32,8 @@ class EditProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     profileController.updateProfileLoaderShow.value = false;
+    profileController.imagePathNew = '';
+    profileController.isCameraOrGallery.value = '';
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Stack(

@@ -66,45 +66,33 @@ class Data {
 
 class Banner {
   Banner({
-    this.id,
-    this.bannerName,
-    this.image,
     this.clickType,
     this.clickValue,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
+    this.bannerName,
+    this.image,
+    this.distance,
   });
 
-  int? id;
-  String? bannerName;
-  String? image;
   int? clickType;
   String? clickValue;
-  int? status;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? bannerName;
+  String? image;
+  String? distance;
 
   factory Banner.fromJson(Map<String, dynamic> json) => Banner(
-        id: json["id"],
-        bannerName: json["banner_name"],
-        image: json["image"],
         clickType: json["click_type"],
         clickValue: json["click_value"],
-        status: json["status"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        bannerName: json["banner_name"],
+        image: json["image"],
+        distance: json["distance"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "banner_name": bannerName,
-        "image": image,
         "click_type": clickType,
         "click_value": clickValue,
-        "status": status,
-        "created_at": createdAt!.toIso8601String(),
-        "updated_at": updatedAt!.toIso8601String(),
+        "banner_name": bannerName,
+        "image": image,
+        "distance": distance,
       };
 }
 
@@ -207,6 +195,7 @@ class Event {
     this.updatedAt,
     this.createdBy,
     this.featuredImage,
+    this.isFeatured,
     this.featuredImageUrl,
     this.business,
     this.distance,
@@ -233,6 +222,7 @@ class Event {
   DateTime? updatedAt;
   int? createdBy;
   String? featuredImage;
+  String? isFeatured;
   String? featuredImageUrl;
   Business? business;
   String? distance;
@@ -259,6 +249,7 @@ class Event {
         updatedAt: DateTime.parse(json["updated_at"]),
         createdBy: json["created_by"],
         featuredImage: json["featured_image"],
+        isFeatured: json["is_featured"],
         featuredImageUrl: json["featured_image_url"],
         business: Business.fromJson(json["business"]),
         distance: json["distance"] == null ? null : json["distance"],
@@ -290,6 +281,7 @@ class Event {
         "updated_at": updatedAt!.toIso8601String(),
         "created_by": createdBy,
         "featured_image": featuredImage,
+        "is_featured": isFeatured,
         "featured_image_url": featuredImageUrl,
         "business": business!.toJson(),
         "distance": distance == null ? null : distance,
@@ -311,9 +303,11 @@ class Business {
     this.description,
     this.totalCheckins,
     this.payoutDetails,
+    this.payoutAmount,
     this.isFeatured,
     this.createdAt,
     this.updatedAt,
+    this.deletedAt,
     this.images,
     this.featuredImageUrl,
   });
@@ -331,9 +325,11 @@ class Business {
   String? description;
   String? totalCheckins;
   String? payoutDetails;
+  double? payoutAmount;
   String? isFeatured;
   DateTime? createdAt;
   DateTime? updatedAt;
+  dynamic? deletedAt;
   List<String>? images;
   String? featuredImageUrl;
 
@@ -351,9 +347,11 @@ class Business {
         description: json["description"],
         totalCheckins: json["total_checkins"],
         payoutDetails: json["payout_details"],
+        payoutAmount: json["payout_amount"].toDouble(),
         isFeatured: json["is_featured"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        deletedAt: json["deleted_at"],
         images: List<String>.from(json["images"].map((x) => x)),
         featuredImageUrl: json["featured_image_url"],
       );
@@ -372,9 +370,11 @@ class Business {
         "description": description,
         "total_checkins": totalCheckins,
         "payout_details": payoutDetails,
+        "payout_amount": payoutAmount,
         "is_featured": isFeatured,
         "created_at": createdAt!.toIso8601String(),
         "updated_at": updatedAt!.toIso8601String(),
+        "deleted_at": deletedAt,
         "images": List<dynamic>.from(images!.map((x) => x)),
         "featured_image_url": featuredImageUrl,
       };

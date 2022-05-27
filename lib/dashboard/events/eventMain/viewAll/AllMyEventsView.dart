@@ -176,10 +176,14 @@ class AllMyEventsView extends StatelessWidget {
           top: 0,
           bottom: 0,
           child: Obx(() => allEventsController.loaderEvents.value
-              ? const Center(
-                  child: CircularProgressIndicator(
-                  color: AppColors.AppColorGrad2,
-                ))
+              ? Container(
+            height: Get.height,
+                width: Get.width,
+                child: const Center(
+                    child: CircularProgressIndicator(
+                    color: AppColors.AppColorGrad2,
+                  )),
+              )
               : Container()),
         ),
       ],
