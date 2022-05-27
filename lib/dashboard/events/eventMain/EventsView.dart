@@ -7,6 +7,7 @@ import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventTicketsListItem.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventsController.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/UpcomingEventsListItem.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class EventsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseCrashlytics.instance.crash();
     return Stack(
       children: [
         Scaffold(

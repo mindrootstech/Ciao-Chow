@@ -61,6 +61,7 @@ dependencies:
   firebase_core: ^1.15.0
   jiffy: ^5.0.0
   google_mobile_ads: ^1.2.0
+  firebase_crashlytics: ^2.8.1
 
 dev_dependencies:
   flutter_test:
