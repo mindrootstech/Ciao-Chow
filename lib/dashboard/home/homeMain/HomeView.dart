@@ -369,14 +369,14 @@ class HomeView extends StatelessWidget {
                                             percent: homeController.profileData
                                                         .value.totalPoints !=
                                                     null
-                                                ? 0.0
-                                                // (homeController.profileData
-                                                //                 .value.totalPoints!
-                                                //                 .toInt() /
-                                                //             10) /
-                                                //         (homeController.resLevel
-                                                //                 .value.points /
-                                                //             10)
+                                                ?
+                                                (homeController.profileData
+                                                                .value.totalPoints!
+                                                                .toInt() /
+                                                            10) /
+                                                        (homeController.resLevel
+                                                                .value.points /
+                                                            10)
                                                 : 0.0,
                                             barRadius:
                                                 const Radius.circular(30),

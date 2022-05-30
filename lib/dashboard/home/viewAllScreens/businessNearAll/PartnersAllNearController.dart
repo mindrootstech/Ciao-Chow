@@ -42,7 +42,7 @@ class PartnersAllNearController extends GetxController{
   }
 
   void addBannerList(List<dynamic> bannerList) {
-    CommonUi.imageSliders(bannerList,imageSliders);
+    CommonUi.imageSlidersWithName(bannerList,imageSliders);
   }
 
 

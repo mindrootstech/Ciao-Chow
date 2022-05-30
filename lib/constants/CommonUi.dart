@@ -546,4 +546,51 @@ class CommonUi {
       },
     );
   }
+
+  static void imageSlidersWithName(
+      List<dynamic> bannerList, RxList<Widget> imageSliders) {
+    imageSliders.value = bannerList
+        .map((item) => ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(14.0)),
+              child: GestureDetector(
+                onTap: () {
+                  item.clickType == 1
+                      ? Get.to(BusinessDetailsView(item.clickValue!.toString()))
+                      : Get.to(EventDetailsView('notPurchased',
+                          item.clickValue!.toString(), '1', '0'));
+                },
+                child: Stack(
+                  children: [
+                    CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      width: 1000.0,
+                      imageUrl: item.image,
+                      placeholder: (context, url) => Container(
+                        color: AppColors.greyGrad3,
+
+                        width: Get.width,
+                        // child: const Center(
+                        //   child: CircularProgressIndicator(
+                        //     color: AppColors.White,
+                        //   ),
+                        // )
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
+                    Positioned(
+                        bottom: 14,
+                        left: 14,
+                        right: 0,
+                        child: Text(
+                          item.bannerName,
+                          style: customTextStyle1(Fonts.interSemiBold, 24.0,
+                              FontWeight.w500, AppColors.White, TextDecoration.none),
+                        ))
+                  ],
+                ),
+              ),
+            ))
+        .toList();
+  }
 }
