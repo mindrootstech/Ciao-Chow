@@ -15,7 +15,6 @@ import 'package:ciao_chow/dashboard/home/homeMain/scan/ScanCheckInView.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/latest/LatestCheckInViewAllView.dart';
 import 'package:ciao_chow/dashboard/home/viewAllScreens/businessNearAll/PartnersViewAllView.dart';
 import 'package:ciao_chow/notifications/NotificationsView.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -208,6 +207,11 @@ class HomeView extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               itemCount: homeController.arrayPartners.length,
                               itemBuilder: (BuildContext context, int index) {
+                                if (homeController.arrayPartners[index].id!
+                                        .toInt() ==
+                                    -1) {
+                                  homeController.loadAdsList();
+                                }
                                 return PartnersHomeListItem(
                                     index, homeController);
                               },
@@ -313,14 +317,14 @@ class HomeView extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    SizedBox(
-                                      width: 30,
-                                      height: 30,
-                                      child: Obx(
-                                        () => homeController
-                                                .arrayBadges.isNotEmpty
-                                            ? Align(
-                                                alignment: Alignment.centerLeft,
+                                    Obx(
+                                      () => homeController
+                                              .arrayBadges.isNotEmpty
+                                          ? Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: SizedBox(
+                                                width: 30,
+                                                height: 30,
                                                 child: CachedNetworkImage(
                                                   imageUrl: homeController
                                                       .arrayBadges[
@@ -340,19 +344,18 @@ class HomeView extends StatelessWidget {
                                                           error) =>
                                                       const Icon(Icons.error),
                                                 ),
-                                              )
-                                            : Text(
-                                                Utils.getString(
-                                                    context, 'no_badges'),
-                                                style:
-                                                    CommonUi.customTextStyle1(
-                                                        Fonts.interRegular,
-                                                        12.0,
-                                                        FontWeight.w500,
-                                                        AppColors.White,
-                                                        TextDecoration.none),
                                               ),
-                                      ),
+                                            )
+                                          : Text(
+                                              Utils.getString(
+                                                  context, 'no_badges'),
+                                              style: CommonUi.customTextStyle1(
+                                                  Fonts.interRegular,
+                                                  12.0,
+                                                  FontWeight.w500,
+                                                  AppColors.White,
+                                                  TextDecoration.none),
+                                            ),
                                     ),
                                     Stack(
                                       children: [
@@ -366,13 +369,14 @@ class HomeView extends StatelessWidget {
                                             percent: homeController.profileData
                                                         .value.totalPoints !=
                                                     null
-                                                ? (homeController.profileData
-                                                            .value.totalPoints!
-                                                            .toInt() /
-                                                        10) /
-                                                    (homeController.resLevel
-                                                            .value.points /
-                                                        10)
+                                                ? 0.0
+                                                // (homeController.profileData
+                                                //                 .value.totalPoints!
+                                                //                 .toInt() /
+                                                //             10) /
+                                                //         (homeController.resLevel
+                                                //                 .value.points /
+                                                //             10)
                                                 : 0.0,
                                             barRadius:
                                                 const Radius.circular(30),
@@ -458,17 +462,17 @@ class HomeView extends StatelessWidget {
                         const SizedBox(
                           height: 25,
                         ),
-                        homeController.inlineAdaptiveAd != null &&
-                                homeController.isLoaded.value &&
-                                homeController.adSize != null
-                            ? SizedBox(
-                                width: homeController.adWidth,
-                                height: 150,
-                                child: AdWidget(
-                                  ad: homeController.inlineAdaptiveAd!,
-                                ),
-                              )
-                            : const SizedBox(),
+                        Obx(
+                          () => homeController.isLoaded.value
+                              ? SizedBox(
+                                  width: homeController.adWidth,
+                                  height: 150,
+                                  child: AdWidget(
+                                    ad: homeController.inlineAdaptiveAd!,
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ),
                         const SizedBox(
                           height: 25,
                         ),

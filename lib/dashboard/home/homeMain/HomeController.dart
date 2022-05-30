@@ -43,7 +43,9 @@ class HomeController extends GetxController {
   static const _insets = 16.0;
   AdManagerBannerAd? inlineAdaptiveAd;
   var isLoaded = false.obs;
+  var isLoadedFluid = false.obs;
   AdSize? adSize;
+  FluidAdManagerBannerAd? fluidAd;
 
   double get adWidth => MediaQuery.of(Get.context!).size.width - (2 * _insets);
 
@@ -52,7 +54,7 @@ class HomeController extends GetxController {
     super.onInit();
     homeLoaderShow.value = true;
     getLocation();
-    loadAd();
+
   }
 
   void onQRViewCreated(QRViewController controller) {
@@ -69,7 +71,7 @@ class HomeController extends GetxController {
   getHomeData(String latitude, String longitude) {
     _apiProvider.getHomeData(latitude, longitude).then((value) {
       var response = gt.homeMainModelFromJson(value);
-      if(response.status == true) {
+      if (response.status == true) {
         arrayBadges.clear();
         bannerList.clear();
         arrayPartners.clear();
@@ -77,19 +79,30 @@ class HomeController extends GetxController {
         arrayLevels.clear();
         bannerList.addAll(response.data!.banners!);
         addBannerList(bannerList);
-        arrayPartners.addAll(response.data!.businessList!);
         arrayLatestCheckIns.addAll(response.data!.userCheckins!);
         arrayLevels.addAll(response.data!.levels!);
         arrayBadges.addAll(response.data!.badges!);
         profileData.value = response.data!.profile!;
         viewShowHide.value = latitude;
+        arrayPartners.addAll(response.data!.businessList!);
+
+        var model = gt.Business();
+        model.id = -1;
+
+        arrayPartners.insert(2, model);
+        arrayPartners.insert(5, model);
 
         resLevel.value =
             CommonUi.getUserLevels(arrayLevels, profileData.value.totalPoints!);
-      }else{
-        if(response.message! == "Your account has been deactivated. Please email us at info@ciaochow.com for further information."){
-          CommonUi.alertLogout(Get.context!,response.message!);
-        }else{
+
+        loadAd();
+        loadAdsList();
+
+      } else {
+        if (response.message! ==
+            "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {
+          CommonUi.alertLogout(Get.context!, response.message!);
+        } else {
           CommonUi.showToast(response.message!);
         }
       }
@@ -242,7 +255,7 @@ class HomeController extends GetxController {
   }
 
   void loadAd() async {
-    await inlineAdaptiveAd?.dispose();
+    // await inlineAdaptiveAd!.dispose();
     // setState(() {
     //   inlineAdaptiveAd = null;
     //   _isLoaded = false;
@@ -255,7 +268,7 @@ class HomeController extends GetxController {
     inlineAdaptiveAd = AdManagerBannerAd(
       adUnitId: 'ca-app-pub-3940256099942544/9214589741',
       sizes: [size],
-      request: AdManagerAdRequest(),
+      request: const AdManagerAdRequest(),
       listener: AdManagerBannerAdListener(
         onAdLoaded: (Ad ad) async {
           print('Inline adaptive banner loaded: ${ad.responseInfo}');
@@ -271,9 +284,9 @@ class HomeController extends GetxController {
           }
 
           // setState(() {
-            inlineAdaptiveAd = bannerAd;
-            isLoaded.value = true;
-            adSize = size;
+          inlineAdaptiveAd = bannerAd;
+          isLoaded.value = true;
+          adSize = size;
           // });
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
@@ -286,4 +299,25 @@ class HomeController extends GetxController {
   }
 
 
+
+  void loadAdsList() {
+    fluidAd = FluidAdManagerBannerAd(
+      adUnitId: '/6499/example/APIDemo/Fluid',
+      request: AdManagerAdRequest(nonPersonalizedAds: true),
+      listener: AdManagerBannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$fluidAd loaded.');
+          isLoadedFluid.value = true;
+
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$fluidAd failedToLoad: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => print('$fluidAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$fluidAd onAdClosed.'),
+      ),
+    )..load();
+
+  }
 }

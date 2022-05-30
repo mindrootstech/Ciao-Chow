@@ -20,7 +20,7 @@ class EventsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseCrashlytics.instance.crash();
+    // FirebaseCrashlytics.instance.crash();
     return Stack(
       children: [
         Scaffold(

@@ -25,6 +25,14 @@ class SignupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     signUpController.addAccountItems("Date of Birth", false, "Gender", false);
+    signUpController.userName.value.text = "";
+    signUpController.genderValue.value = "Gender";
+    signUpController.dobText.value = "Date of Birth";
+    signUpController.phoneController.value.text = "";
+    signUpController.passwordController.value.text = "";
+    signUpController.passwordVisibleLogin.value = true;
+    signUpController.emailController.value.text = "";
+
     return Scaffold(
       backgroundColor: AppColors.AppColorGrad2,
       body: Form(
@@ -479,7 +487,8 @@ class SignupView extends StatelessWidget {
                                           color: AppColors.transparent,
                                           padding: const EdgeInsets.all(20),
                                           child: signUpController
-                                                      .passwordVisibleLogin.value ==
+                                                      .passwordVisibleLogin
+                                                      .value ==
                                                   true
                                               ? SvgPicture.asset(
                                                   CommonUi.setSvgImage(
@@ -657,7 +666,8 @@ class SignupView extends StatelessWidget {
         initialDate: selectedDate,
         firstDate: DateTime(1900),
         lastDate: DateTime.now(),
-        initialEntryMode: DatePickerEntryMode.calendarOnly, // <- this
+        initialEntryMode: DatePickerEntryMode.calendarOnly,
+        // <- this
         builder: (context, child) {
           return Theme(
             data: Theme.of(context).copyWith(
@@ -670,7 +680,6 @@ class SignupView extends StatelessWidget {
                 ),
               ),
             ),
-
             child: child!,
           );
         }).then((pickedDate) {

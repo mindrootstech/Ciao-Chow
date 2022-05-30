@@ -282,13 +282,16 @@ class CommonUi {
                   fit: BoxFit.cover,
                   width: 1000.0,
                   imageUrl: item.image,
-                  placeholder: (context, url) => SizedBox(
-                      width: Get.width,
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.White,
-                        ),
-                      )),
+                  placeholder: (context, url) => Container(
+                    color: AppColors.greyGrad3,
+
+                    width: Get.width,
+                    // child: const Center(
+                    //   child: CircularProgressIndicator(
+                    //     color: AppColors.White,
+                    //   ),
+                    // )
+                  ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -305,13 +308,15 @@ class CommonUi {
                 fit: BoxFit.cover,
                 width: 1000.0,
                 imageUrl: item,
-                placeholder: (context, url) => SizedBox(
-                    width: Get.width,
-                    child: const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.White,
-                      ),
-                    )),
+                placeholder: (context, url) => Container(
+                  color: AppColors.greyGrad3,
+                  width: Get.width,
+                  // child: const Center(
+                  //   child: CircularProgressIndicator(
+                  //     color: AppColors.White,
+                  //   ),
+                  // )
+                ),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ))

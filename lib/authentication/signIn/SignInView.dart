@@ -19,6 +19,10 @@ class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    signInController.emailController.value.text ="";
+    signInController.passwordController.value.text ="";
+    signInController.passwordVisibleLogin.value =true;
+
     return Scaffold(
       backgroundColor: AppColors.AppColorGrad2,
       body: Form(
