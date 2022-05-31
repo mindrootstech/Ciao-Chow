@@ -73,7 +73,7 @@ class BottomSheetAlreadyCards extends StatelessWidget {
               height: 50,
               width: Get.width,
               margin: const EdgeInsets.only(
-                  left: 20, right: 20, top: 20, bottom: 20),
+                  left: 20, right: 20, top: 20, bottom: 70),
               decoration: CommonUi.shadowRoundedContainer,
             ),
           ),
