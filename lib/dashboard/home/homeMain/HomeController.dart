@@ -53,8 +53,8 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     homeLoaderShow.value = true;
-    loadAd();
     loadAdsList();
+    loadAd();
     getLocation();
   }
 
@@ -86,6 +86,8 @@ class HomeController extends GetxController {
         profileData.value = response.data!.profile!;
         viewShowHide.value = latitude;
         arrayPartners.addAll(response.data!.businessList!);
+
+
         resLevel.value =
             CommonUi.getUserLevels(arrayLevels, profileData.value.totalPoints!);
 

@@ -258,6 +258,7 @@ class SignupView extends StatelessWidget {
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(12),
                                 ],
+                                textInputAction: TextInputAction.search,
                                 controller:
                                     signUpController.phoneController.value,
                                 keyboardType: TextInputType.phone,
