@@ -33,7 +33,8 @@ class PartnersHomeListItem extends StatelessWidget {
                     ? ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
-                        child: SizedBox(
+                        child: Container(
+                          decoration: CommonUi.commonBoxDecorationAllSides(10.0, AppColors.greyGrad3),
                           width: 50,
                           height: 180,
                           child: FluidAdWidget(

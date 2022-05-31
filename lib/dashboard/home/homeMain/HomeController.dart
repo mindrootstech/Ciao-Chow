@@ -53,8 +53,9 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     homeLoaderShow.value = true;
+    loadAd();
+    loadAdsList();
     getLocation();
-
   }
 
   void onQRViewCreated(QRViewController controller) {
@@ -85,19 +86,15 @@ class HomeController extends GetxController {
         profileData.value = response.data!.profile!;
         viewShowHide.value = latitude;
         arrayPartners.addAll(response.data!.businessList!);
-
-        var model = gt.Business();
-        model.id = -1;
-
-        arrayPartners.insert(2, model);
-        arrayPartners.insert(5, model);
-
         resLevel.value =
             CommonUi.getUserLevels(arrayLevels, profileData.value.totalPoints!);
 
-        loadAd();
-        loadAdsList();
-
+        if (isLoadedFluid.value == true) {
+          var model = gt.Business();
+          model.id = -1;
+          arrayPartners.insert(2, model);
+          arrayPartners.insert(5, model);
+        }
       } else {
         if (response.message! ==
             "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {
@@ -254,12 +251,17 @@ class HomeController extends GetxController {
     }
   }
 
+
+  @override
+  void dispose() {
+    inlineAdaptiveAd!.dispose();
+    fluidAd!.dispose();
+  }
+
   void loadAd() async {
     // await inlineAdaptiveAd!.dispose();
-    // setState(() {
-    //   inlineAdaptiveAd = null;
-    //   _isLoaded = false;
-    // });
+    // inlineAdaptiveAd = null;
+    // isLoaded.value = false;
 
     // Get an inline adaptive size for the current orientation.
     AdSize size = AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(
@@ -283,22 +285,19 @@ class HomeController extends GetxController {
             return;
           }
 
-          // setState(() {
           inlineAdaptiveAd = bannerAd;
           isLoaded.value = true;
           adSize = size;
-          // });
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('Inline adaptive banner failedToLoad: $error');
+          isLoaded.value = false;
           ad.dispose();
         },
       ),
     );
     await inlineAdaptiveAd!.load();
   }
-
-
 
   void loadAdsList() {
     fluidAd = FluidAdManagerBannerAd(
@@ -308,16 +307,15 @@ class HomeController extends GetxController {
         onAdLoaded: (Ad ad) {
           print('$fluidAd loaded.');
           isLoadedFluid.value = true;
-
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('$fluidAd failedToLoad: $error');
+          isLoadedFluid.value = false;
           ad.dispose();
         },
         onAdOpened: (Ad ad) => print('$fluidAd onAdOpened.'),
         onAdClosed: (Ad ad) => print('$fluidAd onAdClosed.'),
       ),
     )..load();
-
   }
 }

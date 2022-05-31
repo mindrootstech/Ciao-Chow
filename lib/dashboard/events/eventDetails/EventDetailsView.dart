@@ -10,20 +10,22 @@ import 'package:ciao_chow/dashboard/events/eventDetails/sacnBarCode/ScanEventBar
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class EventDetailsView extends StatelessWidget {
-
   String eventId;
   String fromWhere;
   String type;
   String saleId;
 
-  EventDetailsView(this.fromWhere, this.eventId, this.type, this.saleId, {Key? key}) : super(key: key);
+  EventDetailsView(this.fromWhere, this.eventId, this.type, this.saleId,
+      {Key? key})
+      : super(key: key);
   var eventDetailsController = Get.put(EventDetailsController());
 
   @override
   Widget build(BuildContext context) {
-    eventDetailsController.getEventDetails(eventId,saleId);
+    eventDetailsController.getEventDetails(eventId, saleId);
     eventDetailsController.showBottomSheet.value = false;
     eventDetailsController.whichSheet.value = '1';
 
@@ -209,13 +211,15 @@ class EventDetailsView extends StatelessWidget {
                                       height: 6,
                                     ),
                                     Obx(
-                                      () => eventDetailsController
-                                                  .eventDetails.value.description
+                                      () => eventDetailsController.eventDetails
+                                                  .value.description
                                                   .toString() !=
                                               "null"
                                           ? Text(
-                                              eventDetailsController.eventDetails
-                                                  .value.description!,
+                                              eventDetailsController
+                                                  .eventDetails
+                                                  .value
+                                                  .description!,
                                               style: CommonUi.customTextStyle1(
                                                   Fonts.interRegular,
                                                   12.0,
@@ -240,7 +244,6 @@ class EventDetailsView extends StatelessWidget {
                         ),
                         Row(
                           children: [
-
                             // eventDetailsController.eventDetails.value.is_redeemed == 0
 
                             SvgPicture.asset(
@@ -252,7 +255,11 @@ class EventDetailsView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    type == '2' ? Utils.getString(context, 'redeemed_date') :Utils.getString(context, 'start_end_date'),
+                                    type == '2'
+                                        ? Utils.getString(
+                                            context, 'redeemed_date')
+                                        : Utils.getString(
+                                            context, 'start_end_date'),
                                     style: CommonUi.customTextStyle1(
                                         Fonts.interMedium,
                                         14.0,
@@ -269,23 +276,21 @@ class EventDetailsView extends StatelessWidget {
                                                 .toString() !=
                                             "null"
                                         ? Text(
-                                      type == '2' ?
-                                      CommonUi.dateFormatEvents(
-                                          eventDetailsController
-                                              .redemeedDate
-                                              .value
-                                              ) :
-                                            CommonUi.dateFormatEvents(
+                                            type == '2'
+                                                ? CommonUi.dateFormatEvents(
                                                     eventDetailsController
-                                                        .eventDetails
-                                                        .value
-                                                        .eventStartDate!) +
-                                                ' - ' +
-                                                CommonUi.dateFormatEvents(
-                                                    eventDetailsController
-                                                        .eventDetails
-                                                        .value
-                                                        .eventEndDate!),
+                                                        .redemeedDate.value)
+                                                : CommonUi.dateFormatEvents(
+                                                        eventDetailsController
+                                                            .eventDetails
+                                                            .value
+                                                            .eventStartDate!) +
+                                                    ' - ' +
+                                                    CommonUi.dateFormatEvents(
+                                                        eventDetailsController
+                                                            .eventDetails
+                                                            .value
+                                                            .eventEndDate!),
                                             style: CommonUi.customTextStyle1(
                                                 Fonts.interRegular,
                                                 12.0,
@@ -471,8 +476,10 @@ class EventDetailsView extends StatelessWidget {
                                                   .toString() !=
                                               "null"
                                           ? Text(
-                                              eventDetailsController.eventDetails
-                                                  .value.termsConditions!,
+                                              eventDetailsController
+                                                  .eventDetails
+                                                  .value
+                                                  .termsConditions!,
                                               style: CommonUi.customTextStyle1(
                                                   Fonts.interRegular,
                                                   12.0,
@@ -490,44 +497,52 @@ class EventDetailsView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        type != '2' ? GestureDetector(
-                            onTap: () {
-                              if (fromWhere == 'purchased') {
-                                Get.to(ScanEventBarCodeView(eventDetailsController.eventDetails.value.eventName));
-                              } else {
-                                eventDetailsController.whichSheet.value = '1';
-                                eventDetailsController.currentSliderValue.value = 0.0;
-                                eventDetailsController.modelCard.value.isSelected = false;
-                                eventDetailsController.eventDetails
-                                            .value.availableTickets! >
-                                        0
-                                    ? eventDetailsController
-                                        .showBottomSheet.value = true
-                                    : CommonUi.showToast(
-                                        'Tickets are not available.');
-                              }
-                            },
-                            child: Container(
-                              child: Center(
-                                child: Text(
-                                    fromWhere == 'purchased'
-                                        ? Utils.getString(context, 'scan_barcode')
-                                        : Utils.getString(context, 'buy_tickets'),
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interMedium,
-                                        14.0,
-                                        FontWeight.w500,
-                                        AppColors.White,
-                                        TextDecoration.none)),
-                              ),
-                              height: 50,
-                              width: Get.width,
-                              margin: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 60, bottom: 24),
-                              decoration: CommonUi.shadowRoundedContainer,
-                            ),
-                          ) : const SizedBox(),
-
+                        type != '2'
+                            ? GestureDetector(
+                                onTap: () {
+                                  if (fromWhere == 'purchased') {
+                                    Get.to(ScanEventBarCodeView(
+                                        eventDetailsController
+                                            .eventDetails.value.eventName));
+                                  } else {
+                                    eventDetailsController.whichSheet.value =
+                                        '1';
+                                    eventDetailsController
+                                        .currentSliderValue.value = 0.0;
+                                    eventDetailsController
+                                        .modelCard.value.isSelected = false;
+                                    eventDetailsController.eventDetails.value
+                                                .availableTickets! >
+                                            0
+                                        ? eventDetailsController
+                                            .showBottomSheet.value = true
+                                        : CommonUi.showToast(
+                                            'Tickets are not available.');
+                                  }
+                                },
+                                child: Container(
+                                  child: Center(
+                                    child: Text(
+                                        fromWhere == 'purchased'
+                                            ? Utils.getString(
+                                                context, 'scan_barcode')
+                                            : Utils.getString(
+                                                context, 'buy_tickets'),
+                                        style: CommonUi.customTextStyle1(
+                                            Fonts.interMedium,
+                                            14.0,
+                                            FontWeight.w500,
+                                            AppColors.White,
+                                            TextDecoration.none)),
+                                  ),
+                                  height: 50,
+                                  width: Get.width,
+                                  margin: const EdgeInsets.only(
+                                      left: 20, right: 20, top: 40, bottom: 56),
+                                  decoration: CommonUi.shadowRoundedContainer,
+                                ),
+                              )
+                            : const SizedBox(),
                         const SizedBox(
                           height: 20,
                         ),
@@ -557,6 +572,22 @@ class EventDetailsView extends StatelessWidget {
                     ))
                 : Container()),
           ),
+          Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Obx(
+                () => eventDetailsController.isLoaded.value
+                    ? Container(
+                        width: Get.width,
+                        height: eventDetailsController
+                            .anchoredAdaptiveAd!.size.height
+                            .toDouble(),
+                        child: AdWidget(
+                            ad: eventDetailsController.anchoredAdaptiveAd!),
+                      )
+                    : const SizedBox(),
+              ))
         ],
       ),
     );

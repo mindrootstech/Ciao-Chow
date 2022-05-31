@@ -11,6 +11,7 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'viewAll/BusinessUpcomingViewAll.dart';
 
@@ -158,28 +159,31 @@ class BusinessDetailsView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      businessDetailsController
-                          .getBusiness.value.distance.toString() != '' ? Padding(
-                        padding: const EdgeInsets.only(left: 24.0),
-                        child: Obx(
-                          () => businessDetailsController
-                                      .getBusiness.value.distance
-                                      .toString() !=
-                                  'null'
-                              ? Text(
-                                  businessDetailsController
-                                          .getBusiness.value.distance! +
-                                      ' miles away',
-                                  style: CommonUi.customTextStyle1(
-                                      Fonts.interItalic,
-                                      12.0,
-                                      FontWeight.w400,
-                                      AppColors.textFieldsHint,
-                                      TextDecoration.none),
-                                )
-                              : const SizedBox(),
-                        ),
-                      ) : const SizedBox(),
+                      businessDetailsController.getBusiness.value.distance
+                                  .toString() !=
+                              ''
+                          ? Padding(
+                              padding: const EdgeInsets.only(left: 24.0),
+                              child: Obx(
+                                () => businessDetailsController
+                                            .getBusiness.value.distance
+                                            .toString() !=
+                                        'null'
+                                    ? Text(
+                                        businessDetailsController
+                                                .getBusiness.value.distance! +
+                                            ' miles away',
+                                        style: CommonUi.customTextStyle1(
+                                            Fonts.interItalic,
+                                            12.0,
+                                            FontWeight.w400,
+                                            AppColors.textFieldsHint,
+                                            TextDecoration.none),
+                                      )
+                                    : const SizedBox(),
+                              ),
+                            )
+                          : const SizedBox(),
                       const SizedBox(
                         height: 18,
                       ),
@@ -392,7 +396,8 @@ class BusinessDetailsView extends StatelessWidget {
                         height: 20,
                       ),
                       Obx(
-                        () => businessDetailsController.upcomingEvents.isNotEmpty
+                        () => businessDetailsController
+                                .upcomingEvents.isNotEmpty
                             ? Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -407,7 +412,7 @@ class BusinessDetailsView extends StatelessWidget {
                                         TextDecoration.none),
                                   ),
                                   GestureDetector(
-                                    onTap: (){
+                                    onTap: () {
                                       Get.to(BusinessUpcomingViewAll());
                                     },
                                     child: Text(
@@ -431,7 +436,8 @@ class BusinessDetailsView extends StatelessWidget {
                   () => businessDetailsController.upcomingEvents.isNotEmpty
                       ? Container(
                           height: 180,
-                          margin: const EdgeInsets.only(left: 20, top: 14),
+                          margin: const EdgeInsets.only(
+                              left: 20, top: 14, bottom: 46),
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount:
@@ -467,6 +473,22 @@ class BusinessDetailsView extends StatelessWidget {
                       ))
                   : Container()),
         ),
+        Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Obx(
+              () => businessDetailsController.isLoaded.value
+                  ? Container(
+                      width: Get.width,
+                      height: businessDetailsController
+                          .anchoredAdaptiveAd!.size.height
+                          .toDouble(),
+                      child: AdWidget(
+                          ad: businessDetailsController.anchoredAdaptiveAd!),
+                    )
+                  : const SizedBox(),
+            ))
       ],
     );
   }

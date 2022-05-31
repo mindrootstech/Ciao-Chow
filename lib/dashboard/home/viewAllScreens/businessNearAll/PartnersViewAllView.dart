@@ -228,6 +228,11 @@ class PartnersViewAllView extends StatelessWidget {
                                   .arrayBusinessList.length,
                               itemBuilder: (BuildContext context, int index) {
                                 // return PartnersViewAllListItem(index, homeController);
+                                if (partnersAllNearController.arrayBusinessList[index].id!
+                                    .toInt() ==
+                                    -1) {
+                                  partnersAllNearController.loadAd();
+                                }
                                 return PartnersAroundItemList(
                                     index, partnersAllNearController);
                               }),

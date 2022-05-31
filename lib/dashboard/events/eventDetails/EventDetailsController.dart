@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ciao_chow/api_providers/ApiProvider.dart';
 import 'package:ciao_chow/constants/CommonUi.dart';
 import 'package:ciao_chow/dashboard/events/eventDetails/AddCardMainModel.dart';
@@ -9,6 +11,7 @@ import 'package:ciao_chow/dashboard/events/eventDetails/PurchaseMainModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class EventDetailsController extends GetxController {
   var showBottomSheet = false.obs;
@@ -31,14 +34,23 @@ class EventDetailsController extends GetxController {
   var showAddCardLoader = false.obs;
   var eventIdd = '';
   var sliderValue = 0.0;
+  var isLoaded = false.obs;
   var modelCard = Datum().obs;
   var redemeedDate = DateTime(2022).obs;
+  BannerAd? anchoredAdaptiveAd;
 
   @override
   void onInit() {
     super.onInit();
     showAddCardLoader.value = false;
     getAllCards();
+    loadAd();
+  }
+
+
+  @override
+  void dispose() {
+    anchoredAdaptiveAd!.dispose();
   }
 
   void getEventDetails(String eventId, String saleId) {
@@ -164,5 +176,41 @@ class EventDetailsController extends GetxController {
       sliderValue =
           int.parse(eventDetails.value.maxTicketsPerCustomer!).toDouble();
     }
+  }
+
+  Future<void> loadAd() async {
+    await anchoredAdaptiveAd?.dispose();
+    anchoredAdaptiveAd = null;
+    isLoaded.value = false;
+
+    final AnchoredAdaptiveBannerAdSize? size =
+    await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+    MediaQuery.of(Get.context!).size.width.truncate());
+
+    if (size == null) {
+    print('Unable to get height of anchored banner.');
+    return;
+    }
+
+    anchoredAdaptiveAd = BannerAd(
+    adUnitId: Platform.isAndroid
+    ? 'ca-app-pub-3940256099942544/6300978111'
+        : 'ca-app-pub-3940256099942544/2934735716',
+    size: size,
+    request: const AdRequest(),
+    listener: BannerAdListener(
+    onAdLoaded: (Ad ad) {
+    print('$ad loaded: ${ad.responseInfo}');
+    anchoredAdaptiveAd = ad as BannerAd;
+    isLoaded.value = true;
+    // });
+    },
+    onAdFailedToLoad: (Ad ad, LoadAdError error) {
+    print('Anchored adaptive banner failedToLoad: $error');
+    ad.dispose();
+    },
+    ),
+    );
+    return anchoredAdaptiveAd!.load();
   }
 }

@@ -372,7 +372,7 @@ class BottomSheetPaymentView extends StatelessWidget {
                         height: 50,
                         width: Get.width,
                         margin: const EdgeInsets.only(
-                            left: 40, right: 40, top: 22, bottom: 24),
+                            left: 40, right: 40, top: 22, bottom: 50),
                         decoration: CommonUi.shadowRoundedContainer,
                       ),
                     ),

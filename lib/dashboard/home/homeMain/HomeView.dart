@@ -473,8 +473,11 @@ class HomeView extends StatelessWidget {
                                 )
                               : const SizedBox(),
                         ),
-                        const SizedBox(
-                          height: 25,
+                        Obx(
+                          ()=> homeController.isLoaded.value
+                              ? const SizedBox(
+                            height: 25,
+                          ) : const SizedBox(),
                         ),
                         Obx(
                           () => homeController.arrayLatestCheckIns.isNotEmpty

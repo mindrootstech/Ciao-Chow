@@ -6,6 +6,7 @@ import 'package:ciao_chow/dashboard/events/eventMain/EventsMainModel.dart'
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class EventsController extends GetxController {
   var arrayEventTicket = <gt.MyEventsTicket>[].obs;
@@ -17,12 +18,21 @@ class EventsController extends GetxController {
   final _apiProvider = ApiProvider();
   var arrayCards = <ModelCards>[];
   var imageSliders = <Widget>[].obs;
+  var isLoadedFluid = false.obs;
+  AdSize? adSize;
+  FluidAdManagerBannerAd? fluidAd;
 
   @override
   void onInit() {
     super.onInit();
     eventsMainLoader.value = true;
     getAllEventsData();
+    loadAd();
+  }
+
+  @override
+  void dispose() {
+    fluidAd!.dispose();
   }
 
   void getAllEventsData() {
@@ -33,9 +43,18 @@ class EventsController extends GetxController {
         arrayEventTicket.clear();
         arrayUpcomingEvents.clear();
         arrayEventTicket.addAll(response.data!.myEventsTickets!);
-        arrayUpcomingEvents.addAll(response.data!.upcomingEvents!);
         bannerList.addAll(response.data!.banners!);
         addBannerList(bannerList);
+        arrayUpcomingEvents.addAll(response.data!.upcomingEvents!);
+        if (isLoadedFluid.value == true) {
+          var model = gt.Event();
+          for (int i = 0; i <= arrayUpcomingEvents.length - 1; i++) {
+            if ((i + 1) % 5 == 0) {
+              model.id = -1;
+              arrayUpcomingEvents.insert(i, model);
+            }
+          }
+        }
         eventsMainLoader.value = false;
       } else {
         if (response.message! == "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {
@@ -49,5 +68,25 @@ class EventsController extends GetxController {
 
   void addBannerList(List<dynamic> bannerList) {
     CommonUi.imageSliders(bannerList, imageSliders);
+  }
+
+  void loadAd() {
+    fluidAd = FluidAdManagerBannerAd(
+      adUnitId: '/6499/example/APIDemo/Fluid',
+      request: AdManagerAdRequest(nonPersonalizedAds: true),
+      listener: AdManagerBannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$fluidAd loaded.');
+          isLoadedFluid.value = true;
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$fluidAd failedToLoad: $error');
+          isLoadedFluid.value = false;
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => print('$fluidAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$fluidAd onAdClosed.'),
+      ),
+    )..load();
   }
 }

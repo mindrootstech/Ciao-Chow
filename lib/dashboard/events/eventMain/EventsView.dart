@@ -152,8 +152,7 @@ class EventsView extends StatelessWidget {
                                               .arrayEventTicket.length,
                                           itemBuilder: (BuildContext context,
                                               int index) {
-                                            return EventTicketsListItem(
-                                                index);
+                                            return EventTicketsListItem(index);
                                           },
                                         ),
                                       ),
