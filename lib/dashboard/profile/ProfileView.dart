@@ -257,7 +257,7 @@ class ProfileView extends StatelessWidget {
                                                 : 0.0,
                                             barRadius:
                                                 const Radius.circular(30),
-                                            progressColor: AppColors.redLatest,
+                                            progressColor: AppColors.home_progress,
                                             backgroundColor: AppColors.White,
                                           ),
                                         ),
@@ -328,7 +328,7 @@ class ProfileView extends StatelessWidget {
                                                               12.0,
                                                               FontWeight.w500,
                                                               AppColors
-                                                                  .grey_level,
+                                                                  .Black,
                                                               TextDecoration
                                                                   .none))
                                                   : const SizedBox(),

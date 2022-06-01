@@ -22,12 +22,19 @@ class EventsController extends GetxController {
   AdSize? adSize;
   FluidAdManagerBannerAd? fluidAd;
 
+  static const _insets = 16.0;
+  AdManagerBannerAd? inlineAdaptiveAd;
+  var isLoaded = false.obs;
+
+  double get adWidth => MediaQuery.of(Get.context!).size.width - (2 * _insets);
+
   @override
   void onInit() {
     super.onInit();
     eventsMainLoader.value = true;
     getAllEventsData();
     loadAd();
+    loadInlineAd();
   }
 
   @override
@@ -49,7 +56,7 @@ class EventsController extends GetxController {
         if (isLoadedFluid.value == true) {
           var model = gt.Event();
           for (int i = 0; i <= arrayUpcomingEvents.length - 1; i++) {
-            if ((i + 1) % 5 == 0) {
+            if ((i + 1) % 4 == 0) {
               model.id = -1;
               arrayUpcomingEvents.insert(i, model);
             }
@@ -88,5 +95,48 @@ class EventsController extends GetxController {
         onAdClosed: (Ad ad) => print('$fluidAd onAdClosed.'),
       ),
     )..load();
+  }
+
+  Future<void> loadInlineAd() async {
+    // await inlineAdaptiveAd!.dispose();
+    // inlineAdaptiveAd = null;
+    // isLoaded.value = false;
+
+    // Get an inline adaptive size for the current orientation.
+    AdSize size = AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(
+        adWidth.truncate());
+
+    inlineAdaptiveAd = AdManagerBannerAd(
+      adUnitId: 'ca-app-pub-3940256099942544/9214589741',
+      sizes: [size],
+      request: const AdManagerAdRequest(),
+      listener: AdManagerBannerAdListener(
+        onAdLoaded: (Ad ad) async {
+          print('Inline adaptive banner loaded: ${ad.responseInfo}');
+
+          // After the ad is loaded, get the platform ad size and use it to
+          // update the height of the container. This is necessary because the
+          // height can change after the ad is loaded.
+          AdManagerBannerAd bannerAd = (ad as AdManagerBannerAd);
+          final AdSize? size = await bannerAd.getPlatformAdSize();
+          if (size == null) {
+            print('Error: getPlatformAdSize() returned null for $bannerAd');
+            return;
+          }
+
+          inlineAdaptiveAd = bannerAd;
+          isLoaded.value = true;
+          adSize = size;
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('Inline adaptive banner failedToLoad: $error');
+          isLoaded.value = false;
+          ad.dispose();
+        },
+      ),
+    );
+    await inlineAdaptiveAd!.load();
+
+
   }
 }

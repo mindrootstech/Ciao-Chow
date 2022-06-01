@@ -48,7 +48,7 @@ class PartnersAllNearController extends GetxController {
       if (isLoadedFluid.value == true) {
         var model = gt.BusinessList();
         for (int i = 0; i <= arrayBusinessList.length - 1; i++) {
-          if ((i + 1) % 5 == 0) {
+          if ((i + 1) % 4 == 0) {
             model.id = -1;
             arrayBusinessList.insert(i, model);
           }

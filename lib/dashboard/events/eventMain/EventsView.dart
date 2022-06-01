@@ -7,10 +7,10 @@ import 'package:ciao_chow/constants/Utils.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventTicketsListItem.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/EventsController.dart';
 import 'package:ciao_chow/dashboard/events/eventMain/UpcomingEventsListItem.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'viewAll/AllMyEventsView.dart';
 
 class EventsView extends StatelessWidget {
@@ -56,167 +56,211 @@ class EventsView extends StatelessWidget {
                         ),
                         Stack(
                           children: [
-                            Container(margin:const EdgeInsets.only(top: 20),height:Get.height-150,color: Colors.white,),
-                            Column(children: [
-                              SizedBox(
-                                height: 200,
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      height: 200 / 2 + 20,
-                                      color: AppColors.AppColorGrad2,
-                                    ),
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 0,
-                                      left: 0,
-                                      child: Container(
-                                        height: 200 / 2,
-                                        width: Get.width,
-                                        decoration: CommonUi.commonBoxDecoration(
-                                            24.0, AppColors.White),
+                            Container(
+                              margin: const EdgeInsets.only(top: 20),
+                              height: Get.height - 150,
+                              color: Colors.white,
+                            ),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 200,
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        height: 200 / 2 + 20,
+                                        color: AppColors.AppColorGrad2,
                                       ),
-                                    ),
-                                    SizedBox(
-                                        height: 175,
-                                        width: Get.width,
-                                        child: ClipRRect(
-                                            borderRadius: const BorderRadius.all(
-                                                Radius.circular(10)),
-                                            child: Obx(
-                                                  () => MyCarouselSlider(
-                                                options: CarouselOptions(
-                                                  viewportFraction: 0.9,
-                                                  initialPage: 0,
-                                                  enableInfiniteScroll: false,
-                                                  reverse: false,
-                                                  enlargeCenterPage: true,
+                                      Positioned(
+                                        bottom: 0,
+                                        right: 0,
+                                        left: 0,
+                                        child: Container(
+                                          height: 200 / 2,
+                                          width: Get.width,
+                                          decoration:
+                                              CommonUi.commonBoxDecoration(
+                                                  24.0, AppColors.White),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: 175,
+                                          width: Get.width,
+                                          child: ClipRRect(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(10)),
+                                              child: Obx(
+                                                () => MyCarouselSlider(
+                                                  options: CarouselOptions(
+                                                    viewportFraction: 0.9,
+                                                    initialPage: 0,
+                                                    enableInfiniteScroll: false,
+                                                    reverse: false,
+                                                    enlargeCenterPage: true,
+                                                  ),
+                                                  items: eventsController
+                                                      .imageSliders.value,
                                                 ),
-                                                items: eventsController
-                                                    .imageSliders.value,
+                                              ))),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  color: AppColors.White,
+                                  child: Column(
+                                    children: [
+                                      eventsController
+                                              .arrayEventTicket.isNotEmpty
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      left: 20),
+                                                  child: Text(
+                                                    Utils.getString(context,
+                                                        'my_event_tickets'),
+                                                    style: CommonUi
+                                                        .customTextStyle1(
+                                                            Fonts.interSemiBold,
+                                                            18.0,
+                                                            FontWeight.w600,
+                                                            AppColors.Black,
+                                                            TextDecoration
+                                                                .none),
+                                                  ),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Get.to(AllMyEventsView());
+                                                  },
+                                                  child: Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right: 20),
+                                                    child: Text(
+                                                      Utils.getString(
+                                                          context, 'view_all'),
+                                                      style: CommonUi
+                                                          .customTextStyle1(
+                                                              Fonts
+                                                                  .interRegular,
+                                                              12.0,
+                                                              FontWeight.w400,
+                                                              AppColors
+                                                                  .textFieldsHint,
+                                                              TextDecoration
+                                                                  .none),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          : const SizedBox(),
+                                      eventsController
+                                              .arrayEventTicket.isNotEmpty
+                                          ? Container(
+                                              height: 192,
+                                              margin: const EdgeInsets.only(
+                                                  left: 20, top: 14),
+                                              child: Obx(
+                                                () => ListView.builder(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount: eventsController
+                                                      .arrayEventTicket.length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return EventTicketsListItem(
+                                                        index);
+                                                  },
+                                                ),
                                               ),
-                                            ))),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                color: AppColors.White,
-                                child: Column(
-                                  children: [
-                                    eventsController.arrayEventTicket.isNotEmpty
-                                        ? Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin:
-                                          const EdgeInsets.only(left: 20),
-                                          child: Text(
-                                            Utils.getString(
-                                                context, 'my_event_tickets'),
-                                            style: CommonUi.customTextStyle1(
-                                                Fonts.interSemiBold,
-                                                18.0,
-                                                FontWeight.w600,
-                                                AppColors.Black,
-                                                TextDecoration.none),
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Get.to(AllMyEventsView());
-                                          },
-                                          child: Container(
-                                            margin: const EdgeInsets.only(
-                                                right: 20),
-                                            child: Text(
-                                              Utils.getString(
-                                                  context, 'view_all'),
-                                              style: CommonUi.customTextStyle1(
-                                                  Fonts.interRegular,
-                                                  12.0,
-                                                  FontWeight.w400,
-                                                  AppColors.textFieldsHint,
-                                                  TextDecoration.none),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                        : const SizedBox(),
-                                    eventsController.arrayEventTicket.isNotEmpty
-                                        ? Container(
-                                      height: 192,
-                                      margin: const EdgeInsets.only(
-                                          left: 20, top: 14),
-                                      child: Obx(
-                                            () => ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: eventsController
-                                              .arrayEventTicket.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return EventTicketsListItem(index);
-                                          },
-                                        ),
-                                      ),
-                                    )
-                                        : const SizedBox(),
-                                    eventsController.arrayUpcomingEvents.isNotEmpty
-                                        ? Container(
-                                      width: Get.width,
-                                      margin: const EdgeInsets.only(
-                                          left: 20, top: 20),
-                                      child: Text(
-                                        Utils.getString(
-                                            context, 'upcoming_events'),
-                                        style: CommonUi.customTextStyle1(
-                                            Fonts.interSemiBold,
-                                            18.0,
-                                            FontWeight.w600,
-                                            AppColors.Black,
-                                            TextDecoration.none),
-                                      ),
-                                    )
-                                        : const SizedBox(),
-                                    eventsController.arrayUpcomingEvents.isNotEmpty
-                                        ? Container(
-                                      margin: const EdgeInsets.only(
-                                          left: 16, right: 16, top: 15),
-                                      child: Obx(
-                                            () => GridView.builder(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, bottom: 120),
-                                            shrinkWrap: true,
-                                            physics:
-                                            const NeverScrollableScrollPhysics(),
-                                            gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 2,
-                                                crossAxisSpacing: 10,
-                                                mainAxisSpacing: 12,
-                                                mainAxisExtent: 180),
-                                            itemCount: eventsController
-                                                .arrayUpcomingEvents.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return UpcomingEventsListItem(
-                                                  index, eventsController);
-                                            }),
-                                      ),
-                                    )
-                                        : const SizedBox(),
-                                    const SizedBox(
-                                      height: 20,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],)
+                                            )
+                                          : const SizedBox(),
 
+
+
+                                      eventsController.isLoaded.value
+                                            ? Container(
+                                        margin: const EdgeInsets.only(
+                                            top: 20),
+                                              width: eventsController.adWidth,
+                                              height: 150,
+                                              child: AdWidget(
+                                                ad: eventsController
+                                                    .inlineAdaptiveAd!,
+                                              ),
+                                            )
+                                          : const SizedBox(),
+                                      eventsController
+                                              .arrayUpcomingEvents.isNotEmpty
+                                          ? Container(
+                                              width: Get.width,
+                                              margin: const EdgeInsets.only(
+                                                  left: 20, top: 20),
+                                              child: Text(
+                                                Utils.getString(
+                                                    context, 'upcoming_events'),
+                                                style:
+                                                    CommonUi.customTextStyle1(
+                                                        Fonts.interSemiBold,
+                                                        18.0,
+                                                        FontWeight.w600,
+                                                        AppColors.Black,
+                                                        TextDecoration.none),
+                                              ),
+                                            )
+                                          : const SizedBox(),
+                                      eventsController
+                                              .arrayUpcomingEvents.isNotEmpty
+                                          ? Container(
+                                              margin: const EdgeInsets.only(
+                                                  left: 16, right: 16, top: 15),
+                                              child: Obx(
+                                                () => GridView.builder(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 0,
+                                                            bottom: 120),
+                                                    shrinkWrap: true,
+                                                    physics:
+                                                        const NeverScrollableScrollPhysics(),
+                                                    gridDelegate:
+                                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                                            crossAxisCount: 2,
+                                                            crossAxisSpacing:
+                                                                10,
+                                                            mainAxisSpacing: 12,
+                                                            mainAxisExtent:
+                                                                180),
+                                                    itemCount: eventsController
+                                                        .arrayUpcomingEvents
+                                                        .length,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      return UpcomingEventsListItem(
+                                                          index,
+                                                          eventsController);
+                                                    }),
+                                              ),
+                                            )
+                                          : const SizedBox(),
+                                      const SizedBox(
+                                        height: 20,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
-
                       ],
                     ),
                   )

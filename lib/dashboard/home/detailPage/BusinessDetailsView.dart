@@ -439,7 +439,7 @@ class BusinessDetailsView extends StatelessWidget {
                       ? Container(
                           height: 180,
                           margin: const EdgeInsets.only(
-                              left: 20, top: 14, bottom: 46),
+                              left: 20, top: 14, bottom: 50),
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount:
@@ -452,7 +452,7 @@ class BusinessDetailsView extends StatelessWidget {
                       : const SizedBox(),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
               ],
             ),
