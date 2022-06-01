@@ -53,8 +53,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     homeLoaderShow.value = true;
-    loadAdsList();
-    loadAd();
+
     getLocation();
   }
 
@@ -72,6 +71,8 @@ class HomeController extends GetxController {
   getHomeData(String latitude, String longitude) {
     _apiProvider.getHomeData(latitude, longitude).then((value) {
       var response = gt.homeMainModelFromJson(value);
+      loadAdsList();
+      loadAd();
       if (response.status == true) {
         arrayBadges.clear();
         bannerList.clear();
@@ -91,12 +92,12 @@ class HomeController extends GetxController {
         resLevel.value =
             CommonUi.getUserLevels(arrayLevels, profileData.value.totalPoints!);
 
-        if (isLoadedFluid.value == true) {
+        // if (isLoadedFluid.value == true) {
           var model = gt.Business();
           model.id = -1;
           arrayPartners.insert(2, model);
           arrayPartners.insert(5, model);
-        }
+        // }
       } else {
         if (response.message! ==
             "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {

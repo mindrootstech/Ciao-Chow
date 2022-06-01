@@ -24,7 +24,7 @@ class EventsView extends StatelessWidget {
     return Stack(
       children: [
         Scaffold(
-          backgroundColor: AppColors.White,
+          backgroundColor: AppColors.AppColorGrad2,
           extendBody: true,
           body: Obx(
             () => eventsController.arrayEventTicket.isNotEmpty ||
@@ -54,112 +54,116 @@ class EventsView extends StatelessWidget {
                           color: AppColors.AppColorGrad2,
                           height: 29,
                         ),
-                        SizedBox(
-                          height: 200,
-                          child: Stack(
-                            children: [
-                              Container(
-                                height: 200 / 2 + 20,
-                                color: AppColors.AppColorGrad2,
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                left: 0,
-                                child: Container(
-                                  height: 200 / 2,
-                                  width: Get.width,
-                                  decoration: CommonUi.commonBoxDecoration(
-                                      24.0, AppColors.White),
+                        Stack(
+                          children: [
+                            Container(margin:const EdgeInsets.only(top: 20),height:Get.height-150,color: Colors.white,),
+                            Column(children: [
+                              SizedBox(
+                                height: 200,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200 / 2 + 20,
+                                      color: AppColors.AppColorGrad2,
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      left: 0,
+                                      child: Container(
+                                        height: 200 / 2,
+                                        width: Get.width,
+                                        decoration: CommonUi.commonBoxDecoration(
+                                            24.0, AppColors.White),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        height: 175,
+                                        width: Get.width,
+                                        child: ClipRRect(
+                                            borderRadius: const BorderRadius.all(
+                                                Radius.circular(10)),
+                                            child: Obx(
+                                                  () => MyCarouselSlider(
+                                                options: CarouselOptions(
+                                                  viewportFraction: 0.9,
+                                                  initialPage: 0,
+                                                  enableInfiniteScroll: false,
+                                                  reverse: false,
+                                                  enlargeCenterPage: true,
+                                                ),
+                                                items: eventsController
+                                                    .imageSliders.value,
+                                              ),
+                                            ))),
+                                  ],
                                 ),
                               ),
-                              SizedBox(
-                                  height: 175,
-                                  width: Get.width,
-                                  child: ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(10)),
-                                      child: Obx(
-                                        () => MyCarouselSlider(
-                                          options: CarouselOptions(
-                                            viewportFraction: 0.9,
-                                            initialPage: 0,
-                                            enableInfiniteScroll: false,
-                                            reverse: false,
-                                            enlargeCenterPage: true,
-                                          ),
-                                          items: eventsController
-                                              .imageSliders.value,
-                                        ),
-                                      ))),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          color: AppColors.White,
-                          child: Column(
-                            children: [
-                              eventsController.arrayEventTicket.isNotEmpty
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin:
-                                              const EdgeInsets.only(left: 20),
-                                          child: Text(
-                                            Utils.getString(
-                                                context, 'my_event_tickets'),
-                                            style: CommonUi.customTextStyle1(
-                                                Fonts.interSemiBold,
-                                                18.0,
-                                                FontWeight.w600,
-                                                AppColors.Black,
-                                                TextDecoration.none),
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Get.to(AllMyEventsView());
-                                          },
-                                          child: Container(
-                                            margin: const EdgeInsets.only(
-                                                right: 20),
-                                            child: Text(
-                                              Utils.getString(
-                                                  context, 'view_all'),
-                                              style: CommonUi.customTextStyle1(
-                                                  Fonts.interRegular,
-                                                  12.0,
-                                                  FontWeight.w400,
-                                                  AppColors.textFieldsHint,
-                                                  TextDecoration.none),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : const SizedBox(),
-                              eventsController.arrayEventTicket.isNotEmpty
-                                  ? Container(
-                                      height: 192,
-                                      margin: const EdgeInsets.only(
-                                          left: 20, top: 14),
-                                      child: Obx(
-                                        () => ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: eventsController
-                                              .arrayEventTicket.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return EventTicketsListItem(index);
-                                          },
-                                        ),
-                                      ),
-                                    )
-                                  : const SizedBox(),
-                              eventsController.arrayUpcomingEvents.isNotEmpty
-                                  ? Container(
+                              Container(
+                                color: AppColors.White,
+                                child: Column(
+                                  children: [
+                                    // eventsController.arrayEventTicket.isNotEmpty
+                                    //     ? Row(
+                                    //   mainAxisAlignment:
+                                    //   MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     Container(
+                                    //       margin:
+                                    //       const EdgeInsets.only(left: 20),
+                                    //       child: Text(
+                                    //         Utils.getString(
+                                    //             context, 'my_event_tickets'),
+                                    //         style: CommonUi.customTextStyle1(
+                                    //             Fonts.interSemiBold,
+                                    //             18.0,
+                                    //             FontWeight.w600,
+                                    //             AppColors.Black,
+                                    //             TextDecoration.none),
+                                    //       ),
+                                    //     ),
+                                    //     GestureDetector(
+                                    //       onTap: () {
+                                    //         Get.to(AllMyEventsView());
+                                    //       },
+                                    //       child: Container(
+                                    //         margin: const EdgeInsets.only(
+                                    //             right: 20),
+                                    //         child: Text(
+                                    //           Utils.getString(
+                                    //               context, 'view_all'),
+                                    //           style: CommonUi.customTextStyle1(
+                                    //               Fonts.interRegular,
+                                    //               12.0,
+                                    //               FontWeight.w400,
+                                    //               AppColors.textFieldsHint,
+                                    //               TextDecoration.none),
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //   ],
+                                    // )
+                                    //     : const SizedBox(),
+                                    // eventsController.arrayEventTicket.isNotEmpty
+                                    //     ? Container(
+                                    //   height: 192,
+                                    //   margin: const EdgeInsets.only(
+                                    //       left: 20, top: 14),
+                                    //   child: Obx(
+                                    //         () => ListView.builder(
+                                    //       scrollDirection: Axis.horizontal,
+                                    //       itemCount: eventsController
+                                    //           .arrayEventTicket.length,
+                                    //       itemBuilder: (BuildContext context,
+                                    //           int index) {
+                                    //         return EventTicketsListItem(index);
+                                    //       },
+                                    //     ),
+                                    //   ),
+                                    // )
+                                    //     : const SizedBox(),
+                                    eventsController.arrayUpcomingEvents.isNotEmpty
+                                        ? Container(
                                       width: Get.width,
                                       margin: const EdgeInsets.only(
                                           left: 20, top: 20),
@@ -174,24 +178,24 @@ class EventsView extends StatelessWidget {
                                             TextDecoration.none),
                                       ),
                                     )
-                                  : const SizedBox(),
-                              eventsController.arrayUpcomingEvents.isNotEmpty
-                                  ? Container(
+                                        : const SizedBox(),
+                                    eventsController.arrayUpcomingEvents.isNotEmpty
+                                        ? Container(
                                       margin: const EdgeInsets.only(
                                           left: 16, right: 16, top: 15),
                                       child: Obx(
-                                        () => GridView.builder(
+                                            () => GridView.builder(
                                             padding: const EdgeInsets.only(
                                                 top: 0, bottom: 120),
                                             shrinkWrap: true,
                                             physics:
-                                                const NeverScrollableScrollPhysics(),
+                                            const NeverScrollableScrollPhysics(),
                                             gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                    crossAxisSpacing: 10,
-                                                    mainAxisSpacing: 12,
-                                                    mainAxisExtent: 180),
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 2,
+                                                crossAxisSpacing: 10,
+                                                mainAxisSpacing: 12,
+                                                mainAxisExtent: 180),
                                             itemCount: eventsController
                                                 .arrayUpcomingEvents.length,
                                             itemBuilder: (BuildContext context,
@@ -201,13 +205,18 @@ class EventsView extends StatelessWidget {
                                             }),
                                       ),
                                     )
-                                  : const SizedBox(),
-                              const SizedBox(
-                                height: 20,
-                              )
-                            ],
-                          ),
+                                        : const SizedBox(),
+                                    const SizedBox(
+                                      height: 20,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],)
+
+                          ],
                         ),
+
                       ],
                     ),
                   )

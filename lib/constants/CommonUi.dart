@@ -584,8 +584,12 @@ class CommonUi {
                         right: 0,
                         child: Text(
                           item.bannerName,
-                          style: customTextStyle1(Fonts.interSemiBold, 24.0,
-                              FontWeight.w500, AppColors.White, TextDecoration.none),
+                          style: customTextStyle1(
+                              Fonts.interSemiBold,
+                              24.0,
+                              FontWeight.w500,
+                              AppColors.White,
+                              TextDecoration.none),
                         ))
                   ],
                 ),

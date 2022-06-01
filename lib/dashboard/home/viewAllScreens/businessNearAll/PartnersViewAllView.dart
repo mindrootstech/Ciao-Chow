@@ -139,7 +139,7 @@ class PartnersViewAllView extends StatelessWidget {
                                         .searchBusiness.value.text !=
                                     ''
                                 ? 0
-                                : 200 / 2 + 25,
+                                : 200 / 2 + 20,
                             color: AppColors.AppColorGrad2,
                           ),
                           Positioned(
