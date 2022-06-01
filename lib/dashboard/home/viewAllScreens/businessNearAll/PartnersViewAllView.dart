@@ -103,7 +103,8 @@ class PartnersViewAllView extends StatelessWidget {
                       ),
                       Obx(
                         () => partnersAllNearController
-                                .searchTxt.value.isNotEmpty
+                                    .searchTxt.value.isNotEmpty ||
+                                partnersAllNearController.bannerList.isEmpty
                             ? const SizedBox()
                             : Container(
                                 width: Get.width,
@@ -125,124 +126,211 @@ class PartnersViewAllView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Obx(
-                    () => SizedBox(
-                      height:
-                          partnersAllNearController.searchBusiness.value.text !=
-                                  ''
-                              ? 25
-                              : 200,
-                      child: Stack(
+                  Stack(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        height: Get.height - 150,
+                        color: Colors.white,
+                      ),
+                      Column(
                         children: [
-                          Container(
-                            height: partnersAllNearController
-                                        .searchBusiness.value.text !=
-                                    ''
-                                ? 0
-                                : 200 / 2 + 20,
-                            color: AppColors.AppColorGrad2,
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            left: 0,
-                            child: Container(
+                          Obx(
+                            () =>
+                                // partnersAllNearController
+                                //     .bannerList.length > 0 ?
+
+                                SizedBox(
                               height: partnersAllNearController
-                                          .searchBusiness.value.text !=
-                                      ''
-                                  ? 15
-                                  : 200 / 2,
-                              width: Get.width,
-                              decoration: CommonUi.commonBoxDecoration(
-                                  24.0, AppColors.White),
+                                              .searchBusiness.value.text !=
+                                          '' ||
+                                      partnersAllNearController
+                                          .bannerList.isEmpty
+                                  ? 25
+                                  : 200,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    height: partnersAllNearController
+                                                    .searchBusiness
+                                                    .value
+                                                    .text !=
+                                                '' ||
+                                            partnersAllNearController
+                                                .bannerList.isEmpty
+                                        ? 0
+                                        : 200 / 2 + 20,
+                                    color: AppColors.AppColorGrad2,
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    left: 0,
+                                    child: Container(
+                                      height: partnersAllNearController
+                                                      .searchBusiness
+                                                      .value
+                                                      .text !=
+                                                  '' ||
+                                              partnersAllNearController
+                                                  .bannerList.isEmpty
+                                          ? 15
+                                          : 200 / 2,
+                                      width: Get.width,
+                                      decoration: CommonUi.commonBoxDecoration(
+                                          24.0, AppColors.White),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: partnersAllNearController
+                                                    .searchBusiness
+                                                    .value
+                                                    .text !=
+                                                '' ||
+                                            partnersAllNearController
+                                                .bannerList.isEmpty
+                                        ? 0
+                                        : 175,
+                                    width: Get.width,
+                                    child: ClipRRect(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10)),
+                                        child: MyCarouselSlider(
+                                          options: CarouselOptions(
+                                            viewportFraction: 0.9,
+                                            initialPage: 0,
+                                            enableInfiniteScroll: false,
+                                            reverse: false,
+                                            enlargeCenterPage: true,
+                                            // autoPlay: false,
+                                            // aspectRatio: 2.0,
+                                            // enlargeCenterPage: false,
+                                          ),
+                                          items: partnersAllNearController
+                                              .imageSliders.value,
+                                        )),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            height: partnersAllNearController
-                                        .searchBusiness.value.text !=
-                                    ''
-                                ? 0
-                                : 175,
-                            width: Get.width,
-                            child: ClipRRect(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                child: MyCarouselSlider(
-                                  options: CarouselOptions(
-                                    viewportFraction: 0.9,
-                                    initialPage: 0,
-                                    enableInfiniteScroll: false,
-                                    reverse: false,
-                                    enlargeCenterPage: true,
-                                    // autoPlay: false,
-                                    // aspectRatio: 2.0,
-                                    // enlargeCenterPage: false,
+                          Container(
+                            color: AppColors.White,
+                            padding: const EdgeInsets.only(left: 16, right: 16),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Obx(
+                                    () => Text(
+                                      partnersAllNearController
+                                              .arrayBusinessList.isNotEmpty
+                                          ? partnersAllNearController
+                                                  .searchTxt.value.isNotEmpty
+                                              ? Utils.getString(
+                                                  context, 'filtered_results')
+                                              : Utils.getString(context,
+                                                  'partners_around_you')
+                                          : "",
+                                      style: CommonUi.customTextStyle1(
+                                          Fonts.interSemiBold,
+                                          18,
+                                          FontWeight.w600,
+                                          AppColors.Black,
+                                          TextDecoration.none),
+                                    ),
                                   ),
-                                  items: partnersAllNearController
-                                      .imageSliders.value,
-                                )),
-                          ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Obx(
+                                  () => partnersAllNearController
+                                          .arrayBusinessList.isNotEmpty
+                                      ? GridView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 10,
+                                            mainAxisExtent: 180,
+                                            mainAxisSpacing: 12,
+                                          ),
+                                          itemCount: partnersAllNearController
+                                              .arrayBusinessList.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            // return PartnersViewAllListItem(index, homeController);
+                                            if (partnersAllNearController
+                                                    .arrayBusinessList[index]
+                                                    .id!
+                                                    .toInt() ==
+                                                -1) {
+                                              partnersAllNearController
+                                                  .loadAd();
+                                            }
+                                            return PartnersAroundItemList(index,
+                                                partnersAllNearController);
+                                          })
+                                      : Container(
+                                          height: 350,
+                                          margin: const EdgeInsets.only(
+                                              left: 20, right: 20),
+                                          child:
+
+                                          partnersAllNearController.parentAllLoaderShow.value == false ?
+
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgPicture.asset(
+                                                  CommonUi.setSvgImage(
+                                                      'no_feature_partners')),
+                                              const SizedBox(
+                                                height: 25,
+                                              ),
+                                              Text(
+                                                'No Partners Found',
+                                                style:
+                                                    CommonUi.customTextStyle1(
+                                                        Fonts.interSemiBold,
+                                                        18.0,
+                                                        FontWeight.w600,
+                                                        AppColors.Black,
+                                                        TextDecoration.none),
+                                              ),
+                                              const SizedBox(
+                                                height: 14,
+                                              ),
+                                              Text(
+                                                'Lorem lupsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum.',
+                                                style:
+                                                    CommonUi.customTextStyle1(
+                                                        Fonts.interRegular,
+                                                        12.0,
+                                                        FontWeight.w400,
+                                                        AppColors
+                                                            .textFieldsHint,
+                                                        TextDecoration.none),
+                                                textAlign: TextAlign.center,
+                                              )
+                                            ],
+                                          ) : SizedBox(),
+                                        ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                )
+                              ],
+                            ),
+                          )
                         ],
                       ),
-                    ),
+                    ],
                   ),
-                  Container(
-                    color: AppColors.White,
-                    padding: const EdgeInsets.only(left: 16, right: 16),
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Obx(
-                            () => Text(
-                              partnersAllNearController.arrayBusinessList.isNotEmpty ?
-                              partnersAllNearController
-                                      .searchTxt.value.isNotEmpty
-                                  ? Utils.getString(context, 'filtered_results')
-                                  : Utils.getString(
-                                      context, 'partners_around_you') : "",
-                              style: CommonUi.customTextStyle1(
-                                  Fonts.interSemiBold,
-                                  18,
-                                  FontWeight.w600,
-                                  AppColors.Black,
-                                  TextDecoration.none),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 14,
-                        ),
-                        Obx(
-                          () => GridView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 10,
-                                mainAxisExtent: 180,
-                                mainAxisSpacing: 12,
-                              ),
-                              itemCount: partnersAllNearController
-                                  .arrayBusinessList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                // return PartnersViewAllListItem(index, homeController);
-                                if (partnersAllNearController.arrayBusinessList[index].id!
-                                    .toInt() ==
-                                    -1) {
-                                  partnersAllNearController.loadAd();
-                                }
-                                return PartnersAroundItemList(
-                                    index, partnersAllNearController);
-                              }),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        )
-                      ],
-                    ),
-                  )
                 ],
               ),
             ),
@@ -255,8 +343,8 @@ class PartnersViewAllView extends StatelessWidget {
                   Obx(() => partnersAllNearController.parentAllLoaderShow.value
                       ? const Center(
                           child: CircularProgressIndicator(
-                        color: AppColors.AppColorGrad2,
-                      ))
+                          color: AppColors.AppColorGrad2,
+                        ))
                       : Container()),
             ),
           ],

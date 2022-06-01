@@ -431,66 +431,69 @@ class EditProfileView extends StatelessWidget {
                                   margin: const EdgeInsets.only(
                                       top: 10, left: 8, right: 20),
                                   child: Center(
-                                    child: DropdownButtonFormField<String>(
-                                      isExpanded: true,
-                                      onTap: () {
-                                        CommonUi.hideKeyBoard(context);
-                                        profileController.addAccountItems(
-                                            profileController
-                                                .accountDetail[0].name,
-                                            false,
-                                            profileController
-                                                .accountDetail[1].name,
-                                            true);
-                                      },
+                                    child: Obx(
+                                      ()=> DropdownButtonFormField<String>(
+                                        value:   profileController.genderValue.value,
+                                        isExpanded: true,
+                                        onTap: () {
+                                          CommonUi.hideKeyBoard(context);
+                                          profileController.addAccountItems(
+                                              profileController
+                                                  .accountDetail[0].name,
+                                              false,
+                                              profileController
+                                                  .accountDetail[1].name,
+                                              true);
+                                        },
 
-                                      // underline: Container(),
-                                      decoration:
-                                          CommonUi.dropDownButtonDecoration,
-                                      hint: Text(
-                                          Utils.getString(
-                                              context, 'gender_hint'),
-                                          style: CommonUi.customTextStyle1(
-                                            Fonts.interRegular,
-                                            12.0,
-                                            FontWeight.w400,
-                                            AppColors.Black,
-                                            TextDecoration.none,
-                                          )),
-                                      icon: const Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: AppColors.textFieldsHint,
-                                      ),
-                                      style: CommonUi.customTextStyle1(
-                                        Fonts.interRegular,
-                                        12.0,
-                                        FontWeight.w400,
-                                        AppColors.textFieldsHint,
-                                        TextDecoration.none,
-                                      ),
-
-                                      onChanged: (String? newValue) {
-                                        CommonUi.hideKeyBoard(context);
-                                        profileController.genderValue.value =
-                                            newValue!;
-                                      },
-                                      items: <String>['Male', 'Female', 'Other']
-                                          .map<DropdownMenuItem<String>>(
-                                              (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
+                                        // underline: Container(),
+                                        decoration:
+                                            CommonUi.dropDownButtonDecoration,
+                                        hint: Text(
+                                            Utils.getString(
+                                                context, 'gender_hint'),
                                             style: CommonUi.customTextStyle1(
                                               Fonts.interRegular,
                                               12.0,
                                               FontWeight.w400,
                                               AppColors.Black,
                                               TextDecoration.none,
+                                            )),
+                                        icon: const Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: AppColors.textFieldsHint,
+                                        ),
+                                        style: CommonUi.customTextStyle1(
+                                          Fonts.interRegular,
+                                          12.0,
+                                          FontWeight.w400,
+                                          AppColors.textFieldsHint,
+                                          TextDecoration.none,
+                                        ),
+
+                                        onChanged: (String? newValue) {
+                                          CommonUi.hideKeyBoard(context);
+                                          profileController.genderValue.value =
+                                              newValue!;
+                                        },
+                                        items: <String>['Male', 'Female', 'Other']
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(
+                                              value,
+                                              style: CommonUi.customTextStyle1(
+                                                Fonts.interRegular,
+                                                12.0,
+                                                FontWeight.w400,
+                                                AppColors.Black,
+                                                TextDecoration.none,
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      }).toList(),
+                                          );
+                                        }).toList(),
+                                      ),
                                     ),
                                   ),
                                 ),

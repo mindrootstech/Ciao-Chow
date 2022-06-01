@@ -132,7 +132,10 @@ class AllMyEventsView extends StatelessWidget {
                       : Container(
                           height: 500,
                           margin: const EdgeInsets.only(left: 20, right: 20),
-                          child: Column(
+                          child:
+                          allEventsController.loaderEvents.value == false ?
+
+                          Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset(
@@ -152,8 +155,7 @@ class AllMyEventsView extends StatelessWidget {
                               const SizedBox(
                                 height: 14,
                               ),
-                              Text(
-                                'Lorem lupsum is simply dummy text of the printing and typesetting industry. lorem lipsum. Lorem lipsum is simply dummy text of the printing and typesetting industry. lorem lipsum.',
+                              Text(Utils.getString(context, 'txt_description_events'),
                                 style: CommonUi.customTextStyle1(
                                     Fonts.interRegular,
                                     12.0,
@@ -163,7 +165,7 @@ class AllMyEventsView extends StatelessWidget {
                                 textAlign: TextAlign.center,
                               )
                             ],
-                          ),
+                          ) : const SizedBox(),
                         ),
                 ),
               ],

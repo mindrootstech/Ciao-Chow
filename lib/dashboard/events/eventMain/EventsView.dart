@@ -103,65 +103,65 @@ class EventsView extends StatelessWidget {
                                 color: AppColors.White,
                                 child: Column(
                                   children: [
-                                    // eventsController.arrayEventTicket.isNotEmpty
-                                    //     ? Row(
-                                    //   mainAxisAlignment:
-                                    //   MainAxisAlignment.spaceBetween,
-                                    //   children: [
-                                    //     Container(
-                                    //       margin:
-                                    //       const EdgeInsets.only(left: 20),
-                                    //       child: Text(
-                                    //         Utils.getString(
-                                    //             context, 'my_event_tickets'),
-                                    //         style: CommonUi.customTextStyle1(
-                                    //             Fonts.interSemiBold,
-                                    //             18.0,
-                                    //             FontWeight.w600,
-                                    //             AppColors.Black,
-                                    //             TextDecoration.none),
-                                    //       ),
-                                    //     ),
-                                    //     GestureDetector(
-                                    //       onTap: () {
-                                    //         Get.to(AllMyEventsView());
-                                    //       },
-                                    //       child: Container(
-                                    //         margin: const EdgeInsets.only(
-                                    //             right: 20),
-                                    //         child: Text(
-                                    //           Utils.getString(
-                                    //               context, 'view_all'),
-                                    //           style: CommonUi.customTextStyle1(
-                                    //               Fonts.interRegular,
-                                    //               12.0,
-                                    //               FontWeight.w400,
-                                    //               AppColors.textFieldsHint,
-                                    //               TextDecoration.none),
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // )
-                                    //     : const SizedBox(),
-                                    // eventsController.arrayEventTicket.isNotEmpty
-                                    //     ? Container(
-                                    //   height: 192,
-                                    //   margin: const EdgeInsets.only(
-                                    //       left: 20, top: 14),
-                                    //   child: Obx(
-                                    //         () => ListView.builder(
-                                    //       scrollDirection: Axis.horizontal,
-                                    //       itemCount: eventsController
-                                    //           .arrayEventTicket.length,
-                                    //       itemBuilder: (BuildContext context,
-                                    //           int index) {
-                                    //         return EventTicketsListItem(index);
-                                    //       },
-                                    //     ),
-                                    //   ),
-                                    // )
-                                    //     : const SizedBox(),
+                                    eventsController.arrayEventTicket.isNotEmpty
+                                        ? Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          margin:
+                                          const EdgeInsets.only(left: 20),
+                                          child: Text(
+                                            Utils.getString(
+                                                context, 'my_event_tickets'),
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interSemiBold,
+                                                18.0,
+                                                FontWeight.w600,
+                                                AppColors.Black,
+                                                TextDecoration.none),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Get.to(AllMyEventsView());
+                                          },
+                                          child: Container(
+                                            margin: const EdgeInsets.only(
+                                                right: 20),
+                                            child: Text(
+                                              Utils.getString(
+                                                  context, 'view_all'),
+                                              style: CommonUi.customTextStyle1(
+                                                  Fonts.interRegular,
+                                                  12.0,
+                                                  FontWeight.w400,
+                                                  AppColors.textFieldsHint,
+                                                  TextDecoration.none),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                        : const SizedBox(),
+                                    eventsController.arrayEventTicket.isNotEmpty
+                                        ? Container(
+                                      height: 192,
+                                      margin: const EdgeInsets.only(
+                                          left: 20, top: 14),
+                                      child: Obx(
+                                            () => ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: eventsController
+                                              .arrayEventTicket.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return EventTicketsListItem(index);
+                                          },
+                                        ),
+                                      ),
+                                    )
+                                        : const SizedBox(),
                                     eventsController.arrayUpcomingEvents.isNotEmpty
                                         ? Container(
                                       width: Get.width,

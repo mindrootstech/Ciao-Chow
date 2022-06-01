@@ -57,9 +57,9 @@ class ScanEventBarCodeView extends StatelessWidget {
                       height: 16,
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 20,right: 20,top: 20),
+                      margin: const EdgeInsets.only(left: 20,right: 20,top: 20),
                       child: Text(
-                        Utils.getString(context,'please_scan'),
+                        Utils.getString(context,'please_scan_event'),
                         style: CommonUi.customTextStyle1(
                             Fonts.interMedium,
                             14.0,

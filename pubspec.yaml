@@ -62,6 +62,7 @@ dependencies:
   jiffy: ^5.0.0
   google_mobile_ads: ^1.2.0
   firebase_crashlytics: ^2.8.1
+  flutter_keyboard_visibility: ^5.2.0
 
 dev_dependencies:
   flutter_test:

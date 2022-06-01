@@ -427,7 +427,9 @@ class BusinessDetailsView extends StatelessWidget {
                                   ),
                                 ],
                               )
-                            : const SizedBox(),
+                            : const SizedBox(
+                          height: 30,
+                        ),
                       ),
                     ],
                   ),

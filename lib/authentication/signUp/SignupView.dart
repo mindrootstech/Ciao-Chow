@@ -258,10 +258,10 @@ class SignupView extends StatelessWidget {
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(12),
                                 ],
-                                textInputAction: TextInputAction.search,
+                                textInputAction: TextInputAction.done,
                                 controller:
                                     signUpController.phoneController.value,
-                                keyboardType: TextInputType.phone,
+                                // keyboardType: TextInputType.phone,
                                 cursorColor: AppColors.textFieldsHint,
                                 decoration: CommonUi.textFieldDecoration(
                                     Utils.getString(context, 'mobile_hint')),

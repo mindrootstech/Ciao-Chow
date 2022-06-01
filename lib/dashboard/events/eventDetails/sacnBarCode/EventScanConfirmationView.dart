@@ -58,7 +58,7 @@ class EventScanConfirmationView extends StatelessWidget{
                     Container(
                       margin: const EdgeInsets.only(left: 20,right: 20),
                       child: Text(
-                        'Your ' + eventName + ' check-in is successfully done. You are very close to earn a badge keep going',
+                        'Your ' + eventName + ' check-in is successfully done. You are very close to earn a badge keep going.',
                         style: CommonUi.customTextStyle1(
                             Fonts.interMedium,
                             14.0,
