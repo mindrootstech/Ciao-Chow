@@ -33,6 +33,7 @@ class EventDetailsController extends GetxController {
   var showPaymentDone = false.obs;
   var showAddCardLoader = false.obs;
   var eventIdd = '';
+  var btnText = ''.obs;
   var sliderValue = 0.0;
   var isLoaded = false.obs;
   var modelCard = Datum().obs;
@@ -46,7 +47,6 @@ class EventDetailsController extends GetxController {
     getAllCards();
     loadAd();
   }
-
 
   @override
   void dispose() {
@@ -72,11 +72,34 @@ class EventDetailsController extends GetxController {
               .parse(eventSale.value.redeemDate!);
         }
       } else {
-        if (response.message! == "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {
-          CommonUi.alertLogout(Get.context!,response.message!);
+        if (response.message! ==
+            "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {
+          CommonUi.alertLogout(Get.context!, response.message!);
         } else {
           CommonUi.showToast(response.message!);
         }
+      }
+
+      DateTime valEnd = eventDetails.value.ticketSaleEndDate!;
+      DateTime valStart = eventDetails.value.ticketSaleStartDate!;
+      DateTime now = DateTime.now();
+      DateTime date = DateTime(now.year, now.month, now.day);
+      bool valDateBefore = date.isBefore(valEnd);
+      bool valDateAfter = date.isAfter(valStart);
+      bool valDateOn = date.isAtSameMomentAs(valEnd);
+
+      if (eventDetails.value.availableTickets! <= 0) {
+        btnText.value = 'Tickets sold out';
+      }else if(valDateOn){
+        btnText.value = 'Buy Tickets';
+      }else if(valDateBefore && valDateAfter){
+        btnText.value = 'Buy Tickets';
+      }else if(valDateBefore){
+        btnText.value = 'Ticket sale starts on ' + CommonUi.dateFormat(valStart);
+      }else if(valDateAfter){
+        btnText.value = 'Ticket sales ended';
+      }else{
+        btnText.value = 'Buy Tickets';
       }
 
       eventLoaderShow.value = false;
@@ -184,32 +207,32 @@ class EventDetailsController extends GetxController {
     isLoaded.value = false;
 
     final AnchoredAdaptiveBannerAdSize? size =
-    await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-    MediaQuery.of(Get.context!).size.width.truncate());
+        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+            MediaQuery.of(Get.context!).size.width.truncate());
 
     if (size == null) {
-    print('Unable to get height of anchored banner.');
-    return;
+      print('Unable to get height of anchored banner.');
+      return;
     }
 
     anchoredAdaptiveAd = BannerAd(
-    adUnitId: Platform.isAndroid
-    ? 'ca-app-pub-3940256099942544/6300978111'
-        : 'ca-app-pub-3940256099942544/2934735716',
-    size: size,
-    request: const AdRequest(),
-    listener: BannerAdListener(
-    onAdLoaded: (Ad ad) {
-    print('$ad loaded: ${ad.responseInfo}');
-    anchoredAdaptiveAd = ad as BannerAd;
-    isLoaded.value = true;
-    // });
-    },
-    onAdFailedToLoad: (Ad ad, LoadAdError error) {
-    print('Anchored adaptive banner failedToLoad: $error');
-    ad.dispose();
-    },
-    ),
+      adUnitId: Platform.isAndroid
+          ? 'ca-app-pub-3940256099942544/6300978111'
+          : 'ca-app-pub-3940256099942544/2934735716',
+      size: size,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$ad loaded: ${ad.responseInfo}');
+          anchoredAdaptiveAd = ad as BannerAd;
+          isLoaded.value = true;
+          // });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('Anchored adaptive banner failedToLoad: $error');
+          ad.dispose();
+        },
+      ),
     );
     return anchoredAdaptiveAd!.load();
   }

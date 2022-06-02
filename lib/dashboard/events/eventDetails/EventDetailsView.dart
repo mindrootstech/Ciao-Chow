@@ -511,6 +511,7 @@ class EventDetailsView extends StatelessWidget {
                                         .currentSliderValue.value = 0.0;
                                     eventDetailsController
                                         .modelCard.value.isSelected = false;
+
                                     eventDetailsController.eventDetails.value
                                                 .availableTickets! >
                                             0
@@ -522,18 +523,26 @@ class EventDetailsView extends StatelessWidget {
                                 },
                                 child: Container(
                                   child: Center(
-                                    child: Text(
-                                        fromWhere == 'purchased'
-                                            ? Utils.getString(
-                                                context, 'scan_barcode')
-                                            : Utils.getString(
-                                                context, 'buy_tickets'),
-                                        style: CommonUi.customTextStyle1(
-                                            Fonts.interMedium,
-                                            14.0,
-                                            FontWeight.w500,
-                                            AppColors.White,
-                                            TextDecoration.none)),
+                                    child: fromWhere == 'purchased'
+                                        ? Text(Utils.getString(
+                                        context, 'scan_barcode'), style: CommonUi.customTextStyle1(
+                                        Fonts.interMedium,
+                                        14.0,
+                                        FontWeight.w500,
+                                        AppColors.White,
+                                        TextDecoration.none)) :
+
+                                    Obx(
+                                      () => Text(
+                                          eventDetailsController
+                                                  .btnText.value,
+                                          style: CommonUi.customTextStyle1(
+                                              Fonts.interMedium,
+                                              14.0,
+                                              FontWeight.w500,
+                                              AppColors.White,
+                                              TextDecoration.none)),
+                                    ),
                                   ),
                                   height: 50,
                                   width: Get.width,
@@ -578,7 +587,7 @@ class EventDetailsView extends StatelessWidget {
               bottom: 0,
               child: Obx(
                 () => eventDetailsController.isLoaded.value
-                    ? Container(
+                    ? SizedBox(
                         width: Get.width,
                         height: eventDetailsController
                             .anchoredAdaptiveAd!.size.height

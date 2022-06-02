@@ -470,7 +470,8 @@ class HomeView extends StatelessWidget {
                                 ),
                                 Obx(
                                       () => homeController.isLoaded.value
-                                      ? SizedBox(
+                                      ? Container(
+                                        margin: EdgeInsets.only(bottom: homeController.arrayLatestCheckIns.isNotEmpty ? 0 : 70),
                                     width: homeController.adWidth,
                                     height: 150,
                                     child: AdWidget(
