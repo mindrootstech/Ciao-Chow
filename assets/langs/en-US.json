@@ -80,7 +80,7 @@
   "no_badges_profile": "No Badges earned",
   "txt_description_events": "Sorry! You don't have any redeemed events.",
   "i_understand": "I understand and accept the deal's terms and\nconditions.",
-  "please_scan": "To validate your Event ticket(s) , please scan the QR code available at the event location.",
-  "please_scan_event": "To complete your check-in , please scan the QR code available at the business location.",
+  "please_scan_event": "To validate your Event ticket(s) , please scan the QR code available at the event location.",
+  "please_scan": "To complete your check-in , please scan the QR code available at the business location.",
   "please_fill_details": "Please fill in the details below to add a new card. You will be able to select this card during the checkout flow."
 }
