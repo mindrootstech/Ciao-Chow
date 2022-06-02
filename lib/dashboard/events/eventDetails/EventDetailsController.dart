@@ -63,7 +63,7 @@ class EventDetailsController extends GetxController {
         eventSale.value = response.data!.eventSale!;
         businessDetails.value = response.data!.event!.business!;
         arrayImages.clear();
-        arrayImages.addAll(response.data!.event!.business!.images!);
+        arrayImages.addAll(response.data!.event!.images!);
         addBannerList(arrayImages);
         getSliderValue();
 

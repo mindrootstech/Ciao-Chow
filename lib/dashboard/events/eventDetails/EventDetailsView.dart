@@ -512,46 +512,50 @@ class EventDetailsView extends StatelessWidget {
                                     eventDetailsController
                                         .modelCard.value.isSelected = false;
 
-                                    eventDetailsController.eventDetails.value
-                                                .availableTickets! >
-                                            0
-                                        ? eventDetailsController
-                                            .showBottomSheet.value = true
-                                        : CommonUi.showToast(
-                                            'Tickets are not available.');
+                                    if (eventDetailsController.btnText.value ==
+                                        'Buy Tickets') {
+                                      eventDetailsController
+                                          .showBottomSheet.value = true;
+                                    }
+                                    // : CommonUi.showToast(
+                                    //     'Tickets are not available.');
                                   }
                                 },
                                 child: Container(
-                                  child: Center(
-                                    child: fromWhere == 'purchased'
-                                        ? Text(Utils.getString(
-                                        context, 'scan_barcode'), style: CommonUi.customTextStyle1(
-                                        Fonts.interMedium,
-                                        14.0,
-                                        FontWeight.w500,
-                                        AppColors.White,
-                                        TextDecoration.none)) :
-
-                                    Obx(
-                                      () => Text(
-                                          eventDetailsController
-                                                  .btnText.value,
-                                          style: CommonUi.customTextStyle1(
-                                              Fonts.interMedium,
-                                              14.0,
-                                              FontWeight.w500,
-                                              AppColors.White,
-                                              TextDecoration.none)),
-                                    ),
-                                  ),
                                   height: 50,
                                   width: Get.width,
                                   margin: const EdgeInsets.only(
                                       left: 20, right: 20, top: 40, bottom: 56),
                                   decoration: CommonUi.shadowRoundedContainer,
+                                  child: Center(
+                                    child: fromWhere == 'purchased'
+                                        ? Text(
+                                            Utils.getString(
+                                                context, 'scan_barcode'),
+                                            style: CommonUi.customTextStyle1(
+                                                Fonts.interMedium,
+                                                14.0,
+                                                FontWeight.w500,
+                                                AppColors.White,
+                                                TextDecoration.none))
+                                        : Obx(
+                                            () => Text(
+                                                eventDetailsController
+                                                    .btnText.value,
+                                                style:
+                                                    CommonUi.customTextStyle1(
+                                                        Fonts.interMedium,
+                                                        14.0,
+                                                        FontWeight.w500,
+                                                        AppColors.White,
+                                                        TextDecoration.none)),
+                                          ),
+                                  ),
                                 ),
                               )
-                            : const SizedBox(),
+                            : const SizedBox(
+                                height: 60,
+                              ),
                         const SizedBox(
                           height: 20,
                         ),
