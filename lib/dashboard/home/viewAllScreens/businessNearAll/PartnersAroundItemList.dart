@@ -25,7 +25,7 @@ class PartnersAroundItemList extends StatelessWidget {
       child: partnersAllNearController.arrayBusinessList[index].id!.toInt() ==
               -1
           ? Obx(
-            () => partnersAllNearController.isLoadedFluid.value
+            () => partnersAllNearController.isLoadedList.value
                 ? ClipRRect(
                     borderRadius:
                         const BorderRadius.all(Radius.circular(10)),
@@ -34,9 +34,9 @@ class PartnersAroundItemList extends StatelessWidget {
                           10.0, AppColors.greyGrad3),
                       width: 50,
                       height: 180,
-                      child: FluidAdWidget(
+                      child: AdWidget(
                         // width: _width,
-                        ad: partnersAllNearController.fluidAd!,
+                        ad: partnersAllNearController.inlineAdaptiveAdList!,
                       ),
                     ),
                   )

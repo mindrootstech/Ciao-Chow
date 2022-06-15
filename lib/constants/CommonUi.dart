@@ -286,11 +286,6 @@ class CommonUi {
                     color: AppColors.greyGrad3,
 
                     width: Get.width,
-                    // child: const Center(
-                    //   child: CircularProgressIndicator(
-                    //     color: AppColors.White,
-                    //   ),
-                    // )
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),

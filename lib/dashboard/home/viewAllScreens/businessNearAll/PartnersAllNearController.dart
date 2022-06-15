@@ -19,9 +19,13 @@ class PartnersAllNearController extends GetxController {
   var pageLoader = false.obs;
   var totalBusinessItems = 0;
   var searchTxt = ''.obs;
-  var isLoadedFluid = false.obs;
   AdSize? adSize;
-  FluidAdManagerBannerAd? fluidAd;
+  AdManagerBannerAd? inlineAdaptiveAdList;
+  var isLoadedList = false.obs;
+  AdSize? adSizeList;
+  static const _insets = 16.0;
+  double get adWidth => MediaQuery.of(Get.context!).size.width - (2 * _insets);
+
 
   @override
   void onInit() {
@@ -45,7 +49,7 @@ class PartnersAllNearController extends GetxController {
       parentAllLoaderShow.value = false;
       arrayBusinessList.addAll(response.data!.businessList!);
 
-      if (isLoadedFluid.value == true) {
+      // if (isLoadedList.value == true) {
         var model = gt.BusinessList();
         for (int i = 0; i <= arrayBusinessList.length - 1; i++) {
           if ((i + 1) % 4 == 0) {
@@ -53,7 +57,7 @@ class PartnersAllNearController extends GetxController {
             arrayBusinessList.insert(i, model);
           }
         }
-      }
+      // }
     });
   }
 
@@ -75,28 +79,38 @@ class PartnersAllNearController extends GetxController {
     }
   }
 
-  void loadAd() {
-    fluidAd = FluidAdManagerBannerAd(
-      adUnitId: '/6499/example/APIDemo/Fluid',
-      request: AdManagerAdRequest(nonPersonalizedAds: true),
+  Future<void> loadAd() async {
+    AdSize size = AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(
+        adWidth.truncate());
+    inlineAdaptiveAdList = AdManagerBannerAd(
+      adUnitId: 'ca-app-pub-9350047529795137/7885394490',
+      sizes: [size],
+      request: const AdManagerAdRequest(),
       listener: AdManagerBannerAdListener(
-        onAdLoaded: (Ad ad) {
-          print('$fluidAd loaded.');
-          isLoadedFluid.value = true;
+        onAdLoaded: (Ad ad) async {
+          print('Inline adaptive banner loaded: ${ad.responseInfo}');
+          AdManagerBannerAd bannerAd = (ad as AdManagerBannerAd);
+          final AdSize? size = await bannerAd.getPlatformAdSize();
+          if (size == null) {
+            print('Error: getPlatformAdSize() returned null for $bannerAd');
+            return;
+          }
+          inlineAdaptiveAdList = bannerAd;
+          isLoadedList.value = true;
+          adSizeList = size;
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('$fluidAd failedToLoad: $error');
-          isLoadedFluid.value = false;
+          print('Inline adaptive banner failedToLoad: $error');
+          isLoadedList.value = false;
           ad.dispose();
         },
-        onAdOpened: (Ad ad) => print('$fluidAd onAdOpened.'),
-        onAdClosed: (Ad ad) => print('$fluidAd onAdClosed.'),
       ),
-    )..load();
+    );
+    await inlineAdaptiveAdList!.load();
   }
 
   @override
   void dispose() {
-    fluidAd!.dispose();
+    inlineAdaptiveAdList!.dispose();
   }
 }

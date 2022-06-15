@@ -18,14 +18,13 @@ class EventsController extends GetxController {
   final _apiProvider = ApiProvider();
   var arrayCards = <ModelCards>[];
   var imageSliders = <Widget>[].obs;
-  var isLoadedFluid = false.obs;
   AdSize? adSize;
-  FluidAdManagerBannerAd? fluidAd;
-
   static const _insets = 16.0;
   AdManagerBannerAd? inlineAdaptiveAd;
   var isLoaded = false.obs;
-
+  AdManagerBannerAd? inlineAdaptiveAdList;
+  var isLoadedList = false.obs;
+  AdSize? adSizeList;
   double get adWidth => MediaQuery.of(Get.context!).size.width - (2 * _insets);
 
   @override
@@ -39,7 +38,7 @@ class EventsController extends GetxController {
 
   @override
   void dispose() {
-    fluidAd!.dispose();
+    inlineAdaptiveAdList!.dispose();
   }
 
   void getAllEventsData() {
@@ -53,14 +52,14 @@ class EventsController extends GetxController {
         bannerList.addAll(response.data!.banners!);
         addBannerList(bannerList);
         arrayUpcomingEvents.addAll(response.data!.upcomingEvents!);
-        if (isLoadedFluid.value == true) {
+        // if (isLoadedList.value == true) {
           var model = gt.Event();
           for (int i = 0; i <= arrayUpcomingEvents.length - 1; i++) {
             if ((i + 1) % 4 == 0) {
               model.id = -1;
               arrayUpcomingEvents.insert(i, model);
             }
-          }
+          // }
         }
         eventsMainLoader.value = false;
       } else {
@@ -77,24 +76,34 @@ class EventsController extends GetxController {
     CommonUi.imageSliders(bannerList, imageSliders);
   }
 
-  void loadAd() {
-    fluidAd = FluidAdManagerBannerAd(
-      adUnitId: '/6499/example/APIDemo/Fluid',
-      request: AdManagerAdRequest(nonPersonalizedAds: true),
+  Future<void> loadAd() async {
+    AdSize size = AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(
+        adWidth.truncate());
+    inlineAdaptiveAdList = AdManagerBannerAd(
+      adUnitId: 'ca-app-pub-9350047529795137/7885394490',
+      sizes: [size],
+      request: const AdManagerAdRequest(),
       listener: AdManagerBannerAdListener(
-        onAdLoaded: (Ad ad) {
-          print('$fluidAd loaded.');
-          isLoadedFluid.value = true;
+        onAdLoaded: (Ad ad) async {
+          print('Inline adaptive banner loaded: ${ad.responseInfo}');
+          AdManagerBannerAd bannerAd = (ad as AdManagerBannerAd);
+          final AdSize? size = await bannerAd.getPlatformAdSize();
+          if (size == null) {
+            print('Error: getPlatformAdSize() returned null for $bannerAd');
+            return;
+          }
+          inlineAdaptiveAdList = bannerAd;
+          isLoadedList.value = true;
+          adSizeList = size;
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('$fluidAd failedToLoad: $error');
-          isLoadedFluid.value = false;
+          print('Inline adaptive banner failedToLoad: $error');
+          isLoadedList.value = false;
           ad.dispose();
         },
-        onAdOpened: (Ad ad) => print('$fluidAd onAdOpened.'),
-        onAdClosed: (Ad ad) => print('$fluidAd onAdClosed.'),
       ),
-    )..load();
+    );
+    await inlineAdaptiveAdList!.load();
   }
 
   Future<void> loadInlineAd() async {
@@ -107,7 +116,7 @@ class EventsController extends GetxController {
         adWidth.truncate());
 
     inlineAdaptiveAd = AdManagerBannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/9214589741',
+      adUnitId: 'ca-app-pub-9350047529795137/7885394490',
       sizes: [size],
       request: const AdManagerAdRequest(),
       listener: AdManagerBannerAdListener(

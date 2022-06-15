@@ -18,6 +18,10 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
   await GetStorage.init();
+  // thing to add
+  // RequestConfiguration configuration =
+  // RequestConfiguration(testDeviceIds: '85B230EDA8B2A772BC907E2B38DE7F0A');
+  // MobileAds.instance.updateRequestConfiguration(configuration);
   runApp(EasyLocalization(
       path: 'assets/langs',
       saveLocale: true,
@@ -27,7 +31,7 @@ Future<void> main() async {
 }
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print(" background message is come");
+  print("background message is come");
   if (message.notification != null) {
     print('Message also contained a notification: ${message.notification}');
     CommonUi.showToast("background message is come");

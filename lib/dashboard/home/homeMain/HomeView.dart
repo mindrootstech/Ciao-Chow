@@ -170,7 +170,7 @@ class HomeView extends StatelessWidget {
                                   )
                                       : Container()
                                 ])),
-                                Row(
+                                homeController.arrayPartners.isNotEmpty ? Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
@@ -204,8 +204,8 @@ class HomeView extends StatelessWidget {
                                       ),
                                     ),
                                   ],
-                                ),
-                                Container(
+                                ) : const SizedBox(),
+                                homeController.arrayPartners.isNotEmpty ? Container(
                                   height: 180,
                                   margin: const EdgeInsets.only(left: 20, top: 14),
                                   child: Obx(
@@ -223,7 +223,7 @@ class HomeView extends StatelessWidget {
                                       },
                                     ),
                                   ),
-                                ),
+                                ) : const SizedBox(),
                                 GestureDetector(
                                   onTap: () {
                                     // final DashBoardController dashboardController =

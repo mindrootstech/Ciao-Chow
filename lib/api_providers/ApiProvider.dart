@@ -11,7 +11,8 @@ class ApiProvider extends GetConnect {
   final getStorage = GetStorage();
 
   @override
-  var baseUrl = "https://development.mind-roots.com/ciao-chow/api";
+  // var baseUrl = "https://development.mind-roots.com/ciao-chow/api"; // dev
+  var baseUrl = "https://backend.ciao-chow.ca/api"; // live
 
   var stripeKey =
       'Bearer sk_test_51KaYKaFweZ0Ebm3nR7s7leYZAKzl1P4ph22hi4AOhsMI2uA8oQ23DqebuvYEwV2ympTOgKb6ud2okrnxZxMS4a5R00TLWyVDF8';

@@ -68,8 +68,8 @@ class BusinessDetailsController extends GetxController {
 
     anchoredAdaptiveAd = BannerAd(
       adUnitId: Platform.isAndroid
-          ? 'ca-app-pub-3940256099942544/6300978111'
-          : 'ca-app-pub-3940256099942544/2934735716',
+          ? 'ca-app-pub-9350047529795137/9710785517'
+          : 'ca-app-pub-9350047529795137/6436032716',
       size: size,
       request: const AdRequest(),
       listener: BannerAdListener(

@@ -14,7 +14,6 @@ class PartnersHomeListItem extends StatelessWidget {
 
   PartnersHomeListItem(this.index, this.homeController, {Key? key})
       : super(key: key);
-  double _width = 150.0;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class PartnersHomeListItem extends StatelessWidget {
               height: 180,
               margin: const EdgeInsets.only(right: 10),
               child: Obx(
-                () => homeController.isLoadedFluid.value
+                () => homeController.isLoadedList.value
                     ? ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
@@ -37,9 +36,9 @@ class PartnersHomeListItem extends StatelessWidget {
                           decoration: CommonUi.commonBoxDecorationAllSides(10.0, AppColors.greyGrad3),
                           width: 50,
                           height: 180,
-                          child: FluidAdWidget(
+                          child: AdWidget(
                             // width: _width,
-                            ad: homeController.fluidAd!,
+                            ad: homeController.inlineAdaptiveAdList!,
                           ),
                         ),
                       )

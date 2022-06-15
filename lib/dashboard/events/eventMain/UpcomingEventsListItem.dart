@@ -28,7 +28,7 @@ class UpcomingEventsListItem extends StatelessWidget {
       },
       child: eventsController.arrayUpcomingEvents[index].id!.toInt() == -1
           ? Obx(
-              () => eventsController.isLoadedFluid.value
+              () => eventsController.isLoadedList.value
                   ? ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       child: Container(
@@ -36,9 +36,9 @@ class UpcomingEventsListItem extends StatelessWidget {
                             10.0, AppColors.greyGrad3),
                         width: 50,
                         height: 180,
-                        child: FluidAdWidget(
+                        child: AdWidget(
                           // width: _width,
-                          ad: eventsController.fluidAd!,
+                          ad: eventsController.inlineAdaptiveAdList!,
                         ),
                       ),
                     )
