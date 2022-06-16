@@ -58,7 +58,7 @@ class EditProfileView extends StatelessWidget {
               ),
               backgroundColor: AppColors.AppColorGrad2,
               elevation: 0,
-              title: Text(Utils.getString(context, 'settings')),
+              title: Text(Utils.getString(context, 'edit')),
               centerTitle: true,
             ),
             backgroundColor: AppColors.White,

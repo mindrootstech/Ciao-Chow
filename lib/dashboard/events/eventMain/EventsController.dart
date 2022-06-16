@@ -52,14 +52,14 @@ class EventsController extends GetxController {
         bannerList.addAll(response.data!.banners!);
         addBannerList(bannerList);
         arrayUpcomingEvents.addAll(response.data!.upcomingEvents!);
-        // if (isLoadedList.value == true) {
+        if (arrayUpcomingEvents.isNotEmpty) {
           var model = gt.Event();
           for (int i = 0; i <= arrayUpcomingEvents.length - 1; i++) {
             if ((i + 1) % 4 == 0) {
               model.id = -1;
               arrayUpcomingEvents.insert(i, model);
             }
-          // }
+          }
         }
         eventsMainLoader.value = false;
       } else {

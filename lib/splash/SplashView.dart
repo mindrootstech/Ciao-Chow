@@ -6,6 +6,7 @@ import '../constants/CommonUi.dart';
 
 class SplashView extends StatelessWidget {
   var splashController = Get.put(SplashController());
+  SplashView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

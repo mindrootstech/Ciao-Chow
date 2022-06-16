@@ -71,41 +71,52 @@ class HomeController extends GetxController {
 
   getHomeData(String latitude, String longitude) {
     _apiProvider.getHomeData(latitude, longitude).then((value) {
-      var response = gt.homeMainModelFromJson(value);
-      loadAdsList();
-      loadAd();
-      if (response.status == true) {
-        arrayBadges.clear();
-        bannerList.clear();
-        arrayPartners.clear();
-        arrayLatestCheckIns.clear();
-        arrayLevels.clear();
-        bannerList.addAll(response.data!.banners!);
-        addBannerList(bannerList);
-        arrayLatestCheckIns.addAll(response.data!.userCheckins!);
-        arrayLevels.addAll(response.data!.levels!);
-        arrayBadges.addAll(response.data!.badges!);
-        profileData.value = response.data!.profile!;
-        viewShowHide.value = latitude;
-        arrayPartners.addAll(response.data!.businessList!);
-        resLevel.value =
-            CommonUi.getUserLevels(arrayLevels, profileData.value.totalPoints!);
-
-        if (arrayPartners.isNotEmpty) {
-          var model = gt.Business();
-          model.id = -1;
-          arrayPartners.insert(2, model);
-          arrayPartners.insert(5, model);
-        }
+      if (value == 'error') {
+        CommonUi.showToast('api error');
       } else {
-        if (response.message! ==
-            "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {
-          CommonUi.alertLogout(Get.context!, response.message!);
+        var response = gt.homeMainModelFromJson(value);
+        loadAdsList();
+        loadAd();
+        if (response.status == true) {
+          arrayBadges.clear();
+          bannerList.clear();
+          arrayPartners.clear();
+          arrayLatestCheckIns.clear();
+          arrayLevels.clear();
+          bannerList.addAll(response.data!.banners!);
+          addBannerList(bannerList);
+          arrayLatestCheckIns.addAll(response.data!.userCheckins!);
+          arrayLevels.addAll(response.data!.levels!);
+          arrayBadges.addAll(response.data!.badges!);
+          profileData.value = response.data!.profile!;
+          viewShowHide.value = latitude;
+          arrayPartners.addAll(response.data!.businessList!);
+          resLevel.value = CommonUi.getUserLevels(
+              arrayLevels, profileData.value.totalPoints!);
+
+          if (arrayPartners.isNotEmpty) {
+            var model = gt.Business();
+            if(arrayPartners.length > 1){
+              model.id = -1;
+              arrayPartners.insert(2, model);
+            }
+           if(arrayPartners.length > 4){
+              model.id = -1;
+              arrayPartners.insert(5, model);
+            }
+
+          }
         } else {
-          CommonUi.showToast(response.message!);
+          if (response.message! ==
+              "Your account has been deactivated. Please email us at info@ciaochow.com for further information.") {
+            CommonUi.alertLogout(Get.context!, response.message!);
+          } else {
+            CommonUi.showToast(response.message!);
+          }
         }
+        homeLoaderShow.value = false;
       }
-      homeLoaderShow.value = false;
+
     });
   }
 
@@ -252,7 +263,6 @@ class HomeController extends GetxController {
       // print('User declined or has not accepted permission------');
     }
   }
-
 
   @override
   void dispose() {

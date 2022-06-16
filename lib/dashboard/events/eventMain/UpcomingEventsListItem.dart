@@ -58,9 +58,10 @@ class UpcomingEventsListItem extends StatelessWidget {
                         child: CachedNetworkImage(
                           height: 180,
                           fit: BoxFit.cover,
+                          width: 1000.0,
                           imageUrl: eventsController
                               .arrayUpcomingEvents[index].featuredImageUrl!,
-                          placeholder: (context, url) => Container(
+                          placeholder: (context, url) => SizedBox(
                               width: Get.width,
                               child: const Center(
                                 child: CircularProgressIndicator(

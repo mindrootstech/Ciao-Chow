@@ -25,12 +25,7 @@ import '../../../constants/MyCarouselSlider.dart';
 
 class HomeView extends StatelessWidget {
   var homeController = Get.put(HomeController());
-
-  // final HomeController homeController = Get.isRegistered<HomeController>()?
-  // Get.find<HomeController>() : Get.put(HomeController());
   final gt.Location location = gt.Location();
-
-  // gt.LocationData? locationData;
 
   HomeView({Key? key}) : super(key: key);
 
@@ -44,7 +39,7 @@ class HomeView extends StatelessWidget {
           extendBody: true,
           body: Container(
             // margin: EdgeInsets.only(bottom: 150),
-            color:  AppColors.AppColorGrad2,
+            color: AppColors.AppColorGrad2,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -86,7 +81,11 @@ class HomeView extends StatelessWidget {
                   // edited by Abhijeet Sir(29 Mar 2021)
                   Stack(
                     children: [
-                      Container(margin:const EdgeInsets.only(top: 20),height:Get.height,color: Colors.white,),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        height: Get.height,
+                        color: Colors.white,
+                      ),
                       Column(
                         children: [
                           SizedBox(
@@ -121,7 +120,8 @@ class HomeView extends StatelessWidget {
                                           reverse: false,
                                           enlargeCenterPage: true,
                                         ),
-                                        items: homeController.imageSliders.value,
+                                        items:
+                                            homeController.imageSliders.value,
                                       ),
                                     )),
                               ],
@@ -133,97 +133,125 @@ class HomeView extends StatelessWidget {
                             child: Column(
                               children: [
                                 Obx(() => Column(children: [
-                                  homeController.viewShowHide.value == ''
-                                      ? GestureDetector(
-                                    onTap: () {
-                                      homeController.request_permission1();
-                                      // getLocation();
-                                    },
-                                    child: Container(
-                                      margin: const EdgeInsets.only(
-                                          left: 20, right: 20, bottom: 25),
-                                      padding: const EdgeInsets.all(12),
-                                      width: Get.width,
-                                      decoration:
-                                      CommonUi.commonBorderDecoration(
-                                          34.0, AppColors.AppColorGrad2),
-                                      child: Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                              CommonUi.setSvgImage(
-                                                  'current_location')),
-                                          const SizedBox(
-                                            width: 15,
+                                      homeController.viewShowHide.value == ''
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                homeController
+                                                    .request_permission1();
+                                                // getLocation();
+                                              },
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    left: 20,
+                                                    right: 20,
+                                                    bottom: 25),
+                                                padding:
+                                                    const EdgeInsets.all(12),
+                                                width: Get.width,
+                                                decoration: CommonUi
+                                                    .commonBorderDecoration(
+                                                        34.0,
+                                                        AppColors
+                                                            .AppColorGrad2),
+                                                child: Row(
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                        CommonUi.setSvgImage(
+                                                            'current_location')),
+                                                    const SizedBox(
+                                                      width: 15,
+                                                    ),
+                                                    Text(
+                                                      'To see Partners around you, please enable\nLocation Permissions',
+                                                      style: CommonUi
+                                                          .customTextStyle1(
+                                                              Fonts
+                                                                  .interRegular,
+                                                              12.0,
+                                                              FontWeight.w400,
+                                                              AppColors.Black,
+                                                              TextDecoration
+                                                                  .none),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
+                                    ])),
+                                Obx(
+                                  () => homeController.arrayPartners.isNotEmpty
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                  left: 20),
+                                              child: Text(
+                                                Utils.getString(context,
+                                                    'partners_around_you'),
+                                                style:
+                                                    CommonUi.customTextStyle1(
+                                                        Fonts.interSemiBold,
+                                                        18.0,
+                                                        FontWeight.w600,
+                                                        AppColors.Black,
+                                                        TextDecoration.none),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.to(PartnersViewAllView());
+                                              },
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    right: 20, top: 0),
+                                                child: Text(
+                                                  Utils.getString(
+                                                      context, 'view_all'),
+                                                  style:
+                                                      CommonUi.customTextStyle1(
+                                                          Fonts.interRegular,
+                                                          12.0,
+                                                          FontWeight.w400,
+                                                          AppColors
+                                                              .textFieldsHint,
+                                                          TextDecoration.none),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox(),
+                                ),
+                                Obx(
+                                  () => homeController.arrayPartners.isNotEmpty
+                                      ? Container(
+                                          height: 180,
+                                          margin: const EdgeInsets.only(
+                                              left: 20, top: 14, bottom: 25),
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: homeController
+                                                .arrayPartners.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              if (homeController
+                                                      .arrayPartners[index].id!
+                                                      .toInt() ==
+                                                  -1) {
+                                                homeController.loadAdsList();
+                                              }
+                                              return PartnersHomeListItem(
+                                                  index, homeController);
+                                            },
                                           ),
-                                          Text(
-                                            'To see Partners around you, please enable\nLocation Permissions',
-                                            style: CommonUi.customTextStyle1(
-                                                Fonts.interRegular,
-                                                12.0,
-                                                FontWeight.w400,
-                                                AppColors.Black,
-                                                TextDecoration.none),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                      : Container()
-                                ])),
-                                homeController.arrayPartners.isNotEmpty ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 20),
-                                      child: Text(
-                                        Utils.getString(context, 'partners_around_you'),
-                                        style: CommonUi.customTextStyle1(
-                                            Fonts.interSemiBold,
-                                            18.0,
-                                            FontWeight.w600,
-                                            AppColors.Black,
-                                            TextDecoration.none),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.to(PartnersViewAllView());
-                                      },
-                                      child: Container(
-                                        margin:
-                                        const EdgeInsets.only(right: 20, top: 0),
-                                        child: Text(
-                                          Utils.getString(context, 'view_all'),
-                                          style: CommonUi.customTextStyle1(
-                                              Fonts.interRegular,
-                                              12.0,
-                                              FontWeight.w400,
-                                              AppColors.textFieldsHint,
-                                              TextDecoration.none),
+                                        )
+                                      : const SizedBox(
+                                          height: 10,
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                ) : const SizedBox(),
-                                homeController.arrayPartners.isNotEmpty ? Container(
-                                  height: 180,
-                                  margin: const EdgeInsets.only(left: 20, top: 14),
-                                  child: Obx(
-                                        () => ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: homeController.arrayPartners.length,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        if (homeController.arrayPartners[index].id!
-                                            .toInt() ==
-                                            -1) {
-                                          homeController.loadAdsList();
-                                        }
-                                        return PartnersHomeListItem(
-                                            index, homeController);
-                                      },
-                                    ),
-                                  ),
-                                ) : const SizedBox(),
+                                ),
                                 GestureDetector(
                                   onTap: () {
                                     // final DashBoardController dashboardController =
@@ -233,10 +261,11 @@ class HomeView extends StatelessWidget {
 
                                     try {
                                       DashBoardController dashboardController =
-                                      Get.find();
-                                      dashboardController.selectedValue.value = 3;
-                                      Get.to(DashBoardView(
-                                          dashboardController.selectedValue.value));
+                                          Get.find();
+                                      dashboardController.selectedValue.value =
+                                          3;
+                                      Get.to(DashBoardView(dashboardController
+                                          .selectedValue.value));
                                     } catch (Exception) {
                                       var a = 0;
                                     }
@@ -244,15 +273,16 @@ class HomeView extends StatelessWidget {
                                   child: Container(
                                     // color: Colors.transparent,
                                     padding: const EdgeInsets.all(15),
-                                    decoration: CommonUi.commonBoxDecorationAllSides(
-                                        10.0, AppColors.buttonColor1),
+                                    decoration:
+                                        CommonUi.commonBoxDecorationAllSides(
+                                            10.0, AppColors.buttonColor1),
                                     margin: const EdgeInsets.only(
-                                        left: 20, right: 20, top: 25),
+                                        left: 20, right: 20),
                                     child: Column(
                                       children: [
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               Utils.getString(
@@ -265,8 +295,8 @@ class HomeView extends StatelessWidget {
                                                   TextDecoration.none),
                                             ),
                                             Text(
-                                              Utils.getString(
-                                                  context, 'view_complete_profile'),
+                                              Utils.getString(context,
+                                                  'view_complete_profile'),
                                               style: CommonUi.customTextStyle1(
                                                   Fonts.interRegular,
                                                   12.0,
@@ -281,7 +311,7 @@ class HomeView extends StatelessWidget {
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               Utils.getString(
@@ -294,24 +324,29 @@ class HomeView extends StatelessWidget {
                                                   TextDecoration.none),
                                             ),
                                             Obx(
-                                                  () => homeController.resLevel.value
-                                                  .levelNumber.isNotEmpty
+                                              () => homeController
+                                                      .resLevel
+                                                      .value
+                                                      .levelNumber
+                                                      .isNotEmpty
                                                   ? Text(
-                                                'Current Level: LEVEL ' +
-                                                    (int.parse(homeController
-                                                        .resLevel
-                                                        .value
-                                                        .levelNumber) -
-                                                        1)
-                                                        .toString(),
-                                                // Utils.getString(context, 'partners_around_you'),
-                                                style: CommonUi.customTextStyle1(
-                                                    Fonts.interMedium,
-                                                    12.0,
-                                                    FontWeight.w500,
-                                                    AppColors.White,
-                                                    TextDecoration.none),
-                                              )
+                                                      'Current Level: LEVEL ' +
+                                                          (int.parse(homeController
+                                                                      .resLevel
+                                                                      .value
+                                                                      .levelNumber) -
+                                                                  1)
+                                                              .toString(),
+                                                      // Utils.getString(context, 'partners_around_you'),
+                                                      style: CommonUi
+                                                          .customTextStyle1(
+                                                              Fonts.interMedium,
+                                                              12.0,
+                                                              FontWeight.w500,
+                                                              AppColors.White,
+                                                              TextDecoration
+                                                                  .none),
+                                                    )
                                                   : const SizedBox(),
                                             ),
                                           ],
@@ -321,74 +356,90 @@ class HomeView extends StatelessWidget {
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Obx(
-                                                  () => homeController
-                                                  .arrayBadges.isNotEmpty
+                                              () => homeController
+                                                      .arrayBadges.isNotEmpty
                                                   ? Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: SizedBox(
-                                                  width: 30,
-                                                  height: 30,
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: homeController
-                                                        .arrayBadges[
-                                                    homeController
-                                                        .arrayBadges
-                                                        .length -
-                                                        1]
-                                                        .badgeImage!,
-                                                    placeholder: (context, url) =>
-                                                    const Center(
-                                                      child:
-                                                      CircularProgressIndicator(
-                                                        color: AppColors.White,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: SizedBox(
+                                                        width: 30,
+                                                        height: 30,
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          imageUrl: homeController
+                                                              .arrayBadges[
+                                                                  homeController
+                                                                          .arrayBadges
+                                                                          .length -
+                                                                      1]
+                                                              .badgeImage!,
+                                                          placeholder:
+                                                              (context, url) =>
+                                                                  const Center(
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              color: AppColors
+                                                                  .White,
+                                                            ),
+                                                          ),
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              const Icon(
+                                                                  Icons.error),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    errorWidget: (context, url,
-                                                        error) =>
-                                                    const Icon(Icons.error),
-                                                  ),
-                                                ),
-                                              )
+                                                    )
                                                   : Text(
-                                                Utils.getString(
-                                                    context, 'no_badges'),
-                                                style: CommonUi.customTextStyle1(
-                                                    Fonts.interRegular,
-                                                    12.0,
-                                                    FontWeight.w500,
-                                                    AppColors.White,
-                                                    TextDecoration.none),
-                                              ),
+                                                      Utils.getString(
+                                                          context, 'no_badges'),
+                                                      style: CommonUi
+                                                          .customTextStyle1(
+                                                              Fonts
+                                                                  .interRegular,
+                                                              12.0,
+                                                              FontWeight.w500,
+                                                              AppColors.White,
+                                                              TextDecoration
+                                                                  .none),
+                                                    ),
                                             ),
                                             Stack(
                                               children: [
                                                 Obx(
-                                                      () => LinearPercentIndicator(
-                                                    padding: const EdgeInsets.all(0),
+                                                  () => LinearPercentIndicator(
+                                                    padding:
+                                                        const EdgeInsets.all(0),
                                                     width: 200,
                                                     animation: true,
                                                     lineHeight: 32.0,
                                                     animationDuration: 2500,
-                                                    percent: homeController.profileData
-                                                        .value.totalPoints !=
-                                                        null
-                                                        ?
-                                                    (homeController.profileData
-                                                        .value.totalPoints!
-                                                        .toInt() /
-                                                        10) /
-                                                        (homeController.resLevel
-                                                            .value.points /
-                                                            10)
+                                                    percent: homeController
+                                                                .profileData
+                                                                .value
+                                                                .totalPoints !=
+                                                            null
+                                                        ? (homeController
+                                                                    .profileData
+                                                                    .value
+                                                                    .totalPoints!
+                                                                    .toInt() /
+                                                                10) /
+                                                            (homeController
+                                                                    .resLevel
+                                                                    .value
+                                                                    .points /
+                                                                10)
                                                         : 0.0,
                                                     barRadius:
-                                                    const Radius.circular(30),
+                                                        const Radius.circular(
+                                                            30),
                                                     progressColor:
-                                                    AppColors.home_progress,
-                                                    backgroundColor: AppColors.White,
+                                                        AppColors.home_progress,
+                                                    backgroundColor:
+                                                        AppColors.White,
                                                   ),
                                                 ),
                                                 Positioned(
@@ -396,39 +447,40 @@ class HomeView extends StatelessWidget {
                                                   top: 0,
                                                   bottom: 0,
                                                   child: Obx(
-                                                        () => homeController
-                                                        .arrayLevels.isNotEmpty
+                                                    () => homeController
+                                                            .arrayLevels
+                                                            .isNotEmpty
                                                         ? Center(
-                                                      child: Padding(
-                                                          padding:
-                                                          const EdgeInsets
-                                                              .only(
-                                                              left: 18.0),
-                                                          child: Text(
-                                                            homeController
-                                                                .profileData
-                                                                .value
-                                                                .totalPoints
-                                                                .toString() +
-                                                                "/" +
-                                                                homeController
-                                                                    .resLevel
-                                                                    .value
-                                                                    .points
-                                                                    .toString(),
-                                                            style: CommonUi
-                                                                .customTextStyle1(
-                                                                Fonts
-                                                                    .interMedium,
-                                                                12.0,
-                                                                FontWeight
-                                                                    .w500,
-                                                                AppColors
-                                                                    .Black,
-                                                                TextDecoration
-                                                                    .none),
-                                                          )),
-                                                    )
+                                                            child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            18.0),
+                                                                child: Text(
+                                                                  homeController
+                                                                          .profileData
+                                                                          .value
+                                                                          .totalPoints
+                                                                          .toString() +
+                                                                      "/" +
+                                                                      homeController
+                                                                          .resLevel
+                                                                          .value
+                                                                          .points
+                                                                          .toString(),
+                                                                  style: CommonUi.customTextStyle1(
+                                                                      Fonts
+                                                                          .interMedium,
+                                                                      12.0,
+                                                                      FontWeight
+                                                                          .w500,
+                                                                      AppColors
+                                                                          .Black,
+                                                                      TextDecoration
+                                                                          .none),
+                                                                )),
+                                                          )
                                                         : const SizedBox(),
                                                   ),
                                                 ),
@@ -438,21 +490,27 @@ class HomeView extends StatelessWidget {
                                                   bottom: 0,
                                                   child: Center(
                                                     child: Padding(
-                                                      padding: const EdgeInsets.only(
-                                                          right: 18.0),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 18.0),
                                                       child: Obx(
-                                                            () => Text(
+                                                        () => Text(
                                                             "Level " +
-                                                                homeController.resLevel
-                                                                    .value.levelNumber,
+                                                                homeController
+                                                                    .resLevel
+                                                                    .value
+                                                                    .levelNumber,
                                                             style: CommonUi
                                                                 .customTextStyle1(
-                                                                Fonts.interMedium,
-                                                                12.0,
-                                                                FontWeight.w500,
-                                                                AppColors.Black,
-                                                                TextDecoration
-                                                                    .none)),
+                                                                    Fonts
+                                                                        .interMedium,
+                                                                    12.0,
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    AppColors
+                                                                        .Black,
+                                                                    TextDecoration
+                                                                        .none)),
                                                       ),
                                                     ),
                                                   ),
@@ -469,87 +527,107 @@ class HomeView extends StatelessWidget {
                                   height: 25,
                                 ),
                                 Obx(
-                                      () => homeController.isLoaded.value
+                                  () => homeController.isLoaded.value
                                       ? Container(
-                                        margin: EdgeInsets.only(bottom: homeController.arrayLatestCheckIns.isNotEmpty ? 0 : 70),
-                                    width: homeController.adWidth,
-                                    height: 150,
-                                    child: AdWidget(
-                                      ad: homeController.inlineAdaptiveAd!,
-                                    ),
-                                  )
+                                          margin: EdgeInsets.only(
+                                              bottom: homeController
+                                                      .arrayLatestCheckIns
+                                                      .isNotEmpty
+                                                  ? 0
+                                                  : 70),
+                                          width: homeController.adWidth,
+                                          height: 150,
+                                          child: AdWidget(
+                                            ad: homeController
+                                                .inlineAdaptiveAd!,
+                                          ),
+                                        )
                                       : const SizedBox(),
                                 ),
                                 Obx(
-                                      ()=> homeController.isLoaded.value
+                                  () => homeController.isLoaded.value
                                       ? const SizedBox(
-                                    height: 25,
-                                  ) : const SizedBox(),
+                                          height: 25,
+                                        )
+                                      : const SizedBox(),
                                 ),
                                 Obx(
-                                      () => homeController.arrayLatestCheckIns.isNotEmpty
+                                  () => homeController
+                                          .arrayLatestCheckIns.isNotEmpty
                                       ? Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.only(left: 20),
-                                        child: Text(
-                                          Utils.getString(
-                                              context, 'latest_check_ins'),
-                                          style: CommonUi.customTextStyle1(
-                                              Fonts.interSemiBold,
-                                              18.0,
-                                              FontWeight.w600,
-                                              AppColors.redLatest,
-                                              TextDecoration.none),
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Get.to(LatestCheckInViewAllView());
-                                        },
-                                        child: Container(
-                                          margin:
-                                          const EdgeInsets.only(right: 20),
-                                          child: Text(
-                                            Utils.getString(context, 'view_all'),
-                                            style: CommonUi.customTextStyle1(
-                                                Fonts.interRegular,
-                                                12.0,
-                                                FontWeight.w400,
-                                                AppColors.textFieldsHint,
-                                                TextDecoration.none),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                  left: 20),
+                                              child: Text(
+                                                Utils.getString(context,
+                                                    'latest_check_ins'),
+                                                style:
+                                                    CommonUi.customTextStyle1(
+                                                        Fonts.interSemiBold,
+                                                        18.0,
+                                                        FontWeight.w600,
+                                                        AppColors.redLatest,
+                                                        TextDecoration.none),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.to(
+                                                    LatestCheckInViewAllView());
+                                              },
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    right: 20),
+                                                child: Text(
+                                                  Utils.getString(
+                                                      context, 'view_all'),
+                                                  style:
+                                                      CommonUi.customTextStyle1(
+                                                          Fonts.interRegular,
+                                                          12.0,
+                                                          FontWeight.w400,
+                                                          AppColors
+                                                              .textFieldsHint,
+                                                          TextDecoration.none),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
                                       : Container(),
                                 ),
                                 Obx(
-                                      () => homeController.arrayLatestCheckIns.isNotEmpty
-                                      ?
-                                      Container(
-                                    color: AppColors.White,
-                                    margin: EdgeInsets.only(
-                                        left: 16, right: 16, top: 16, bottom: Platform.isIOS ? 105 : 80),
-                                    child: ListView.builder(
-                                      padding: const EdgeInsets.all(0),
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      physics:
-                                      const NeverScrollableScrollPhysics(),
-                                      itemCount: homeController.arrayLatestCheckIns.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return LatestCheckInListItem(
-                                            index,
-                                            homeController
-                                                .arrayLatestCheckIns[index]);
-                                      },
-                                    ),
-                                  )
+                                  () => homeController
+                                          .arrayLatestCheckIns.isNotEmpty
+                                      ? Container(
+                                          color: AppColors.White,
+                                          margin: EdgeInsets.only(
+                                              left: 16,
+                                              right: 16,
+                                              top: 16,
+                                              bottom:
+                                                  Platform.isIOS ? 105 : 80),
+                                          child: ListView.builder(
+                                            padding: const EdgeInsets.all(0),
+                                            scrollDirection: Axis.vertical,
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: homeController
+                                                .arrayLatestCheckIns.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return LatestCheckInListItem(
+                                                  index,
+                                                  homeController
+                                                          .arrayLatestCheckIns[
+                                                      index]);
+                                            },
+                                          ),
+                                        )
                                       : Container(),
                                 ),
                               ],
@@ -559,7 +637,6 @@ class HomeView extends StatelessWidget {
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
