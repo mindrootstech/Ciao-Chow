@@ -29,7 +29,7 @@ class LatestAllCheckIn extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   child: CachedNetworkImage(
-                    fit: BoxFit.cover,
+                    fit: BoxFit.cover, width: 1000.0,
                     imageUrl: latestCheckInController.arrayAllCheckIns[index].business!.featuredImageUrl!,
                     placeholder: (context, url) =>  Container(
                         width: Get.width,

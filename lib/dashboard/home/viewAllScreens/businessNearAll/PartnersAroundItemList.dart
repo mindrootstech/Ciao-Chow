@@ -47,7 +47,7 @@ class PartnersAroundItemList extends StatelessWidget {
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   child: CachedNetworkImage(
-                    height: 180,
+                    height: 180, width: 1000.0,
                     fit: BoxFit.cover,
                     imageUrl: partnersAllNearController
                         .arrayBusinessList[index].featuredImageUrl!,

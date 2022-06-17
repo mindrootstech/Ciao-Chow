@@ -29,7 +29,7 @@ class UpcomingEventBusinessItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: CachedNetworkImage(
-                  height: 200,
+                  height: 200, width: 1000.0,
                   fit: BoxFit.cover,
                   imageUrl: listItem.featuredImageUrl!,
                   placeholder: (context, url) =>  SizedBox(

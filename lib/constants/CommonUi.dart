@@ -250,7 +250,7 @@ class CommonUi {
   }
 
   static String dateFormatWithTime(DateTime createdAt) {
-    final DateFormat formatter = DateFormat('MMM, yyyy kk:mm:a');
+    final DateFormat formatter = DateFormat('MMM, yyyy kk:mm a');
     final String formatted = formatter.format(createdAt);
     return formatted;
   }
@@ -262,7 +262,7 @@ class CommonUi {
   }
 
   static String timeFormat(DateTime createdAt) {
-    String formattedDate = DateFormat('kk:mm:a').format(createdAt);
+    String formattedDate = DateFormat('kk:mm a').format(createdAt);
     return formattedDate;
   }
 

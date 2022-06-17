@@ -39,7 +39,7 @@ class AllEventsItem extends StatelessWidget {
                       child: SizedBox(
                         height: 142,
                         child: CachedNetworkImage(
-                          fit: BoxFit.cover,
+                          fit: BoxFit.cover, width: 1000.0,
                           imageUrl: model.image!,
                           placeholder: (context, url) =>  SizedBox(
                               width: Get.width,

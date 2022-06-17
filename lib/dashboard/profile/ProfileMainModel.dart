@@ -137,30 +137,22 @@ class Level {
     this.id,
     this.name,
     this.points,
-    this.createdAt,
-    this.updatedAt,
   });
 
   int? id;
   String? name;
   int? points;
-  DateTime? createdAt;
-  DateTime? updatedAt;
 
   factory Level.fromJson(Map<String, dynamic> json) => Level(
     id: json["id"],
     name: json["name"],
     points: json["points"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
     "points": points,
-    "created_at": createdAt!.toIso8601String(),
-    "updated_at": updatedAt!.toIso8601String(),
   };
 }
 

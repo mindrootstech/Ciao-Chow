@@ -226,8 +226,8 @@ class EventDetailsView extends StatelessWidget {
                                                   FontWeight.w400,
                                                   AppColors.textFieldsHint,
                                                   TextDecoration.none),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
+                                              // maxLines: 2,
+                                              // overflow: TextOverflow.ellipsis,
                                             )
                                           : const SizedBox(),
                                     ),
@@ -249,84 +249,88 @@ class EventDetailsView extends StatelessWidget {
                             SvgPicture.asset(
                                 CommonUi.setSvgImage('start_end_date')),
 
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    type == '2'
-                                        ? Utils.getString(
-                                            context, 'redeemed_date')
-                                        : Utils.getString(
-                                            context, 'start_end_date'),
-                                    style: CommonUi.customTextStyle1(
-                                        Fonts.interMedium,
-                                        14.0,
-                                        FontWeight.w500,
-                                        AppColors.Black,
-                                        TextDecoration.none),
-                                  ),
-                                  const SizedBox(
-                                    height: 6,
-                                  ),
-                                  Obx(
-                                    () => eventDetailsController.eventDetails
-                                                .value.eventStartDate
-                                                .toString() !=
-                                            "null"
-                                        ? Text(
-                                            type == '2'
-                                                ? CommonUi.dateFormatEvents(
-                                                    eventDetailsController
-                                                        .redemeedDate.value)
-                                                : CommonUi.dateFormatEvents(
-                                                        eventDetailsController
-                                                            .eventDetails
-                                                            .value
-                                                            .eventStartDate!) +
-                                                    ' - ' +
-                                                    CommonUi.dateFormatEvents(
-                                                        eventDetailsController
-                                                            .eventDetails
-                                                            .value
-                                                            .eventEndDate!),
-                                            style: CommonUi.customTextStyle1(
-                                                Fonts.interRegular,
-                                                12.0,
-                                                FontWeight.w400,
-                                                AppColors.textFieldsHint,
-                                                TextDecoration.none),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          )
-                                        : const SizedBox(),
-                                  ),
-                                  const SizedBox(
-                                    height: 6,
-                                  ),
-                                  Obx(
-                                    () => eventDetailsController.eventDetails
-                                                .value.eventDurationDescription
-                                                .toString() !=
-                                            "null"
-                                        ? Text(
-                                            eventDetailsController
-                                                .eventDetails
-                                                .value
-                                                .eventDurationDescription!,
-                                            style: CommonUi.customTextStyle1(
-                                                Fonts.interRegular,
-                                                12.0,
-                                                FontWeight.w400,
-                                                AppColors.textFieldsHint,
-                                                TextDecoration.none),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          )
-                                        : const SizedBox(),
-                                  ),
-                                ],
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      type == '2'
+                                          ? Utils.getString(
+                                              context, 'redeemed_date')
+                                          : Utils.getString(
+                                              context, 'start_end_date'),
+                                      style: CommonUi.customTextStyle1(
+                                          Fonts.interMedium,
+                                          14.0,
+                                          FontWeight.w500,
+                                          AppColors.Black,
+                                          TextDecoration.none),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    Obx(
+                                      () => eventDetailsController.eventDetails
+                                                  .value.eventStartDate
+                                                  .toString() !=
+                                              "null"
+                                          ? Text(
+                                              type == '2'
+                                                  ? CommonUi.dateFormatEvents(
+                                                      eventDetailsController
+                                                          .redemeedDate.value)
+                                                  : CommonUi.dateFormatEvents(
+                                                          eventDetailsController
+                                                              .eventDetails
+                                                              .value
+                                                              .eventStartDate!) +
+                                                      ' - ' +
+                                                      CommonUi.dateFormatEvents(
+                                                          eventDetailsController
+                                                              .eventDetails
+                                                              .value
+                                                              .eventEndDate!),
+                                              style: CommonUi.customTextStyle1(
+                                                  Fonts.interRegular,
+                                                  12.0,
+                                                  FontWeight.w400,
+                                                  AppColors.textFieldsHint,
+                                                  TextDecoration.none),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            )
+                                          : const SizedBox(),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    Obx(
+                                      () => eventDetailsController
+                                                  .eventDetails
+                                                  .value
+                                                  .eventDurationDescription
+                                                  .toString() !=
+                                              "null"
+                                          ? Text(
+                                              eventDetailsController
+                                                  .eventDetails
+                                                  .value
+                                                  .eventDurationDescription!,
+                                              style: CommonUi.customTextStyle1(
+                                                  Fonts.interRegular,
+                                                  12.0,
+                                                  FontWeight.w400,
+                                                  AppColors.textFieldsHint,
+                                                  TextDecoration.none),
+                                              // maxLines: 2,
+                                              // overflow: TextOverflow.ellipsis,
+                                            )
+                                          : const SizedBox(),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
